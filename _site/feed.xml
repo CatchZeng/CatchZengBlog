@@ -3,10 +3,10 @@
   <channel>
     <title>CatchZeng Blog</title>
     <description></description>
-    <link>http://catchzeng.com//</link>
-    <atom:link href="http://catchzeng.com//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 20 Jan 2016 00:48:59 +0800</pubDate>
-    <lastBuildDate>Wed, 20 Jan 2016 00:48:59 +0800</lastBuildDate>
+    <link>http://catchzeng.com/</link>
+    <atom:link href="http://catchzeng.com/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Wed, 20 Jan 2016 00:57:28 +0800</pubDate>
+    <lastBuildDate>Wed, 20 Jan 2016 00:57:28 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
     
       <item>
@@ -79,8 +79,8 @@
 &lt;p&gt;—— Hux 后记于 2015.10&lt;/p&gt;
 </description>
         <pubDate>Tue, 19 Jan 2016 20:00:00 +0800</pubDate>
-        <link>http://catchzeng.com//2016/01/19/%E7%94%A8%E8%A2%AB%E8%AF%AF%E8%A7%A3%E7%9A%84MVC%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%81/</link>
-        <guid isPermaLink="true">http://catchzeng.com//2016/01/19/%E7%94%A8%E8%A2%AB%E8%AF%AF%E8%A7%A3%E7%9A%84MVC%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%81/</guid>
+        <link>http://catchzeng.com/2016/01/19/%E7%94%A8%E8%A2%AB%E8%AF%AF%E8%A7%A3%E7%9A%84MVC%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%81/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/01/19/%E7%94%A8%E8%A2%AB%E8%AF%AF%E8%A7%A3%E7%9A%84MVC%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%81/</guid>
         
         <category>iOS</category>
         
@@ -151,8 +151,8 @@
 译者 &lt;a href=&quot;http://weibo.com/huxpro&quot;&gt;黄玄&lt;/a&gt;，首次发布于 &lt;a href=&quot;http://huangxuan.me&quot;&gt;Hux Blog&lt;/a&gt;，转载请保留以上链接&lt;/p&gt;
 </description>
         <pubDate>Tue, 22 Sep 2015 00:00:00 +0800</pubDate>
-        <link>http://catchzeng.com//2015/09/22/js-version/</link>
-        <guid isPermaLink="true">http://catchzeng.com//2015/09/22/js-version/</guid>
+        <link>http://catchzeng.com/2015/09/22/js-version/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2015/09/22/js-version/</guid>
         
         <category>前端开发</category>
         
@@ -198,8 +198,8 @@
 &lt;p&gt;&lt;a href=&quot;http://lab.hakim.se/reveal-js&quot;&gt;Reveal.js&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Thu, 09 Jul 2015 00:00:00 +0800</pubDate>
-        <link>http://catchzeng.com//2015/07/09/js-module-7day/</link>
-        <guid isPermaLink="true">http://catchzeng.com//2015/07/09/js-module-7day/</guid>
+        <link>http://catchzeng.com/2015/07/09/js-module-7day/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2015/07/09/js-module-7day/</guid>
         
         <category>前端开发</category>
         
@@ -512,8 +512,8 @@ define(function(require, exports, module) {
 &lt;/blockquote&gt;
 </description>
         <pubDate>Mon, 25 May 2015 00:00:00 +0800</pubDate>
-        <link>http://catchzeng.com//2015/05/25/js-module-loader/</link>
-        <guid isPermaLink="true">http://catchzeng.com//2015/05/25/js-module-loader/</guid>
+        <link>http://catchzeng.com/2015/05/25/js-module-loader/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2015/05/25/js-module-loader/</guid>
         
         <category>前端开发</category>
         
@@ -800,8 +800,8 @@ Android’s source code is released by Google under open source licenses, althou
 &lt;p&gt;For Detail, Chromium OS based on &lt;a href=&quot;http://en.wikipedia.org/wiki/Gentoo_Linux&quot;&gt;Gentoo Linux&lt;/a&gt;, emm…&lt;/p&gt;
 </description>
         <pubDate>Tue, 14 Apr 2015 00:00:00 +0800</pubDate>
-        <link>http://catchzeng.com//2015/04/14/unix-linux-note/</link>
-        <guid isPermaLink="true">http://catchzeng.com//2015/04/14/unix-linux-note/</guid>
+        <link>http://catchzeng.com/2015/04/14/unix-linux-note/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2015/04/14/unix-linux-note/</guid>
         
         <category>OS</category>
         
@@ -882,8 +882,8 @@ Android’s source code is released by Google under open source licenses, althou
 &lt;p&gt;—— Hux 后记于 2015.10&lt;/p&gt;
 </description>
         <pubDate>Thu, 29 Jan 2015 20:00:00 +0800</pubDate>
-        <link>http://catchzeng.com//2015/01/29/hello-2015/</link>
-        <guid isPermaLink="true">http://catchzeng.com//2015/01/29/hello-2015/</guid>
+        <link>http://catchzeng.com/2015/01/29/hello-2015/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2015/01/29/hello-2015/</guid>
         
         <category>生活</category>
         

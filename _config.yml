@@ -6,7 +6,7 @@ email: 891793848@qq.com
 description: ""
 keyword: ""
 url: "http://catchzeng.com"              # your host, for absolute URL
-baseurl: "/"                             # for example, '/blog' if your blog hosted on 'host/blog'
+baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 
 
 
