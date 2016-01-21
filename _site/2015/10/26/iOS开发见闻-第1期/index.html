@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>用被误解的MVC重构代码 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>iOS开发见闻-第1期 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/2016/01/19/%E7%94%A8%E8%A2%AB%E8%AF%AF%E8%A7%A3%E7%9A%84MVC%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%81/">
+    <link rel="canonical" href="http://catchzeng.com/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC1%E6%9C%9F/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -143,12 +143,12 @@
                         <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
                         
                     </div>
-                    <h1>用被误解的MVC重构代码</h1>
+                    <h1>iOS开发见闻-第1期</h1>
                     
                     
-                    <h2 class="subheading"> "Hello World, Hello Blog"</h2>
+                    <h2 class="subheading">iOS开发见闻</h2>
                     
-                    <span class="meta">Posted by CatchZeng on January 19, 2016</span>
+                    <span class="meta">Posted by CatchZeng on October 26, 2015</span>
                 </div>
             </div>
         </div>
@@ -166,72 +166,39 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<blockquote>
-  <p>“Yeah It’s on. ”</p>
-</blockquote>
+				<p><span id="busuanzi_container_page_pv">
+阅读 <span id="busuanzi_value_page_pv"></span>
+</span></p>
 
-<h2 id="section">前言</h2>
+<h2 id="section">文章</h2>
+<p>1.<a href="http://casatwy.com/iosying-yong-jia-gou-tan-kai-pian.html">iOS应用架构 </a>：此文章由安居客iOS app的第二版架构设计者编写，里面详尽地解释了view层的组织和调用方案、网络层设计方案、本地持久化方案及动态部署。文中作者不但给出了自己的设计方案，更值得我们学习的是作者在多人协作的情况下对架构的设计与考虑。</p>
 
-<p>Hux 的 Blog 就这么开通了。</p>
+<p>2.<a href="http://daizi.me/2015/09/23/%E3%80%90OC%E3%80%91delegate%20or%20block/">【OC】开发中选择delegate 还是 block </a>：找了很多关于delegation和block的使用场景，发现没有很满意的解释，后来无意中在stablekernel找到了这篇文章，文中作者不仅仅是给出了解决方案，更值得我们深思的是作者独特的思考和解决问题的方式【<a href="http://blog.stablekernel.com/blocks-or-delegates/">国外原文地址</a>】</p>
 
-<p><a href="#build">跳过废话，直接看技术实现 </a></p>
+<p>3.<a href="http://blog.csdn.net/yiyaaixuexi/article/details/9374411">Objective-C的hook方案</a>：念茜的博客，一直有关注她的文章。该篇文章讲述了Method Swizzling的用法，简单易懂。</p>
 
-<p>2015 年，Hux 总算有个地方可以好好写点东西了。</p>
+<h2 id="section-1">工具</h2>
+<p>1.<a href="https://bugtags.com/">Bugtags</a> : 国内首款为改善移动产品质量而专门打造的测试平台产品。使用Bugtags平台可以随时随地对移动产品提出准确的改善意见，使得测试更简单，修复问题更轻松，产品用户满意度更高。<br />
+<img src="https://s1-bugtags-com.alikunlun.com/home/cc.png" alt="这里写图片描述" /></p>
 
-<p>作为一个程序员， Blog 这种轮子要是挂在大众博客程序上就太没意思了。一是觉得大部分 Blog 服务都太丑，二是觉得不能随便定制不好玩。之前因为太懒没有折腾，结果就一直连个写 Blog 的地儿都没有。</p>
+<p>2.<a href="https://github.com/CocoaLumberjack/CocoaLumberjack">CocoaLumberjack</a>：一款针对Mac和iOS平台的日志框架，快速、简单、功能强大，并具有极好的灵活性。开发者可用它为Debug和版本发布指定不同级别的日志，可通过CocoaPods进行安装，详细使用请看<a href="http://blog.csdn.net/catch01/article/details/48807359">iOS调试技巧之Log </a>。</p>
 
-<p>在玩了一段时间知乎之后，答题的快感又激起了我开博客的冲动。之前的<a href="http://huangxuan.me/portfolio">个人网站</a>是作品集形式的（现在集成进来了），并不适合用来写博文，一不做二不休，花一天搞一个吧！</p>
+<p>3.<a href="http://www.charlesproxy.com/">Charles</a>：一个HTTP代理服务器,HTTP监视器,反转代理服务器·它允许一个开发者查看所有连接互联网的HTTP通信·这些包括request, response现HTTP headers （包含cookies与caching信息）。对于测试和服务器端进行交互的应用非常有用。</p>
 
-<p id="build"></p>
-<hr />
+<p>4.<a href="http://mtj.baidu.com/web/welcome/login">百度移动统计</a> : 百度的移动端统计工具，能帮助我们统计错误日志、自定义事件、用户信息、用户行为习惯、版本管理、趋势等等。<br />
+<img src="http://img.blog.csdn.net/20151017122004386" alt="这里写图片描述" /></p>
 
-<h2 id="section-1">正文</h2>
+<h2 id="section-2">开源</h2>
+<p>1.<a href="https://github.com/forkingdog/UITableView-FDTemplateLayoutCell">UITableView-FDTemplateLayoutCell</a> : forkingdog封装的一个Cell，帮我们自动计算Cell的高度，为适配各种iOS设备但来极大的方便。<br />
+<img src="https://github.com/forkingdog/UITableView-FDTemplateLayoutCell/raw/master/Sceenshots/screenshot2.gif" alt="这里写图片描述" /></p>
 
-<p>接下来说说搭建这个博客的技术细节。</p>
+<p>2.<a href="https://github.com/TransitApp/SVProgressHUD">SVProgressHUD</a> ： 一款清爽又功能完善的HUD，拥有显示成功、失败、自定义消息、设置遮盖等功能。<br />
+<img src="https://camo.githubusercontent.com/6ed028acbf67707d622344e0ef1bc3b098425b50/687474703a2f2f662e636c2e6c792f6974656d732f32473146315a304d306b306832553356317033392f535650726f67726573734855442e676966" alt="这里写图片描述" /></p>
 
-<p>正好之前就有关注过 <a href="https://pages.github.com/">GitHub Pages</a> + <a href="http://jekyllrb.com/">Jekyll</a> 快速 Building Blog 的技术方案，非常轻松时尚。</p>
-
-<p>其优点非常明显：</p>
-
-<ul>
-  <li><strong>Markdown</strong> 带来的优雅写作体验</li>
-  <li>非常熟悉的 Git workflow ，<strong>Git Commit 即 Blog Post</strong></li>
-  <li>利用 GitHub Pages 的域名和免费无限空间，不用自己折腾主机
-    <ul>
-      <li>如果需要自定义域名，也只需要简单改改 DNS 加个 CNAME 就好了</li>
-    </ul>
-  </li>
-  <li>Jekyll 的自定制非常容易，基本就是个模版引擎</li>
-</ul>
-
-<p>本来觉得最大的缺点可能是 GitHub 在国内访问起来太慢，所以第二天一起床就到 GitCafe(Chinese GitHub Copy) 迁移了一个<a href="http://huxpro.gitcafe.io">镜像</a>出来，结果还是巨慢。</p>
-
-<p>哥哥可是个前端好嘛！ 果断开 Chrome DevTool 查了下网络请求，原来是 <strong>pending 在了 Google Fonts</strong> 上，页面渲染一直被阻塞到请求超时为止，难怪这么慢。  <br />
-忍痛割爱，只好把 Web Fonts 去了（反正超时看到的也只能是 fallback ），果然一下就正常了，而且 GitHub 和 GitCafe 对比并没有感受到明显的速度差异，虽然 github 的 ping 值明显要高一些，达到了 300ms，于是用 DNSPOD 优化了一下速度。</p>
+<p>3.<a href="https://github.com/lookingstars/tudou">tudou</a> : lookingstars的高仿土豆iPhone版。<br />
+<img src="http://img.blog.csdn.net/20151017122556995" alt="这里写图片描述" /></p>
 
 <hr />
-
-<p>配置的过程中也没遇到什么坑，基本就是 Git 的流程，相当顺手</p>
-
-<p>大的 Jekyll 主题上直接 fork 了 Clean Blog（这个主题也相当有名，就不多赘述了。唯一的缺点大概就是没有标签支持，于是我给它补上了。）</p>
-
-<p>本地调试环境需要 <code>gem install jekyll</code>，结果 rubygem 的源居然被墙了……后来手动改成了我大淘宝的镜像源才成功</p>
-
-<p>Theme 的 CSS 是基于 Bootstrap 定制的，看得不爽的地方直接在 Less 里改就好了（平时更习惯 SCSS 些），<strong>不过其实我一直觉得 Bootstrap 在移动端的体验做得相当一般，比我在淘宝参与的团队 CSS 框架差多了……</strong>所以为了体验，也补了不少 CSS 进去</p>
-
-<p>最后就进入了耗时反而最长的<strong>做图、写字</strong>阶段，也算是进入了<strong>写博客</strong>的正轨，因为是类似 Hack Day 的方式去搭这个站的，所以折腾折腾着大半夜就过去了。</p>
-
-<p>第二天考虑中文字体的渲染，fork 了 <a href="http://www.typeisbeautiful.com/">Type is Beautiful</a> 的 <code>font</code> CSS，调整了字号，适配了 Win 的渣渲染，中英文混排效果好多了。</p>
-
-<h2 id="section-2">后记</h2>
-
-<p>回顾这个博客的诞生，纯粹是出于个人兴趣。在知乎相关问题上回答并获得一定的 star 后，我决定把这个博客主题当作一个小小的开源项目来维护。</p>
-
-<p>在经历 v1.0 - v1.5 的蜕变后，这个博客主题愈发完整，不但增加了诸多 UI 层的优化（opinionated）；在代码层面，更加丰富的配置项也使得这个主题拥有了更好的灵活性与可拓展性。而作为一个开源项目，我也积极的为其完善文档与解决 issue。</p>
-
-<p>如果你恰好逛到了这里，希望你也能喜欢这个博客主题。</p>
-
-<p>—— Hux 后记于 2015.10</p>
 
 
                 <hr>
@@ -241,21 +208,16 @@
                 </style>
                 <div class="ds-share"
                     style="text-align: right"
-                    data-thread-key="/2016/01/19/用被误解的MVC重构代码"
-                    data-title="用被误解的MVC重构代码"
-                    data-url="http://catchzeng.com/2016/01/19/%E7%94%A8%E8%A2%AB%E8%AF%AF%E8%A7%A3%E7%9A%84MVC%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%81/"
+                    data-thread-key="/2015/10/26/iOS开发见闻-第1期"
+                    data-title="iOS开发见闻-第1期"
+                    data-url="http://catchzeng.com/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC1%E6%9C%9F/"
                     data-images="http://catchzeng.com/img/post-bg-2015.jpg"
                     data-content="
-  “Yeah It’s on. ”
+阅读 
 
 
-前言
-
-Hux 的 Blog 就这么开通了。
-
-跳过废话，直接看技术实现 
-
-2015 年，Hux 总算有个地... | CatchZeng的技术博客 | CatchZeng Blog " >
+文章
+1.iOS应用架构 ：此文章由安居客iOS app的第二版架构设计者编写，里面详尽地解释了view层的组织和调用方案、网络层设计方案、... | CatchZeng的技术博客 | CatchZeng Blog " >
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
                         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -275,9 +237,13 @@ Hux 的 Blog 就这么开通了。
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2015/09/22/js-version/" data-toggle="tooltip" data-placement="top" title="Example Post">&larr; Previous Post</a>
+                        <a href="/2015/10/26/AppStore%E4%B8%8A%E6%9E%B6%E9%97%AE%E9%A2%98ERROR-ITMS-90049/" data-toggle="tooltip" data-placement="top" title="AppStore上架问题ERROR ITMS-90049">&larr; Previous Post</a>
                     </li>
                     
+                    
+                    <li class="next">
+                        <a href="/2015/10/26/%E5%B1%8F%E5%B9%95%E9%80%82%E9%85%8D%E4%B9%8BSize-Classes/" data-toggle="tooltip" data-placement="top" title="屏幕适配之Size Classes">Next Post &rarr;</a>
+                    </li>
                     
                 </ul>
 
@@ -286,9 +252,9 @@ Hux 的 Blog 就这么开通了。
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/2016/01/19/用被误解的MVC重构代码"
-                        data-title="用被误解的MVC重构代码"
-                        data-url="http://catchzeng.com/2016/01/19/%E7%94%A8%E8%A2%AB%E8%AF%AF%E8%A7%A3%E7%9A%84MVC%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%81/" >
+                        data-thread-key="/2015/10/26/iOS开发见闻-第1期"
+                        data-title="iOS开发见闻-第1期"
+                        data-url="http://catchzeng.com/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC1%E6%9C%9F/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
@@ -312,25 +278,9 @@ Hux 的 Blog 就这么开通了。
                     <div class="tags">
         				
                             
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-                				<a href="/tags/#前端开发" title="前端开发" rel="3">
-                                    前端开发
+                				<a href="/tags/#iOS" title="iOS" rel="4">
+                                    iOS
                                 </a>
-                            
-        				
-                            
-                				<a href="/tags/#JavaScript" title="JavaScript" rel="3">
-                                    JavaScript
-                                </a>
-                            
-        				
                             
         				
                             
