@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>为AppDelegate瘦身 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>iOS开发见闻-第11期 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/">
+    <link rel="canonical" href="http://catchzeng.com/2015/12/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC11%E6%9C%9F/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -143,12 +143,12 @@
                         <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
                         
                     </div>
-                    <h1>为AppDelegate瘦身</h1>
+                    <h1>iOS开发见闻-第11期</h1>
                     
                     
-                    <h2 class="subheading">runtime&load</h2>
+                    <h2 class="subheading">iOS开发见闻</h2>
                     
-                    <span class="meta">Posted by CatchZeng on October 26, 2015</span>
+                    <span class="meta">Posted by CatchZeng on December 19, 2015</span>
                 </div>
             </div>
         </div>
@@ -166,35 +166,41 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h2 id="section">前言</h2>
+				<h2 id="section">文章</h2>
+<p>1.<a href="http://blog.devtang.com/blog/2015/12/18/from-dev-to-manager/">涅槃重生:我的技术转管理之路</a> :巧哥的涅槃重生，这篇虽不是技术文章，但深刻地描述了大神从技术走向管理的思考，值得细细品味。</p>
 
-<p>项目开发了一段时间后，相信大家都会遇到AppDelegate中的didFinishLaunch函数不断增大带来的不便管理问题。在Java中我们常使用JVM的ClassLoader对类进行加载、连接、初始化等操作，在oc中对应的就是load和initialize。</p>
+<p>2.<a href="http://joeyio.com/ios/2014/06/04/swift---/">Swift之 ? 和 ! </a> ：这篇老文章对于Swift的初学者面对？和！的疑惑还是挺有帮助的。</p>
 
-<h2 id="section-1">瘦身</h2>
-<p>load和initialize在使用中需要注意的点：</p>
+<p>3.<a href="http://blog.ibireme.com/2015/12/17/move/">搬家前</a> : 你一定很想知道ibireme的大神之路是怎么炼成的吧，看看他这次搬家带给我们那些好书。</p>
 
-<ul>
-  <li>系统最多会调用一次（除非开发者主动调用）</li>
-  <li>都能为程序初始化一些数据，创造适合的运行环境</li>
-  <li>父类调用一定在子类之前</li>
-  <li>由下图文档可知，<strong>load是只要类或者category被加入runtime便会被调用</strong>，而initialize是在类或者其子类的第一个方法被调用前调用。<br />
-<img src="http://img.blog.csdn.net/20151024085728124" alt="这里写图片描述" /></li>
-</ul>
+<p>4.<a href="http://mp.weixin.qq.com/s?__biz=MzAwNDY1ODY2OQ==&amp;mid=400417748&amp;idx=1&amp;sn=0c5f6747dd192c5a0eea32bb4650c160&amp;scene=23&amp;srcid=1219QBIWbUYXl3nXdxA4Rxaj#rd">iOS 事件处理机制与图像渲染过程 </a> ：作者从RunLoop、线程、事件响应、layer、cpu&amp;gpu等到Facebook Pop、AsyncDisplay较为细致地讲解了事件处理机制与图像渲染过程，是篇不可多得的好文章。</p>
 
-<p>我们可以利用<strong>load是只要类或者category被加入runtime便会被调用</strong>这个特性，来为AppDelegate瘦身：<br />
-<img src="http://img.blog.csdn.net/20151024092327331" alt="这里写图片描述" /></p>
+<h2 id="section-1">工具</h2>
+<p>1.<a href="http://blog.zhowkev.in/2015/12/11/xiang-yao-da-zao-ji-zhi-de-yong-hu-ti-yan-yong-appsee/">想要打造极致的用户体验？用 AppSee</a> ：这篇貌似是产品经理看的，但如果你用一颗产品经理的心去做事将会让你从另外一个维度认识你、提高你。<br />
+<img src="http://blog.zhowkev.in/content/images/2015/12/-----2015-12-11---3-56-09.png" alt="AppSee" /></p>
+
+<p><img src="http://blog.zhowkev.in/content/images/2015/12/-----2015-12-11---4-02-18.png" alt="AppSee" /></p>
+
+<p>2.<a href="https://github.com/MakeZL/ZLXCodeLine">ZLXCodeLine</a> : 一款查看代码行数/记录排行榜的插件。<br />
+<img src="https://github.com/MakeZL/ZLXCodeLine/raw/master/screenhost5.gif" alt="ZLXCodeLine" /></p>
+
+<p>3.<a href="https://github.com/804145113/xTransCodelation">xTransCodelation</a> : 中英文翻译插件，提供API查询模式和网页模式，利用有道SDK翻译和百度网页翻译。另外集成了一个可以一键关闭其他所有APP的实用功能，方便开发者，CTO再也不怕我是个英文盲。<br />
+<img src="https://camo.githubusercontent.com/890d4f23396fabdfec0cc30f422ecffbca735be0/687474703a2f2f69312e74696574756b752e636f6d2f303235303231383561653136303532392e676966" alt="xTransCodelation" /></p>
+
+<h2 id="section-2">开源</h2>
+<p>1.<a href="https://github.com/CezaryKopacz/CKWaveCollectionViewTransition">CKWaveCollectionViewTransition</a>：是一款可以在两个或更多的 UICollectionViewControllers 中自定义切换动画的库。<br />
+<img src="https://raw.githubusercontent.com/CezaryKopacz/CKWaveCollectionViewTransition/master/anim.gif" alt="CKWaveCollectionViewTransition" /></p>
+
+<p>2.<a href="https://github.com/liu044100/SmileWeather">SmileWeather</a> ：一个较为完整的天气应用。<br />
+<img src="https://github.com/liu044100/SmileWeather/raw/master/SmileWeather-Example/demo_gif/new_pro.jpg" alt="SmileWeather" /> <br />
+<img src="https://raw.githubusercontent.com/liu044100/SmileWeather/master/SmileWeather-Example/demo_gif/localization.png" alt="SmileWeather" /></p>
+
+<p>3.<a href="https://github.com/36Kr-Mobile/KRVideoPlayer">KRVideoPlayer</a> : 来至36Kr类似Weico的播放器，支持竖屏模式下全屏播放。<img src="https://github.com/36Kr-Mobile/KRVideoPlayer/raw/master/kr_player.gif" alt="KRVideoPlayer" /></p>
+
+<p>4.<a href="https://github.com/matehat/Objective-LevelDB">Objective-LevelDB</a> : Uber开源的轻量级KV数据库框架。<br />
+<img src="https://leanote.com/api/file/getImage?fileId=5674c89dab64416467003713" alt="Objective-LevelDB" /></p>
 
 <hr />
-
-<h2 id="section-2">题外</h2>
-<p>1.搜索一下自己的项目，可以发现某些第三方库也是利用load方法来实现<strong>自动运行</strong>(如：IQKeyboardManager)。<br />
-<img src="http://img.blog.csdn.net/20151024093003486" alt="这里写图片描述" /></p>
-
-<p><img src="http://img.blog.csdn.net/20151024093137407" alt="这里写图片描述" /></p>
-
-<p>2.由于<strong>系统最多会调用一次（除非开发者主动调用）</strong>，为了防止主动调用，可以在load方法中加上dispatch_once</p>
-
-<p><img src="http://img.blog.csdn.net/20151024093529899" alt="这里写图片描述" /></p>
 
 
                 <hr>
@@ -204,13 +210,14 @@
                 </style>
                 <div class="ds-share"
                     style="text-align: right"
-                    data-thread-key="/2015/10/26/为AppDelegate瘦身"
-                    data-title="为AppDelegate瘦身"
-                    data-url="http://catchzeng.com/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/"
+                    data-thread-key="/2015/12/19/iOS开发见闻-第11期"
+                    data-title="iOS开发见闻-第11期"
+                    data-url="http://catchzeng.com/2015/12/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC11%E6%9C%9F/"
                     data-images="http://catchzeng.com/img/post-bg-2015.jpg"
-                    data-content="前言
+                    data-content="文章
+1.涅槃重生:我的技术转管理之路 :巧哥的涅槃重生，这篇虽不是技术文章，但深刻地描述了大神从技术走向管理的思考，值得细细品味。
 
-项目开发了一段时间后，相信大家都会遇到AppDelegate中的didFinishLaunch函数不断增大带来的不便管理问题。在Java中我们常使... | CatchZeng的技术博客 | CatchZeng Blog " >
+2.Swift之 ... | CatchZeng的技术博客 | CatchZeng Blog " >
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
                         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -230,12 +237,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2015/10/26/iOS9%E9%80%82%E9%85%8D%E9%97%AE%E9%A2%98/" data-toggle="tooltip" data-placement="top" title="iOS9适配问题">&larr; Previous Post</a>
+                        <a href="/2015/12/09/iOS-%E5%87%BD%E6%95%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B-ReactiveCocoa/" data-toggle="tooltip" data-placement="top" title="iOS 函数响应式编程 （ReactiveCocoa）">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2015/10/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC4%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第4期">Next Post &rarr;</a>
+                        <a href="/2016/01/07/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC12%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第12期">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -245,9 +252,9 @@
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/2015/10/26/为AppDelegate瘦身"
-                        data-title="为AppDelegate瘦身"
-                        data-url="http://catchzeng.com/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/" >
+                        data-thread-key="/2015/12/19/iOS开发见闻-第11期"
+                        data-title="iOS开发见闻-第11期"
+                        data-url="http://catchzeng.com/2015/12/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC11%E6%9C%9F/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->

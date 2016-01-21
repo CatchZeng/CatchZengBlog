@@ -9,10 +9,6 @@ tags:
     - iOS
 ---
 
-<span id="busuanzi_container_page_pv">
-阅读 <span id="busuanzi_value_page_pv"></span>
-</span>
-
 ## 前言
 
 项目开发了一段时间后，相信大家都会遇到AppDelegate中的didFinishLaunch函数不断增大带来的不便管理问题。在Java中我们常使用JVM的ClassLoader对类进行加载、连接、初始化等操作，在oc中对应的就是load和initialize。

@@ -1,0 +1,46 @@
+---
+layout:     post
+title:      "iOS开发见闻-第4期"
+subtitle:   "iOS开发见闻"
+date:       2015-10-30 07:20:44
+author:     "CatchZeng"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - iOS
+---
+
+## 文章
+1.[这样好用的ReactiveCocoa，根本停不下来 ](http://supermao.cn/zhe-yang-hao-yong-de-reactivecocoagen-ben-ting-bu-xia-lai/) : 讲述了“代码的四十八手”,使用ReactiveCocoa的朋友强烈推荐看看这篇文章。
+
+2.[使用命令行工具运行Xcode 7 UI Tests ](http://www.cocoachina.com/ios/20150701/12319.html) ：Xcode 7中引入了一项新技术UI Tests，允许开发者使用Swift或Objective C代码来进行UI测试。【[外文地址](https://krausefx.com/blog/run-xcode-7-ui-tests-from-the-command-line)】
+
+3.[实时显示iOS编写UI代码效果](http://www.jianshu.com/p/2ed5f7444900) : 当我看到文章标题时就被吸引了，你的？
+
+
+## 工具
+1.[SimPholders](https://simpholders.com/) ：一个快速简单的小工具，可以帮助开发者快速访问iPhone模拟器应用。它可以访问模拟器的文件夹，重置库和文件，以及删除选定的应用程序。
+![这里写图片描述](https://simpholders.com/site/assets/files/1098/sp2_001.png)
+
+2.[revealapp](http://revealapp.com/) : 一个UI布局调试库。利用它，你可以看到UI界面中每个元素的精确尺寸，还可水平或垂直拖动视图元素。
+![这里写图片描述](http://revealapp.com/assets/front/reveal-hero-52e11e6ccf6ace0a544e1dd3375c717a.png)
+
+3.[tiny-socket](https://itunes.apple.com/us/app/tiny-socket/id619840523?mt=12) : socket调试软件。
+![这里写图片描述](http://a4.mzstatic.com/us/r30/Purple2/v4/60/ee/6c/60ee6c02-fe95-1663-047b-f6e36f3cc77b/screen800x500.jpeg) 
+
+
+## 开源
+1.[IntentKit](https://github.com/intentkit/IntentKit) : 让你轻松处理第三方的URL schemes。
+![这里写图片描述](https://camo.githubusercontent.com/89036df085bf5782cda01b5c156b7279186f6a58/68747470733a2f2f7261772e6769746875622e636f6d2f696e74656e746b69742f496e74656e744b69742f6d61737465722f6578616d706c652e676966)
+
+
+2.[MHVideoPhotoGallery](https://github.com/mariohahn/MHVideoPhotoGallery) ：做出了paper效果的VideoPhotoGallery，动画效果极佳。
+![这里写图片描述](https://camo.githubusercontent.com/05f97ec496e690c233371c4a63c119182596610f/68747470733a2f2f646c2e64726f70626f7875736572636f6e74656e742e636f6d2f752f31373931313933392f6469736d697373496e746572616374697665566964656f2e676966) ![图片标题](https://camo.githubusercontent.com/d4bf485374bf20b933c35cdd43d03ba225c0705c/68747470733a2f2f646c2e64726f70626f7875736572636f6e74656e742e636f6d2f752f31373931313933392f6469736d697373496e7465726163746976652e676966)![图片标题](https://camo.githubusercontent.com/6776ff20be7f8570ed947c0f5674343f883ba663/68747470733a2f2f646c2e64726f70626f7875736572636f6e74656e742e636f6d2f752f31373931313933392f5368617265566965772e676966)
+
+
+3.[firefox-ios](https://github.com/mozilla/firefox-ios) : 如题firefox ios版。
+![图片标题](http://easyread.ph.126.net/qh1eUBeE6wDCWBZQU1dL6Q==/7917041172384019641.jpg)
+
+4.[iOS8-Sampler](https://github.com/shu223/iOS8-Sampler)：iOS8的编程实例。
+![图片标题](https://github.com/shu223/iOS8-Sampler/raw/master/ResourcesForREADME/effects.jpg)   ![图片标题](https://github.com/shu223/iOS8-Sampler/raw/master/ResourcesForREADME/coreimage.jpg)  ![图片标题](https://github.com/shu223/iOS8-Sampler/raw/master/ResourcesForREADME/scene.jpg)
+
+----------

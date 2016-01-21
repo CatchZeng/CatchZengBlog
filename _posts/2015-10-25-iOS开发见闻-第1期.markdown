@@ -9,11 +9,6 @@ tags:
     - iOS
 ---
 
-<span id="busuanzi_container_page_pv">
-阅读 <span id="busuanzi_value_page_pv"></span>
-</span>
-
-
 ## 文章
 1.[iOS应用架构 ](http://casatwy.com/iosying-yong-jia-gou-tan-kai-pian.html)：此文章由安居客iOS app的第二版架构设计者编写，里面详尽地解释了view层的组织和调用方案、网络层设计方案、本地持久化方案及动态部署。文中作者不但给出了自己的设计方案，更值得我们学习的是作者在多人协作的情况下对架构的设计与考虑。
 

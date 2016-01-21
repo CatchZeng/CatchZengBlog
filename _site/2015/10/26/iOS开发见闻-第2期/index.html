@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>为AppDelegate瘦身 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>iOS开发见闻-第2期 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/">
+    <link rel="canonical" href="http://catchzeng.com/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC2%E6%9C%9F/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -143,10 +143,10 @@
                         <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
                         
                     </div>
-                    <h1>为AppDelegate瘦身</h1>
+                    <h1>iOS开发见闻-第2期</h1>
                     
                     
-                    <h2 class="subheading">runtime&load</h2>
+                    <h2 class="subheading">iOS开发见闻</h2>
                     
                     <span class="meta">Posted by CatchZeng on October 26, 2015</span>
                 </div>
@@ -166,35 +166,35 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h2 id="section">前言</h2>
+				<h2 id="section">文章</h2>
+<p>1.<a href="http://blog.csdn.net/colorapp/article/details/48597267">iOS代码实践总结 </a> : 作者以自身在项目重构中的经历总结了许多宝贵的经验，其内容包含了UI、语法、设计模式、架构等方面值得一看。</p>
 
-<p>项目开发了一段时间后，相信大家都会遇到AppDelegate中的didFinishLaunch函数不断增大带来的不便管理问题。在Java中我们常使用JVM的ClassLoader对类进行加载、连接、初始化等操作，在oc中对应的就是load和initialize。</p>
+<p>2.<a href="http://beyondvincent.com/2014/03/24/2014-03-20-reducing-the-size-of-my-app/">减小iOS应用程序的大小 </a> ：app的大小一直是备受关注的问题，看看“破船之家”翻译自苹果的文章带给我们的方法。【<a href="https://developer.apple.com/library/ios/qa/qa1795/_index.html#//apple_ref/doc/uid/DTS40014195">外文地址</a>】</p>
 
-<h2 id="section-1">瘦身</h2>
-<p>load和initialize在使用中需要注意的点：</p>
+<p>3.<a href="http://blog.csdn.net/yiyaaixuexi/article/details/8288077">iOS安全攻防</a> : 从xcode里面有“鬼” 到网易邮箱AppleID泄露，iOS的安全问题已经成为热点。而今回头看看“念茜” iOS安全攻防….</p>
 
-<ul>
-  <li>系统最多会调用一次（除非开发者主动调用）</li>
-  <li>都能为程序初始化一些数据，创造适合的运行环境</li>
-  <li>父类调用一定在子类之前</li>
-  <li>由下图文档可知，<strong>load是只要类或者category被加入runtime便会被调用</strong>，而initialize是在类或者其子类的第一个方法被调用前调用。<br />
-<img src="http://img.blog.csdn.net/20151024085728124" alt="这里写图片描述" /></li>
-</ul>
+<h2 id="section-1">工具</h2>
+<p>1.<a href="http://www.douban.com/subject/11627846/">CodeRunner</a> ： 一款轻量级，可以编写和运行多种语言的编辑器，它不需要安装额外的语言环境就可以执行多种语言代码。如果想要测试一段代码或者一个API具体的功能，CodeRunner将会带给你极大的便捷。<br />
+<img src="http://a1.mzstatic.com/us/r30/Purple/v4/47/15/e3/4715e3e5-1332-c590-cc3d-81f8d88edaa6/screen800x500.jpeg" alt="这里写图片描述" /></p>
 
-<p>我们可以利用<strong>load是只要类或者category被加入runtime便会被调用</strong>这个特性，来为AppDelegate瘦身：<br />
-<img src="http://img.blog.csdn.net/20151024092327331" alt="这里写图片描述" /></p>
+<p>2.<a href="http://25.io/mou/">Mou</a> : 一款不错的文本编辑器，为开发者提供一系列的快速输入Markdown既定语法元素，减少了开发者在编写代码上所消耗的时间。<br />
+<img src="http://25.io/mou/img/1@2x.png" alt="这里写图片描述" /></p>
+
+<p>3.<a href="http://www.getmarkman.com/">马克鳗</a> : 高效的设计稿标注、测量工具。若公司的美工较懒，没有为你标出设计的尺寸，我相信马克鳗能给你惊喜。<br />
+<img src="http://www.getmarkman.com/static/img/marks/length.gif" alt="这里写图片描述" /> <img src="http://www.getmarkman.com/static/img/marks/rect.gif" alt="这里写图片描述" /></p>
+
+<h2 id="section-2">开源</h2>
+<p>1.<a href="https://github.com/facebook/AsyncDisplayKit">AsyncDisplayKit</a> : Facebook的开源框架，可以让复杂的用户界面保持流畅并快速响应。<br />
+<img src="https://github.com/facebook/AsyncDisplayKit/raw/master/docs/assets/node-view-layer.png" alt="这里写图片描述" /></p>
+
+<p>2.<a href="https://github.com/MengTo/Spring">Spring</a> ： Swift的简洁动画库，值得推荐。<br />
+<img src="https://camo.githubusercontent.com/96d7892bf2ea4da272e8ae6b45842f60ebb70933/687474703a2f2f636c2e6c792f696d6167652f3234316f30473147335333362f646f776e6c6f61642f737072696e6773657475702e6a7067" alt="这里写图片描述" /></p>
+
+<p>3.<a href="https://github.com/CEWendel/SWTableViewCell">SWTableViewCell</a> : UITableViewCell的子类，实现了左右滑动出现若干按钮的功能。<br />
+<img src="https://camo.githubusercontent.com/c138fcd3df24ae1d91f8bf6feb51a1cf111606a4/687474703a2f2f692e696d6775722e636f6d2f6e6a4b436a4b382e676966" alt="这里写图片描述" /></p>
 
 <hr />
 
-<h2 id="section-2">题外</h2>
-<p>1.搜索一下自己的项目，可以发现某些第三方库也是利用load方法来实现<strong>自动运行</strong>(如：IQKeyboardManager)。<br />
-<img src="http://img.blog.csdn.net/20151024093003486" alt="这里写图片描述" /></p>
-
-<p><img src="http://img.blog.csdn.net/20151024093137407" alt="这里写图片描述" /></p>
-
-<p>2.由于<strong>系统最多会调用一次（除非开发者主动调用）</strong>，为了防止主动调用，可以在load方法中加上dispatch_once</p>
-
-<p><img src="http://img.blog.csdn.net/20151024093529899" alt="这里写图片描述" /></p>
 
 
                 <hr>
@@ -204,13 +204,14 @@
                 </style>
                 <div class="ds-share"
                     style="text-align: right"
-                    data-thread-key="/2015/10/26/为AppDelegate瘦身"
-                    data-title="为AppDelegate瘦身"
-                    data-url="http://catchzeng.com/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/"
+                    data-thread-key="/2015/10/26/iOS开发见闻-第2期"
+                    data-title="iOS开发见闻-第2期"
+                    data-url="http://catchzeng.com/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC2%E6%9C%9F/"
                     data-images="http://catchzeng.com/img/post-bg-2015.jpg"
-                    data-content="前言
+                    data-content="文章
+1.iOS代码实践总结  : 作者以自身在项目重构中的经历总结了许多宝贵的经验，其内容包含了UI、语法、设计模式、架构等方面值得一看。
 
-项目开发了一段时间后，相信大家都会遇到AppDelegate中的didFinishLaunch函数不断增大带来的不便管理问题。在Java中我们常使... | CatchZeng的技术博客 | CatchZeng Blog " >
+2.减小i... | CatchZeng的技术博客 | CatchZeng Blog " >
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
                         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -230,12 +231,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2015/10/26/iOS9%E9%80%82%E9%85%8D%E9%97%AE%E9%A2%98/" data-toggle="tooltip" data-placement="top" title="iOS9适配问题">&larr; Previous Post</a>
+                        <a href="/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC1%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第1期">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2015/10/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC4%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第4期">Next Post &rarr;</a>
+                        <a href="/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC3%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第3期">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -245,9 +246,9 @@
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/2015/10/26/为AppDelegate瘦身"
-                        data-title="为AppDelegate瘦身"
-                        data-url="http://catchzeng.com/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/" >
+                        data-thread-key="/2015/10/26/iOS开发见闻-第2期"
+                        data-title="iOS开发见闻-第2期"
+                        data-url="http://catchzeng.com/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC2%E6%9C%9F/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->

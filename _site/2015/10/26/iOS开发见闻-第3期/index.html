@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>为AppDelegate瘦身 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>iOS开发见闻-第3期 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/">
+    <link rel="canonical" href="http://catchzeng.com/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC3%E6%9C%9F/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -143,10 +143,10 @@
                         <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
                         
                     </div>
-                    <h1>为AppDelegate瘦身</h1>
+                    <h1>iOS开发见闻-第3期</h1>
                     
                     
-                    <h2 class="subheading">runtime&load</h2>
+                    <h2 class="subheading">iOS开发见闻</h2>
                     
                     <span class="meta">Posted by CatchZeng on October 26, 2015</span>
                 </div>
@@ -166,35 +166,34 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h2 id="section">前言</h2>
+				<h2 id="section">文章</h2>
+<p>1.<a href="http://www.molotang.com/articles/1929.html">NSObject的load和initialize方法 </a> : 三石·道 写的写篇关于load、initialize的方法，与别人的不同之处在于道明了原理。非常喜欢他那句“源码面前没有秘密”。</p>
 
-<p>项目开发了一段时间后，相信大家都会遇到AppDelegate中的didFinishLaunch函数不断增大带来的不便管理问题。在Java中我们常使用JVM的ClassLoader对类进行加载、连接、初始化等操作，在oc中对应的就是load和initialize。</p>
+<p>2.<a href="http://tech.meituan.com/talk-about-reactivecocoas-cold-signal-and-hot-signal-part-1.html">细说ReactiveCocoa的冷信号与热信号 </a> ：美团技术团队关于ReactiveCocoa信号的讲解，如果你喜欢用ReactiveCocoa，那么请不要错过。</p>
 
-<h2 id="section-1">瘦身</h2>
-<p>load和initialize在使用中需要注意的点：</p>
+<p>3.<a href="https://github.com/nixzhu/dev-blog/blob/master/2015-10-08-navi.md">一种头像缓存策略</a> : 许多 App 都有用户系统，不论是自己实现还是使用第三方，大概都需要显示用户的头像。该篇文章讲述了nixzhu的策略，能帮助我们了解缓存相关的知识。</p>
 
-<ul>
-  <li>系统最多会调用一次（除非开发者主动调用）</li>
-  <li>都能为程序初始化一些数据，创造适合的运行环境</li>
-  <li>父类调用一定在子类之前</li>
-  <li>由下图文档可知，<strong>load是只要类或者category被加入runtime便会被调用</strong>，而initialize是在类或者其子类的第一个方法被调用前调用。<br />
-<img src="http://img.blog.csdn.net/20151024085728124" alt="这里写图片描述" /></li>
-</ul>
+<h2 id="section-1">工具</h2>
+<p>1.<a href="https://github.com/gh-unit/gh-unit">gh-unit</a> ： 一款测试框架，方便且功能强大。<br />
+<img src="https://camo.githubusercontent.com/5149ae6bcaf9128327ea378503f311ec53ba757e/68747470733a2f2f7261772e6769746875622e636f6d2f67682d756e69742f67682d756e69742f6d61737465722f446f63756d656e746174696f6e2f696d616765732f696f732e706e67" alt="这里写图片描述" /><br />
+<img src="https://camo.githubusercontent.com/cb53e52b700bead7b5a06366c0a6cc5f52682264/68747470733a2f2f7261772e6769746875622e636f6d2f67682d756e69742f67682d756e69742f6d61737465722f446f63756d656e746174696f6e2f696d616765732f6d61636f737830312e706e67" alt="这里写图片描述" /></p>
 
-<p>我们可以利用<strong>load是只要类或者category被加入runtime便会被调用</strong>这个特性，来为AppDelegate瘦身：<br />
-<img src="http://img.blog.csdn.net/20151024092327331" alt="这里写图片描述" /></p>
+<p>2.<a href="https://github.com/dblock/fui">fui</a> : 还记得ctrl+shift+o吗？fui能帮我们找到没有用到的头文件，避免文件引用带来的问题。喜欢在Xcode直接用的朋友可以看<a href="https://github.com/jcavar/xcfui">这里</a><br />
+<img src="https://raw.githubusercontent.com/jcavar/xcfui/master/preview.png" alt="这里写图片描述" /></p>
 
-<hr />
+<p>3.<a href="https://www.getpostman.com/">getpostman</a> : 一个测试RESTful服务的工具。可以利用Chrome插件的形式把各种模拟用户HTTP请求的数据发送到服务器，帮助app开发人员测试接口。<br />
+<img src="http://images.cnitblog.com/i/277239/201407/242244568223578.gif" alt="这里写图片描述" /></p>
 
-<h2 id="section-2">题外</h2>
-<p>1.搜索一下自己的项目，可以发现某些第三方库也是利用load方法来实现<strong>自动运行</strong>(如：IQKeyboardManager)。<br />
-<img src="http://img.blog.csdn.net/20151024093003486" alt="这里写图片描述" /></p>
+<h2 id="section-2">开源</h2>
+<p>1.<a href="https://github.com/TheAmazingAudioEngine/TheAmazingAudioEngine">TheAmazingAudioEngine</a> : 非常强大且使用简便的音频框架。<br />
+<img src="http://theamazingaudioengine.com/images/index-background.jpg" alt="这里写图片描述" /></p>
 
-<p><img src="http://img.blog.csdn.net/20151024093137407" alt="这里写图片描述" /></p>
+<p>2.<a href="https://github.com/mwaterfall/MWPhotoBrowser">MWPhotoBrowser</a> ： 一个照片浏览器类似 iOS 自带的相册应用，可显示来自手机的图片或者是网络图片，可自动从网络下载图片并进行缓存。可对图片进行缩放等操作。<br />
+<img src="https://camo.githubusercontent.com/2f47c5ac3865bf4b09d3c77e2d325d5d5abf09fe/68747470733a2f2f7261772e6769746875622e636f6d2f6d776174657266616c6c2f4d5750686f746f42726f777365722f6d61737465722f53637265656e73686f74732f4d5750686f746f42726f7773657231742e706e67" alt="这里写图片描述" /> <img src="https://camo.githubusercontent.com/194b07b3ed16c041c6f6f9ba2415da747e60d2ee/68747470733a2f2f7261772e6769746875622e636f6d2f6d776174657266616c6c2f4d5750686f746f42726f777365722f6d61737465722f53637265656e73686f74732f4d5750686f746f42726f7773657234742e706e67" alt="这里写图片描述" /> <img src="https://camo.githubusercontent.com/364e2c6420c8a1e862db9d0990d77e0d5e2a4f9e/68747470733a2f2f7261772e6769746875622e636f6d2f6d776174657266616c6c2f4d5750686f746f42726f777365722f6d61737465722f53637265656e73686f74732f4d5750686f746f42726f7773657233742e706e67" alt="这里写图片描述" /></p>
 
-<p>2.由于<strong>系统最多会调用一次（除非开发者主动调用）</strong>，为了防止主动调用，可以在load方法中加上dispatch_once</p>
+<p>3.<a href="https://github.com/Flipboard/FLAnimatedImage">FLAnimatedImage</a> : 如果你想像使用png一样使用gif，FLAnimatedImage是个不错的选择。<br />
+<img src="https://github.com/Flipboard/FLAnimatedImage/raw/master/images/flanimatedimage-demo-player.gif" alt="这里写图片描述" /></p>
 
-<p><img src="http://img.blog.csdn.net/20151024093529899" alt="这里写图片描述" /></p>
 
 
                 <hr>
@@ -204,13 +203,12 @@
                 </style>
                 <div class="ds-share"
                     style="text-align: right"
-                    data-thread-key="/2015/10/26/为AppDelegate瘦身"
-                    data-title="为AppDelegate瘦身"
-                    data-url="http://catchzeng.com/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/"
+                    data-thread-key="/2015/10/26/iOS开发见闻-第3期"
+                    data-title="iOS开发见闻-第3期"
+                    data-url="http://catchzeng.com/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC3%E6%9C%9F/"
                     data-images="http://catchzeng.com/img/post-bg-2015.jpg"
-                    data-content="前言
-
-项目开发了一段时间后，相信大家都会遇到AppDelegate中的didFinishLaunch函数不断增大带来的不便管理问题。在Java中我们常使... | CatchZeng的技术博客 | CatchZeng Blog " >
+                    data-content="文章
+1.NSObject的load和initialize方法  : 三石·道 写的写篇关于load、initialize的方法，与别人的不同之处在于道明... | CatchZeng的技术博客 | CatchZeng Blog " >
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
                         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -230,12 +228,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2015/10/26/iOS9%E9%80%82%E9%85%8D%E9%97%AE%E9%A2%98/" data-toggle="tooltip" data-placement="top" title="iOS9适配问题">&larr; Previous Post</a>
+                        <a href="/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC2%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第2期">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2015/10/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC4%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第4期">Next Post &rarr;</a>
+                        <a href="/2015/10/26/%E5%B1%8F%E5%B9%95%E9%80%82%E9%85%8D%E4%B9%8BSize-Classes/" data-toggle="tooltip" data-placement="top" title="屏幕适配之Size Classes">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -245,9 +243,9 @@
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/2015/10/26/为AppDelegate瘦身"
-                        data-title="为AppDelegate瘦身"
-                        data-url="http://catchzeng.com/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/" >
+                        data-thread-key="/2015/10/26/iOS开发见闻-第3期"
+                        data-title="iOS开发见闻-第3期"
+                        data-url="http://catchzeng.com/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC3%E6%9C%9F/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->

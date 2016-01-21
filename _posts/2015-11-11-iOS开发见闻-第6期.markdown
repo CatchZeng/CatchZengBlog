@@ -1,0 +1,49 @@
+---
+layout:     post
+title:      "iOS开发见闻-第6期"
+subtitle:   "iOS开发见闻"
+date:       2015-11-11 22:21:05
+author:     "CatchZeng"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - iOS
+---
+
+## 文章
+1.[利用UIWebView打造一个炫酷的视频背景视图（OC & Swift） ](http://www.cocoachina.com/ios/20151023/13860.html) :实现类似一号专车带视频的启动页。
+![图片标题](http://cc.cocimg.com/api/uploads/20151022/1445484839865511.gif)
+
+2.[iOS 精益编程](http://blog.csdn.net/uxyheaven/article/details/49226175) ：作者从一个小demo开始讲述如何一步一步改进代码的质量，值得学习。
+
+3.[iOS UIView动画详解](http://blog.csdn.net/chenyufeng1991/article/details/49779011) :  动画框架有苹果自带的CoreAnimation框架，Facebook的Pop等等，这些的确都是程序员的利器。但是如果我们仅仅是想要实现一些比较简单的动画呢？杀鸡焉用牛刀，看看作者是怎么简单地用UIView来实现的。
+
+4.[iOS开发之ReactiveCocoa下的MVVM](http://www.cnblogs.com/ludashi/p/4925042.html)：最近关于工程是否使用ReactiveCocoa的评论很多，这里我也不发表什么观点。看到了这篇文章，觉得挺适合ReactiveCocoa的初学者，故在此分享。
+
+
+## 工具
+1.[WCGitTagsPlugin](https://github.com/wczekalski/WCGitTagsPlugin) ：WCGitTagsPlugin 是 Xcode 插件，允许用户添加标签进行源码控制，使用git的朋友可以试试。
+![图片标题](https://github.com/wczekalski/WCGitTagsPlugin/raw/master/Resources/revealed.png)
+
+
+2.[ProfilesTool](https://github.com/shaojiankui/ProfilesTool) : iOS Provisioning Profiles, .mobileprovision 文件管理器。
+![这里写图片描述](https://raw.githubusercontent.com/shaojiankui/ProfilesTool/master/demo.png)
+
+3.[Screenshot Builder](https://launchkit.io/screenshots) : 每个上架的人都会烦的一件事情就是app截图。让Screenshot Builder来解决这一痛点吧。
+![图片标题](https://d2kfjaekmjmy1l.cloudfront.net/images/screenshots/marketing/billboard-v639678a510ce.png)
+![图片标题](https://d2kfjaekmjmy1l.cloudfront.net/images/screenshots/marketing/design-v0ef096c204e7.png)
+
+
+## 开源
+1.[JSQMessagesViewController](https://github.com/jessesquires/JSQMessagesViewController) : 一个iOS优雅的消息UI库，适合做IM的朋友们。
+![这里写图片描述](https://raw.githubusercontent.com/jessesquires/JSQMessagesViewController/develop/Screenshots/screenshot0.png)![图片标题](https://raw.githubusercontent.com/jessesquires/JSQMessagesViewController/develop/Screenshots/screenshot2.png)
+
+
+2.[Reader](https://github.com/vfr/Reader) ：pdf 阅读器的源码，处理文档的朋友可以借鉴。
+![这里写图片描述](https://camo.githubusercontent.com/0ac2a734cb8972699aadc51995c16903153d62db/687474703a2f2f692e696d6775722e636f6d2f7938775752444e2e706e67) ![这里写图片描述](https://camo.githubusercontent.com/187e7a3c334c8a39429014063fb283e55af33009/687474703a2f2f692e696d6775722e636f6d2f6e6464543252502e706e67) 
+
+3.[FlatUIKit](https://github.com/Grouper/FlatUIKit) :通过扩展(category)或继承iOS SDK中已有的UIKit组件来实现的一套扁平化风格的UI（Flat UI）组件。
+![图片标题](https://camo.githubusercontent.com/ea8b8160ea7386cd5478f953ca861bf1bd747753/68747470733a2f2f7261772e6769746875622e636f6d2f47726f757065722f466c617455494b69742f6d61737465722f4578616d706c652f524541444d45253230696d616765732f667569627574746f6e2d736d616c6c2e676966)![图片标题](https://github.com/Grouper/FlatUIKit/raw/master/Example/README%20images/fuitextfield-small.gif)![图片标题](https://camo.githubusercontent.com/fd60f0889c5f2aea89e594a6f69eadc6a92740c6/68747470733a2f2f7261772e6769746875622e636f6d2f47726f757065722f466c617455494b69742f6d61737465722f4578616d706c652f524541444d45253230696d616765732f6675697377697463682d736d616c6c2e676966)![图片标题](https://camo.githubusercontent.com/180e6e67472cd96f52d1342d186d9f1334d22182/68747470733a2f2f7261772e6769746875622e636f6d2f47726f757065722f466c617455494b69742f6d61737465722f4578616d706c652f524541444d45253230696d616765732f667569616c657274766965772e676966)
+
+
+----------
+

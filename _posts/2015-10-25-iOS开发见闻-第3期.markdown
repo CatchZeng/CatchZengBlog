@@ -1,0 +1,42 @@
+---
+layout:     post
+title:      "iOS开发见闻-第3期"
+subtitle:   "iOS开发见闻"
+date:       2015-10-25 22:12:38
+author:     "CatchZeng"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - iOS
+---
+
+## 文章
+1.[NSObject的load和initialize方法 ](http://www.molotang.com/articles/1929.html) : 三石·道 写的写篇关于load、initialize的方法，与别人的不同之处在于道明了原理。非常喜欢他那句“源码面前没有秘密”。
+
+2.[细说ReactiveCocoa的冷信号与热信号 ](http://tech.meituan.com/talk-about-reactivecocoas-cold-signal-and-hot-signal-part-1.html) ：美团技术团队关于ReactiveCocoa信号的讲解，如果你喜欢用ReactiveCocoa，那么请不要错过。
+
+3.[一种头像缓存策略](https://github.com/nixzhu/dev-blog/blob/master/2015-10-08-navi.md) : 许多 App 都有用户系统，不论是自己实现还是使用第三方，大概都需要显示用户的头像。该篇文章讲述了nixzhu的策略，能帮助我们了解缓存相关的知识。
+
+
+
+## 工具
+1.[gh-unit](https://github.com/gh-unit/gh-unit) ： 一款测试框架，方便且功能强大。
+![这里写图片描述](https://camo.githubusercontent.com/5149ae6bcaf9128327ea378503f311ec53ba757e/68747470733a2f2f7261772e6769746875622e636f6d2f67682d756e69742f67682d756e69742f6d61737465722f446f63756d656e746174696f6e2f696d616765732f696f732e706e67)
+![这里写图片描述](https://camo.githubusercontent.com/cb53e52b700bead7b5a06366c0a6cc5f52682264/68747470733a2f2f7261772e6769746875622e636f6d2f67682d756e69742f67682d756e69742f6d61737465722f446f63756d656e746174696f6e2f696d616765732f6d61636f737830312e706e67)
+
+2.[fui](https://github.com/dblock/fui) : 还记得ctrl+shift+o吗？fui能帮我们找到没有用到的头文件，避免文件引用带来的问题。喜欢在Xcode直接用的朋友可以看[这里](https://github.com/jcavar/xcfui)
+![这里写图片描述](https://raw.githubusercontent.com/jcavar/xcfui/master/preview.png)
+
+3.[getpostman](https://www.getpostman.com/) : 一个测试RESTful服务的工具。可以利用Chrome插件的形式把各种模拟用户HTTP请求的数据发送到服务器，帮助app开发人员测试接口。
+![这里写图片描述](http://images.cnitblog.com/i/277239/201407/242244568223578.gif) 
+
+
+## 开源
+1.[TheAmazingAudioEngine](https://github.com/TheAmazingAudioEngine/TheAmazingAudioEngine) : 非常强大且使用简便的音频框架。
+![这里写图片描述](http://theamazingaudioengine.com/images/index-background.jpg)
+
+2.[MWPhotoBrowser](https://github.com/mwaterfall/MWPhotoBrowser) ： 一个照片浏览器类似 iOS 自带的相册应用，可显示来自手机的图片或者是网络图片，可自动从网络下载图片并进行缓存。可对图片进行缩放等操作。
+![这里写图片描述](https://camo.githubusercontent.com/2f47c5ac3865bf4b09d3c77e2d325d5d5abf09fe/68747470733a2f2f7261772e6769746875622e636f6d2f6d776174657266616c6c2f4d5750686f746f42726f777365722f6d61737465722f53637265656e73686f74732f4d5750686f746f42726f7773657231742e706e67) ![这里写图片描述](https://camo.githubusercontent.com/194b07b3ed16c041c6f6f9ba2415da747e60d2ee/68747470733a2f2f7261772e6769746875622e636f6d2f6d776174657266616c6c2f4d5750686f746f42726f777365722f6d61737465722f53637265656e73686f74732f4d5750686f746f42726f7773657234742e706e67) ![这里写图片描述](https://camo.githubusercontent.com/364e2c6420c8a1e862db9d0990d77e0d5e2a4f9e/68747470733a2f2f7261772e6769746875622e636f6d2f6d776174657266616c6c2f4d5750686f746f42726f777365722f6d61737465722f53637265656e73686f74732f4d5750686f746f42726f7773657233742e706e67)
+
+3.[FLAnimatedImage](https://github.com/Flipboard/FLAnimatedImage) : 如果你想像使用png一样使用gif，FLAnimatedImage是个不错的选择。
+![这里写图片描述](https://github.com/Flipboard/FLAnimatedImage/raw/master/images/flanimatedimage-demo-player.gif)
+

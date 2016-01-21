@@ -9,9 +9,6 @@ tags:
     - Java Web
 ---
 
-<span id="busuanzi_container_page_pv">
-阅读 <span id="busuanzi_value_page_pv"></span>
-</span>
 
 ## 前言
 IntelliJ在业界被公认为最好的java开发工具之一，尤其在智能代码助手、代码自动提示、重构、J2EE支持、Ant、JUnit、CVS整合、代码审查、 创新的GUI设计等方面的功能可以说是超常的。

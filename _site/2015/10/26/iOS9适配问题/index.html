@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>为AppDelegate瘦身 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>iOS9适配问题 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/">
+    <link rel="canonical" href="http://catchzeng.com/2015/10/26/iOS9%E9%80%82%E9%85%8D%E9%97%AE%E9%A2%98/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -143,10 +143,10 @@
                         <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
                         
                     </div>
-                    <h1>为AppDelegate瘦身</h1>
+                    <h1>iOS9适配问题</h1>
                     
                     
-                    <h2 class="subheading">runtime&load</h2>
+                    <h2 class="subheading">iOS9</h2>
                     
                     <span class="meta">Posted by CatchZeng on October 26, 2015</span>
                 </div>
@@ -167,34 +167,105 @@
                 post-container">
 
 				<h2 id="section">前言</h2>
-
-<p>项目开发了一段时间后，相信大家都会遇到AppDelegate中的didFinishLaunch函数不断增大带来的不便管理问题。在Java中我们常使用JVM的ClassLoader对类进行加载、连接、初始化等操作，在oc中对应的就是load和initialize。</p>
-
-<h2 id="section-1">瘦身</h2>
-<p>load和initialize在使用中需要注意的点：</p>
+<p>最近升级到XCode7之后发现工程需要针对iOS9做一些适配，如下几点是我项目中遇到的适配问题，仅供大家参考如有问题欢迎加Q群157672725讨论：</p>
 
 <ul>
-  <li>系统最多会调用一次（除非开发者主动调用）</li>
-  <li>都能为程序初始化一些数据，创造适合的运行环境</li>
-  <li>父类调用一定在子类之前</li>
-  <li>由下图文档可知，<strong>load是只要类或者category被加入runtime便会被调用</strong>，而initialize是在类或者其子类的第一个方法被调用前调用。<br />
-<img src="http://img.blog.csdn.net/20151024085728124" alt="这里写图片描述" /></li>
+  <li><strong>网络适配ATS问题</strong></li>
+  <li><strong>Bitcode导致的编译问题</strong></li>
+  <li><strong>状态栏样式问题</strong></li>
+  <li><strong>白名单问题</strong></li>
 </ul>
 
-<p>我们可以利用<strong>load是只要类或者category被加入runtime便会被调用</strong>这个特性，来为AppDelegate瘦身：<br />
-<img src="http://img.blog.csdn.net/20151024092327331" alt="这里写图片描述" /></p>
+<h2 id="ats">网络适配ATS问题</h2>
+<p>App Transport Security(ATS)是Apple为提高系统及应用安全性而在iOS 9和OS X EI Capitan中引入的新特性。一旦开启ATS后，应用所有的网络请求将会自动转换为HTPPS传输（HTTP形式的传输将会失败）。</p>
 
-<hr />
+<p>解决办法：<br />
+<strong>1.在Info.plist中添加NSAppTransportSecurity，并添加item设置NSAllowsArbitraryLoads为YES，表示支持所有HTTP请求。</strong><br />
+<img src="http://img.blog.csdn.net/20150921211459160" alt="这里写图片描述" /><br />
+源码形式：</p>
 
-<h2 id="section-2">题外</h2>
-<p>1.搜索一下自己的项目，可以发现某些第三方库也是利用load方法来实现<strong>自动运行</strong>(如：IQKeyboardManager)。<br />
-<img src="http://img.blog.csdn.net/20151024093003486" alt="这里写图片描述" /></p>
+<pre><code>&lt;key&gt;NSAppTransportSecurity&lt;/key&gt;
+&lt;dict&gt;
+&lt;key&gt;NSAllowsArbitraryLoads&lt;/key&gt;
+&lt;true/&gt;
+&lt;/dict&gt;
+</code></pre>
+<p><strong>2.添加白名单</strong></p>
 
-<p><img src="http://img.blog.csdn.net/20151024093137407" alt="这里写图片描述" /></p>
+<pre><code>&lt;key&gt;NSAppTransportSecurity&lt;/key&gt;
+&lt;dict&gt;
+  &lt;key&gt;NSExceptionDomains&lt;/key&gt;
+  &lt;dict&gt;
+    &lt;key&gt;yourserver.com&lt;/key&gt;
+    &lt;dict&gt;
+      &lt;!--Include to allow subdomains--&gt;
+      &lt;key&gt;NSIncludesSubdomains&lt;/key&gt;
+      &lt;true/&gt;
+      &lt;!--Include to allow insecure HTTP requests--&gt;
+      &lt;key&gt;NSTemporaryExceptionAllowsInsecureHTTPLoads&lt;/key&gt;
+      &lt;true/&gt;
+      &lt;!--Include to specify minimum TLS version--&gt;
+      &lt;key&gt;NSTemporaryExceptionMinimumTLSVersion&lt;/key&gt;
+      &lt;string&gt;TLSv1.1&lt;/string&gt;
+    &lt;/dict&gt;
+  &lt;/dict&gt;
+&lt;/dict&gt;
+</code></pre>
+<p><strong>3.改变服务器（改用HTTPS）,需要注意一下几点</strong><br />
+3.1Transport Layer Security协议版本要求TLS1.2以上<br />
+3.2服务的Ciphers配置要求支持Forward Secrecy<br />
+3.3证书签名算法符合ATS要求等</p>
 
-<p>2.由于<strong>系统最多会调用一次（除非开发者主动调用）</strong>，为了防止主动调用，可以在load方法中加上dispatch_once</p>
+<p><strong>目前我选择第1种方法</strong><br />
+理由：服务器和第三方的框架使用的API大部分是HTTP形式的，服务器修改成HTTPS需要申请证书之类的，相对比较耗时，所以可以先考虑使用第一种做法。</p>
 
-<p><img src="http://img.blog.csdn.net/20151024093529899" alt="这里写图片描述" /></p>
+<h2 id="bitcode">Bitcode导致的编译问题</h2>
+<p>开启Bitcode编译后，可以使得开发者上传App时只需上传Intermediate Representation(中间件)，而非最终的可执行二进制文件。在用户下载App之前，AppStore会自动编译中间件，产生设备所需的执行文件供用户下载安装。<br />
+Xcode 7 会开启 Bitcode，如果项目中第三方库不包含bitcode,将会导致编译失败。</p>
+
+<p>解决办法：</p>
+
+<p><strong>1.更新第三方库使包含 Bitcode</strong></p>
+
+<p><strong>2.关闭Bitcode</strong><br />
+在Build Settings 中搜索bitcode 【记得选中ALL】将ENABLE_BITCODE 设置为NO<br />
+<img src="http://img.blog.csdn.net/20150921214049103" alt="这里写图片描述" /></p>
+
+<p><strong>目前我选择了第2种方法</strong><br />
+理由：代码中的第三方库中的.a文件不是bitcode的会导致编译出错，故目前选择第2种，等待第三方库的更新。</p>
+
+<h2 id="section-1">状态栏样式问题</h2>
+<p>如果你使用[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];的形式来设置状态栏样式，则运行的时候会出现以下警告。</p>
+
+<pre><code>&lt;Error&gt;: CGContextSaveGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+&lt;Error&gt;: CGContextTranslateCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+&lt;Error&gt;: CGContextRestoreGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+</code></pre>
+
+<p>原因：在info.plist里面设置了View controller-based status bar appearance为NO，默认为YES，该种方式兼容iOS6、iOS7、iOS8但是到了iOS9会报警告。</p>
+
+<p>解决办法：<br />
+1.将View controller-based status bar appearance设置为YES</p>
+
+<p>2.去除以下方式改变状态栏</p>
+
+<pre><code>[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+</code></pre>
+<p>3.使用新的改变状态栏方法<br />
+在自定义控制器里面添加如下方法:</p>
+
+<pre><code>-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+</code></pre>
+<p>4.clean 或者删除应用程序重新运行,验证结果。</p>
+
+<h2 id="section-2">白名单问题</h2>
+<p>运行程序的时候出现类似以下的警告，表示你没有添加白名单<br />
+error: “This app is not allowed to query for scheme mqqopensdkapiV2”</p>
+
+<p>解决办法：这里我推荐友盟的教程http://dev.umeng.com/social/ios/ios9</p>
 
 
                 <hr>
@@ -204,13 +275,12 @@
                 </style>
                 <div class="ds-share"
                     style="text-align: right"
-                    data-thread-key="/2015/10/26/为AppDelegate瘦身"
-                    data-title="为AppDelegate瘦身"
-                    data-url="http://catchzeng.com/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/"
+                    data-thread-key="/2015/10/26/iOS9适配问题"
+                    data-title="iOS9适配问题"
+                    data-url="http://catchzeng.com/2015/10/26/iOS9%E9%80%82%E9%85%8D%E9%97%AE%E9%A2%98/"
                     data-images="http://catchzeng.com/img/post-bg-2015.jpg"
                     data-content="前言
-
-项目开发了一段时间后，相信大家都会遇到AppDelegate中的didFinishLaunch函数不断增大带来的不便管理问题。在Java中我们常使... | CatchZeng的技术博客 | CatchZeng Blog " >
+最近升级到XCode7之后发现工程需要针对iOS9做一些适配，如下几点是我项目中遇到的适配问题，仅供大家参考如有问题欢迎加Q群157672725讨论... | CatchZeng的技术博客 | CatchZeng Blog " >
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
                         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -230,12 +300,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2015/10/26/iOS9%E9%80%82%E9%85%8D%E9%97%AE%E9%A2%98/" data-toggle="tooltip" data-placement="top" title="iOS9适配问题">&larr; Previous Post</a>
+                        <a href="/2015/10/26/Mac%E4%B8%8BMaven%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-toggle="tooltip" data-placement="top" title="Mac下Maven环境搭建">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2015/10/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC4%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第4期">Next Post &rarr;</a>
+                        <a href="/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/" data-toggle="tooltip" data-placement="top" title="为AppDelegate瘦身">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -245,9 +315,9 @@
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/2015/10/26/为AppDelegate瘦身"
-                        data-title="为AppDelegate瘦身"
-                        data-url="http://catchzeng.com/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/" >
+                        data-thread-key="/2015/10/26/iOS9适配问题"
+                        data-title="iOS9适配问题"
+                        data-url="http://catchzeng.com/2015/10/26/iOS9%E9%80%82%E9%85%8D%E9%97%AE%E9%A2%98/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->

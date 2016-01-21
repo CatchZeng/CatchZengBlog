@@ -1,0 +1,48 @@
+---
+layout:     post
+title:      "iOS开发见闻-第11期"
+subtitle:   "iOS开发见闻"
+date:       2015-12-19 11:08:55
+author:     "CatchZeng"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - iOS
+---
+
+## 文章
+1.[涅槃重生:我的技术转管理之路](http://blog.devtang.com/blog/2015/12/18/from-dev-to-manager/) :巧哥的涅槃重生，这篇虽不是技术文章，但深刻地描述了大神从技术走向管理的思考，值得细细品味。
+
+2.[Swift之 ? 和 ! ](http://joeyio.com/ios/2014/06/04/swift---/) ：这篇老文章对于Swift的初学者面对？和！的疑惑还是挺有帮助的。
+
+3.[搬家前](http://blog.ibireme.com/2015/12/17/move/) : 你一定很想知道ibireme的大神之路是怎么炼成的吧，看看他这次搬家带给我们那些好书。
+
+4.[iOS 事件处理机制与图像渲染过程 ](http://mp.weixin.qq.com/s?__biz=MzAwNDY1ODY2OQ==&mid=400417748&idx=1&sn=0c5f6747dd192c5a0eea32bb4650c160&scene=23&srcid=1219QBIWbUYXl3nXdxA4Rxaj#rd) ：作者从RunLoop、线程、事件响应、layer、cpu&gpu等到Facebook Pop、AsyncDisplay较为细致地讲解了事件处理机制与图像渲染过程，是篇不可多得的好文章。
+
+## 工具
+1.[想要打造极致的用户体验？用 AppSee](http://blog.zhowkev.in/2015/12/11/xiang-yao-da-zao-ji-zhi-de-yong-hu-ti-yan-yong-appsee/) ：这篇貌似是产品经理看的，但如果你用一颗产品经理的心去做事将会让你从另外一个维度认识你、提高你。
+![AppSee](http://blog.zhowkev.in/content/images/2015/12/-----2015-12-11---3-56-09.png)
+
+![AppSee](http://blog.zhowkev.in/content/images/2015/12/-----2015-12-11---4-02-18.png)
+
+2.[ZLXCodeLine](https://github.com/MakeZL/ZLXCodeLine) : 一款查看代码行数/记录排行榜的插件。
+![ZLXCodeLine](https://github.com/MakeZL/ZLXCodeLine/raw/master/screenhost5.gif)
+
+3.[xTransCodelation](https://github.com/804145113/xTransCodelation) : 中英文翻译插件，提供API查询模式和网页模式，利用有道SDK翻译和百度网页翻译。另外集成了一个可以一键关闭其他所有APP的实用功能，方便开发者，CTO再也不怕我是个英文盲。
+![xTransCodelation](https://camo.githubusercontent.com/890d4f23396fabdfec0cc30f422ecffbca735be0/687474703a2f2f69312e74696574756b752e636f6d2f303235303231383561653136303532392e676966)
+
+
+## 开源
+1.[CKWaveCollectionViewTransition](https://github.com/CezaryKopacz/CKWaveCollectionViewTransition)：是一款可以在两个或更多的 UICollectionViewControllers 中自定义切换动画的库。
+![CKWaveCollectionViewTransition](https://raw.githubusercontent.com/CezaryKopacz/CKWaveCollectionViewTransition/master/anim.gif)
+
+
+2.[SmileWeather](https://github.com/liu044100/SmileWeather) ：一个较为完整的天气应用。
+![SmileWeather](https://github.com/liu044100/SmileWeather/raw/master/SmileWeather-Example/demo_gif/new_pro.jpg) 
+![SmileWeather](https://raw.githubusercontent.com/liu044100/SmileWeather/master/SmileWeather-Example/demo_gif/localization.png)  
+
+3.[KRVideoPlayer](https://github.com/36Kr-Mobile/KRVideoPlayer) : 来至36Kr类似Weico的播放器，支持竖屏模式下全屏播放。![KRVideoPlayer](https://github.com/36Kr-Mobile/KRVideoPlayer/raw/master/kr_player.gif) 
+
+4.[Objective-LevelDB](https://github.com/matehat/Objective-LevelDB) : Uber开源的轻量级KV数据库框架。
+![Objective-LevelDB](https://leanote.com/api/file/getImage?fileId=5674c89dab64416467003713)
+
+----------

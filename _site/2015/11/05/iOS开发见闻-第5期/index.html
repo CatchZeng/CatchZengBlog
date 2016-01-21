@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>为AppDelegate瘦身 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>iOS开发见闻-第5期 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/">
+    <link rel="canonical" href="http://catchzeng.com/2015/11/05/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC5%E6%9C%9F/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -143,12 +143,12 @@
                         <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
                         
                     </div>
-                    <h1>为AppDelegate瘦身</h1>
+                    <h1>iOS开发见闻-第5期</h1>
                     
                     
-                    <h2 class="subheading">runtime&load</h2>
+                    <h2 class="subheading">iOS开发见闻</h2>
                     
-                    <span class="meta">Posted by CatchZeng on October 26, 2015</span>
+                    <span class="meta">Posted by CatchZeng on November 5, 2015</span>
                 </div>
             </div>
         </div>
@@ -166,35 +166,38 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h2 id="section">前言</h2>
+				<h2 id="section">文章</h2>
+<p>1.<a href="http://blog.devtang.com/blog/2015/11/02/mvc-and-mvvm/">被误解的 MVC 和被神化的 MVVM </a> :如果你徘徊在MVC与MVVM中（特别是要不要使用ReactiveCocoa），那还是先看看巧哥这篇文章吧。<br />
+<img src="http://blog.devtang.com/images/mvc-and-mvvm.jpg" alt="图片标题" /></p>
 
-<p>项目开发了一段时间后，相信大家都会遇到AppDelegate中的didFinishLaunch函数不断增大带来的不便管理问题。在Java中我们常使用JVM的ClassLoader对类进行加载、连接、初始化等操作，在oc中对应的就是load和initialize。</p>
+<p>2.<a href="http://www.jianshu.com/p/f9bd0404d901#">iOS9 每日学习 </a> ：正在学习iOS9的朋友不要错过Nathan_Bao的每日学习。</p>
 
-<h2 id="section-1">瘦身</h2>
-<p>load和initialize在使用中需要注意的点：</p>
+<p>3.<a href="http://www.cocoachina.com/swift/20150906/13327.html">你会用swift创建复杂的加载动画吗</a> : 本文讲述了swift的复杂加载动画实现过程，喜欢的就mark一下吧。<br />
+  <img src="http://cc.cocimg.com/api/uploads/20150906/1441502204116572.gif" alt="图片标题" /></p>
 
-<ul>
-  <li>系统最多会调用一次（除非开发者主动调用）</li>
-  <li>都能为程序初始化一些数据，创造适合的运行环境</li>
-  <li>父类调用一定在子类之前</li>
-  <li>由下图文档可知，<strong>load是只要类或者category被加入runtime便会被调用</strong>，而initialize是在类或者其子类的第一个方法被调用前调用。<br />
-<img src="http://img.blog.csdn.net/20151024085728124" alt="这里写图片描述" /></li>
-</ul>
+<p>4.<a href="http://ios.jobbole.com/82829/">初识 iOS9 iPad 新特性 SlideView 及其的适配</a>：iOS9在iPad上新增了两个新的特性SlideView和SplitView，SlideView可以在不关闭当前激活APP的情况下调出来另外个APP以30%比例显示进行操作使用，喜欢此特性的朋友快看看怎么实现的吧。</p>
 
-<p>我们可以利用<strong>load是只要类或者category被加入runtime便会被调用</strong>这个特性，来为AppDelegate瘦身：<br />
-<img src="http://img.blog.csdn.net/20151024092327331" alt="这里写图片描述" /></p>
+<h2 id="section-1">工具</h2>
+
+<p>1.<a href="https://github.com/AFNetworking/AFNetworkActivityLogger">AFNetworkActivityLogger</a> ：为AFN提供了一个log的管理，方便调试，使用AFN的朋友可以试试。</p>
+
+<p>2.<a href="https://github.com/johnno1962/Xtrace">Xtrace</a> : 比TRACE更为强大的DEBUG输出工具，只需要给自己的工程添加一点代码，就可以把TRACE信息定位到客户端上哦，方便排查错误！<br />
+<img src="https://camo.githubusercontent.com/c5b766f2e9646f5b909ac4e8d63cca6d4f2ff7fd/687474703a2f2f696e6a656374696f6e666f7278636f64652e6a6f686e686f6c6473776f7274682e636f6d2f787472616365632e706e673f666c7573683d32" alt="这里写图片描述" /></p>
+
+<p>3.<a href="http://thermal-core.com/CoreDataEditor/">CoreDataEditor</a> : 一个可以查看和编辑CoreData数据库的工具。<br />
+<img src="http://thermal-core.com/img/cde/screenshot_main_cut.png" alt="这里写图片描述" /></p>
+
+<h2 id="section-2">开源</h2>
+<p>1.<a href="https://github.com/pkluz/PKRevealController">PKRevealController</a> : PKRevealController由ZUUIRevealController改进而来，是一个简单、漂亮的开源库。实现了Facebook iOS客户端左右两边侧边菜单栏的效果。<br />
+<img src="https://camo.githubusercontent.com/0fb9edaace4d7ccbf34aeeae691dff0b3423fe03/687474703a2f2f696d6733342e696d616765736861636b2e75732f696d6733342f313435362f686e73312e706e67" alt="这里写图片描述" /></p>
+
+<p>2.<a href="https://github.com/JakeLin/SwiftWeather">SwiftWeather</a> ：Swif语言写的一个天气预报小Demo，界面效果不错。<br />
+作者说：通过做这个app，初步熟悉Swift的语法，学习怎样在Swift项目中使用cocoapods，怎样调用Objective C代码，怎样用Core Location，怎样用AFNetworking，初步了解Size Classes。<br />
+<img src="https://raw.githubusercontent.com/JakeLin/SwiftWeather/master/screenshots/SketchDesign.png" alt="这里写图片描述" /></p>
+
+<p>3.<a href="https://github.com/yapstudios/YapDatabase">YapDatabase</a> : yapdatabse是建立在sqlite数据库上的一层访问层，它相当于是在sqlite上封装了一层，对于用户来说，看起来就是直接用key-value方式存储、获取数据，很方便。</p>
 
 <hr />
-
-<h2 id="section-2">题外</h2>
-<p>1.搜索一下自己的项目，可以发现某些第三方库也是利用load方法来实现<strong>自动运行</strong>(如：IQKeyboardManager)。<br />
-<img src="http://img.blog.csdn.net/20151024093003486" alt="这里写图片描述" /></p>
-
-<p><img src="http://img.blog.csdn.net/20151024093137407" alt="这里写图片描述" /></p>
-
-<p>2.由于<strong>系统最多会调用一次（除非开发者主动调用）</strong>，为了防止主动调用，可以在load方法中加上dispatch_once</p>
-
-<p><img src="http://img.blog.csdn.net/20151024093529899" alt="这里写图片描述" /></p>
 
 
                 <hr>
@@ -204,13 +207,12 @@
                 </style>
                 <div class="ds-share"
                     style="text-align: right"
-                    data-thread-key="/2015/10/26/为AppDelegate瘦身"
-                    data-title="为AppDelegate瘦身"
-                    data-url="http://catchzeng.com/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/"
+                    data-thread-key="/2015/11/05/iOS开发见闻-第5期"
+                    data-title="iOS开发见闻-第5期"
+                    data-url="http://catchzeng.com/2015/11/05/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC5%E6%9C%9F/"
                     data-images="http://catchzeng.com/img/post-bg-2015.jpg"
-                    data-content="前言
-
-项目开发了一段时间后，相信大家都会遇到AppDelegate中的didFinishLaunch函数不断增大带来的不便管理问题。在Java中我们常使... | CatchZeng的技术博客 | CatchZeng Blog " >
+                    data-content="文章
+1.被误解的 MVC 和被神化的 MVVM  :如果你徘徊在MVC与MVVM中（特别是要不要使用ReactiveCocoa），那还是先看看巧哥这篇文... | CatchZeng的技术博客 | CatchZeng Blog " >
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
                         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -230,12 +232,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2015/10/26/iOS9%E9%80%82%E9%85%8D%E9%97%AE%E9%A2%98/" data-toggle="tooltip" data-placement="top" title="iOS9适配问题">&larr; Previous Post</a>
+                        <a href="/2015/10/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC4%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第4期">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2015/10/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC4%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第4期">Next Post &rarr;</a>
+                        <a href="/2015/11/12/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC6%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第6期">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -245,9 +247,9 @@
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/2015/10/26/为AppDelegate瘦身"
-                        data-title="为AppDelegate瘦身"
-                        data-url="http://catchzeng.com/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/" >
+                        data-thread-key="/2015/11/05/iOS开发见闻-第5期"
+                        data-title="iOS开发见闻-第5期"
+                        data-url="http://catchzeng.com/2015/11/05/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC5%E6%9C%9F/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->

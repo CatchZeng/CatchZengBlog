@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>为AppDelegate瘦身 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>Mac OS X 10.11升级带来的 cocoapods问题 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/">
+    <link rel="canonical" href="http://catchzeng.com/2015/10/26/Mac-OS-X-10.11%E5%8D%87%E7%BA%A7%E5%B8%A6%E6%9D%A5%E7%9A%84-cocoapods%E9%97%AE%E9%A2%98/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -143,10 +143,10 @@
                         <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
                         
                     </div>
-                    <h1>为AppDelegate瘦身</h1>
+                    <h1>Mac OS X 10.11升级带来的 cocoapods问题</h1>
                     
                     
-                    <h2 class="subheading">runtime&load</h2>
+                    <h2 class="subheading">cocoapods</h2>
                     
                     <span class="meta">Posted by CatchZeng on October 26, 2015</span>
                 </div>
@@ -167,34 +167,45 @@
                 post-container">
 
 				<h2 id="section">前言</h2>
+<p>昨天升级完Mac OS X 10.11，发现cocoapods不能用了。<br />
+后面用以下命令解决了，在此记录希望能帮到需要的朋友。<br />
+<strong>如在执行以下命令时出现问题，请看更新部分</strong><br />
+<code>
+sudo chmod -R 755 /usr/local/bin
+sudo gem uninstall cocoapods
+sudo gem install -n /usr/local/bin cocoapods
+sudo xcode-select -switch /Applications/Xcode.app/
+</code></p>
 
-<p>项目开发了一段时间后，相信大家都会遇到AppDelegate中的didFinishLaunch函数不断增大带来的不便管理问题。在Java中我们常使用JVM的ClassLoader对类进行加载、连接、初始化等操作，在oc中对应的就是load和initialize。</p>
+<h2 id="section-1">更新</h2>
+<p>昨天又升级了一下自己的笔记本,发现了其他问题，整理如下。</p>
 
-<h2 id="section-1">瘦身</h2>
-<p>load和initialize在使用中需要注意的点：</p>
+<p><strong>1.执行sudo chmod -R 755 /usr/local/bin时出现没有该路径的问题</strong><br />
+<img src="http://img.blog.csdn.net/20151016090830621" alt="这里写图片描述" /><br />
+<strong>解决办法：在/usr/local/ 创建bin文件夹</strong><br />
+<img src="http://img.blog.csdn.net/20151016090937267" alt="这里写图片描述" /></p>
 
-<ul>
-  <li>系统最多会调用一次（除非开发者主动调用）</li>
-  <li>都能为程序初始化一些数据，创造适合的运行环境</li>
-  <li>父类调用一定在子类之前</li>
-  <li>由下图文档可知，<strong>load是只要类或者category被加入runtime便会被调用</strong>，而initialize是在类或者其子类的第一个方法被调用前调用。<br />
-<img src="http://img.blog.csdn.net/20151024085728124" alt="这里写图片描述" /></li>
-</ul>
+<p><strong>2.执行gem install -n /usr/local/bin cocoapods时出现以下错误</strong><br />
+<img src="http://img.blog.csdn.net/20151016091828609" alt="这里写图片描述" /><br />
+<strong>解决办法:</strong> 添加http://rubygems.org/源地址<br />
+<code>
+gem sources -a http://rubygems.org/
+</code><br />
+<strong>3.再次执行gem install -n /usr/local/bin cocoapods，出现权限问题</strong><br />
+解决办法:赋予权限<br />
+<code>
+sudo chmod -R 777 /Library/Ruby/Gems/2.0.0/
+sudo chmod -R 777 /usr/local/bin/
+</code><br />
+<strong>4.继续执行gem install -n /usr/local/bin cocoapods，安装成功！</strong><br />
+<img src="http://img.blog.csdn.net/20151016092817880" alt="这里写图片描述" /></p>
 
-<p>我们可以利用<strong>load是只要类或者category被加入runtime便会被调用</strong>这个特性，来为AppDelegate瘦身：<br />
-<img src="http://img.blog.csdn.net/20151024092327331" alt="这里写图片描述" /></p>
+<p><strong>5.pod –version 检验，出现warning信息</strong><br />
+<img src="http://img.blog.csdn.net/20151016092858432" alt="这里写图片描述" /><br />
+<strong>解决办法: 此warning是因为我们刚才的权限赋值777的问题，完成安装后赋回755可去除warning。</strong><br />
+<img src="http://img.blog.csdn.net/20151016093443798" alt="这里写图片描述" /></p>
 
-<hr />
-
-<h2 id="section-2">题外</h2>
-<p>1.搜索一下自己的项目，可以发现某些第三方库也是利用load方法来实现<strong>自动运行</strong>(如：IQKeyboardManager)。<br />
-<img src="http://img.blog.csdn.net/20151024093003486" alt="这里写图片描述" /></p>
-
-<p><img src="http://img.blog.csdn.net/20151024093137407" alt="这里写图片描述" /></p>
-
-<p>2.由于<strong>系统最多会调用一次（除非开发者主动调用）</strong>，为了防止主动调用，可以在load方法中加上dispatch_once</p>
-
-<p><img src="http://img.blog.csdn.net/20151024093529899" alt="这里写图片描述" /></p>
+<p><img src="http://img.blog.csdn.net/20151015160729240" alt="这里写图片描述" /></p>
 
 
                 <hr>
@@ -204,13 +215,14 @@
                 </style>
                 <div class="ds-share"
                     style="text-align: right"
-                    data-thread-key="/2015/10/26/为AppDelegate瘦身"
-                    data-title="为AppDelegate瘦身"
-                    data-url="http://catchzeng.com/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/"
+                    data-thread-key="/2015/10/26/Mac OS X 10.11升级带来的 cocoapods问题"
+                    data-title="Mac OS X 10.11升级带来的 cocoapods问题"
+                    data-url="http://catchzeng.com/2015/10/26/Mac-OS-X-10.11%E5%8D%87%E7%BA%A7%E5%B8%A6%E6%9D%A5%E7%9A%84-cocoapods%E9%97%AE%E9%A2%98/"
                     data-images="http://catchzeng.com/img/post-bg-2015.jpg"
                     data-content="前言
-
-项目开发了一段时间后，相信大家都会遇到AppDelegate中的didFinishLaunch函数不断增大带来的不便管理问题。在Java中我们常使... | CatchZeng的技术博客 | CatchZeng Blog " >
+昨天升级完Mac OS X 10.11，发现cocoapods不能用了。
+后面用以下命令解决了，在此记录希望能帮到需要的朋友。
+如在执行以下命令时出... | CatchZeng的技术博客 | CatchZeng Blog " >
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
                         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -230,12 +242,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2015/10/26/iOS9%E9%80%82%E9%85%8D%E9%97%AE%E9%A2%98/" data-toggle="tooltip" data-placement="top" title="iOS9适配问题">&larr; Previous Post</a>
+                        <a href="/2015/10/26/%E5%B1%8F%E5%B9%95%E9%80%82%E9%85%8D%E4%B9%8BSize-Classes/" data-toggle="tooltip" data-placement="top" title="屏幕适配之Size Classes">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2015/10/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC4%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第4期">Next Post &rarr;</a>
+                        <a href="/2015/10/26/Mac%E4%B8%8BMaven%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-toggle="tooltip" data-placement="top" title="Mac下Maven环境搭建">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -245,9 +257,9 @@
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/2015/10/26/为AppDelegate瘦身"
-                        data-title="为AppDelegate瘦身"
-                        data-url="http://catchzeng.com/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/" >
+                        data-thread-key="/2015/10/26/Mac OS X 10.11升级带来的 cocoapods问题"
+                        data-title="Mac OS X 10.11升级带来的 cocoapods问题"
+                        data-url="http://catchzeng.com/2015/10/26/Mac-OS-X-10.11%E5%8D%87%E7%BA%A7%E5%B8%A6%E6%9D%A5%E7%9A%84-cocoapods%E9%97%AE%E9%A2%98/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
