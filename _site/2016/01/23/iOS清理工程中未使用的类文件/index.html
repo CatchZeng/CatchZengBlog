@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>iOS开发见闻-第7期 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>iOS清理工程中未使用的类文件 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/2015/11/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC7%E6%9C%9F/">
+    <link rel="canonical" href="http://catchzeng.com/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -143,12 +143,12 @@
                         <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
                         
                     </div>
-                    <h1>iOS开发见闻-第7期</h1>
+                    <h1>iOS清理工程中未使用的类文件</h1>
                     
                     
                     <h2 class="subheading">iOS开发见闻</h2>
                     
-                    <span class="meta">Posted by CatchZeng on November 19, 2015</span>
+                    <span class="meta">Posted by CatchZeng on January 23, 2016</span>
                 </div>
             </div>
         </div>
@@ -170,36 +170,35 @@
 阅读<span id="busuanzi_value_page_pv"></span>
 </span></p>
 
-<h2 id="section">文章</h2>
-<p>1.<a href="http://www.cocoachina.com/ios/20151113/14207.html">让我们来搞崩 Cocoa 吧  </a> :有时候搞崩程序比编写它们更有趣，看看作者怎么整跨oc吧。</p>
+<h2 id="section">前言</h2>
+<p>随着团队人数增多，工程的复杂度提高，工程文件数变得相当多，清理工程变得越来越复杂。于是，闲暇时写了一个清理工程中未使用的类文件工具。由于工程为oc代码，所以工具只适用于oc创建的工程。工具测试时间短、用例少难免有不足的地方，有兴趣的朋友<strong>使用前记得备份工程</strong>!<br />
+工具地址:<a href="https://github.com/CatchZeng/CATClearProjectTool">CATClearProjectTool</a>, 欢迎star、fork、issue。</p>
 
-<p>2.<a href="http://www.jianshu.com/p/37ab8f336f76">Core Data: 多线程大量数据同步</a> ：作者看到一个面试题后，整理的一篇关于core data 在多线程中处理大数据的注意事项的文章，总结得很好。</p>
+<h2 id="section-1">效果</h2>
+<p>1.下图为测试工程结构：包含AppDelegate、ViewController、CATUsedClass、CATUsedClass2、CATUnUsedCLass以及test文件。其中test文件和CATUnUsedCLass未在工程中使用过。<br />
+<img src="https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/0.png" alt="测试工程结构" /></p>
 
-<p>3.<a href="http://studentdeng.github.io/blog/2014/08/29/ios-architecture/">iOS APP 架构漫谈</a> : 文章虽然不是最近的，但是“不会开机的男孩”的文章总是让人读起来受益匪浅，另外还有他的第二篇<a href="http://studentdeng.github.io/blog/2014/11/05/ios-architecture2/">iOS APP 架构漫谈二</a>。</p>
+<p>2.将测试工程的.xcodeproj拖拽到工具中。<br />
+<img src="https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/1.png" alt="拖拽工程到工具" /></p>
 
-<h2 id="section-1">工具</h2>
-<p>1.<a href="http://www.jianshu.com/p/90d6cd355b14">iOS使用Quartzcode设计动画，快速得到Object-C 和 Swift 代码</a> ：QuartzCode 是一个快速的、 轻量级的、 强大的动画工具，转换矢量绘图和动画到Object C 和 Swift 代码。<br />
-我们只需更改属性 ，还可以可以循环在几秒钟内，实时看到动画的变化。减少了在 Xcode 创建动画的障碍 ！<br />
-<img src="http://leanote.com/api/file/getImage?fileId=564d2a6dab6441711100039a" alt="图片标题" /><br />
-<img src="http://leanote.com/api/file/getImage?fileId=564d2a81ab6441711100039b" alt="图片标题" /></p>
+<p>3.点击search按钮，文本框将列出所有未被使用的类文件。<br />
+<img src="https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/2.png" alt="搜索结果" /></p>
 
-<p>2.<a href="https://github.com/tapwork/HeapInspector-for-iOS">HeapInspector</a> : 内存泄露永远的恨啊！不过当内存泄露遇到HeapInspector也是不一般的体验。快用HeapInspector来检测你的app是否有内存泄露吧。<br />
-<img src="https://github.com/tapwork/HeapInspector-for-iOS/raw/master/README_Xtras/screencast.gif" alt="这里写图片描述" /></p>
+<p>4.点击click按钮，文本框将显示成功清理的类文件列表。<br />
+<img src="https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/3.png" alt="清理后的结果" /></p>
 
-<p>3.<a href="https://github.com/RuiAAPeres/UIViewController-Swizzled">UIViewController-Swizzled</a> : 把你进入的每一个controller的类名打出来,如果看一些特别复杂的项目的时候直接运行demo就可以知道执行次序了。<br />
-<img src="http://leanote.com/api/file/getImage?fileId=564c7d43ab644165680020a3" alt="图片标题" /></p>
+<p>5.再次打开工程，能看到已成功清理未使用的类文件【注：工程中默认过滤掉AppDelegate,ViewController,main三个类文件的删除】<br />
+<img src="https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/4.png" alt="" /></p>
 
-<h2 id="section-2">开源</h2>
-<p>1.<a href="https://github.com/bang590/JSPatch">JSPatch – 动态更新iOS APP</a>：JSPatch是作者业余做的项目，目的是动态更新APP，替换项目原生代码修复bug，免去发布版本的麻烦。</p>
+<p>6.你也可以加入过滤，如下图过滤掉CATUnUsedCLass，则即使它在工程中未使用过也不会将它删除（多个过滤文件，使用逗号隔开）。<br />
+<img src="https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/5.png" alt="加入过滤" /></p>
 
-<p>2.<a href="https://github.com/xhzengAIB/MessageDisplayKit">MessageDisplayKit</a> ：一个类似微信App的IM应用，拥有发送文字、图片、语音、视频、地理位置消息，管理本地通信录、分享朋友圈、漂流交友、摇一摇和更多有趣的功能。(在此感谢Q群里的大神“飞鸽传书”推荐此开源项目)<br />
-<img src="https://github.com/xhzengAIB/LearnEnglish/raw/master/Screenshots/MessageDisplayKit.gif" alt="这里写图片描述" /></p>
+<p>7.加过滤后清理的结果<br />
+<img src="https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/6.png" alt="加过滤后清理的结果" /><br />
+<img src="https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/7.png" alt="清理后的工程结构" /></p>
 
-<p>3.<a href="https://github.com/DaidoujiChen/CocoaChinaPlus">CocoaChinaPlus</a> :CocoaChina+是一款开源的第三方CocoaChina移动端。整个App都用Swift2.0编写(除部分第三方OC代码外，比如JPush和友盟)。<br />
-<img src="https://camo.githubusercontent.com/36e5be49cbce600c29999516df07a6027bdaa787/687474703a2f2f7a6978756e2e6769746875622e696f2f696d616765732f637573746f6d2f76656e6465722f686f6d655f636f636f616368696e612e6a7067" alt="图片标题" /><img src="https://camo.githubusercontent.com/4808b55a0789e9329bf0d960ec17419f103bde48/687474703a2f2f7a6978756e2e6769746875622e696f2f696d616765732f637573746f6d2f76656e6465722f61727469636c655f636f636f616368696e612e6a7067" alt="图片标题" /></p>
-
-<hr />
-
+<h2 id="section-2">工具的原理</h2>
+<p>读取project文件中的文件组织信息，找到工程中所有的类，然后遍历所有类文件的#import情况,找出未使用的类文件删除，并删除project文件中未使用文件的记录数据。</p>
 
 
                 <hr>
@@ -209,18 +208,16 @@
                 </style>
                 <div class="ds-share"
                     style="text-align: right"
-                    data-thread-key="/2015/11/19/iOS开发见闻-第7期"
-                    data-title="iOS开发见闻-第7期"
-                    data-url="http://catchzeng.com/2015/11/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC7%E6%9C%9F/"
+                    data-thread-key="/2016/01/23/iOS清理工程中未使用的类文件"
+                    data-title="iOS清理工程中未使用的类文件"
+                    data-url="http://catchzeng.com/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6/"
                     data-images="http://catchzeng.com/img/post-bg-2015.jpg"
                     data-content="
 阅读
 
 
-文章
-1.让我们来搞崩 Cocoa 吧   :有时候搞崩程序比编写它们更有趣，看看作者怎么整跨oc吧。
-
-2.Core Data: 多线程大量... | CatchZeng的技术博客 | CatchZeng Blog " >
+前言
+随着团队人数增多，工程的复杂度提高，工程文件数变得相当多，清理工程变得越来越复杂。于是，闲暇时写了一个清理工程中未使用的类文件工具。由于... | CatchZeng的技术博客 | CatchZeng Blog " >
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
                         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -240,13 +237,9 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2015/11/15/IntelliJ-IDEA-Spring-MVC%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-toggle="tooltip" data-placement="top" title="IntelliJ IDEA Spring MVC环境搭建">&larr; Previous Post</a>
+                        <a href="/2016/01/07/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC12%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第12期">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2015/11/24/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC8%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第8期">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
@@ -255,9 +248,9 @@
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/2015/11/19/iOS开发见闻-第7期"
-                        data-title="iOS开发见闻-第7期"
-                        data-url="http://catchzeng.com/2015/11/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC7%E6%9C%9F/" >
+                        data-thread-key="/2016/01/23/iOS清理工程中未使用的类文件"
+                        data-title="iOS清理工程中未使用的类文件"
+                        data-url="http://catchzeng.com/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->

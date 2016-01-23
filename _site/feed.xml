@@ -5,9 +5,54 @@
     <description></description>
     <link>http://catchzeng.com/</link>
     <atom:link href="http://catchzeng.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 23 Jan 2016 15:45:05 +0800</pubDate>
-    <lastBuildDate>Sat, 23 Jan 2016 15:45:05 +0800</lastBuildDate>
+    <pubDate>Sat, 23 Jan 2016 17:45:00 +0800</pubDate>
+    <lastBuildDate>Sat, 23 Jan 2016 17:45:00 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>iOS清理工程中未使用的类文件</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;前言&lt;/h2&gt;
+&lt;p&gt;随着团队人数增多，工程的复杂度提高，工程文件数变得相当多，清理工程变得越来越复杂。于是，闲暇时写了一个清理工程中未使用的类文件工具。由于工程为oc代码，所以工具只适用于oc创建的工程。工具测试时间短、用例少难免有不足的地方，有兴趣的朋友&lt;strong&gt;使用前记得备份工程&lt;/strong&gt;!&lt;br /&gt;
+工具地址:&lt;a href=&quot;https://github.com/CatchZeng/CATClearProjectTool&quot;&gt;CATClearProjectTool&lt;/a&gt;, 欢迎star、fork、issue。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;效果&lt;/h2&gt;
+&lt;p&gt;1.下图为测试工程结构：包含AppDelegate、ViewController、CATUsedClass、CATUsedClass2、CATUnUsedCLass以及test文件。其中test文件和CATUnUsedCLass未在工程中使用过。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/0.png&quot; alt=&quot;测试工程结构&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.将测试工程的.xcodeproj拖拽到工具中。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/1.png&quot; alt=&quot;拖拽工程到工具&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.点击search按钮，文本框将列出所有未被使用的类文件。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/2.png&quot; alt=&quot;搜索结果&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.点击click按钮，文本框将显示成功清理的类文件列表。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/3.png&quot; alt=&quot;清理后的结果&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;5.再次打开工程，能看到已成功清理未使用的类文件【注：工程中默认过滤掉AppDelegate,ViewController,main三个类文件的删除】&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;6.你也可以加入过滤，如下图过滤掉CATUnUsedCLass，则即使它在工程中未使用过也不会将它删除（多个过滤文件，使用逗号隔开）。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/5.png&quot; alt=&quot;加入过滤&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;7.加过滤后清理的结果&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/6.png&quot; alt=&quot;加过滤后清理的结果&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/7.png&quot; alt=&quot;清理后的工程结构&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;工具的原理&lt;/h2&gt;
+&lt;p&gt;读取project文件中的文件组织信息，找到工程中所有的类，然后遍历所有类文件的#import情况,找出未使用的类文件删除，并删除project文件中未使用文件的记录数据。&lt;/p&gt;
+</description>
+        <pubDate>Sat, 23 Jan 2016 17:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
     
       <item>
         <title>iOS开发见闻-第12期</title>
@@ -509,54 +554,6 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
         <pubDate>Thu, 12 Nov 2015 06:21:05 +0800</pubDate>
         <link>http://catchzeng.com/2015/11/12/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC6%E6%9C%9F/</link>
         <guid isPermaLink="true">http://catchzeng.com/2015/11/12/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC6%E6%9C%9F/</guid>
-        
-        <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>iOS开发见闻-第5期</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
-阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;http://blog.devtang.com/blog/2015/11/02/mvc-and-mvvm/&quot;&gt;被误解的 MVC 和被神化的 MVVM &lt;/a&gt; :如果你徘徊在MVC与MVVM中（特别是要不要使用ReactiveCocoa），那还是先看看巧哥这篇文章吧。&lt;br /&gt;
-&lt;img src=&quot;http://blog.devtang.com/images/mvc-and-mvvm.jpg&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;http://www.jianshu.com/p/f9bd0404d901#&quot;&gt;iOS9 每日学习 &lt;/a&gt; ：正在学习iOS9的朋友不要错过Nathan_Bao的每日学习。&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;http://www.cocoachina.com/swift/20150906/13327.html&quot;&gt;你会用swift创建复杂的加载动画吗&lt;/a&gt; : 本文讲述了swift的复杂加载动画实现过程，喜欢的就mark一下吧。&lt;br /&gt;
-  &lt;img src=&quot;http://cc.cocimg.com/api/uploads/20150906/1441502204116572.gif&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;4.&lt;a href=&quot;http://ios.jobbole.com/82829/&quot;&gt;初识 iOS9 iPad 新特性 SlideView 及其的适配&lt;/a&gt;：iOS9在iPad上新增了两个新的特性SlideView和SplitView，SlideView可以在不关闭当前激活APP的情况下调出来另外个APP以30%比例显示进行操作使用，喜欢此特性的朋友快看看怎么实现的吧。&lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
-
-&lt;p&gt;1.&lt;a href=&quot;https://github.com/AFNetworking/AFNetworkActivityLogger&quot;&gt;AFNetworkActivityLogger&lt;/a&gt; ：为AFN提供了一个log的管理，方便调试，使用AFN的朋友可以试试。&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/johnno1962/Xtrace&quot;&gt;Xtrace&lt;/a&gt; : 比TRACE更为强大的DEBUG输出工具，只需要给自己的工程添加一点代码，就可以把TRACE信息定位到客户端上哦，方便排查错误！&lt;br /&gt;
-&lt;img src=&quot;https://camo.githubusercontent.com/c5b766f2e9646f5b909ac4e8d63cca6d4f2ff7fd/687474703a2f2f696e6a656374696f6e666f7278636f64652e6a6f686e686f6c6473776f7274682e636f6d2f787472616365632e706e673f666c7573683d32&quot; alt=&quot;这里写图片描述&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;http://thermal-core.com/CoreDataEditor/&quot;&gt;CoreDataEditor&lt;/a&gt; : 一个可以查看和编辑CoreData数据库的工具。&lt;br /&gt;
-&lt;img src=&quot;http://thermal-core.com/img/cde/screenshot_main_cut.png&quot; alt=&quot;这里写图片描述&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;https://github.com/pkluz/PKRevealController&quot;&gt;PKRevealController&lt;/a&gt; : PKRevealController由ZUUIRevealController改进而来，是一个简单、漂亮的开源库。实现了Facebook iOS客户端左右两边侧边菜单栏的效果。&lt;br /&gt;
-&lt;img src=&quot;https://camo.githubusercontent.com/0fb9edaace4d7ccbf34aeeae691dff0b3423fe03/687474703a2f2f696d6733342e696d616765736861636b2e75732f696d6733342f313435362f686e73312e706e67&quot; alt=&quot;这里写图片描述&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/JakeLin/SwiftWeather&quot;&gt;SwiftWeather&lt;/a&gt; ：Swif语言写的一个天气预报小Demo，界面效果不错。&lt;br /&gt;
-作者说：通过做这个app，初步熟悉Swift的语法，学习怎样在Swift项目中使用cocoapods，怎样调用Objective C代码，怎样用Core Location，怎样用AFNetworking，初步了解Size Classes。&lt;br /&gt;
-&lt;img src=&quot;https://raw.githubusercontent.com/JakeLin/SwiftWeather/master/screenshots/SketchDesign.png&quot; alt=&quot;这里写图片描述&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;https://github.com/yapstudios/YapDatabase&quot;&gt;YapDatabase&lt;/a&gt; : yapdatabse是建立在sqlite数据库上的一层访问层，它相当于是在sqlite上封装了一层，对于用户来说，看起来就是直接用key-value方式存储、获取数据，很方便。&lt;/p&gt;
-
-&lt;hr /&gt;
-</description>
-        <pubDate>Thu, 05 Nov 2015 10:06:39 +0800</pubDate>
-        <link>http://catchzeng.com/2015/11/05/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC5%E6%9C%9F/</link>
-        <guid isPermaLink="true">http://catchzeng.com/2015/11/05/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC5%E6%9C%9F/</guid>
         
         <category>iOS</category>
         
