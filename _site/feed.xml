@@ -5,12 +5,12 @@
     <description></description>
     <link>http://catchzeng.com/</link>
     <atom:link href="http://catchzeng.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 23 Jan 2016 17:45:00 +0800</pubDate>
-    <lastBuildDate>Sat, 23 Jan 2016 17:45:00 +0800</lastBuildDate>
+    <pubDate>Sat, 23 Jan 2016 18:02:55 +0800</pubDate>
+    <lastBuildDate>Sat, 23 Jan 2016 18:02:55 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
     
       <item>
-        <title>iOS清理工程中未使用的类文件</title>
+        <title>iOS清理工程中未使用的类文件工具</title>
         <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
 阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/p&gt;
@@ -46,8 +46,8 @@
 &lt;p&gt;读取project文件中的文件组织信息，找到工程中所有的类，然后遍历所有类文件的#import情况,找出未使用的类文件删除，并删除project文件中未使用文件的记录数据。&lt;/p&gt;
 </description>
         <pubDate>Sat, 23 Jan 2016 17:38:27 +0800</pubDate>
-        <link>http://catchzeng.com/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6/</link>
-        <guid isPermaLink="true">http://catchzeng.com/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6/</guid>
+        <link>http://catchzeng.com/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6%E5%B7%A5%E5%85%B7/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6%E5%B7%A5%E5%85%B7/</guid>
         
         <category>iOS</category>
         
