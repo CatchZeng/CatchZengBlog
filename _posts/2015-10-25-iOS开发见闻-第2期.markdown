@@ -8,6 +8,9 @@ header-img: "img/post-bg-2015.jpg"
 tags:
     - iOS
 ---
+<span id="busuanzi_container_page_pv">
+阅读<span id="busuanzi_value_page_pv"></span>
+</span>
 
 ## 文章
 1.[iOS代码实践总结 ](http://blog.csdn.net/colorapp/article/details/48597267) : 作者以自身在项目重构中的经历总结了许多宝贵的经验，其内容包含了UI、语法、设计模式、架构等方面值得一看。

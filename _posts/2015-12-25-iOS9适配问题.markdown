@@ -8,6 +8,9 @@ header-img: "img/post-bg-2015.jpg"
 tags:
     - iOS
 ---
+<span id="busuanzi_container_page_pv">
+阅读<span id="busuanzi_value_page_pv"></span>
+</span>
 
 ## 前言
 最近升级到XCode7之后发现工程需要针对iOS9做一些适配，如下几点是我项目中遇到的适配问题，仅供大家参考如有问题欢迎加Q群157672725讨论：

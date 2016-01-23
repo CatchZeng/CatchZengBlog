@@ -5,13 +5,17 @@
     <description></description>
     <link>http://catchzeng.com/</link>
     <atom:link href="http://catchzeng.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 23 Jan 2016 13:18:51 +0800</pubDate>
-    <lastBuildDate>Sat, 23 Jan 2016 13:18:51 +0800</lastBuildDate>
+    <pubDate>Sat, 23 Jan 2016 15:45:05 +0800</pubDate>
+    <lastBuildDate>Sat, 23 Jan 2016 15:45:05 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
     
       <item>
         <title>iOS开发见闻-第12期</title>
-        <description>&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
 &lt;p&gt;1.&lt;a href=&quot;http://blog.cnbang.net/living/2970/&quot;&gt;bangbang的年终回顾&lt;/a&gt; :每天被繁杂的代码充斥着，来一篇生活篇吧！看看JSPatch作者bangbang的2015，或许你会有些许感慨。&lt;/p&gt;
 
 &lt;p&gt;2.&lt;a href=&quot;http://blog.devtang.com/blog/2016/01/03/reactive-cocoa-discussion/&quot;&gt;ReactiveCocoa 讨论会&lt;/a&gt; ：期待已久的RAC讨论会终于出来了，看看巧哥和其他大神对RAC的看法吧。&lt;/p&gt;
@@ -47,10 +51,8 @@
 &lt;p&gt;4.&lt;a href=&quot;https://github.com/sammcewan/WYPopoverController&quot;&gt;WYPopoverController&lt;/a&gt; : 为了在iPhone上实现popover效果，找了好几个库，发现WYPopoverController在使用和兼容性方面都做得较好。&lt;br /&gt;
 &lt;img src=&quot;https://camo.githubusercontent.com/43c604f9b8e72cd52dd8dd4f9f0bd268659655fa/68747470733a2f2f7261772e6769746875622e636f6d2f6e69636f6c61736368656e676465762f5759506f706f766572436f6e74726f6c6c65722f6d61737465722f73637265656e73686f74732f7779706f706f7665725f73637265656e73686f745f322e706e67&quot; alt=&quot;WYPopoverController&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;4.&lt;a href=&quot;https://github.com/xmartlabs/XLPagerTabStrip&quot;&gt;XLPagerTabStrip&lt;/a&gt; : 一个容器视图控制器，它可以让你很容易的在视图控制器集合间转换。它可以显示当前的、之前的、之后的视图控制器的交互导航。&lt;br /&gt;
+&lt;p&gt;5.&lt;a href=&quot;https://github.com/xmartlabs/XLPagerTabStrip&quot;&gt;XLPagerTabStrip&lt;/a&gt; : 一个容器视图控制器，它可以让你很容易的在视图控制器集合间转换。它可以显示当前的、之前的、之后的视图控制器的交互导航。&lt;br /&gt;
 &lt;img src=&quot;https://github.com/xmartlabs/XLPagerTabStrip/raw/master/XLPagerTabStrip/Demo/PagerSlidingTabStrip.gif&quot; alt=&quot;XLPagerTabStrip&quot; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
 </description>
         <pubDate>Thu, 07 Jan 2016 17:38:27 +0800</pubDate>
         <link>http://catchzeng.com/2016/01/07/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC12%E6%9C%9F/</link>
@@ -63,7 +65,11 @@
     
       <item>
         <title>iOS开发见闻-第11期</title>
-        <description>&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
 &lt;p&gt;1.&lt;a href=&quot;http://blog.devtang.com/blog/2015/12/18/from-dev-to-manager/&quot;&gt;涅槃重生:我的技术转管理之路&lt;/a&gt; :巧哥的涅槃重生，这篇虽不是技术文章，但深刻地描述了大神从技术走向管理的思考，值得细细品味。&lt;/p&gt;
 
 &lt;p&gt;2.&lt;a href=&quot;http://joeyio.com/ios/2014/06/04/swift---/&quot;&gt;Swift之 ? 和 ! &lt;/a&gt; ：这篇老文章对于Swift的初学者面对？和！的疑惑还是挺有帮助的。&lt;/p&gt;
@@ -110,7 +116,11 @@
     
       <item>
         <title>iOS 函数响应式编程 （ReactiveCocoa）</title>
-        <description>&lt;h2 id=&quot;section&quot;&gt;前言&lt;/h2&gt;
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;前言&lt;/h2&gt;
 &lt;p&gt;近来，Q群的几个朋友谈起如何使用ReactiveCocoa（以下简称RAC）开发的问题。大家觉得RAC很好，但不知如何运用它。在此整理一些对RAC的看法，希望对学习RAC的朋友有所帮助。本篇是前篇，主要涉及以下内容。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -195,7 +205,11 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
     
       <item>
         <title>iOS开发见闻-第10期</title>
-        <description>&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
 &lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/b69d9b615ee5&quot;&gt;Swift 官方 API 设计准则&lt;/a&gt; :与&lt;a href=&quot;http://www.jianshu.com/p/fce426e4f1c4&quot;&gt;《Swift 3 API 设计准则》&lt;/a&gt;的区别在于，那片文章只是一个概览说明，此文章是苹果官方发布的 API 设计准则，虽然还处于样稿阶段，但是有一定的参考价值。&lt;/p&gt;
 
 &lt;p&gt;2.&lt;a href=&quot;http://blog.sunnyxx.com/2015/09/13/class-ivar-layout/&quot;&gt;Objective-C Class Ivar Layout 探索 &lt;/a&gt; ：刨根究底的sunnyxx这次又带给我们惊喜。（关于Class Ivar Layout可能比较少人接触，不过看完文章自然就懂了）&lt;/p&gt;
@@ -240,7 +254,11 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
     
       <item>
         <title>iOS开发见闻-第9期</title>
-        <description>&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
 &lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/1f93e0fec8a5&quot;&gt;swift实现一个与智能机器人聊天的app&lt;/a&gt; :使用&lt;a href=&quot;http://www.tuling123.com/&quot;&gt;图灵机器人官网API&lt;/a&gt;实现的一款机器人聊天App，帮助初学swift的朋友掌握一些基本知识。&lt;br /&gt;
 &lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=565c448eab644150140011e5&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
 
@@ -285,7 +303,11 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
     
       <item>
         <title>iOS开发见闻-第8期</title>
-        <description>&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
 &lt;p&gt;1.&lt;a href=&quot;http://casatwy.com/tiao-chu-mian-xiang-dui-xiang-si-xiang-san-feng-zhuang.html&quot;&gt;跳出面向对象思想(三) 封装&lt;/a&gt; :继承具有“只关注于使用，而不关心具体的实现”的特点，所以在团队协作中发挥极大的作用。看看Casa Taloyum怎么讲封装吧。&lt;/p&gt;
 
 &lt;p&gt;2.&lt;a href=&quot;http://blog.devtang.com/blog/2015/11/21/apps-damaged-bug/&quot;&gt;Mac 应用出现「已损坏」问题，苹果到底犯了什么傻逼错误？&lt;/a&gt; ：巧哥的文章总是给人惊喜，不解释直接看。&lt;br /&gt;
@@ -327,7 +349,11 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
     
       <item>
         <title>iOS开发见闻-第7期</title>
-        <description>&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
 &lt;p&gt;1.&lt;a href=&quot;http://www.cocoachina.com/ios/20151113/14207.html&quot;&gt;让我们来搞崩 Cocoa 吧  &lt;/a&gt; :有时候搞崩程序比编写它们更有趣，看看作者怎么整跨oc吧。&lt;/p&gt;
 
 &lt;p&gt;2.&lt;a href=&quot;http://www.jianshu.com/p/37ab8f336f76&quot;&gt;Core Data: 多线程大量数据同步&lt;/a&gt; ：作者看到一个面试题后，整理的一篇关于core data 在多线程中处理大数据的注意事项的文章，总结得很好。&lt;/p&gt;
@@ -369,7 +395,11 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
     
       <item>
         <title>IntelliJ IDEA Spring MVC环境搭建</title>
-        <description>&lt;h2 id=&quot;section&quot;&gt;前言&lt;/h2&gt;
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;前言&lt;/h2&gt;
 &lt;p&gt;IntelliJ在业界被公认为最好的java开发工具之一，尤其在智能代码助手、代码自动提示、重构、J2EE支持、Ant、JUnit、CVS整合、代码审查、 创新的GUI设计等方面的功能可以说是超常的。&lt;br /&gt;
 	Spring MVC属于SpringFrameWork的后续产品，提供了构建 Web 应用程序的全功能 MVC 模块。使用 Spring 可插入的 MVC架构，易于同其它View框架（Tiles等）无缝集成，采用IOC便于测试。源于这些优点，越来越多开发者已将Spring MVC列为的首选。&lt;/p&gt;
 
@@ -438,7 +468,11 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
     
       <item>
         <title>iOS开发见闻-第6期</title>
-        <description>&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
 &lt;p&gt;1.&lt;a href=&quot;http://www.cocoachina.com/ios/20151023/13860.html&quot;&gt;利用UIWebView打造一个炫酷的视频背景视图（OC &amp;amp; Swift） &lt;/a&gt; :实现类似一号专车带视频的启动页。&lt;br /&gt;
 &lt;img src=&quot;http://cc.cocimg.com/api/uploads/20151022/1445484839865511.gif&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
 
@@ -483,7 +517,11 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
     
       <item>
         <title>iOS开发见闻-第5期</title>
-        <description>&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
 &lt;p&gt;1.&lt;a href=&quot;http://blog.devtang.com/blog/2015/11/02/mvc-and-mvvm/&quot;&gt;被误解的 MVC 和被神化的 MVVM &lt;/a&gt; :如果你徘徊在MVC与MVVM中（特别是要不要使用ReactiveCocoa），那还是先看看巧哥这篇文章吧。&lt;br /&gt;
 &lt;img src=&quot;http://blog.devtang.com/images/mvc-and-mvvm.jpg&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
 

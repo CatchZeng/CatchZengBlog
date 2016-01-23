@@ -8,6 +8,9 @@ header-img: "img/post-bg-2015.jpg"
 tags:
     - iOS
 ---
+<span id="busuanzi_container_page_pv">
+阅读<span id="busuanzi_value_page_pv"></span>
+</span>
 
 ## 文章
 1.[被误解的 MVC 和被神化的 MVVM ](http://blog.devtang.com/blog/2015/11/02/mvc-and-mvvm/) :如果你徘徊在MVC与MVVM中（特别是要不要使用ReactiveCocoa），那还是先看看巧哥这篇文章吧。

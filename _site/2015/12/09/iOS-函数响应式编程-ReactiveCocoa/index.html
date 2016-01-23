@@ -166,7 +166,11 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h2 id="section">前言</h2>
+				<p><span id="busuanzi_container_page_pv">
+阅读<span id="busuanzi_value_page_pv"></span>
+</span></p>
+
+<h2 id="section">前言</h2>
 <p>近来，Q群的几个朋友谈起如何使用ReactiveCocoa（以下简称RAC）开发的问题。大家觉得RAC很好，但不知如何运用它。在此整理一些对RAC的看法，希望对学习RAC的朋友有所帮助。本篇是前篇，主要涉及以下内容。</p>
 
 <ul>
@@ -252,8 +256,12 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
                     data-title="iOS 函数响应式编程 （ReactiveCocoa）"
                     data-url="http://catchzeng.com/2015/12/09/iOS-%E5%87%BD%E6%95%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B-ReactiveCocoa/"
                     data-images="http://catchzeng.com/img/post-bg-2015.jpg"
-                    data-content="前言
-近来，Q群的几个朋友谈起如何使用ReactiveCocoa（以下简称RAC）开发的问题。大家觉得RAC很好，但不知如何运用它。在此整理一些对RAC的... | CatchZeng的技术博客 | CatchZeng Blog " >
+                    data-content="
+阅读
+
+
+前言
+近来，Q群的几个朋友谈起如何使用ReactiveCocoa（以下简称RAC）开发的问题。大家觉得RAC很好，但不知如何运用它。在此整理一... | CatchZeng的技术博客 | CatchZeng Blog " >
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
                         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -413,7 +421,7 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
                 <ul class="list-inline text-center">
                     
                     
-
+                    
                     <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
                     
                     
@@ -426,8 +434,8 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
                         </a>
                     </li>
                     
-
-
+                    
+                    
                     
                     
                     <li>
@@ -441,8 +449,10 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; CatchZeng Blog 2016
-                    <br>
+                Copyright &copy; CatchZeng Blog 2016
+                <br>
+                <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+                <span id="busuanzi_container_site_pv">您是第<span id="busuanzi_value_site_pv"></span>位访客</span>
                 </p>
             </div>
         </div>
@@ -462,77 +472,77 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
 <!-- async load function -->
 <script>
     function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
+        var d = document, t = 'script',
+        o = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
     }
 </script>
 
 <!-- Highlight.js -->
 <script>
     async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
-        hljs.initHighlightingOnLoad();
-    })
-    // only load tagcloud.js in tag.html
-    if($('#tag_cloud').length !== 0){
-        async("/js/jquery.tagcloud.js",function(){
-            $.fn.tagcloud.defaults = {
-                //size: {start: 1, end: 1, unit: 'em'},
-                color: {start: '#bbbbee', end: '#0085a1'},
-            };
-            $('#tag_cloud a').tagcloud();
-        })
-    }
+          hljs.initHighlightingOnLoad();
+          })
+          // only load tagcloud.js in tag.html
+          if($('#tag_cloud').length !== 0){
+              async("/js/jquery.tagcloud.js",function(){
+                    $.fn.tagcloud.defaults = {
+                    //size: {start: 1, end: 1, unit: 'em'},
+                    color: {start: '#bbbbee', end: '#0085a1'},
+                    };
+                    $('#tag_cloud a').tagcloud();
+                    })
+          }
 </script>
 <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
-
-<!--fastClick.js -->
-<script>
-    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
-        var $nav = document.querySelector("nav");
-        if($nav) FastClick.attach($nav);
-    })
-</script>
-
-
-<!-- Google Analytics -->
-
-<script>
-    // dynamic User by Hux
-    var _gaId = 'UA-49627206-1';
-    var _gaDomain = 'catchzeng.com';
-
-    // Originial
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', _gaId, _gaDomain);
-    ga('send', 'pageview');
-</script>
-
-
-
-<!-- Baidu Tongji -->
-
-<script>
-    // dynamic User by Hux
-    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
-
-    // Originial
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?" + _baId;
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-</script>
-
+    
+    <!--fastClick.js -->
+    <script>
+        async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+              var $nav = document.querySelector("nav");
+              if($nav) FastClick.attach($nav);
+              })
+        </script>
+    
+    
+    <!-- Google Analytics -->
+    
+    <script>
+        // dynamic User by Hux
+        var _gaId = 'UA-49627206-1';
+        var _gaDomain = 'catchzeng.com';
+        
+        // Originial
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+         
+         ga('create', _gaId, _gaDomain);
+         ga('send', 'pageview');
+        </script>
+    
+    
+    
+    <!-- Baidu Tongji -->
+    
+    <script>
+        // dynamic User by Hux
+        var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+        
+        // Originial
+        var _hmt = _hmt || [];
+        (function() {
+         var hm = document.createElement("script");
+         hm.src = "//hm.baidu.com/hm.js?" + _baId;
+         var s = document.getElementsByTagName("script")[0];
+         s.parentNode.insertBefore(hm, s);
+         })();
+        </script>
+    
 
 
 

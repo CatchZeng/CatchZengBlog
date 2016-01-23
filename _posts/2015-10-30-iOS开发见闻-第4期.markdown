@@ -8,6 +8,9 @@ header-img: "img/post-bg-2015.jpg"
 tags:
     - iOS
 ---
+<span id="busuanzi_container_page_pv">
+阅读<span id="busuanzi_value_page_pv"></span>
+</span>
 
 ## 文章
 1.[这样好用的ReactiveCocoa，根本停不下来 ](http://supermao.cn/zhe-yang-hao-yong-de-reactivecocoagen-ben-ting-bu-xia-lai/) : 讲述了“代码的四十八手”,使用ReactiveCocoa的朋友强烈推荐看看这篇文章。

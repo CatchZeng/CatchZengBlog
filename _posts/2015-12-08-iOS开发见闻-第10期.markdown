@@ -8,6 +8,9 @@ header-img: "img/post-bg-2015.jpg"
 tags:
     - iOS
 ---
+<span id="busuanzi_container_page_pv">
+阅读<span id="busuanzi_value_page_pv"></span>
+</span>
 
 ## 文章
 1.[Swift 官方 API 设计准则](http://www.jianshu.com/p/b69d9b615ee5) :与[《Swift 3 API 设计准则》](http://www.jianshu.com/p/fce426e4f1c4)的区别在于，那片文章只是一个概览说明，此文章是苹果官方发布的 API 设计准则，虽然还处于样稿阶段，但是有一定的参考价值。

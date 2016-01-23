@@ -8,6 +8,9 @@ header-img: "img/post-bg-2015.jpg"
 tags:
     - iOS
 ---
+<span id="busuanzi_container_page_pv">
+阅读<span id="busuanzi_value_page_pv"></span>
+</span>
 
 ## 文章
 1.[bangbang的年终回顾](http://blog.cnbang.net/living/2970/) :每天被繁杂的代码充斥着，来一篇生活篇吧！看看JSPatch作者bangbang的2015，或许你会有些许感慨。
@@ -52,11 +55,5 @@ tags:
 4.[WYPopoverController](https://github.com/sammcewan/WYPopoverController) : 为了在iPhone上实现popover效果，找了好几个库，发现WYPopoverController在使用和兼容性方面都做得较好。
 ![WYPopoverController](https://camo.githubusercontent.com/43c604f9b8e72cd52dd8dd4f9f0bd268659655fa/68747470733a2f2f7261772e6769746875622e636f6d2f6e69636f6c61736368656e676465762f5759506f706f766572436f6e74726f6c6c65722f6d61737465722f73637265656e73686f74732f7779706f706f7665725f73637265656e73686f745f322e706e67)
 
-4.[XLPagerTabStrip](https://github.com/xmartlabs/XLPagerTabStrip) : 一个容器视图控制器，它可以让你很容易的在视图控制器集合间转换。它可以显示当前的、之前的、之后的视图控制器的交互导航。
+5.[XLPagerTabStrip](https://github.com/xmartlabs/XLPagerTabStrip) : 一个容器视图控制器，它可以让你很容易的在视图控制器集合间转换。它可以显示当前的、之前的、之后的视图控制器的交互导航。
 ![XLPagerTabStrip](https://github.com/xmartlabs/XLPagerTabStrip/raw/master/XLPagerTabStrip/Demo/PagerSlidingTabStrip.gif)
-
-
-
-
-
-----------

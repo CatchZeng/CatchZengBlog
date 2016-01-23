@@ -9,6 +9,10 @@ tags:
     - iOS
 ---
 
+<span id="busuanzi_container_page_pv">
+阅读<span id="busuanzi_value_page_pv"></span>
+</span>
+
 ## 前言
 
 在适配ios8的时候，其实autolayout基本都可以满足，所以当时没有使用上Size Classes。这几天为了适配ios9用上了Size Classes。令我最开心的是，很方便地解决了**不同状态下不同布局**的问题（如：横屏和竖屏布局不同、iPad和iPhone布局不同）,下图是我用Size Classes做的一个demo。
