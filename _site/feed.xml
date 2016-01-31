@@ -1,0 +1,854 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CatchZeng Blog</title>
+    <description></description>
+    <link>http://catchzeng.com/</link>
+    <atom:link href="http://catchzeng.com/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sun, 31 Jan 2016 19:49:51 +0800</pubDate>
+    <lastBuildDate>Sun, 31 Jan 2016 19:49:51 +0800</lastBuildDate>
+    <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>iOS用被误解的MVC重构代码</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;前言&lt;/h2&gt;
+&lt;p&gt;这段时间在重构代码，看了几种模式，最后选择使用被误解的MVC来重构。&lt;br /&gt;
+下面分别简要介绍MVVM(RAC)、MVP、MVC模式，同时分享一下在重构代码过程中的一些想法。&lt;/p&gt;
+
+&lt;h2 id=&quot;mvvm&quot;&gt;MVVM&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;优点：&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;双向绑定（data-binding）：View的变动，自动反映在ViewModel，反之亦然。使用过Angular 和 Ember 的朋友应该对这点很熟悉。&lt;/li&gt;
+  &lt;li&gt;使得 Model 层和 View 层解耦&lt;/li&gt;
+  &lt;li&gt;结合RAC使用变得神乎其技。特别是面对&lt;strong&gt;&lt;em&gt;View与View之间变化关系紧密&lt;/em&gt;&lt;/strong&gt;时RAC能处理得很elegant。&lt;/li&gt;
+  &lt;li&gt;解决了&lt;strong&gt;&lt;em&gt;状态量&lt;/em&gt;&lt;/strong&gt;的问题（即无状态）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-mvc/MVVM.jpg&quot; alt=&quot;MVVM&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.缺点:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ViewModel承担了大部分MVC中C的事务。【本质上没有解决MVC的&lt;strong&gt;&lt;em&gt;massive viewcontroller&lt;/em&gt;&lt;/strong&gt;问题】&lt;/li&gt;
+  &lt;li&gt;数据绑定使得 Bug 调试变难。【由于双向绑定使得&lt;strong&gt;&lt;em&gt;View和Model的bug&lt;/em&gt;&lt;/strong&gt;较难定位】&lt;/li&gt;
+  &lt;li&gt;数据绑定需要花费更多的内存。【这是个缺点，但项目实践中我没怎么发觉到】&lt;/li&gt;
+  &lt;li&gt;RAC学习成本较高。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;3.总结：&lt;br /&gt;
+    MVVM是我最先考虑的模式，原因是被RAC吸引了。&lt;br /&gt;
+    MVVM不失为一个良好的模式，但其&lt;strong&gt;&lt;em&gt;缺点由其优点而来&lt;/em&gt;&lt;/strong&gt;，使用过程中较难避免。&lt;br /&gt;
+    关于项目是否使用MVVM，我的观点是：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;如果团队人员都能较好领会函数响应式编程思想、bug定位能力较强的话，可以使用。
+如果项目的逻辑较为复杂导致状态量较多时可以考虑使用。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我在业余作品中还是喜欢使用RAC的，在工作上没有使用RAC原因是没有很好的队友，为了项目的可维护性而放弃了RAC。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;mvp&quot;&gt;MVP&lt;/h2&gt;
+&lt;p&gt;MVP 是从MVC演变而来，它们有相通的地方：Controller/Presenter负责逻辑的处理，Model提供数据，View负责显示。MVP与MVC有一个重大的区别：在MVP中View并不直接使用Model，它们之间的通信是通过Presenter (MVC中的Controller)来进行的，所有的交互都发生在Presenter内部，而在&lt;strong&gt;&lt;em&gt;MVC中View会直接从Model中读取数据&lt;/em&gt;&lt;/strong&gt;而不是通过 Controller。&lt;br /&gt;
+看到最后一句的时候相信大家都会有疑问，也许会指着下面这张斯坦福教授的图说MVC的View和Model是没有直接通讯的。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-mvc/斯坦福MVC.jpg&quot; alt=&quot;斯坦福MVC&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;但传统的MVC并不是这样的，百科&lt;a href=&quot;http://baike.baidu.com/link?url=JpP8cWxxrM-WGebq0kmhI88O3fHLlJOqW0ZEBqYjBYkPM38hxlHi1XTXCDM6l2oMDgjdMUpNX-2Jk0d_ldV6Pny6-zX2gc7iQL3KeC6TAYsUpJOcoW5pia9gUQ1fA_WV&quot;&gt;MVC框架&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-mvc/MVC图1.jpg&quot; alt=&quot;MVC图1&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;/img/in-post/post-mvc/MVC图2.jpg&quot; alt=&quot;MVC图2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;那么哪个才是真正的MVC？这也是今天主要想跟大家交流的，为了继续这个话题我们先进一步了解MVP模式。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-mvc/MVP.jpg&quot; alt=&quot;MVP&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在MVP中View持有一个Presenter对象，View将界面的响应处理移交给Presenter，而Presenter调用Model进行处理，最后Presenter将Model处理完毕的数据通过Interface的形式递交给View做相应的改变。&lt;/p&gt;
+
+&lt;p&gt;MV（X）本是同根生，自然有一些相同点。MVC在每一个平台上都有自己的特点，自然也会稍许不同。所以，你也许会感觉&lt;strong&gt;MVP才跟斯坦福教授讲的MVC比较像&lt;/strong&gt;！&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;重构&lt;/h2&gt;
+&lt;p&gt;在重构前先看几个问题：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;iOS中的ViewController到底是MVC中的View还是Controller？还是有独到的看法？&lt;/strong&gt;&lt;br /&gt;
+ 我在圈子里面做了一个访谈。总数53人，有21人答案是View，30人答案是Controller，2人有独到的看法。当时我很惊讶！尽然对ViewController有这么多不同的看法。在此分享对此的一些看法，如有疏漏，望大家指正。&lt;br /&gt;
+做过Android的朋友会发现ViewController与Android的Activity及其相似。我认为ViewController总体上属于MVC中的View层，但与传统的View不一样的是ViewController附带了一些Controller的逻辑，但该逻辑&lt;strong&gt;仅为”视图逻辑”&lt;/strong&gt;(相对于”业务逻辑”而言)。我想这也是apple管它叫”视图控制器”的原因。需要明白的一点是，apple造了一个ViewController，但它和MVC模式都没有限制我们只能把它当做Controller，完全可以自定义一个Controller。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;是什么导致了massive viewcontroller？&lt;/strong&gt;&lt;br /&gt;
+ 我的理解是因为没有将MVC的各层职能分清，而把视图、业务逻辑都往ViewController上堆，自然就成了massive viewcontroller。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;如果使用MVVM，那么tableview的datasource&amp;amp;delegate应该放在哪里比较合适？如何解决这个问题？&lt;/strong&gt;&lt;br /&gt;
+我没有答案，因为觉得放在MVVM中的哪一层都觉得不合适。望大神告知！&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;为了解决开发中的问题，我对MVC各层重新做了职能分配。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-mvc/MVCRefactoring.jpg&quot; alt=&quot;MVCRefactoring&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;注：单独箭头表示直接引用，箭头带圆圈表示以接口引用。&lt;/p&gt;
+
+&lt;p&gt;重构后的分层模式与职能分配：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;View层：由View与ViewController组成。View为单独的视图，ViewController负责多个视图的管理、tableview的datasource &amp;amp; delegate等视图逻辑(这也就解决了问题3)。ViewController会持有一个Controller来传递视图需要响应的业务逻辑。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Controller层：负责业务逻辑的处理。Controller持有View和Service的接口引用（Service可根据项目特点选择直接/接口引用）。Controller通过调用Service来处理View层传递下来的业务，并用接口引用递交结果给View层做相应的改变。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Model层:由Service与Entity组成。Service为Controller层提供网络与本地数据服务，即Service处理网络请求、数据库、文件等操作。Entity为实体类，负责定义数据的模型。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;show-me-the-code&quot;&gt;Show me the code&lt;/h2&gt;
+&lt;p&gt;先说明一下code的场景:&lt;br /&gt;
+code为一个登录模块，账号类型分老师和学生，并且老师和学生的登录界面不同，但接口调用一致。code地址：&lt;a href=&quot;https://github.com/CatchZeng/MVCRefactoring&quot;&gt;MVCRefactoring&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Model层代码&lt;br /&gt;
+Entity&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@interface CATUserEntity : NSObject
+
+@property (nonatomic,copy) NSString* username;
+@property (nonatomic,copy) NSString* gender;
+@property (nonatomic)  NSInteger age;
+
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Service&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@interface CATLoginService : CATBaseService
+
+-(void)loginWithUsername:(NSString *)username password:(NSString *)password type:(NSInteger)type success:(CATSuccessBlock)success failed:(CATFailedBlock)failed;
+
+@end 
+
+
+@implementation CATLoginService
+
+-(void)loginWithUsername:(NSString *)username password:(NSString *)password type:(NSInteger)type success:(CATSuccessBlock)success failed:(CATFailedBlock)failed{
+    //在这里调用网络、操作数据库等
+    //返回数据并解析成相应的数据，这里模拟返回一个User的实体。
+    //网络层这里推荐 巧哥使用命令模式封装的YTKNetworking！！！ 
+    CATUserEntity* user = [[CATUserEntity alloc]init];
+    user.gender = @&quot;男&quot;;
+    user.age = 20;
+    if (type == 1) {
+        user.username = @&quot;老师&quot;;
+    }else{
+        user.username = @&quot;学生&quot;;
+    }
+    success(@&quot;登录成功!&quot;,user);
+}
+
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Controller层代码（由于项目特点，这里的Model没有以接口形式引用）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@protocol CATLoginControllerDelegate &amp;lt;NSObject&amp;gt;
+
+-(void)loginSuccessWithData:(id)data;
+-(void)loginFailedWithMsg:(NSString *)msg;
+
+@end
+
+@interface CATLoginController : NSObject
+
+-(id)initWith:(id&amp;lt;CATLoginControllerDelegate&amp;gt;)delegate;
+
+-(void)loginWithUsername:(NSString *)username password:(NSString *)password type:(NSInteger)type;
+
+@end
+
+
+
+@interface CATLoginController()
+
+@property (nonatomic,weak) id&amp;lt;CATLoginControllerDelegate&amp;gt; delegate;
+@property (nonatomic,strong) CATLoginService* service;
+
+@end
+
+@implementation CATLoginController
+
+-(id)initWith:(id&amp;lt;CATLoginControllerDelegate&amp;gt;)delegate{
+    self = [super init];
+    if (self) {
+        _delegate = delegate;
+    }
+    return self;
+}
+
+-(void)loginWithUsername:(NSString *)username password:(NSString *)passwor type:(NSInteger)type{
+    WEAKSELF
+    [self.service loginWithUsername:username password:passwor type:type success:^(NSString *msg, id data) {
+        STRONGSELF
+        if (data &amp;amp;&amp;amp; strongSelf.delegate &amp;amp;&amp;amp; [strongSelf.delegate respondsToSelector:@selector(loginSuccessWithData:)]){//登录成功 &amp;amp;&amp;amp; delegate实现了相应的方法
+            [strongSelf.delegate  loginSuccessWithData:data];
+        }else if(strongSelf.delegate &amp;amp;&amp;amp; [strongSelf.delegate respondsToSelector:@selector(loginFailedWithMsg:)]){//登录失败 &amp;amp;&amp;amp; delegate实现了相应的方法
+            [strongSelf.delegate loginFailedWithMsg:msg];
+        }else{
+            //handle...
+        }
+    } failed:^(NSString *msg) {
+        //handle error
+    }];
+}
+
+- (CATLoginService *) service {
+    if(!_service) {
+        _service = [[CATLoginService alloc] init];
+    }
+    return _service;
+}
+
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;View层代码&lt;/p&gt;
+
+&lt;p&gt;老师登录界面&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@interface CATTeacherLoginViewController ()&amp;lt;CATLoginControllerDelegate&amp;gt;
+
+@property (nonatomic,strong) CATLoginController* controller;
+@property (weak, nonatomic) IBOutlet UILabel *labMsg;
+
+@end
+
+@implementation CATTeacherLoginViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.title = @&quot;老师登录界面&quot;;
+}
+
+- (IBAction)loginButtonClicked:(id)sender {
+    [self.controller loginWithUsername:@&quot;111&quot; password:@&quot;111&quot; type:1];
+}
+
+- (CATLoginController *) controller {
+    if(_controller == nil) {
+        _controller = [[CATLoginController alloc] initWith:self];
+    }
+    return _controller;
+}
+
+-(void)loginSuccessWithData:(id)data{
+    //处理登录成功后的界面呈现
+    if (data &amp;amp;&amp;amp; [data isKindOfClass:[CATUserEntity class]]) {
+        CATUserEntity* user = (CATUserEntity *)data;
+        _labMsg.text = [NSString stringWithFormat:@&quot;登录成功！你好:%@&quot;,user.username];
+    }
+}
+
+-(void)loginFailedWithMsg:(NSString *)msg{
+    //处理登录失败后的界面呈现
+    NSLog(@&quot;登录失败:%@&quot;,msg);
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;学生登录界面&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@interface CATStudentLoginViewController ()&amp;lt;CATLoginControllerDelegate&amp;gt;
+
+@property (nonatomic,strong) CATLoginController* controller;
+@property (weak, nonatomic) IBOutlet UILabel *labMsg;
+
+@end
+
+@implementation CATStudentLoginViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.title = @&quot;学生登录界面&quot;;
+}
+
+- (IBAction)loginButtonClicked:(id)sender {
+    [self.controller loginWithUsername:@&quot;111&quot; password:@&quot;111&quot; type:2];
+}
+
+- (CATLoginController *) controller {
+    if(_controller == nil) {
+        _controller = [[CATLoginController alloc] initWith:self];
+    }
+    return _controller;
+}
+
+-(void)loginSuccessWithData:(id)data{
+    //处理登录成功后的界面呈现
+    if (data &amp;amp;&amp;amp; [data isKindOfClass:[CATUserEntity class]]) {
+        CATUserEntity* user = (CATUserEntity *)data;
+        _labMsg.text = [NSString stringWithFormat:@&quot;登录成功！你好:%@&quot;,user.username];
+    }
+}
+
+-(void)loginFailedWithMsg:(NSString *)msg{
+    //处理登录失败后的界面呈现
+    NSLog(@&quot;登录失败:%@&quot;,msg);
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;小结&lt;/h2&gt;
+&lt;p&gt;重构后的优点:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;各层职能变得更加清晰。&lt;/li&gt;
+  &lt;li&gt;View与Controller彻底解耦。（LoginController以接口形式调用视图层，界面更改对其不产生影响，自身的修改也对视图层不产生影响。）&lt;/li&gt;
+  &lt;li&gt;代码复用度高。（LoginController可复用于老师和学生的账号登录）&lt;/li&gt;
+  &lt;li&gt;测试方便。（若要测试登录接口是否可行，可直接实例化 LoginService调用登录接口进行测试）&lt;/li&gt;
+  &lt;li&gt;把视图逻辑交于ViewController，业务逻辑交于Controller，解决了massive viewcontroller和视图的datasource、delegate代码放置位置等问题。&lt;/li&gt;
+  &lt;li&gt;任务分配方便。（接口约定完毕后视图层、控制层、模型层可以单独由不同人完成）&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;缺点：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;多了一些胶水代码。&lt;/li&gt;
+  &lt;li&gt;需要多定义视图、模型的接口（CATLoginControllerDelegate）&lt;/li&gt;
+  &lt;li&gt;…&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;section-3&quot;&gt;最后&lt;/h1&gt;
+
+&lt;p&gt;本文的分层方式并不一定适合每个工程，大家可以根据自己工程的情况自行调整。简友【我在睡觉被占用】说得好，其实不用太拘泥与什么模式，去扣定义。只要遵循尽量解耦，关系逻辑清晰的原则就行了。在此表示感谢！&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;然而，可能只有我误解了MVC。&lt;/strong&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 26 Jan 2016 17:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/01/26/iOS%E7%94%A8%E8%A2%AB%E8%AF%AF%E8%A7%A3%E7%9A%84MVC%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%81/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/01/26/iOS%E7%94%A8%E8%A2%AB%E8%AF%AF%E8%A7%A3%E7%9A%84MVC%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%81/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>iOS清理工程中未使用的类文件工具</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;前言&lt;/h2&gt;
+&lt;p&gt;随着团队人数增多，工程的复杂度提高，工程文件数变得相当多，清理工程变得越来越复杂。于是，闲暇时写了一个清理工程中未使用的类文件工具。由于工程为oc代码，所以工具只适用于oc创建的工程。工具测试时间短、用例少难免有不足的地方，有兴趣的朋友&lt;strong&gt;使用前记得备份工程&lt;/strong&gt;!&lt;br /&gt;
+工具地址:&lt;a href=&quot;https://github.com/CatchZeng/CATClearProjectTool&quot;&gt;CATClearProjectTool&lt;/a&gt;, 欢迎star、fork、issue。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;效果&lt;/h2&gt;
+&lt;p&gt;1.下图为测试工程结构：包含AppDelegate、ViewController、CATUsedClass、CATUsedClass2、CATUnUsedCLass以及test文件。其中test文件和CATUnUsedCLass未在工程中使用过。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/0.png&quot; alt=&quot;测试工程结构&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.将测试工程的.xcodeproj拖拽到工具中。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/1.png&quot; alt=&quot;拖拽工程到工具&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.点击search按钮，文本框将列出所有未被使用的类文件。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/2.png&quot; alt=&quot;搜索结果&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.点击click按钮，文本框将显示成功清理的类文件列表。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/3.png&quot; alt=&quot;清理后的结果&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;5.再次打开工程，能看到已成功清理未使用的类文件【注：工程中默认过滤掉AppDelegate,ViewController,main三个类文件的删除】&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;6.你也可以加入过滤，如下图过滤掉CATUnUsedCLass，则即使它在工程中未使用过也不会将它删除（多个过滤文件，使用逗号隔开）。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/5.png&quot; alt=&quot;加入过滤&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;7.加过滤后清理的结果&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/6.png&quot; alt=&quot;加过滤后清理的结果&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/7.png&quot; alt=&quot;清理后的工程结构&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;工具的原理&lt;/h2&gt;
+&lt;p&gt;读取project文件中的文件组织信息，找到工程中所有的类，然后遍历所有类文件的#import情况,找出未使用的类文件删除，并删除project文件中未使用文件的记录数据。&lt;/p&gt;
+</description>
+        <pubDate>Sat, 23 Jan 2016 17:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6%E5%B7%A5%E5%85%B7/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6%E5%B7%A5%E5%85%B7/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>iOS开发见闻-第12期</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;http://blog.cnbang.net/living/2970/&quot;&gt;bangbang的年终回顾&lt;/a&gt; :每天被繁杂的代码充斥着，来一篇生活篇吧！看看JSPatch作者bangbang的2015，或许你会有些许感慨。&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;http://blog.devtang.com/blog/2016/01/03/reactive-cocoa-discussion/&quot;&gt;ReactiveCocoa 讨论会&lt;/a&gt; ：期待已久的RAC讨论会终于出来了，看看巧哥和其他大神对RAC的看法吧。&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;http://blog.cnbluebox.com/blog/2015/09/18/howtolayoutview/&quot;&gt;如何做好IOS View的布局&lt;/a&gt; : 对开发app来说，布局是个永久的话题。这篇文章总结了view、subview、scrollView、childViewController、Autolayout、tableView等等较为细致的经验，非常值得学习！&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;http://merowing.info/2016/01/improve-your-ios-architecture-with-flowcontrollers/&quot;&gt;使用flowcontrollers来改善你的iOS架构 &lt;/a&gt; ：本文讲述了一种很好地思路来解决在不同设备上视图呈现风格不一的问题（例如：一个视图在iPhone和iPad呈现效果不一样的情况），如果觉得英文看起来费劲，后续有时间会翻译给大家。&lt;/p&gt;
+
+&lt;p&gt;5.&lt;a href=&quot;http://www.jianshu.com/p/77660e626874#&quot;&gt;iOS崩溃调试 &lt;/a&gt; ：崩溃不可怕，可怕的是不知道怎么崩溃的。小壮总结了一些针对于崩溃的调试技巧，实用性很强。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://shimo.im/&quot;&gt;石墨文档&lt;/a&gt; ：团队协作中难免需要文档的协作，石墨文档为你带来一次全新的文档协作体验，让所有人步调一致，从未如此简单。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-4e210d9a72f1ce87.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;石墨文档&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://www.iconfinder.com/&quot;&gt;iconfinder&lt;/a&gt; : 在线icon查找网站，使用名称查找你所需的icon。当自己在做开发而又没有美工的时候iconfinder将为你解决icon问题。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-d5313eaf185090fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;iconfinder&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;http://www.jb51.net/softs/265717.html&quot;&gt;coderunner&lt;/a&gt; :  一个轻量级的代码感知文本编辑器，知道怎么编译和运行多种语言的代码。想快速测试一段Objective-C代码，又不想创建一整个Xcode项目？试试Code Runner吧。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-a77e0a2cd8ab73b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;coderunner&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/zhengjinghua/MQRCodeReaderViewController&quot;&gt;MQRCodeReaderViewController&lt;/a&gt;：基于原生二维码扫描封装的一款扫描库，识别速度快，界面设计优美。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/1c5d9e98f640e775bcba6dfcd1b097a6b675986b/687474703a2f2f37786e6664632e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f7172636f64655f73637265656e73686f742e676966&quot; alt=&quot;MQRCodeReaderViewController&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;http://code.cocoachina.com/view/128968&quot;&gt;CALayer及其子类&lt;/a&gt; ：CALayer及其子类的用法,和核心动画的简单使用等. 包含:CALyer、CAGradientLayer、 CATiledLayer 、CAShapeLayer、 CATextLayer、 CAEmitterLayer CAReplicatorLayer 、CAScrollLayer 。&lt;br /&gt;
+&lt;img src=&quot;http://code.cocoachina.com/uploads/attachments/20160105/128968/916fe1dbc63e14ef0ea919b7c9c563c2.gif&quot; alt=&quot;CALayer及其子类&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/zsy78191/XXXRoundMenuButton/&quot;&gt;XXXRoundMenuButton&lt;/a&gt; : 一款实用的菜单按钮。&lt;img src=&quot;https://raw.githubusercontent.com/zsy78191/XXXRoundMenuButton/master/XXXRoundMenu.gif&quot; alt=&quot;XXXRoundMenuButton&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/sammcewan/WYPopoverController&quot;&gt;WYPopoverController&lt;/a&gt; : 为了在iPhone上实现popover效果，找了好几个库，发现WYPopoverController在使用和兼容性方面都做得较好。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/43c604f9b8e72cd52dd8dd4f9f0bd268659655fa/68747470733a2f2f7261772e6769746875622e636f6d2f6e69636f6c61736368656e676465762f5759506f706f766572436f6e74726f6c6c65722f6d61737465722f73637265656e73686f74732f7779706f706f7665725f73637265656e73686f745f322e706e67&quot; alt=&quot;WYPopoverController&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;5.&lt;a href=&quot;https://github.com/xmartlabs/XLPagerTabStrip&quot;&gt;XLPagerTabStrip&lt;/a&gt; : 一个容器视图控制器，它可以让你很容易的在视图控制器集合间转换。它可以显示当前的、之前的、之后的视图控制器的交互导航。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/xmartlabs/XLPagerTabStrip/raw/master/XLPagerTabStrip/Demo/PagerSlidingTabStrip.gif&quot; alt=&quot;XLPagerTabStrip&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 07 Jan 2016 17:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/01/07/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC12%E6%9C%9F/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/01/07/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC12%E6%9C%9F/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>iOS开发见闻-第11期</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;http://blog.devtang.com/blog/2015/12/18/from-dev-to-manager/&quot;&gt;涅槃重生:我的技术转管理之路&lt;/a&gt; :巧哥的涅槃重生，这篇虽不是技术文章，但深刻地描述了大神从技术走向管理的思考，值得细细品味。&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;http://joeyio.com/ios/2014/06/04/swift---/&quot;&gt;Swift之 ? 和 ! &lt;/a&gt; ：这篇老文章对于Swift的初学者面对？和！的疑惑还是挺有帮助的。&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;http://blog.ibireme.com/2015/12/17/move/&quot;&gt;搬家前&lt;/a&gt; : 你一定很想知道ibireme的大神之路是怎么炼成的吧，看看他这次搬家带给我们那些好书。&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;http://mp.weixin.qq.com/s?__biz=MzAwNDY1ODY2OQ==&amp;amp;mid=400417748&amp;amp;idx=1&amp;amp;sn=0c5f6747dd192c5a0eea32bb4650c160&amp;amp;scene=23&amp;amp;srcid=1219QBIWbUYXl3nXdxA4Rxaj#rd&quot;&gt;iOS 事件处理机制与图像渲染过程 &lt;/a&gt; ：作者从RunLoop、线程、事件响应、layer、cpu&amp;amp;gpu等到Facebook Pop、AsyncDisplay较为细致地讲解了事件处理机制与图像渲染过程，是篇不可多得的好文章。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;http://blog.zhowkev.in/2015/12/11/xiang-yao-da-zao-ji-zhi-de-yong-hu-ti-yan-yong-appsee/&quot;&gt;想要打造极致的用户体验？用 AppSee&lt;/a&gt; ：这篇貌似是产品经理看的，但如果你用一颗产品经理的心去做事将会让你从另外一个维度认识你、提高你。&lt;br /&gt;
+&lt;img src=&quot;http://blog.zhowkev.in/content/images/2015/12/-----2015-12-11---3-56-09.png&quot; alt=&quot;AppSee&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://blog.zhowkev.in/content/images/2015/12/-----2015-12-11---4-02-18.png&quot; alt=&quot;AppSee&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/MakeZL/ZLXCodeLine&quot;&gt;ZLXCodeLine&lt;/a&gt; : 一款查看代码行数/记录排行榜的插件。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/MakeZL/ZLXCodeLine/raw/master/screenhost5.gif&quot; alt=&quot;ZLXCodeLine&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/804145113/xTransCodelation&quot;&gt;xTransCodelation&lt;/a&gt; : 中英文翻译插件，提供API查询模式和网页模式，利用有道SDK翻译和百度网页翻译。另外集成了一个可以一键关闭其他所有APP的实用功能，方便开发者，CTO再也不怕我是个英文盲。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/890d4f23396fabdfec0cc30f422ecffbca735be0/687474703a2f2f69312e74696574756b752e636f6d2f303235303231383561653136303532392e676966&quot; alt=&quot;xTransCodelation&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/CezaryKopacz/CKWaveCollectionViewTransition&quot;&gt;CKWaveCollectionViewTransition&lt;/a&gt;：是一款可以在两个或更多的 UICollectionViewControllers 中自定义切换动画的库。&lt;br /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/CezaryKopacz/CKWaveCollectionViewTransition/master/anim.gif&quot; alt=&quot;CKWaveCollectionViewTransition&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/liu044100/SmileWeather&quot;&gt;SmileWeather&lt;/a&gt; ：一个较为完整的天气应用。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/liu044100/SmileWeather/raw/master/SmileWeather-Example/demo_gif/new_pro.jpg&quot; alt=&quot;SmileWeather&quot; /&gt; &lt;br /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/liu044100/SmileWeather/master/SmileWeather-Example/demo_gif/localization.png&quot; alt=&quot;SmileWeather&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/36Kr-Mobile/KRVideoPlayer&quot;&gt;KRVideoPlayer&lt;/a&gt; : 来至36Kr类似Weico的播放器，支持竖屏模式下全屏播放。&lt;img src=&quot;https://github.com/36Kr-Mobile/KRVideoPlayer/raw/master/kr_player.gif&quot; alt=&quot;KRVideoPlayer&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/matehat/Objective-LevelDB&quot;&gt;Objective-LevelDB&lt;/a&gt; : Uber开源的轻量级KV数据库框架。&lt;br /&gt;
+&lt;img src=&quot;https://leanote.com/api/file/getImage?fileId=5674c89dab64416467003713&quot; alt=&quot;Objective-LevelDB&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+</description>
+        <pubDate>Sat, 19 Dec 2015 19:08:55 +0800</pubDate>
+        <link>http://catchzeng.com/2015/12/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC11%E6%9C%9F/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2015/12/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC11%E6%9C%9F/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>iOS 函数响应式编程 （ReactiveCocoa）</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;前言&lt;/h2&gt;
+&lt;p&gt;近来，Q群的几个朋友谈起如何使用ReactiveCocoa（以下简称RAC）开发的问题。大家觉得RAC很好，但不知如何运用它。在此整理一些对RAC的看法，希望对学习RAC的朋友有所帮助。本篇是前篇，主要涉及以下内容。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;现有的编程问题&lt;/li&gt;
+  &lt;li&gt;为何出现了这些问题&lt;/li&gt;
+  &lt;li&gt;编程思想的变化&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;现有的编程问题&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;状态量问题（类似Cache问题）&lt;br /&gt;
+在开发中时常需要一些状态量来辅助处理事务。比如：按下登录按钮后发起请求时需要一个状态量（isRequesting）来标注正在请求。&lt;br /&gt;
+&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=566787a5ab6441601e001166&quot; alt=&quot;状态量问题&quot; /&gt;&lt;br /&gt;
+但是由于isRequesting的改变相对随意，也时常会忘记对它正确赋值，导致难以维护。这也就跟Cache中的难点（难以知道何时去更新Cache中的值）一样。另外，当状态量多起来时便会出现组合爆炸的问题（状态成指数级增长），不利于扩展及维护。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Controller爆炸问题&lt;br /&gt;
+随着程序逻辑复杂度的提高，你是否也发现了App中一些ViewController的代码行数急剧增多，达到了2，3千行，甚至更多。这带来了许多问题:1.不利于后续维护2.不利于支撑UI的变动3.不利于复用 4….&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;消息传递机制方式繁多，带来的选择性问题&lt;br /&gt;
+iOS 开发中有着各种消息传递机制，包括 KVO、block、Notification、delegation以及 target-action 方式。各种消息传递机制使得开发者在做具体选择时感到困惑，虽然有不少大牛分享了他们选择的经验，但是在开发中始终觉得繁琐。重点是如果选择错了方式，极不利于代码质量的保证。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;为何出现了这些问题&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56678bc5ab6441601e001182&quot; alt=&quot;1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56678bd3ab6441616d00114d&quot; alt=&quot;2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56679cdbab6441616d0013fb&quot; alt=&quot;3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;从上面几张图我们可以看出，app其实是一个输入-》处理-》输出的过程。而它随着输入输出的增多，开发的难度也越来越大。抽象一点来讲就是变化越多，控制越难。&lt;/p&gt;
+
+&lt;p&gt;传统的命令式编程，是以命令为主的，给机器提供一条又一条的命令序列让其原封不动的执行，这就限制了编程的灵活性。&lt;br /&gt;
+变化（输入、输出）越来越多-》分支越来越多-》状态量问题&lt;br /&gt;
+变化越来越多-》Handler处理的实务越来越多-》Controller爆炸问题（可通过MVVM模式解决）&lt;br /&gt;
+变化越来越多-》需要不同的消息处理机制-》消息传递机制方式的选择问题&lt;br /&gt;
+……&lt;/p&gt;
+
+&lt;p&gt;既然命令式编程不能满足我们的需求，那便寻求解决之法。于是我们想到了Functional Reactive Programming。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;编程思想的变化&lt;/h2&gt;
+&lt;p&gt;最近关于是否使用RAC的讨论非常多。相当一部分的原因是RAC的学习成本高在团队协作中需要每个人都学会使用。使用了一段时间后，个人觉得RAC学习成本高的原因是编程思想上的改变。&lt;br /&gt;
+RAC运用的响应式编程（Functional Reactive Programming,以下简称FRP）与传统的命令式编程思想差异较大。下面我们先来了解一下RAC使用的FRP思想。&lt;/p&gt;
+
+&lt;h2 id=&quot;rac&quot;&gt;RAC中的函数式思想&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;高阶函数：函数作为参数来回传递。在oc中，block是被广泛使用的参数传递，它实际上是匿名函数。&lt;br /&gt;
+例:&lt;br /&gt;
+&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56678d47ab6441616d0011d1&quot; alt=&quot;高阶函数&quot; /&gt;&lt;br /&gt;
+上面的例子中先使用filter（过滤）判断value是否有“catch”前缀，然后使用map（映射）将值映射成no more，最后输出。不难看出例子中的filter 和 map block正是高阶函数的应用。&lt;/li&gt;
+  &lt;li&gt;惰性求值：只有当被使用到时，才会对其求值。在RAC中&lt;strong&gt;&lt;em&gt;信号只有被订阅了，才会触发&lt;/em&gt;&lt;/strong&gt;。&lt;br /&gt;
+例:&lt;br /&gt;
+&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56678dc8ab6441601e001195&quot; alt=&quot;惰性求值&quot; /&gt;&lt;br /&gt;
+将例子中的订阅部分注释，会发现虽然username改变了但是filter 和map不会触发，这就是惰性求值思想的应用。&lt;br /&gt;
+在RAC中将&lt;strong&gt;&lt;em&gt;未被订阅的信号称为“冷信号”，将已被订阅的信号称为“热信号”&lt;/em&gt;&lt;/strong&gt;。&lt;br /&gt;
+例2:&lt;br /&gt;
+&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56678f0dab6441616d0011e5&quot; alt=&quot;惰性求值2&quot; /&gt;&lt;br /&gt;
+RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的时候，断点是不触发的），这也是惰性求值思想的应用。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;rac-1&quot;&gt;RAC中的响应式思想&lt;/h2&gt;
+&lt;p&gt;响应式编程是一种和事件流有关的编程模式，关注导致状态值改变的行为事件，一系列事件组成了事件流。一系列事件是导致属性值发生变化的原因。FRP非常类似于设计模式里的&lt;strong&gt;&lt;em&gt;观察者模式&lt;/em&gt;&lt;/strong&gt;。&lt;br /&gt;
+例:&lt;br /&gt;
+&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56679a9cab6441601e0013c7&quot; alt=&quot;RAC中的响应式思想&quot; /&gt;&lt;br /&gt;
+在传统命令式的编程中可解读成：a是 b + c 表达式的值。&lt;br /&gt;
+而在响应式的编程中应解读成：建立了一个&lt;strong&gt;&lt;em&gt;动态的数据流关系&lt;/em&gt;&lt;/strong&gt;（当c或者b的值发生变化时，a的值自动发生变化）。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;小结&lt;/h2&gt;
+&lt;p&gt;本篇概述了RAC与传统编程方式的区别，下一篇开始，我们将利用RAC来开发一个完整的应用，以此来边掌握RAC的知识。这期就到这了，下期见。&lt;/p&gt;
+</description>
+        <pubDate>Wed, 09 Dec 2015 18:38:31 +0800</pubDate>
+        <link>http://catchzeng.com/2015/12/09/iOS-%E5%87%BD%E6%95%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B-ReactiveCocoa/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2015/12/09/iOS-%E5%87%BD%E6%95%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B-ReactiveCocoa/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>iOS开发见闻-第10期</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/b69d9b615ee5&quot;&gt;Swift 官方 API 设计准则&lt;/a&gt; :与&lt;a href=&quot;http://www.jianshu.com/p/fce426e4f1c4&quot;&gt;《Swift 3 API 设计准则》&lt;/a&gt;的区别在于，那片文章只是一个概览说明，此文章是苹果官方发布的 API 设计准则，虽然还处于样稿阶段，但是有一定的参考价值。&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;http://blog.sunnyxx.com/2015/09/13/class-ivar-layout/&quot;&gt;Objective-C Class Ivar Layout 探索 &lt;/a&gt; ：刨根究底的sunnyxx这次又带给我们惊喜。（关于Class Ivar Layout可能比较少人接触，不过看完文章自然就懂了）&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;http://www.heyuan110.com/2015/06/16/IOS%E9%93%B6%E8%A1%8C%E5%8D%A1%E5%90%88%E6%B3%95%E6%80%A7%E6%A0%A1%E9%AA%8C/&quot;&gt;IOS银行卡合法性校验 &lt;/a&gt; : Luhn检验数字算法，也叫做模数10公式，是一种简单的算法，用于验证银行卡、信用卡号码的有效性的算法，喜欢研究算法的朋友不要错过。&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;http://foggry.com/blog/2015/07/27/ru-he-shou-dong-jie-xi-crashlog/&quot;&gt;手动解析CrashLog之—-方法篇&lt;/a&gt; ：虽然目前已经有很多不错的第三方CrashLog搜集平台（如友盟、Crashlytics等），通常已经不需要我们手工处理CrashLog，但了解CrashLog的还原原理和方法还是有必要的。感兴趣的朋友可以继续研读&lt;a href=&quot;http://foggry.com/blog/2015/08/10/ru-he-shou-dong-jie-xi-crashlogzhi-yuan-li-pian/&quot;&gt;原理篇&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/acoomans/ACCodeSnippetRepositoryPlugin&quot;&gt;ACCodeSnippetRepositoryPlugin&lt;/a&gt; ：一个Xcode代码段的管理插件，像管理Xcode的插件一样，在Xcode里管理代码段是不容易的。该插件用Git仓库来同步Xcode的代码片段。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/acoomans/ACCodeSnippetRepositoryPlugin/raw/master/Screenshots/screenshot02.png&quot; alt=&quot;ACCodeSnippetReposito&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/kimsungwhee/KSHObjcUML&quot;&gt;KSHObjcUML&lt;/a&gt; : Objective-C类引用关系图的Xcode插件。【这款插件在我重构代码的过程中帮了不少忙，推荐使用】&lt;br /&gt;
+&lt;img src=&quot;https://github.com/kimsungwhee/KSHObjcUML/raw/master/KSHObjcUML.png&quot; alt=&quot;KSHObjcUML&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/ryanmeisters/Xcode-Plugin-Open-Sublime-Text&quot;&gt;Open-Sublime-Text&lt;/a&gt; : 相信大家对Sublime Text并不陌生，它的强大编辑工程确实称赞。这款插件能帮助我们将代码在Sublime Text打开并编辑。&lt;br /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/ryanmeisters/Xcode-Plugin-Open-Sublime-Text/master/Misc/OpenInSublimeText.gif&quot; alt=&quot;Open-Sublime-Text&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/gontovnik/DGElasticPullToRefresh&quot;&gt;DGElasticPullToRefresh&lt;/a&gt;：是一款带有弹性效果的 iOS 下拉刷新组件，效果很赞。&lt;br /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/gontovnik/DGElasticPullToRefresh/master/DGElasticPullToRefreshPreview1.gif&quot; alt=&quot;DGElasticPullToRefresh&quot; /&gt;&lt;img src=&quot;https://raw.githubusercontent.com/gontovnik/DGElasticPullToRefresh/master/DGElasticPullToRefreshPreview2.gif&quot; alt=&quot;DGElasticPullToRefresh&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/804145113/BaiDuMusic&quot;&gt;BaiDuMusic&lt;/a&gt; ：用swift写的一个简单的播放器(百度随心听)，可在线播放音乐电台，支持后台播放，封面信息，可显示歌手名，专辑名，当前播放时间等，项目用到了第三方开源框架，有OC的，也有纯swift的，可以当做学习swift的例子。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/ddeabadc1c4ee3bca1ad96589b7fac18ebc63654/687474703a2f2f6931322e74696574756b752e636f6d2f323231373834373463643437646133312e706e67&quot; alt=&quot;BaiDuMusic&quot; /&gt; &lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/1a18481c226e5ca01b6984346b57adc4e1ec3799/687474703a2f2f6931322e74696574756b752e636f6d2f346530323265313061653038353466352e706e67&quot; alt=&quot;BaiDuMusic&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/TimOliver/TOCropViewController&quot;&gt;TOCropViewController&lt;/a&gt; :一个开源的 UIViewController 的子类，允许用户对 UIImage 的对象执行基本的操作，尤其是裁剪和一些基本的旋转。它在设计时考虑到了iOS8照片应用程序，正因为如此，它在表现方面不会让大多数用户感到陌生。&lt;img src=&quot;https://github.com/TimOliver/TOCropViewController/raw/master/screenshot.jpg&quot; alt=&quot;TOCropViewController&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/bahlo/SwiftGif&quot;&gt;SwiftGif&lt;/a&gt; : Swift 对 UIImage 的扩展，实现了 Gif 动画图像的支持。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/bahlo/SwiftGif/raw/master/demo.gif&quot; alt=&quot;SwiftGif&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+</description>
+        <pubDate>Tue, 08 Dec 2015 18:31:18 +0800</pubDate>
+        <link>http://catchzeng.com/2015/12/08/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC10%E6%9C%9F/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2015/12/08/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC10%E6%9C%9F/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>iOS开发见闻-第9期</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/1f93e0fec8a5&quot;&gt;swift实现一个与智能机器人聊天的app&lt;/a&gt; :使用&lt;a href=&quot;http://www.tuling123.com/&quot;&gt;图灵机器人官网API&lt;/a&gt;实现的一款机器人聊天App，帮助初学swift的朋友掌握一些基本知识。&lt;br /&gt;
+&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=565c448eab644150140011e5&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;http://daizi.me/2015/11/16/Swift%20%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/&quot;&gt;Swift 中的函数式编程&lt;/a&gt; ：这篇文章虽然说得比较简略，但是有很多资源连接，可以很好地帮助大家学习。&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;http://tech.meituan.com/talk-about-reactivecocoas-cold-signal-and-hot-signal-part-3.html&quot;&gt;细说ReactiveCocoa的冷信号与热信号（三）：怎么处理冷信号与热信号&lt;/a&gt; : &lt;a href=&quot;http://tech.meituan.com/talk-about-reactivecocoas-cold-signal-and-hot-signal-part-1.html&quot;&gt;第一篇文章&lt;/a&gt; 中介绍了冷信号与热信号的概念，&lt;a href=&quot;http://tech.meituan.com/talk-about-reactivecocoas-cold-signal-and-hot-signal-part-2.html&quot;&gt;前一篇文章&lt;/a&gt; 讨论了为什么要区分冷信号与热信号，这篇作者会先为大家揭晓热信号的本质，再给出冷信号转换成热信号的方法。&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;http://blog.ibireme.com/2015/11/02/ios_image_tips/&quot;&gt;iOS 处理图片的一些小Tip&lt;/a&gt; ：来至ibireme的一篇不错的tips类型文章。&lt;/p&gt;
+
+&lt;p&gt;##工具&lt;br /&gt;
+1.&lt;a href=&quot;https://github.com/ajjnix/xCodeGenerateDescriptionPlugin&quot;&gt;xCodeGenerateDescriptionPlugin&lt;/a&gt; ：为了调试的方便,我们会在类中写上description方法，但写这个方法很繁琐、费时。相信xCodeGenerateDescriptionPlugin能帮你解决该困扰。&lt;br /&gt;
+!!!Q群的朋友反应在Xcode7.1下没法安装成功，遇到类似问题的朋友可以使用github上ajjnix写的&lt;a href=&quot;https://github.com/ajjnix/xCodeGenerateDescriptionPlugin&quot;&gt;修复版&lt;/a&gt;。Build完成后记得检查一下DVTPlugInCompatibilityUUIDs是否完整。【在此我已将原先的地址也替换为该地址，也多谢Q群里的Echo 提出这个问题】&lt;br /&gt;
+&lt;img src=&quot;https://github.com/adamontherun/xCodeGenerateDescriptionPlugin/raw/master/AutoGenerateDescriptionPluginProd/AutoGenerateDescriptionPluginProd/header.png&quot; alt=&quot;图片标题&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/adamontherun/xCodeGenerateDescriptionPlugin/raw/master/AutoGenerateDescriptionPluginProd/AutoGenerateDescriptionPluginProd/implementation.png&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/ThilinaHewagama/HCTAutoFolding&quot;&gt;HCTAutoFolding&lt;/a&gt; : 用过Intellij产品的朋友们，肯定觉得它的代码折叠做得非常棒。HCTAutoFolding帮你在Xcode中实现代码折叠效果。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/ThilinaHewagama/HCTAutoFolding/raw/master/HCTAutoFolding/hctautofolding_screen_shot.jpg&quot; alt=&quot;这里写图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/youweit/DCLazyInstantiate&quot;&gt;DCLazyInstantiate&lt;/a&gt; : 在代码中我们常常需要使用到类型的“懒初始化”或者叫“延时初始化”，该部分的代码逻辑一致，写起来总感一些乏味。DCLazyInstantiate的目标就是没有乏味。&lt;br /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/Tengag/DCLazyInstantiate/master/screenshot.gif&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;开源&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/ibireme/YYText&quot;&gt;YYText&lt;/a&gt;：看到效果图你应该惊呆了吧？YYText是我见到过的功能最强大的基于 CoreText 的排版框架。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/fb454f77c109e6ac671e8fdb3220ade92238715b/68747470733a2f2f7261772e6769746875622e636f6d2f69626972656d652f5959546578742f6d61737465722f417474726962757465732f59595465787420457874656e6465642f5959546578744174746163686d656e742e676966&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/agdsdl/DLSlideView&quot;&gt;DLSlideView&lt;/a&gt; ：DLSlideView对常见的顶部Tab页点击、滑动分页做了封装。 它使用基于ViewController的container特性（而不是scrollview）来管理各个子页面，保留原始的系统消息，没有隐患。同时内存模型更优于使用scrollview的方式，理论上可以支持无限分页。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/agdsdl/DLSlideView/raw/master/Images/demo1.jpg&quot; alt=&quot;这里写图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/exsortis/DateTimeKit&quot;&gt;DateTimeKit&lt;/a&gt; :一个超赞的时间处理的库，Joda-Time ！ 他能帮你轻松处理时区，处理时间加减，计算到期时间等等场景下的问题。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+</description>
+        <pubDate>Mon, 30 Nov 2015 22:17:46 +0800</pubDate>
+        <link>http://catchzeng.com/2015/11/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC9%E6%9C%9F/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2015/11/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC9%E6%9C%9F/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>iOS开发见闻-第8期</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;http://casatwy.com/tiao-chu-mian-xiang-dui-xiang-si-xiang-san-feng-zhuang.html&quot;&gt;跳出面向对象思想(三) 封装&lt;/a&gt; :继承具有“只关注于使用，而不关心具体的实现”的特点，所以在团队协作中发挥极大的作用。看看Casa Taloyum怎么讲封装吧。&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;http://blog.devtang.com/blog/2015/11/21/apps-damaged-bug/&quot;&gt;Mac 应用出现「已损坏」问题，苹果到底犯了什么傻逼错误？&lt;/a&gt; ：巧哥的文章总是给人惊喜，不解释直接看。&lt;br /&gt;
+&lt;img src=&quot;http://blog.devtang.com/images/apps-damaged-issue.jpg&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;http://merowing.info/2015/11/prototyping-floating-burger-menu-with-cashapelayer/&quot;&gt;prototyping-floating-burger-menu-with-cashapelayer&lt;/a&gt; : 看到实现的效果，无论它是什么语言我都已经准备看完它了。&lt;br /&gt;
+&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=5653409bab6441149c000b74&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/CatchZeng/XcodePlus&quot;&gt;XcodePlus&lt;/a&gt; ：XcodePlus让做过java开发的朋友们重新找回command+d删除一行或选中的若干行的感觉。使用的时候记得检查一下有没有跟Key Bindings冲突了！&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/ee6c159461bc2082b02c7cc03cc6764a6a6c3845/68747470733a2f2f7261772e6769746875622e636f6d2f7061796c69752f58636f6465506c75732f6d61737465722f73637265656e73686f742f64656c6574656c696e652e676966&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/CatchZeng/cocoapods-xcode-plugin&quot;&gt;cocoapods-xcode-plugin&lt;/a&gt; : 这个就不用介绍了，如果你嫌pod的时候要切换命令行的话，那就试试吧，如果你是一个命令行爱好者就略过。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/kattrali/cocoadocs-xcode-plugin/raw/master/menu.png&quot; alt=&quot;这里写图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/ThilinaHewagama/AutoIndentWithSave&quot;&gt;AutoIndentWithSave&lt;/a&gt; : 这个plugin个人非常喜欢的，就不知道为什么star那么少。AutoIndentWithSave能帮我们在save文件的时候自动格式化代码，个人非常推荐。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/ThilinaHewagama/AutoIndentWithSave/raw/master/auto_indent_screen_shot.jpg&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/Ramotion/animated-tab-bar&quot;&gt;animated-tab-bar&lt;/a&gt;：当tab-bar席卷app风潮的阶段，看到animated-tab-bar是否变得不那么单调呢？&lt;br /&gt;
+&lt;img src=&quot;https://github.com/Ramotion/animated-tab-bar/raw/master/Screenshots/tab-bar-icons-iphone-ramotion-animation-interface-design.gif&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/PureLayout/PureLayout&quot;&gt;PureLayout&lt;/a&gt; ：PureLayout帮助我们简化在代码中使用Autolayout的操作，类似于oc中使用的masonry。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/PureLayout/PureLayout/raw/master/Images/PureLayout.png?raw=true&quot; alt=&quot;这里写图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/ochococo/Design-Patterns-In-Swift&quot;&gt;Design-Patterns-In-Swift&lt;/a&gt; :设计模式是code永恒的话题，swift当然也不例外。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+</description>
+        <pubDate>Tue, 24 Nov 2015 08:37:54 +0800</pubDate>
+        <link>http://catchzeng.com/2015/11/24/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC8%E6%9C%9F/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2015/11/24/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC8%E6%9C%9F/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>iOS开发见闻-第7期</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;http://www.cocoachina.com/ios/20151113/14207.html&quot;&gt;让我们来搞崩 Cocoa 吧  &lt;/a&gt; :有时候搞崩程序比编写它们更有趣，看看作者怎么整跨oc吧。&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;http://www.jianshu.com/p/37ab8f336f76&quot;&gt;Core Data: 多线程大量数据同步&lt;/a&gt; ：作者看到一个面试题后，整理的一篇关于core data 在多线程中处理大数据的注意事项的文章，总结得很好。&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;http://studentdeng.github.io/blog/2014/08/29/ios-architecture/&quot;&gt;iOS APP 架构漫谈&lt;/a&gt; : 文章虽然不是最近的，但是“不会开机的男孩”的文章总是让人读起来受益匪浅，另外还有他的第二篇&lt;a href=&quot;http://studentdeng.github.io/blog/2014/11/05/ios-architecture2/&quot;&gt;iOS APP 架构漫谈二&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/90d6cd355b14&quot;&gt;iOS使用Quartzcode设计动画，快速得到Object-C 和 Swift 代码&lt;/a&gt; ：QuartzCode 是一个快速的、 轻量级的、 强大的动画工具，转换矢量绘图和动画到Object C 和 Swift 代码。&lt;br /&gt;
+我们只需更改属性 ，还可以可以循环在几秒钟内，实时看到动画的变化。减少了在 Xcode 创建动画的障碍 ！&lt;br /&gt;
+&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=564d2a6dab6441711100039a&quot; alt=&quot;图片标题&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=564d2a81ab6441711100039b&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/tapwork/HeapInspector-for-iOS&quot;&gt;HeapInspector&lt;/a&gt; : 内存泄露永远的恨啊！不过当内存泄露遇到HeapInspector也是不一般的体验。快用HeapInspector来检测你的app是否有内存泄露吧。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/tapwork/HeapInspector-for-iOS/raw/master/README_Xtras/screencast.gif&quot; alt=&quot;这里写图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/RuiAAPeres/UIViewController-Swizzled&quot;&gt;UIViewController-Swizzled&lt;/a&gt; : 把你进入的每一个controller的类名打出来,如果看一些特别复杂的项目的时候直接运行demo就可以知道执行次序了。&lt;br /&gt;
+&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=564c7d43ab644165680020a3&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/bang590/JSPatch&quot;&gt;JSPatch – 动态更新iOS APP&lt;/a&gt;：JSPatch是作者业余做的项目，目的是动态更新APP，替换项目原生代码修复bug，免去发布版本的麻烦。&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/xhzengAIB/MessageDisplayKit&quot;&gt;MessageDisplayKit&lt;/a&gt; ：一个类似微信App的IM应用，拥有发送文字、图片、语音、视频、地理位置消息，管理本地通信录、分享朋友圈、漂流交友、摇一摇和更多有趣的功能。(在此感谢Q群里的大神“飞鸽传书”推荐此开源项目)&lt;br /&gt;
+&lt;img src=&quot;https://github.com/xhzengAIB/LearnEnglish/raw/master/Screenshots/MessageDisplayKit.gif&quot; alt=&quot;这里写图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/DaidoujiChen/CocoaChinaPlus&quot;&gt;CocoaChinaPlus&lt;/a&gt; :CocoaChina+是一款开源的第三方CocoaChina移动端。整个App都用Swift2.0编写(除部分第三方OC代码外，比如JPush和友盟)。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/36e5be49cbce600c29999516df07a6027bdaa787/687474703a2f2f7a6978756e2e6769746875622e696f2f696d616765732f637573746f6d2f76656e6465722f686f6d655f636f636f616368696e612e6a7067&quot; alt=&quot;图片标题&quot; /&gt;&lt;img src=&quot;https://camo.githubusercontent.com/4808b55a0789e9329bf0d960ec17419f103bde48/687474703a2f2f7a6978756e2e6769746875622e696f2f696d616765732f637573746f6d2f76656e6465722f61727469636c655f636f636f616368696e612e6a7067&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+</description>
+        <pubDate>Thu, 19 Nov 2015 05:32:02 +0800</pubDate>
+        <link>http://catchzeng.com/2015/11/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC7%E6%9C%9F/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2015/11/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC7%E6%9C%9F/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>IntelliJ IDEA Spring MVC环境搭建</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;前言&lt;/h2&gt;
+&lt;p&gt;IntelliJ在业界被公认为最好的java开发工具之一，尤其在智能代码助手、代码自动提示、重构、J2EE支持、Ant、JUnit、CVS整合、代码审查、 创新的GUI设计等方面的功能可以说是超常的。&lt;br /&gt;
+	Spring MVC属于SpringFrameWork的后续产品，提供了构建 Web 应用程序的全功能 MVC 模块。使用 Spring 可插入的 MVC架构，易于同其它View框架（Tiles等）无缝集成，采用IOC便于测试。源于这些优点，越来越多开发者已将Spring MVC列为的首选。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;搭建过程&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;.选中Spring并勾选Spring MVC，点击Next&lt;br /&gt;
+&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=5648258aab64416406000576&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;勾选create project from template&lt;br /&gt;
+&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56482963ab6441640600060a&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;输入项目名称、保存位置、tomact位置等信息&lt;br /&gt;
+&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56482a86ab6441640600060c&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;点击run，启动&lt;br /&gt;
+&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56482b5eab64416406000611&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;浏览器输入Hello World表示环境搭建成功&lt;br /&gt;
+&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56482c25ab644165680005be&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;spring-mvc&quot;&gt;Spring MVC请求处理流程&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Spring MVC的设计是围绕DispatcherServlet展开的，DispatcherServlet负责将请求派发到特定的handler。通过可配置的handler mappings、view resolution、locale以及theme resolution来处理请求并且转到对应的视图。Spring MVC请求处理的整体流程如图：&lt;br /&gt;
+&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56482d79ab64416406000618&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在web.xml中我们可以看到配置了一个DispatcherServlet，该Servlet拦截了 / 的所有请求&lt;br /&gt;
+&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56482e09ab644165680005c4&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在mvc-dispatcher-servlet.xml中 component-scan 扫描指定的文件夹下的文件（这里指定了根目录）&lt;br /&gt;
+&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56482fd4ab644165680005d5&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;当请求发起时，Spring MVC扫描文件发现HelloController 中的 @Controller和@RequestMapping(“/”)注解便由DispatcherServlet转向HelloController来处理 / 请求&lt;br /&gt;
+&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=564830c4ab644165680005d9&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;当HelloController返回hello变由mvc-dispatcher-servlet.xml的配置默认加上前后缀成为/WEB-INF/pages/hello.jsp，最后将Hello World输出&lt;br /&gt;
+&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56483169ab64416406000626&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Sun, 15 Nov 2015 23:24:14 +0800</pubDate>
+        <link>http://catchzeng.com/2015/11/15/IntelliJ-IDEA-Spring-MVC%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2015/11/15/IntelliJ-IDEA-Spring-MVC%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+        
+        <category>Java Web</category>
+        
+        
+      </item>
+    
+  </channel>
+</rss>

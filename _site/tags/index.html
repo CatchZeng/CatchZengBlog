@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>Tags - CatchZeng的技术博客 | CatchZeng Blog</title>
+
+    <link rel="canonical" href="http://catchzeng.com/tags/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">CatchZeng Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/tag-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading" id="tag-heading">
+                    <h1>Tags</h1>
+                    <span class="subheading">keep hungry keep foolish</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+			<!--  -->
+            <!-- 标签云 -->
+			<div id='tag_cloud' class="tags">
+				
+				<a href="#iOS" title="iOS" rel="20">iOS</a>
+				
+				<a href="#Java Web" title="Java Web" rel="2">Java Web</a>
+				
+			</div>
+
+            <!-- 标签列表 -->
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="iOS">
+                    <span class="tag-text">iOS</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-01-26">2016-01-26</time>
+				  <a href="/2016/01/26/iOS%E7%94%A8%E8%A2%AB%E8%AF%AF%E8%A7%A3%E7%9A%84MVC%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%81/" title="iOS用被误解的MVC重构代码">iOS用被误解的MVC重构代码</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/01/26/iOS%E7%94%A8%E8%A2%AB%E8%AF%AF%E8%A7%A3%E7%9A%84MVC%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%81/">
+				        <h2 class="post-title">
+                            iOS用被误解的MVC重构代码
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            iOS开发
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-01-26</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-01-23">2016-01-23</time>
+				  <a href="/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6%E5%B7%A5%E5%85%B7/" title="iOS清理工程中未使用的类文件工具">iOS清理工程中未使用的类文件工具</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6%E5%B7%A5%E5%85%B7/">
+				        <h2 class="post-title">
+                            iOS清理工程中未使用的类文件工具
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            iOS开发见闻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-01-23</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-01-07">2016-01-07</time>
+				  <a href="/2016/01/07/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC12%E6%9C%9F/" title="iOS开发见闻-第12期">iOS开发见闻-第12期</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/01/07/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC12%E6%9C%9F/">
+				        <h2 class="post-title">
+                            iOS开发见闻-第12期
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            iOS开发见闻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-01-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-12-19">2015-12-19</time>
+				  <a href="/2015/12/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC11%E6%9C%9F/" title="iOS开发见闻-第11期">iOS开发见闻-第11期</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/12/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC11%E6%9C%9F/">
+				        <h2 class="post-title">
+                            iOS开发见闻-第11期
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            iOS开发见闻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-12-19</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-12-09">2015-12-09</time>
+				  <a href="/2015/12/09/iOS-%E5%87%BD%E6%95%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B-ReactiveCocoa/" title="iOS 函数响应式编程 （ReactiveCocoa）">iOS 函数响应式编程 （ReactiveCocoa）</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/12/09/iOS-%E5%87%BD%E6%95%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B-ReactiveCocoa/">
+				        <h2 class="post-title">
+                            iOS 函数响应式编程 （ReactiveCocoa）
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            ReactiveCocoa
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-12-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-12-08">2015-12-08</time>
+				  <a href="/2015/12/08/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC10%E6%9C%9F/" title="iOS开发见闻-第10期">iOS开发见闻-第10期</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/12/08/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC10%E6%9C%9F/">
+				        <h2 class="post-title">
+                            iOS开发见闻-第10期
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            iOS开发见闻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-12-08</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-11-30">2015-11-30</time>
+				  <a href="/2015/11/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC9%E6%9C%9F/" title="iOS开发见闻-第9期">iOS开发见闻-第9期</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/11/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC9%E6%9C%9F/">
+				        <h2 class="post-title">
+                            iOS开发见闻-第9期
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            iOS开发见闻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-11-30</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-11-24">2015-11-24</time>
+				  <a href="/2015/11/24/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC8%E6%9C%9F/" title="iOS开发见闻-第8期">iOS开发见闻-第8期</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/11/24/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC8%E6%9C%9F/">
+				        <h2 class="post-title">
+                            iOS开发见闻-第8期
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            iOS开发见闻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-11-24</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-11-19">2015-11-19</time>
+				  <a href="/2015/11/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC7%E6%9C%9F/" title="iOS开发见闻-第7期">iOS开发见闻-第7期</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/11/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC7%E6%9C%9F/">
+				        <h2 class="post-title">
+                            iOS开发见闻-第7期
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            iOS开发见闻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-11-19</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-11-12">2015-11-12</time>
+				  <a href="/2015/11/12/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC6%E6%9C%9F/" title="iOS开发见闻-第6期">iOS开发见闻-第6期</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/11/12/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC6%E6%9C%9F/">
+				        <h2 class="post-title">
+                            iOS开发见闻-第6期
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            iOS开发见闻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-11-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-11-05">2015-11-05</time>
+				  <a href="/2015/11/05/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC5%E6%9C%9F/" title="iOS开发见闻-第5期">iOS开发见闻-第5期</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/11/05/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC5%E6%9C%9F/">
+				        <h2 class="post-title">
+                            iOS开发见闻-第5期
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            iOS开发见闻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-11-05</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-10-30">2015-10-30</time>
+				  <a href="/2015/10/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC4%E6%9C%9F/" title="iOS开发见闻-第4期">iOS开发见闻-第4期</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/10/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC4%E6%9C%9F/">
+				        <h2 class="post-title">
+                            iOS开发见闻-第4期
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            iOS开发见闻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-10-30</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-10-26">2015-10-26</time>
+				  <a href="/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/" title="为AppDelegate瘦身">为AppDelegate瘦身</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/">
+				        <h2 class="post-title">
+                            为AppDelegate瘦身
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            runtime&load
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-10-26</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-10-26">2015-10-26</time>
+				  <a href="/2015/10/26/iOS9%E9%80%82%E9%85%8D%E9%97%AE%E9%A2%98/" title="iOS9适配问题">iOS9适配问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/10/26/iOS9%E9%80%82%E9%85%8D%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            iOS9适配问题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            iOS9
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-10-26</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-10-26">2015-10-26</time>
+				  <a href="/2015/10/26/Mac-OS-X-10.11%E5%8D%87%E7%BA%A7%E5%B8%A6%E6%9D%A5%E7%9A%84-cocoapods%E9%97%AE%E9%A2%98/" title="Mac OS X 10.11升级带来的 cocoapods问题">Mac OS X 10.11升级带来的 cocoapods问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/10/26/Mac-OS-X-10.11%E5%8D%87%E7%BA%A7%E5%B8%A6%E6%9D%A5%E7%9A%84-cocoapods%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            Mac OS X 10.11升级带来的 cocoapods问题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            cocoapods
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-10-26</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-10-26">2015-10-26</time>
+				  <a href="/2015/10/26/%E5%B1%8F%E5%B9%95%E9%80%82%E9%85%8D%E4%B9%8BSize-Classes/" title="屏幕适配之Size Classes">屏幕适配之Size Classes</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/10/26/%E5%B1%8F%E5%B9%95%E9%80%82%E9%85%8D%E4%B9%8BSize-Classes/">
+				        <h2 class="post-title">
+                            屏幕适配之Size Classes
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            frame -> autoreszing -> autolayout -> Size Classes
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-10-26</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-10-26">2015-10-26</time>
+				  <a href="/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC3%E6%9C%9F/" title="iOS开发见闻-第3期">iOS开发见闻-第3期</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC3%E6%9C%9F/">
+				        <h2 class="post-title">
+                            iOS开发见闻-第3期
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            iOS开发见闻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-10-26</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-10-26">2015-10-26</time>
+				  <a href="/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC2%E6%9C%9F/" title="iOS开发见闻-第2期">iOS开发见闻-第2期</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC2%E6%9C%9F/">
+				        <h2 class="post-title">
+                            iOS开发见闻-第2期
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            iOS开发见闻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-10-26</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-10-26">2015-10-26</time>
+				  <a href="/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC1%E6%9C%9F/" title="iOS开发见闻-第1期">iOS开发见闻-第1期</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC1%E6%9C%9F/">
+				        <h2 class="post-title">
+                            iOS开发见闻-第1期
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            iOS开发见闻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-10-26</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-10-26">2015-10-26</time>
+				  <a href="/2015/10/26/AppStore%E4%B8%8A%E6%9E%B6%E9%97%AE%E9%A2%98ERROR-ITMS-90049/" title="AppStore上架问题ERROR ITMS-90049">AppStore上架问题ERROR ITMS-90049</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/10/26/AppStore%E4%B8%8A%E6%9E%B6%E9%97%AE%E9%A2%98ERROR-ITMS-90049/">
+				        <h2 class="post-title">
+                            AppStore上架问题ERROR ITMS-90049
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            ERROR ITMS-90049
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-10-26</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Java Web">
+                    <span class="tag-text">Java Web</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-11-15">2015-11-15</time>
+				  <a href="/2015/11/15/IntelliJ-IDEA-Spring-MVC%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="IntelliJ IDEA Spring MVC环境搭建">IntelliJ IDEA Spring MVC环境搭建</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/11/15/IntelliJ-IDEA-Spring-MVC%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+				        <h2 class="post-title">
+                            IntelliJ IDEA Spring MVC环境搭建
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            IntelliJ IDEA
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-11-15</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-10-26">2015-10-26</time>
+				  <a href="/2015/10/26/Mac%E4%B8%8BMaven%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="Mac下Maven环境搭建">Mac下Maven环境搭建</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/10/26/Mac%E4%B8%8BMaven%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+				        <h2 class="post-title">
+                            Mac下Maven环境搭建
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Maven
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-10-26</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+
+		</div>
+	</div>
+</div>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+                    
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/u/2167807070">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/catchzeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                Copyright &copy; CatchZeng Blog 2016
+                <br>
+                <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+                <span id="busuanzi_container_site_pv">您是第<span id="busuanzi_value_site_pv"></span>位访客</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+        o = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- Highlight.js -->
+<script>
+    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+          hljs.initHighlightingOnLoad();
+          })
+          // only load tagcloud.js in tag.html
+          if($('#tag_cloud').length !== 0){
+              async("/js/jquery.tagcloud.js",function(){
+                    $.fn.tagcloud.defaults = {
+                    //size: {start: 1, end: 1, unit: 'em'},
+                    color: {start: '#bbbbee', end: '#0085a1'},
+                    };
+                    $('#tag_cloud a').tagcloud();
+                    })
+          }
+</script>
+<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+    
+    <!--fastClick.js -->
+    <script>
+        async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+              var $nav = document.querySelector("nav");
+              if($nav) FastClick.attach($nav);
+              })
+        </script>
+    
+    
+    <!-- Google Analytics -->
+    
+    <script>
+        // dynamic User by Hux
+        var _gaId = 'UA-49627206-1';
+        var _gaDomain = 'catchzeng.com';
+        
+        // Originial
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+         
+         ga('create', _gaId, _gaDomain);
+         ga('send', 'pageview');
+        </script>
+    
+    
+    
+    <!-- Baidu Tongji -->
+    
+    <script>
+        // dynamic User by Hux
+        var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+        
+        // Originial
+        var _hmt = _hmt || [];
+        (function() {
+         var hm = document.createElement("script");
+         hm.src = "//hm.baidu.com/hm.js?" + _baId;
+         var s = document.getElementsByTagName("script")[0];
+         s.parentNode.insertBefore(hm, s);
+         })();
+        </script>
+    
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

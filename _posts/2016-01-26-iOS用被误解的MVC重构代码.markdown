@@ -26,7 +26,7 @@ tags:
 - 结合RAC使用变得神乎其技。特别是面对***View与View之间变化关系紧密***时RAC能处理得很elegant。
 - 解决了***状态量***的问题（即无状态）
 
-![MVVM](http://upload-images.jianshu.io/upload_images/943491-61aeeb2dbb5660a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![MVVM](/img/in-post/post-mvc/MVVM.jpg)
 
 2.缺点:
 
@@ -51,21 +51,20 @@ tags:
 MVP 是从MVC演变而来，它们有相通的地方：Controller/Presenter负责逻辑的处理，Model提供数据，View负责显示。MVP与MVC有一个重大的区别：在MVP中View并不直接使用Model，它们之间的通信是通过Presenter (MVC中的Controller)来进行的，所有的交互都发生在Presenter内部，而在***MVC中View会直接从Model中读取数据***而不是通过 Controller。
 看到最后一句的时候相信大家都会有疑问，也许会指着下面这张斯坦福教授的图说MVC的View和Model是没有直接通讯的。
 
-![斯坦福MVC](http://upload-images.jianshu.io/upload_images/943491-ed100828ffb93cc5.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![斯坦福MVC](/img/in-post/post-mvc/斯坦福MVC.jpg)
 
 
 
 
 但传统的MVC并不是这样的，百科[MVC框架](http://baike.baidu.com/link?url=JpP8cWxxrM-WGebq0kmhI88O3fHLlJOqW0ZEBqYjBYkPM38hxlHi1XTXCDM6l2oMDgjdMUpNX-2Jk0d_ldV6Pny6-zX2gc7iQL3KeC6TAYsUpJOcoW5pia9gUQ1fA_WV)
 
-![MVC图1](http://upload-images.jianshu.io/upload_images/943491-320eaa04c629ea7a.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![MVC图2](http://upload-images.jianshu.io/upload_images/943491-b8c38bd437fec761.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![MVC图1](/img/in-post/post-mvc/MVC图1.jpg)
+![MVC图2](/img/in-post/post-mvc/MVC图2.jpg)
 
 
 那么哪个才是真正的MVC？这也是今天主要想跟大家交流的，为了继续这个话题我们先进一步了解MVP模式。
 
-![MVP](http://upload-images.jianshu.io/upload_images/943491-3c7576eaeb623ca3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
+![MVP](/img/in-post/post-mvc/MVP.jpg)
 
 
 在MVP中View持有一个Presenter对象，View将界面的响应处理移交给Presenter，而Presenter调用Model进行处理，最后Presenter将Model处理完毕的数据通过Interface的形式递交给View做相应的改变。
@@ -87,7 +86,7 @@ MV（X）本是同根生，自然有一些相同点。MVC在每一个平台上�
 
 为了解决开发中的问题，我对MVC各层重新做了职能分配。
 
-![MVC](http://upload-images.jianshu.io/upload_images/943491-e057ec2577a1b825.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![MVCRefactoring](/img/in-post/post-mvc/MVCRefactoring.jpg)
 
 注：单独箭头表示直接引用，箭头带圆圈表示以接口引用。
 
