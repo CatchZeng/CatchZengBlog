@@ -5,9 +5,65 @@
     <description></description>
     <link>http://catchzeng.com/</link>
     <atom:link href="http://catchzeng.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 31 Jan 2016 19:49:51 +0800</pubDate>
-    <lastBuildDate>Sun, 31 Jan 2016 19:49:51 +0800</lastBuildDate>
+    <pubDate>Tue, 02 Feb 2016 15:57:18 +0800</pubDate>
+    <lastBuildDate>Tue, 02 Feb 2016 15:57:18 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>iOS开发见闻-第13期</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+
+&lt;p&gt;1.&lt;a href=&quot;http://www.daizi.me/2016/01/05/iOS%20%E5%90%AF%E5%8A%A8%E6%97%B6%E4%BC%98%E5%8C%96%20%281%29/&quot;&gt;iOS 启动时优化&lt;/a&gt; :本文虽是针对 Facebook 应用的启动时优化，文中所说的大部分优化策略对于小型应用来说意义可能并不是很大，但是重要的是，我们应学习Facebook 工程师通过一系列系统的考量寻求优化解决方案的方式。&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;http://onevcat.com/2016/01/create-framework/&quot;&gt;如何打造一个让人愉快的框架&lt;/a&gt; ：喵神的框架论，如果你想做一个框架，不妨先看看这篇文章，或许会为你的框架提供更好的思路。&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;http://ios.jobbole.com/83393/&quot;&gt;熟练使用 LLDB，让你调试事半功倍&lt;/a&gt; : LLDB是Xcode默认的调试器，它与LLVM编译器一起，带给我们更丰富的流程控制和数据检测的调试功能。平时用Xcode运行程序，实际走的都是LLDB。熟练使用LLDB，可以让你debug事半功倍。&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;http://oncenote.com/2015/07/28/iOS-To-Android/&quot;&gt;iOS到Android到底有多远&lt;/a&gt; ：本人对Android和iOS都很喜欢，两者的开发其实不大，而且能起到差异性学习的效果。这篇文章讲述了iOS和Android开发的一些要点，如果你也有意学习Android，那么可以看看。&lt;/p&gt;
+
+&lt;p&gt;5.&lt;a href=&quot;http://www.iiiyu.com/2016/01/19/CoreData-VS-Realm/&quot;&gt;CoreData-VS-Realm&lt;/a&gt; ：现在谈及Realm想必大家都不会陌生，它的到来改变了持久化的格局，那它到底值不值得用呢？看看萧宸宇的使用感受吧。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/omz/Dash-Plugin-for-Xcode&quot;&gt;Dash-Plugin-for-Xcode&lt;/a&gt; ：一款集成了 Dash 文档查看器应用的 Xcode 插件，允许开发者在使用 Option-Click 或作用相同的快捷键操作查看当前文本的相关文档时，用 Dash 代替 Xcode 的文档查看器。&lt;br /&gt;
+&lt;img src=&quot;http://static.open-open.com/lib/uploadImg/20140516/20140516112310_863.jpg&quot; alt=&quot;Dash-Plugin-for-Xcode&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;http://www.apicloud.com/superwebview&quot;&gt;superwebview&lt;/a&gt; : 嵌入的Web体验差、功能弱？试试SuperWebView。任何一款APP，集成SuperWebViewSDK后都可以大幅缩短迭代周期。支持功能动态增加，无需提交AppStore审核，用户无需重新下载，比原生WebView更流畅更强大的用户体验。&lt;br /&gt;
+&lt;img src=&quot;http://www.apicloud.com/img/new/superwebview-intro-5.png&quot; alt=&quot;superwebview&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://itunes.apple.com/us/app/liya/id455484422?ls=1&amp;amp;mt=12&quot;&gt;Liya&lt;/a&gt; : 是不是厌倦了手动创建数据库，创建CoreData？他可以帮你可视化操作Sqlite以及CoreData！&lt;br /&gt;
+&lt;img src=&quot;http://a5.mzstatic.com/us/r30/Purple4/v4/07/6c/40/076c4052-faf1-9f11-f7fd-d35b3b178ce3/screen800x500.jpeg&quot; alt=&quot;Liya&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/TencentOpen/GT&quot;&gt;GT&lt;/a&gt;:GT（随身调）是APP的随身调试平台，它是直接运行在手机上的“集成调试环境”(IDTE, Integrated Debug Environment)。利用GT，仅凭一部手机，无需连接电脑，即可对APP进行快速的性能测试(CPU、内存、流量、电量、帧率/流畅度等等)、开发日志的查看、Crash日志查看、网络数据包的抓取、APP内部参数的调试、真机代码耗时统计等。&lt;br /&gt;
+&lt;img src=&quot;http://gt.qq.com/pics/index/GT650.jpg&quot; alt=&quot;GT&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/audiokit/AudioKit&quot;&gt;AudioKit&lt;/a&gt; : 一个开源的强大的音频合成、处理和分析库。用于 iPhone/OS X 应用的开发，支持 Objective-C 和 Swift 语言。&lt;br /&gt;
+&lt;img src=&quot;http://static.oschina.net/uploads/space/2014/1108/061436_7Kml_5189.jpg&quot; alt=&quot;AudioKit&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/CatchChat/Yep&quot;&gt;Yep&lt;/a&gt; : Yep 是一款非常小巧而轻量化的社交 App，围绕「遇见天才」这个主题，让用户去找到领域中的精英或者是正在一起学习的人。作者不但开源了代码，而且讲述了工程的结构，相当难得。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/f678b86f8b87dd25ed59ada8c1c3dc1b696a987f/687474703a2f2f626c6f672e7a686f776b65762e696e2f636f6e74656e742f696d616765732f323031362f30322f696d6167652e706e67&quot; alt=&quot;Yep&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/nickoneill/PermissionScope&quot;&gt;PermissionScope&lt;/a&gt; : PermissionScope 是 Swift 框架，是智能 iOS 用户权限 UI 和统一 API，可以智能的处理用户权限请求。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/b3aadf6f7486413749922757a42d863132f836d6/687474703a2f2f726171756f2e6e65742f696d616765732f7065726d697373696f6e73636f70652e676966&quot; alt=&quot;PermissionScope&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/pili-engineering/PLCameraStreamingKit&quot;&gt;PLCameraStreamingKit&lt;/a&gt; : 一个适用于 iOS 的 RTMP 直播推流 SDK，可高度定制化和二次开发。特色是支持 iOS Camera 画面捕获并进行 H.264 硬编码，以及支持 iOS 麦克风音频采样并进行 AAC 硬编码；同时，还根据移动网络环境的多变性，实现了一套可供开发者灵活选择的编码参数集合。借助 PLCameraStreamingKit，开发者可以快速构建一款类似 Meerkat 或 Periscope 的手机直播应用。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/pili-engineering/PLCameraStreamingKit/raw/master/header-doc.png?raw=true&quot; alt=&quot;PLCameraStreamingKit&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;5.&lt;a href=&quot;https://github.com/marmelroy/Localize-Swift&quot;&gt;Localize-Swift&lt;/a&gt; : Localize-Swift 是一个简单的用于 Swift 应用的国际化和本地化框架，提供了清晰的语法和应用内的多语言切换。。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/68670b270ff0f916c5cb2dfe0d158a5cb4245681/687474703a2f2f692e696d6775722e636f6d2f767372707142742e676966&quot; alt=&quot;Localize-Swift&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 30 Jan 2016 17:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/01/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC13%E6%9C%9F/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/01/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC13%E6%9C%9F/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
     
       <item>
         <title>iOS用被误解的MVC重构代码</title>
@@ -773,79 +829,6 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
         <guid isPermaLink="true">http://catchzeng.com/2015/11/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC7%E6%9C%9F/</guid>
         
         <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>IntelliJ IDEA Spring MVC环境搭建</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
-阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section&quot;&gt;前言&lt;/h2&gt;
-&lt;p&gt;IntelliJ在业界被公认为最好的java开发工具之一，尤其在智能代码助手、代码自动提示、重构、J2EE支持、Ant、JUnit、CVS整合、代码审查、 创新的GUI设计等方面的功能可以说是超常的。&lt;br /&gt;
-	Spring MVC属于SpringFrameWork的后续产品，提供了构建 Web 应用程序的全功能 MVC 模块。使用 Spring 可插入的 MVC架构，易于同其它View框架（Tiles等）无缝集成，采用IOC便于测试。源于这些优点，越来越多开发者已将Spring MVC列为的首选。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;搭建过程&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;.选中Spring并勾选Spring MVC，点击Next&lt;br /&gt;
-&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=5648258aab64416406000576&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;勾选create project from template&lt;br /&gt;
-&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56482963ab6441640600060a&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;输入项目名称、保存位置、tomact位置等信息&lt;br /&gt;
-&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56482a86ab6441640600060c&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;点击run，启动&lt;br /&gt;
-&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56482b5eab64416406000611&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;浏览器输入Hello World表示环境搭建成功&lt;br /&gt;
-&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56482c25ab644165680005be&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;spring-mvc&quot;&gt;Spring MVC请求处理流程&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Spring MVC的设计是围绕DispatcherServlet展开的，DispatcherServlet负责将请求派发到特定的handler。通过可配置的handler mappings、view resolution、locale以及theme resolution来处理请求并且转到对应的视图。Spring MVC请求处理的整体流程如图：&lt;br /&gt;
-&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56482d79ab64416406000618&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;在web.xml中我们可以看到配置了一个DispatcherServlet，该Servlet拦截了 / 的所有请求&lt;br /&gt;
-&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56482e09ab644165680005c4&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;在mvc-dispatcher-servlet.xml中 component-scan 扫描指定的文件夹下的文件（这里指定了根目录）&lt;br /&gt;
-&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56482fd4ab644165680005d5&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;当请求发起时，Spring MVC扫描文件发现HelloController 中的 @Controller和@RequestMapping(“/”)注解便由DispatcherServlet转向HelloController来处理 / 请求&lt;br /&gt;
-&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=564830c4ab644165680005d9&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;当HelloController返回hello变由mvc-dispatcher-servlet.xml的配置默认加上前后缀成为/WEB-INF/pages/hello.jsp，最后将Hello World输出&lt;br /&gt;
-&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56483169ab64416406000626&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-</description>
-        <pubDate>Sun, 15 Nov 2015 23:24:14 +0800</pubDate>
-        <link>http://catchzeng.com/2015/11/15/IntelliJ-IDEA-Spring-MVC%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
-        <guid isPermaLink="true">http://catchzeng.com/2015/11/15/IntelliJ-IDEA-Spring-MVC%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
-        
-        <category>Java Web</category>
         
         
       </item>
