@@ -8,9 +8,7 @@ header-img: "img/post-bg-2015.jpg"
 tags:
     - iOS
 ---
-<span id="busuanzi_container_page_pv">
-阅读<span id="busuanzi_value_page_pv"></span>
-</span>
+<span id="busuanzi_container_page_pv"></span>
 
 ## 文章
 1.[涅槃重生:我的技术转管理之路](http://blog.devtang.com/blog/2015/12/18/from-dev-to-manager/) :巧哥的涅槃重生，这篇虽不是技术文章，但深刻地描述了大神从技术走向管理的思考，值得细细品味。

@@ -8,9 +8,7 @@ header-img: "img/post-bg-2015.jpg"
 tags:
     - iOS
 ---
-<span id="busuanzi_container_page_pv">
-阅读<span id="busuanzi_value_page_pv"></span>
-</span>
+<span id="busuanzi_container_page_pv"></span>
 
 ## 前言
 近来，Q群的几个朋友谈起如何使用ReactiveCocoa（以下简称RAC）开发的问题。大家觉得RAC很好，但不知如何运用它。在此整理一些对RAC的看法，希望对学习RAC的朋友有所帮助。本篇是前篇，主要涉及以下内容。

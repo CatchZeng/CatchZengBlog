@@ -8,9 +8,7 @@ header-img: "img/post-bg-2015.jpg"
 tags:
     - iOS
 ---
-<span id="busuanzi_container_page_pv">
-阅读<span id="busuanzi_value_page_pv"></span>
-</span>
+<span id="busuanzi_container_page_pv"></span>
 
 ## 文章
 1.[让我们来搞崩 Cocoa 吧  ](http://www.cocoachina.com/ios/20151113/14207.html) :有时候搞崩程序比编写它们更有趣，看看作者怎么整跨oc吧。

@@ -8,9 +8,7 @@ header-img: "img/post-bg-2015.jpg"
 tags:
     - iOS
 ---
-<span id="busuanzi_container_page_pv">
-阅读<span id="busuanzi_value_page_pv"></span>
-</span>
+<span id="busuanzi_container_page_pv"></span>
 
 ## 文章
 1.[swift实现一个与智能机器人聊天的app](http://www.jianshu.com/p/1f93e0fec8a5) :使用[图灵机器人官网API](http://www.tuling123.com/)实现的一款机器人聊天App，帮助初学swift的朋友掌握一些基本知识。

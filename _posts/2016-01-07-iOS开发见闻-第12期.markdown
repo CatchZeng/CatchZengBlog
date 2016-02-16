@@ -8,9 +8,7 @@ header-img: "img/post-bg-2015.jpg"
 tags:
     - iOS
 ---
-<span id="busuanzi_container_page_pv">
-阅读<span id="busuanzi_value_page_pv"></span>
-</span>
+<span id="busuanzi_container_page_pv"></span>
 
 ## 文章
 1.[bangbang的年终回顾](http://blog.cnbang.net/living/2970/) :每天被繁杂的代码充斥着，来一篇生活篇吧！看看JSPatch作者bangbang的2015，或许你会有些许感慨。

@@ -8,9 +8,7 @@ header-img: "img/post-bg-2015.jpg"
 tags:
     - iOS
 ---
-<span id="busuanzi_container_page_pv">
-阅读<span id="busuanzi_value_page_pv"></span>
-</span>
+<span id="busuanzi_container_page_pv"></span>
 
 ## 文章
 1.[NSObject的load和initialize方法 ](http://www.molotang.com/articles/1929.html) : 三石·道 写的写篇关于load、initialize的方法，与别人的不同之处在于道明了原理。非常喜欢他那句“源码面前没有秘密”。

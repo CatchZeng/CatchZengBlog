@@ -5,15 +5,13 @@
     <description></description>
     <link>http://catchzeng.com/</link>
     <atom:link href="http://catchzeng.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 02 Feb 2016 15:57:18 +0800</pubDate>
-    <lastBuildDate>Tue, 02 Feb 2016 15:57:18 +0800</lastBuildDate>
+    <pubDate>Tue, 16 Feb 2016 14:31:46 +0800</pubDate>
+    <lastBuildDate>Tue, 16 Feb 2016 14:31:46 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
     
       <item>
         <title>iOS开发见闻-第13期</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
-阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
 
@@ -67,9 +65,7 @@
     
       <item>
         <title>iOS用被误解的MVC重构代码</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
-阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section&quot;&gt;前言&lt;/h2&gt;
 &lt;p&gt;这段时间在重构代码，看了几种模式，最后选择使用被误解的MVC来重构。&lt;br /&gt;
@@ -406,9 +402,7 @@ Entity&lt;/p&gt;
     
       <item>
         <title>iOS清理工程中未使用的类文件工具</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
-阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section&quot;&gt;前言&lt;/h2&gt;
 &lt;p&gt;随着团队人数增多，工程的复杂度提高，工程文件数变得相当多，清理工程变得越来越复杂。于是，闲暇时写了一个清理工程中未使用的类文件工具。由于工程为oc代码，所以工具只适用于oc创建的工程。工具测试时间短、用例少难免有不足的地方，有兴趣的朋友&lt;strong&gt;使用前记得备份工程&lt;/strong&gt;!&lt;br /&gt;
@@ -451,9 +445,7 @@ Entity&lt;/p&gt;
     
       <item>
         <title>iOS开发见闻-第12期</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
-阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
 &lt;p&gt;1.&lt;a href=&quot;http://blog.cnbang.net/living/2970/&quot;&gt;bangbang的年终回顾&lt;/a&gt; :每天被繁杂的代码充斥着，来一篇生活篇吧！看看JSPatch作者bangbang的2015，或许你会有些许感慨。&lt;/p&gt;
@@ -505,9 +497,7 @@ Entity&lt;/p&gt;
     
       <item>
         <title>iOS开发见闻-第11期</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
-阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
 &lt;p&gt;1.&lt;a href=&quot;http://blog.devtang.com/blog/2015/12/18/from-dev-to-manager/&quot;&gt;涅槃重生:我的技术转管理之路&lt;/a&gt; :巧哥的涅槃重生，这篇虽不是技术文章，但深刻地描述了大神从技术走向管理的思考，值得细细品味。&lt;/p&gt;
@@ -556,9 +546,7 @@ Entity&lt;/p&gt;
     
       <item>
         <title>iOS 函数响应式编程 （ReactiveCocoa）</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
-阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section&quot;&gt;前言&lt;/h2&gt;
 &lt;p&gt;近来，Q群的几个朋友谈起如何使用ReactiveCocoa（以下简称RAC）开发的问题。大家觉得RAC很好，但不知如何运用它。在此整理一些对RAC的看法，希望对学习RAC的朋友有所帮助。本篇是前篇，主要涉及以下内容。&lt;/p&gt;
@@ -645,9 +633,7 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
     
       <item>
         <title>iOS开发见闻-第10期</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
-阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
 &lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/b69d9b615ee5&quot;&gt;Swift 官方 API 设计准则&lt;/a&gt; :与&lt;a href=&quot;http://www.jianshu.com/p/fce426e4f1c4&quot;&gt;《Swift 3 API 设计准则》&lt;/a&gt;的区别在于，那片文章只是一个概览说明，此文章是苹果官方发布的 API 设计准则，虽然还处于样稿阶段，但是有一定的参考价值。&lt;/p&gt;
@@ -694,9 +680,7 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
     
       <item>
         <title>iOS开发见闻-第9期</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
-阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
 &lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/1f93e0fec8a5&quot;&gt;swift实现一个与智能机器人聊天的app&lt;/a&gt; :使用&lt;a href=&quot;http://www.tuling123.com/&quot;&gt;图灵机器人官网API&lt;/a&gt;实现的一款机器人聊天App，帮助初学swift的朋友掌握一些基本知识。&lt;br /&gt;
@@ -743,9 +727,7 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
     
       <item>
         <title>iOS开发见闻-第8期</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
-阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
 &lt;p&gt;1.&lt;a href=&quot;http://casatwy.com/tiao-chu-mian-xiang-dui-xiang-si-xiang-san-feng-zhuang.html&quot;&gt;跳出面向对象思想(三) 封装&lt;/a&gt; :继承具有“只关注于使用，而不关心具体的实现”的特点，所以在团队协作中发挥极大的作用。看看Casa Taloyum怎么讲封装吧。&lt;/p&gt;
@@ -789,9 +771,7 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
     
       <item>
         <title>iOS开发见闻-第7期</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
-阅读&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
 &lt;p&gt;1.&lt;a href=&quot;http://www.cocoachina.com/ios/20151113/14207.html&quot;&gt;让我们来搞崩 Cocoa 吧  &lt;/a&gt; :有时候搞崩程序比编写它们更有趣，看看作者怎么整跨oc吧。&lt;/p&gt;

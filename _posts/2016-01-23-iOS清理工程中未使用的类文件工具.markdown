@@ -8,9 +8,7 @@ header-img: "img/post-bg-2015.jpg"
 tags:
     - iOS
 ---
-<span id="busuanzi_container_page_pv">
-阅读<span id="busuanzi_value_page_pv"></span>
-</span>      
+<span id="busuanzi_container_page_pv"></span>
 
 ##  前言
 随着团队人数增多，工程的复杂度提高，工程文件数变得相当多，清理工程变得越来越复杂。于是，闲暇时写了一个清理工程中未使用的类文件工具。由于工程为oc代码，所以工具只适用于oc创建的工程。工具测试时间短、用例少难免有不足的地方，有兴趣的朋友**使用前记得备份工程**!
