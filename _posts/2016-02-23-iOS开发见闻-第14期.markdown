@@ -12,8 +12,11 @@ tags:
 
 ## 文章
 1.[Swift 性能探索和优化分析](http://onevcat.com/2016/02/swift-performance/) :喵神的swift，不解释直接看。
+
 2.[小笨狼漫谈多线程：GCD(一)](http://jiangliancheng.gitcafe.io/2016/01/23/%E5%B0%8F%E7%AC%A8%E7%8B%BC%E6%BC%AB%E8%B0%88%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%9AGCD-queue/) ：很细致的一篇文章，使用了大量图片、gif等来方便读者理解多线程的问题。
+
 3.[模块化与解耦](http://blog.cnbluebox.com/blog/2015/11/28/module-and-decoupling/) : 本文主要讲述了在iOS开发过程中，模块化工程架构的一种组织方式。文章末尾的两个例子代码质量很高，能培养我们的模块化思想。
+
 4.[UIDynamics, UIKit 或 OpenGL? 3 种 iOS 动画实现分析](http://ios.jobbole.com/83968/) ：你有没想过，乔治·卢卡斯的太空史诗歌剧，其实，可以在 iOS 上实现？在银河系中黑暗与光明双方之间的永恒战役中，我们得到启发，并创建具有星球大战人物特色的梦幻般的 UI 动画。看效果图后，你还不想看？
 ![UIDynamics](http://ww1.sinaimg.cn/large/80215f6cgw1f0gq67gifdg20m80gob2e.gif)
 
