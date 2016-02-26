@@ -5,9 +5,57 @@
     <description></description>
     <link>http://catchzeng.com/</link>
     <atom:link href="http://catchzeng.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 16 Feb 2016 14:31:46 +0800</pubDate>
-    <lastBuildDate>Tue, 16 Feb 2016 14:31:46 +0800</lastBuildDate>
+    <pubDate>Sat, 27 Feb 2016 00:38:09 +0800</pubDate>
+    <lastBuildDate>Sat, 27 Feb 2016 00:38:09 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>iOS开发见闻-第14期</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;http://onevcat.com/2016/02/swift-performance/&quot;&gt;Swift 性能探索和优化分析&lt;/a&gt; :喵神的swift，不解释直接看。&lt;br /&gt;
+2.&lt;a href=&quot;http://jiangliancheng.gitcafe.io/2016/01/23/%E5%B0%8F%E7%AC%A8%E7%8B%BC%E6%BC%AB%E8%B0%88%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%9AGCD-queue/&quot;&gt;小笨狼漫谈多线程：GCD(一)&lt;/a&gt; ：很细致的一篇文章，使用了大量图片、gif等来方便读者理解多线程的问题。&lt;br /&gt;
+3.&lt;a href=&quot;http://blog.cnbluebox.com/blog/2015/11/28/module-and-decoupling/&quot;&gt;模块化与解耦&lt;/a&gt; : 本文主要讲述了在iOS开发过程中，模块化工程架构的一种组织方式。文章末尾的两个例子代码质量很高，能培养我们的模块化思想。&lt;br /&gt;
+4.&lt;a href=&quot;http://ios.jobbole.com/83968/&quot;&gt;UIDynamics, UIKit 或 OpenGL? 3 种 iOS 动画实现分析&lt;/a&gt; ：你有没想过，乔治·卢卡斯的太空史诗歌剧，其实，可以在 iOS 上实现？在银河系中黑暗与光明双方之间的永恒战役中，我们得到启发，并创建具有星球大战人物特色的梦幻般的 UI 动画。看效果图后，你还不想看？&lt;br /&gt;
+&lt;img src=&quot;http://ww1.sinaimg.cn/large/80215f6cgw1f0gq67gifdg20m80gob2e.gif&quot; alt=&quot;UIDynamics&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/neonichu/BBUDebuggerTuckAway&quot;&gt;BBUDebuggerTuckAway&lt;/a&gt; ：一个可在编辑代码时自动隐藏debugger的Xcode插件。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/neonichu/BBUDebuggerTuckAway/raw/master/plugin.gif&quot; alt=&quot;BBUDebuggerTuckAway&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/tyeen/BlockJump&quot;&gt;BlockJump&lt;/a&gt; : 一款快速在代码中跳转的插件。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/bcf2547bd90504fcfe4f4cecd3bc8a6f31161e55/68747470733a2f2f7261772e6769746875622e636f6d2f747965656e2f426c6f636b4a756d702f6d61737465722f73637265656e5f7265636f72642e676966&quot; alt=&quot;BlockJump&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/mshibanami/DefaultMarginDisabler&quot;&gt;DefaultMarginDisabler&lt;/a&gt; : 相信用xib、storyboard做自动布局的朋友都会讨厌一个打钩，看效果吧。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/mshibanami/DefaultMarginDisabler/raw/master/screenshot.png&quot; alt=&quot;DefaultMarginDisabler&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/Forkong/FKConsole&quot;&gt;FKConsole&lt;/a&gt;: 开发中经常要在log输出信息，但是中文却没法直接显示，这给调试带来许多麻烦，FKConsole这个插件让调试不再只是英文的世界。&lt;br /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/Forkong/FKConsole/master/Screenshots/demo.gif&quot; alt=&quot;FKConsole&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/chiahsien/CHTCollectionViewWaterfallLayout&quot;&gt;CHTCollectionViewWaterfallLayout&lt;/a&gt; : CHTCollectionViewWaterfallLayout是UICollectionViewLayout的一个子类，尽可能地模仿了UICollectionViewFlowLayout的用法，灵感来源于Pinterest，同时还兼容PSTCollectionView。&lt;br /&gt;
+&lt;img src=&quot;https://cloud.githubusercontent.com/assets/474/3419095/25b4de9e-fe56-11e3-9b98-690319d736ce.png&quot; alt=&quot;CHTCollectionViewWaterfallLayout&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/zoonooz/ZFDragableModalTransition&quot;&gt;ZFDragableModalTransition&lt;/a&gt; : 自定义动画展示模态视图控制器，可从左边、右边或者底部推出模态视图。&lt;br /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/zoonooz/ZFDragableModalTransition/master/Screenshot/ss.gif&quot; alt=&quot;ZFDragableModalTransition&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/12207480/TYSlidePageScrollView&quot;&gt;TYSlidePageScrollView&lt;/a&gt; : 带header,footer,滑动菜单的，分页上下左右滑动的视图控制器。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/12207480/TYSlidePageScrollView/raw/master/screenshot/slidePageViewDemo.gif&quot; alt=&quot;TYSlidePageScrollView&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/MHaroonBaig/MotionKit&quot;&gt;MotionKit&lt;/a&gt; : 只需要两行或者很少的几行代码就可以从加速度传感器、陀螺仪和磁力传感器获取数据。&lt;/p&gt;
+
+&lt;p&gt;5.&lt;a href=&quot;https://github.com/eonist/Element&quot;&gt;Element&lt;/a&gt; : 一套mac的UI库，喜欢mac开发的朋友不要错过。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/4c5e3d4eadddfdd2b185d10c62dcbd6ba92df40d/68747470733a2f2f646c2e64726f70626f7875736572636f6e74656e742e636f6d2f752f323535393437362f7468655f69636f6e5f6261725f616e696d5f7832702e676966&quot; alt=&quot;Element&quot; /&gt;&lt;img src=&quot;https://camo.githubusercontent.com/61e68ade94b04596ba041691d096dc9dcb08e742/68747470733a2f2f646c2e64726f70626f7875736572636f6e74656e742e636f6d2f752f323535393437362f726164696f62756c6c6574735f63726f705f6c6f772e676966&quot; alt=&quot;Element&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 23 Feb 2016 17:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/02/23/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC14%E6%9C%9F/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/02/23/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC14%E6%9C%9F/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
     
       <item>
         <title>iOS开发见闻-第13期</title>
@@ -763,50 +811,6 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
         <pubDate>Tue, 24 Nov 2015 08:37:54 +0800</pubDate>
         <link>http://catchzeng.com/2015/11/24/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC8%E6%9C%9F/</link>
         <guid isPermaLink="true">http://catchzeng.com/2015/11/24/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC8%E6%9C%9F/</guid>
-        
-        <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>iOS开发见闻-第7期</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;http://www.cocoachina.com/ios/20151113/14207.html&quot;&gt;让我们来搞崩 Cocoa 吧  &lt;/a&gt; :有时候搞崩程序比编写它们更有趣，看看作者怎么整跨oc吧。&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;http://www.jianshu.com/p/37ab8f336f76&quot;&gt;Core Data: 多线程大量数据同步&lt;/a&gt; ：作者看到一个面试题后，整理的一篇关于core data 在多线程中处理大数据的注意事项的文章，总结得很好。&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;http://studentdeng.github.io/blog/2014/08/29/ios-architecture/&quot;&gt;iOS APP 架构漫谈&lt;/a&gt; : 文章虽然不是最近的，但是“不会开机的男孩”的文章总是让人读起来受益匪浅，另外还有他的第二篇&lt;a href=&quot;http://studentdeng.github.io/blog/2014/11/05/ios-architecture2/&quot;&gt;iOS APP 架构漫谈二&lt;/a&gt;。&lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/90d6cd355b14&quot;&gt;iOS使用Quartzcode设计动画，快速得到Object-C 和 Swift 代码&lt;/a&gt; ：QuartzCode 是一个快速的、 轻量级的、 强大的动画工具，转换矢量绘图和动画到Object C 和 Swift 代码。&lt;br /&gt;
-我们只需更改属性 ，还可以可以循环在几秒钟内，实时看到动画的变化。减少了在 Xcode 创建动画的障碍 ！&lt;br /&gt;
-&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=564d2a6dab6441711100039a&quot; alt=&quot;图片标题&quot; /&gt;&lt;br /&gt;
-&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=564d2a81ab6441711100039b&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/tapwork/HeapInspector-for-iOS&quot;&gt;HeapInspector&lt;/a&gt; : 内存泄露永远的恨啊！不过当内存泄露遇到HeapInspector也是不一般的体验。快用HeapInspector来检测你的app是否有内存泄露吧。&lt;br /&gt;
-&lt;img src=&quot;https://github.com/tapwork/HeapInspector-for-iOS/raw/master/README_Xtras/screencast.gif&quot; alt=&quot;这里写图片描述&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;https://github.com/RuiAAPeres/UIViewController-Swizzled&quot;&gt;UIViewController-Swizzled&lt;/a&gt; : 把你进入的每一个controller的类名打出来,如果看一些特别复杂的项目的时候直接运行demo就可以知道执行次序了。&lt;br /&gt;
-&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=564c7d43ab644165680020a3&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;https://github.com/bang590/JSPatch&quot;&gt;JSPatch – 动态更新iOS APP&lt;/a&gt;：JSPatch是作者业余做的项目，目的是动态更新APP，替换项目原生代码修复bug，免去发布版本的麻烦。&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/xhzengAIB/MessageDisplayKit&quot;&gt;MessageDisplayKit&lt;/a&gt; ：一个类似微信App的IM应用，拥有发送文字、图片、语音、视频、地理位置消息，管理本地通信录、分享朋友圈、漂流交友、摇一摇和更多有趣的功能。(在此感谢Q群里的大神“飞鸽传书”推荐此开源项目)&lt;br /&gt;
-&lt;img src=&quot;https://github.com/xhzengAIB/LearnEnglish/raw/master/Screenshots/MessageDisplayKit.gif&quot; alt=&quot;这里写图片描述&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;https://github.com/DaidoujiChen/CocoaChinaPlus&quot;&gt;CocoaChinaPlus&lt;/a&gt; :CocoaChina+是一款开源的第三方CocoaChina移动端。整个App都用Swift2.0编写(除部分第三方OC代码外，比如JPush和友盟)。&lt;br /&gt;
-&lt;img src=&quot;https://camo.githubusercontent.com/36e5be49cbce600c29999516df07a6027bdaa787/687474703a2f2f7a6978756e2e6769746875622e696f2f696d616765732f637573746f6d2f76656e6465722f686f6d655f636f636f616368696e612e6a7067&quot; alt=&quot;图片标题&quot; /&gt;&lt;img src=&quot;https://camo.githubusercontent.com/4808b55a0789e9329bf0d960ec17419f103bde48/687474703a2f2f7a6978756e2e6769746875622e696f2f696d616765732f637573746f6d2f76656e6465722f61727469636c655f636f636f616368696e612e6a7067&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-</description>
-        <pubDate>Thu, 19 Nov 2015 05:32:02 +0800</pubDate>
-        <link>http://catchzeng.com/2015/11/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC7%E6%9C%9F/</link>
-        <guid isPermaLink="true">http://catchzeng.com/2015/11/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC7%E6%9C%9F/</guid>
         
         <category>iOS</category>
         

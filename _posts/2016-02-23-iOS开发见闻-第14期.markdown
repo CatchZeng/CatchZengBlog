@@ -1,0 +1,49 @@
+---
+layout:     post
+title:      "iOS开发见闻-第14期"
+subtitle:   "iOS开发见闻"
+date:       2016-02-23 09:38:27 
+author:     "CatchZeng"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - iOS
+---
+<span id="busuanzi_container_page_pv"></span>
+
+## 文章
+1.[Swift 性能探索和优化分析](http://onevcat.com/2016/02/swift-performance/) :喵神的swift，不解释直接看。
+2.[小笨狼漫谈多线程：GCD(一)](http://jiangliancheng.gitcafe.io/2016/01/23/%E5%B0%8F%E7%AC%A8%E7%8B%BC%E6%BC%AB%E8%B0%88%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%9AGCD-queue/) ：很细致的一篇文章，使用了大量图片、gif等来方便读者理解多线程的问题。
+3.[模块化与解耦](http://blog.cnbluebox.com/blog/2015/11/28/module-and-decoupling/) : 本文主要讲述了在iOS开发过程中，模块化工程架构的一种组织方式。文章末尾的两个例子代码质量很高，能培养我们的模块化思想。
+4.[UIDynamics, UIKit 或 OpenGL? 3 种 iOS 动画实现分析](http://ios.jobbole.com/83968/) ：你有没想过，乔治·卢卡斯的太空史诗歌剧，其实，可以在 iOS 上实现？在银河系中黑暗与光明双方之间的永恒战役中，我们得到启发，并创建具有星球大战人物特色的梦幻般的 UI 动画。看效果图后，你还不想看？
+![UIDynamics](http://ww1.sinaimg.cn/large/80215f6cgw1f0gq67gifdg20m80gob2e.gif)
+
+
+
+## 工具
+1.[BBUDebuggerTuckAway](https://github.com/neonichu/BBUDebuggerTuckAway) ：一个可在编辑代码时自动隐藏debugger的Xcode插件。
+![BBUDebuggerTuckAway](https://github.com/neonichu/BBUDebuggerTuckAway/raw/master/plugin.gif)
+
+2.[BlockJump](https://github.com/tyeen/BlockJump) : 一款快速在代码中跳转的插件。
+![BlockJump](https://camo.githubusercontent.com/bcf2547bd90504fcfe4f4cecd3bc8a6f31161e55/68747470733a2f2f7261772e6769746875622e636f6d2f747965656e2f426c6f636b4a756d702f6d61737465722f73637265656e5f7265636f72642e676966)
+
+3.[DefaultMarginDisabler](https://github.com/mshibanami/DefaultMarginDisabler) : 相信用xib、storyboard做自动布局的朋友都会讨厌一个打钩，看效果吧。
+![DefaultMarginDisabler](https://github.com/mshibanami/DefaultMarginDisabler/raw/master/screenshot.png)
+
+4.[FKConsole](https://github.com/Forkong/FKConsole): 开发中经常要在log输出信息，但是中文却没法直接显示，这给调试带来许多麻烦，FKConsole这个插件让调试不再只是英文的世界。
+![FKConsole](https://raw.githubusercontent.com/Forkong/FKConsole/master/Screenshots/demo.gif)
+
+
+## 开源
+1.[CHTCollectionViewWaterfallLayout](https://github.com/chiahsien/CHTCollectionViewWaterfallLayout) : CHTCollectionViewWaterfallLayout是UICollectionViewLayout的一个子类，尽可能地模仿了UICollectionViewFlowLayout的用法，灵感来源于Pinterest，同时还兼容PSTCollectionView。
+![CHTCollectionViewWaterfallLayout](https://cloud.githubusercontent.com/assets/474/3419095/25b4de9e-fe56-11e3-9b98-690319d736ce.png)
+
+2.[ZFDragableModalTransition](https://github.com/zoonooz/ZFDragableModalTransition) : 自定义动画展示模态视图控制器，可从左边、右边或者底部推出模态视图。
+![ZFDragableModalTransition](https://raw.githubusercontent.com/zoonooz/ZFDragableModalTransition/master/Screenshot/ss.gif) 
+
+3.[TYSlidePageScrollView](https://github.com/12207480/TYSlidePageScrollView) : 带header,footer,滑动菜单的，分页上下左右滑动的视图控制器。
+![TYSlidePageScrollView](https://github.com/12207480/TYSlidePageScrollView/raw/master/screenshot/slidePageViewDemo.gif) 
+
+4.[MotionKit](https://github.com/MHaroonBaig/MotionKit) : 只需要两行或者很少的几行代码就可以从加速度传感器、陀螺仪和磁力传感器获取数据。
+
+5.[Element](https://github.com/eonist/Element) : 一套mac的UI库，喜欢mac开发的朋友不要错过。
+![Element](https://camo.githubusercontent.com/4c5e3d4eadddfdd2b185d10c62dcbd6ba92df40d/68747470733a2f2f646c2e64726f70626f7875736572636f6e74656e742e636f6d2f752f323535393437362f7468655f69636f6e5f6261725f616e696d5f7832702e676966)![Element](https://camo.githubusercontent.com/61e68ade94b04596ba041691d096dc9dcb08e742/68747470733a2f2f646c2e64726f70626f7875736572636f6e74656e742e636f6d2f752f323535393437362f726164696f62756c6c6574735f63726f705f6c6f772e676966)
