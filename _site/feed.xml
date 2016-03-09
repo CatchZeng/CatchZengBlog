@@ -5,19 +5,76 @@
     <description></description>
     <link>http://catchzeng.com/</link>
     <atom:link href="http://catchzeng.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 27 Feb 2016 00:38:09 +0800</pubDate>
-    <lastBuildDate>Sat, 27 Feb 2016 00:38:09 +0800</lastBuildDate>
+    <pubDate>Wed, 09 Mar 2016 17:22:27 +0800</pubDate>
+    <lastBuildDate>Wed, 09 Mar 2016 17:22:27 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>iOS开发见闻-第15期</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/2141fb0dc62c&quot;&gt;饿了么移动APP的架构演进&lt;/a&gt; : 作者简略描述了饿了么从传统的MVC到model Decoupled、Hybrid再到React-Native &amp;amp; Hot Patch的APP架构演进旅程。&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;http://blog.devtang.com/2016/02/16/inspired-summary/&quot;&gt;人员、流程和产品上的思考 - 读《启示录》总结&lt;/a&gt; ：选这篇文章不因为是巧哥发的，而是想向大家推荐《启示录》这本书，如果你有做产品的心，一定要看看。&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;http://www.tanhao.me/code/151113.html/&quot;&gt;iOS实时卡顿监控&lt;/a&gt; : 本文主要讲述了如何将ios的卡顿现象量化，对于性能调试有极大的帮助。&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;http://www.olinone.com/?p=429&quot;&gt;接口编程那些事&lt;/a&gt; ：学了这么多年编程，若是有人问及什么叫面向接口编程，你能怎么回答呢？看看本文能找到一些答案。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://www.pgyer.com/&quot;&gt;蒲公英&lt;/a&gt; ：国内领先的应用内测分发平台，希望为全球的开发者提供一个能够有效提高应用内测分发效率的平台。&lt;br /&gt;
+&lt;img src=&quot;https://o1wjx1evz.qnssl.com/static-20160303/assets/img/QC_imac.png&quot; alt=&quot;蒲公英&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/EDSIOON/EDSJSONToDictionary&quot;&gt;EDSJSONToDictionary&lt;/a&gt; : 直接看效果吧。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/EDSIOON/EDSJSONToDictionary/raw/master/ScreenShots/EDSJSONToDicitionary.gif&quot; alt=&quot;EDSJSONToDictionary&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/gliyao/SketchExporter&quot;&gt;SketchExporter&lt;/a&gt; : Sketch的导出插件。&lt;br /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/gliyao/SketchExporter/master/SketchExporter.png&quot; alt=&quot;SketchExporter&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/aotian16/SwiftJsonToObj&quot;&gt;SwiftJsonToObj&lt;/a&gt;: Swift中将json数据转换为对象的插件。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/aotian16/SwiftJsonToObj/raw/master/screenshot/SwiftJsonToObj.png&quot; alt=&quot;SwiftJsonToObj&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/storehouse/Advance&quot;&gt;Advance&lt;/a&gt; : swift写的一款效果很好，接口简单的动画库。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/storehouse/Advance/raw/master/Assets/nav.gif&quot; alt=&quot;Advance&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/storehouse/Advance/raw/master/Assets/logo.gif&quot; alt=&quot;Advance&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/coolbeet/CBStoreHouseRefreshControl&quot;&gt;CBStoreHouseRefreshControl&lt;/a&gt; : 一款在Storehouse启发下创作出来的控件，下拉刷新的时候可以完全定制自己想要的效果。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://camo.githubusercontent.com/a0ff4643665482e588bbf9f951069251604dd118/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f737579752e746573742f434253746f7265486f75736552656672657368436f6e74726f6c322e676966&quot; alt=&quot;CBStoreHouseRefreshControl&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/500px/greedo-layout-for-ios&quot;&gt;greedo-layout-for-ios&lt;/a&gt; : 一款让UICollectionView展示高度可变的固定比例的网格视图，具体看效果图。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/500px/greedo-layout-for-ios/raw/master/screenshot.png&quot; alt=&quot;greedo-layout-for-ios&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/movielala/TVOSButton&quot;&gt;TVOSButton&lt;/a&gt; : 效果极佳的一款视差按钮。&lt;br /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/movielala/TVOSButton/master/demo.gif&quot; alt=&quot;TVOSButton&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;5.&lt;a href=&quot;https://github.com/dzenbot/DZNEmptyDataSet&quot;&gt;DZNEmptyDataSet&lt;/a&gt; : 一个下拉式的UITableView/UICollectionView父类,在没有内容要显示时使用Empty DataSet模式。&lt;br /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/dzenbot/UITableView-DataSet/master/Examples/Applications/Screenshots/Screenshots_row1.png&quot; alt=&quot;DZNEmptyDataSet&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/dzenbot/UITableView-DataSet/master/Examples/Applications/Screenshots/Screenshots_row2.png&quot; alt=&quot;DZNEmptyDataSet&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 08 Mar 2016 17:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/03/08/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC15%E6%9C%9F/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/03/08/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC15%E6%9C%9F/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
     
       <item>
         <title>iOS开发见闻-第14期</title>
         <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;http://onevcat.com/2016/02/swift-performance/&quot;&gt;Swift 性能探索和优化分析&lt;/a&gt; :喵神的swift，不解释直接看。&lt;br /&gt;
-2.&lt;a href=&quot;http://jiangliancheng.gitcafe.io/2016/01/23/%E5%B0%8F%E7%AC%A8%E7%8B%BC%E6%BC%AB%E8%B0%88%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%9AGCD-queue/&quot;&gt;小笨狼漫谈多线程：GCD(一)&lt;/a&gt; ：很细致的一篇文章，使用了大量图片、gif等来方便读者理解多线程的问题。&lt;br /&gt;
-3.&lt;a href=&quot;http://blog.cnbluebox.com/blog/2015/11/28/module-and-decoupling/&quot;&gt;模块化与解耦&lt;/a&gt; : 本文主要讲述了在iOS开发过程中，模块化工程架构的一种组织方式。文章末尾的两个例子代码质量很高，能培养我们的模块化思想。&lt;br /&gt;
-4.&lt;a href=&quot;http://ios.jobbole.com/83968/&quot;&gt;UIDynamics, UIKit 或 OpenGL? 3 种 iOS 动画实现分析&lt;/a&gt; ：你有没想过，乔治·卢卡斯的太空史诗歌剧，其实，可以在 iOS 上实现？在银河系中黑暗与光明双方之间的永恒战役中，我们得到启发，并创建具有星球大战人物特色的梦幻般的 UI 动画。看效果图后，你还不想看？&lt;br /&gt;
+&lt;p&gt;1.&lt;a href=&quot;http://onevcat.com/2016/02/swift-performance/&quot;&gt;Swift 性能探索和优化分析&lt;/a&gt; : 喵神的swift，不解释直接看。&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;http://jiangliancheng.gitcafe.io/2016/01/23/%E5%B0%8F%E7%AC%A8%E7%8B%BC%E6%BC%AB%E8%B0%88%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%9AGCD-queue/&quot;&gt;小笨狼漫谈多线程：GCD(一)&lt;/a&gt; ：很细致的一篇文章，使用了大量图片、gif等来方便读者理解多线程的问题。&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;http://blog.cnbluebox.com/blog/2015/11/28/module-and-decoupling/&quot;&gt;模块化与解耦&lt;/a&gt; : 本文主要讲述了在iOS开发过程中，模块化工程架构的一种组织方式。文章末尾的两个例子代码质量很高，能培养我们的模块化思想。&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;http://ios.jobbole.com/83968/&quot;&gt;UIDynamics, UIKit 或 OpenGL? 3 种 iOS 动画实现分析&lt;/a&gt; ：你有没想过，乔治·卢卡斯的太空史诗歌剧，其实，可以在 iOS 上实现？在银河系中黑暗与光明双方之间的永恒战役中，我们得到启发，并创建具有星球大战人物特色的梦幻般的 UI 动画。看效果图后，你还不想看？&lt;br /&gt;
 &lt;img src=&quot;http://ww1.sinaimg.cn/large/80215f6cgw1f0gq67gifdg20m80gob2e.gif&quot; alt=&quot;UIDynamics&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
@@ -767,50 +824,6 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
         <pubDate>Mon, 30 Nov 2015 22:17:46 +0800</pubDate>
         <link>http://catchzeng.com/2015/11/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC9%E6%9C%9F/</link>
         <guid isPermaLink="true">http://catchzeng.com/2015/11/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC9%E6%9C%9F/</guid>
-        
-        <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>iOS开发见闻-第8期</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;http://casatwy.com/tiao-chu-mian-xiang-dui-xiang-si-xiang-san-feng-zhuang.html&quot;&gt;跳出面向对象思想(三) 封装&lt;/a&gt; :继承具有“只关注于使用，而不关心具体的实现”的特点，所以在团队协作中发挥极大的作用。看看Casa Taloyum怎么讲封装吧。&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;http://blog.devtang.com/blog/2015/11/21/apps-damaged-bug/&quot;&gt;Mac 应用出现「已损坏」问题，苹果到底犯了什么傻逼错误？&lt;/a&gt; ：巧哥的文章总是给人惊喜，不解释直接看。&lt;br /&gt;
-&lt;img src=&quot;http://blog.devtang.com/images/apps-damaged-issue.jpg&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;http://merowing.info/2015/11/prototyping-floating-burger-menu-with-cashapelayer/&quot;&gt;prototyping-floating-burger-menu-with-cashapelayer&lt;/a&gt; : 看到实现的效果，无论它是什么语言我都已经准备看完它了。&lt;br /&gt;
-&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=5653409bab6441149c000b74&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;https://github.com/CatchZeng/XcodePlus&quot;&gt;XcodePlus&lt;/a&gt; ：XcodePlus让做过java开发的朋友们重新找回command+d删除一行或选中的若干行的感觉。使用的时候记得检查一下有没有跟Key Bindings冲突了！&lt;br /&gt;
-&lt;img src=&quot;https://camo.githubusercontent.com/ee6c159461bc2082b02c7cc03cc6764a6a6c3845/68747470733a2f2f7261772e6769746875622e636f6d2f7061796c69752f58636f6465506c75732f6d61737465722f73637265656e73686f742f64656c6574656c696e652e676966&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/CatchZeng/cocoapods-xcode-plugin&quot;&gt;cocoapods-xcode-plugin&lt;/a&gt; : 这个就不用介绍了，如果你嫌pod的时候要切换命令行的话，那就试试吧，如果你是一个命令行爱好者就略过。&lt;br /&gt;
-&lt;img src=&quot;https://github.com/kattrali/cocoadocs-xcode-plugin/raw/master/menu.png&quot; alt=&quot;这里写图片描述&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;https://github.com/ThilinaHewagama/AutoIndentWithSave&quot;&gt;AutoIndentWithSave&lt;/a&gt; : 这个plugin个人非常喜欢的，就不知道为什么star那么少。AutoIndentWithSave能帮我们在save文件的时候自动格式化代码，个人非常推荐。&lt;br /&gt;
-&lt;img src=&quot;https://github.com/ThilinaHewagama/AutoIndentWithSave/raw/master/auto_indent_screen_shot.jpg&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;https://github.com/Ramotion/animated-tab-bar&quot;&gt;animated-tab-bar&lt;/a&gt;：当tab-bar席卷app风潮的阶段，看到animated-tab-bar是否变得不那么单调呢？&lt;br /&gt;
-&lt;img src=&quot;https://github.com/Ramotion/animated-tab-bar/raw/master/Screenshots/tab-bar-icons-iphone-ramotion-animation-interface-design.gif&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/PureLayout/PureLayout&quot;&gt;PureLayout&lt;/a&gt; ：PureLayout帮助我们简化在代码中使用Autolayout的操作，类似于oc中使用的masonry。&lt;br /&gt;
-&lt;img src=&quot;https://github.com/PureLayout/PureLayout/raw/master/Images/PureLayout.png?raw=true&quot; alt=&quot;这里写图片描述&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;https://github.com/ochococo/Design-Patterns-In-Swift&quot;&gt;Design-Patterns-In-Swift&lt;/a&gt; :设计模式是code永恒的话题，swift当然也不例外。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-</description>
-        <pubDate>Tue, 24 Nov 2015 08:37:54 +0800</pubDate>
-        <link>http://catchzeng.com/2015/11/24/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC8%E6%9C%9F/</link>
-        <guid isPermaLink="true">http://catchzeng.com/2015/11/24/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC8%E6%9C%9F/</guid>
         
         <category>iOS</category>
         
