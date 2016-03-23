@@ -5,9 +5,64 @@
     <description></description>
     <link>http://catchzeng.com/</link>
     <atom:link href="http://catchzeng.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 18 Mar 2016 12:48:10 +0800</pubDate>
-    <lastBuildDate>Fri, 18 Mar 2016 12:48:10 +0800</lastBuildDate>
+    <pubDate>Wed, 23 Mar 2016 23:13:08 +0800</pubDate>
+    <lastBuildDate>Wed, 23 Mar 2016 23:13:08 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>iOS开发见闻-第16期</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;http://casatwy.com/iOS-Modulization.html&quot;&gt;iOS应用架构谈 组件化方案 &lt;/a&gt; : 组件化是 App 膨胀到一定体积后的解决方案，能一定程度上解决问题。casatwy老师的这篇文章起源于Limboy的&lt;a href=&quot;http://limboy.me/ios/2016/03/10/mgj-components.html&quot;&gt;蘑菇街 App 的组件化之路&lt;/a&gt;。18号bang大神也出来发话了&lt;a href=&quot;http://blog.cnbang.net/tech/3080/&quot;&gt;iOS 组件化方案探索&lt;/a&gt;。看完三篇文章后收益良多，极力推荐。&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;http://www.jianshu.com/p/a0c4d34feadd&quot;&gt;ApplePay高调入华，教你在app里上线ApplePay&lt;/a&gt; ：ApplePay与各大银行开展了国内市场，我们的app是否也要加入ApplePay了呢？需要的朋友可以参考这篇文章。&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;http://www.ismash.cn/post/ru-he-shi-xian-zi-ji-mei-shi-xian-guo-de-xu-qiu-zhi-wen-ben-dong-hua-pian&quot;&gt;如何实现自己没实现过的需求之文本动画&lt;/a&gt; : 本文细致地讲解了文本动画相关的知识，是篇难得的好文章。&lt;br /&gt;
+&lt;img src=&quot;https://cloud.githubusercontent.com/assets/3759810/13845905/1e55a5d0-ec7e-11e5-9631-68aaf6b07ba1.gif&quot; alt=&quot;如何实现自己没实现过的需求之文本动画&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;http://www.olinone.com/?p=484&quot;&gt;iOS图片圆角优化&lt;/a&gt; ：本文提及了开源项目&lt;a href=&quot;https://github.com/panghaijiao/HJCornerRadius&quot;&gt;HJCornerRadius&lt;/a&gt;但目的不是介绍如何使用该工具，而是想跟大家分享开发时用到的几点设计思想。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://itunes.apple.com/app/prepo/id476533227?mt=12&quot;&gt;Prepo&lt;/a&gt; ：一款图标转化器，它可以帮助设计师快速的导出各种尺寸的图标。设计师通过Prepo把任何格式的图片文件转换成iOS可用的图片格式。此外，通过点击Prepo对话框底部“copy plist”按钮，设计师可以轻松的把导出的文件复制到Xcode中，节省了设计师大量的工作时间。&lt;br /&gt;
+&lt;img src=&quot;http://a5.mzstatic.com/us/r30/Purple4/v4/ff/30/41/ff30414a-fdc5-ea96-4a2f-396291368d18/screen800x500.jpeg&quot; alt=&quot;Prepo&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://www.cocoacontrols.com/&quot;&gt;Cocoa Controls&lt;/a&gt; : 一些很棒的你可以用在你的iOS应用中的组件（代码）的列表。有时你可以找到一段优秀代码来节省时间，有时你也可以学习其他开发者是如何完成某个功能的。订阅他们的每周一报吧，都是精华，极少糟粕。&lt;br /&gt;
+&lt;img src=&quot;https://www.cocoacontrols.com/assets/logo@2x-1b08dd117f43ea835e9af45533fd6e75.png&quot; alt=&quot;Cocoa Controls&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/MellongLau/AMMethod2Implement&quot;&gt;AMMethod2Implement&lt;/a&gt; : 支持h文件声明方法自动生成实现，m或者mm文件已写好的方法生成方法声明到h文件， extern NSString * const， @select(method:) 和 [self methodName] 实现代码生成。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/f22645bb84f9ddbdcca5cf9850eb7dc8f66f1ea3/68747470733a2f2f7261772e6769746875622e636f6d2f4d656c6c6f6e674c61752f414d4d6574686f6432496d706c656d656e742f6d61737465722f53637265656e73686f74732f757361676553637265656e73686f742e676966&quot; alt=&quot;AMMethod2Implement&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/krzysztofzablocki/KZLinkedConsole&quot;&gt;KZLinkedConsole&lt;/a&gt;: 可以直接从错误日志跳转到源代码的插件。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/krzysztofzablocki/KZLinkedConsole/raw/master/logs.gif?raw=true&quot; alt=&quot;KZLinkedConsole&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/EddyBorja/EBPhotoPages&quot;&gt;EBPhotoPages&lt;/a&gt; : 用于显示一个滚动型照片页和元数据的图片库。用户可以放大、缩小图片，以及创建，编辑或删除注释和标记，共享或删除照片，并报告不当的照片。所有照片和内容异步加载。相片的用户权限通过委托协议控制。该库是使用状态模式来控制画廊的行为，让其他开发人员可以轻松地修改或增加新的状态，而不必了解太多的原代码设计。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/EddyBorja/EBPhotoPages/raw/master/EBPhotoPages@1x.png&quot; alt=&quot;EBPhotoPages&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/EddyBorja/EBPhotoPages/raw/master/3.png&quot; alt=&quot;EBPhotoPages&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/EddyBorja/EBPhotoPages/raw/master/5.png&quot; alt=&quot;EBPhotoPages&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/Ramotion/navigation-stack&quot;&gt;navigation-stack&lt;/a&gt; : 用于导航控制器的 Stack 视图模型最佳实践类库及演示。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/Ramotion/navigation-stack/raw/master/Navigation-Stack.gif&quot; alt=&quot;navigation-stack&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/marmelroy/PeekPop&quot;&gt;PeekPop&lt;/a&gt; : Peek 和 Pop 是 iPhone 6S 和 6S+ 新推出的一项很棒的特性，可以让你轻松通过 3D touch 实现内容预览。但是还有大概 80% 的 iOS 用户使用的是老的设备。而 PeekPop 是一个 Swift 框架，可以让你的老系统支持 Peek 和 Pop 特性。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/4a3f8f136def3a4fa4fe0c00cb02118e72d838dc/687474703a2f2f692e67697068792e636f6d2f336f3761626c7530616449436651334f58432e676966&quot; alt=&quot;PeekPop&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/zhangsuya/SYStickHeaderWaterFall&quot;&gt;SYStickHeaderWaterFall&lt;/a&gt; : 一款更加灵活支持各种类型的瀑布流结构的库。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/zhangsuya/SYStickHeaderWaterFall/raw/master/SYStickHeaderWaterFall/4.gif&quot; alt=&quot;SYStickHeaderWaterFall&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;5.&lt;a href=&quot;https://github.com/tdginternet/TGCameraViewController&quot;&gt;TGCameraViewController&lt;/a&gt; : 一款可定制的AVFoundation相机,界面美观、实用性强且容易集成到自己的项目中。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/420d3b828938e244f8bcf943343dc271ecc9e150/687474703a2f2f7332382e706f7374696d672e6f72672f65656c69316f6d63742f544743616d6572615f566965775f436f6e74726f6c6c65722e706e67&quot; alt=&quot;TGCameraViewController&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/420d3b828938e244f8bcf943343dc271ecc9e150/687474703a2f2f7332382e706f7374696d672e6f72672f65656c69316f6d63742f544743616d6572615f566965775f436f6e74726f6c6c65722e706e67&quot; alt=&quot;TGCameraViewController&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 22 Mar 2016 17:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/03/22/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC16%E6%9C%9F/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/03/22/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC16%E6%9C%9F/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
     
       <item>
         <title>iOS开发见闻-第15期</title>
@@ -777,53 +832,6 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
         <pubDate>Tue, 08 Dec 2015 18:31:18 +0800</pubDate>
         <link>http://catchzeng.com/2015/12/08/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC10%E6%9C%9F/</link>
         <guid isPermaLink="true">http://catchzeng.com/2015/12/08/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC10%E6%9C%9F/</guid>
-        
-        <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>iOS开发见闻-第9期</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/1f93e0fec8a5&quot;&gt;swift实现一个与智能机器人聊天的app&lt;/a&gt; :使用&lt;a href=&quot;http://www.tuling123.com/&quot;&gt;图灵机器人官网API&lt;/a&gt;实现的一款机器人聊天App，帮助初学swift的朋友掌握一些基本知识。&lt;br /&gt;
-&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=565c448eab644150140011e5&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;http://daizi.me/2015/11/16/Swift%20%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/&quot;&gt;Swift 中的函数式编程&lt;/a&gt; ：这篇文章虽然说得比较简略，但是有很多资源连接，可以很好地帮助大家学习。&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;http://tech.meituan.com/talk-about-reactivecocoas-cold-signal-and-hot-signal-part-3.html&quot;&gt;细说ReactiveCocoa的冷信号与热信号（三）：怎么处理冷信号与热信号&lt;/a&gt; : &lt;a href=&quot;http://tech.meituan.com/talk-about-reactivecocoas-cold-signal-and-hot-signal-part-1.html&quot;&gt;第一篇文章&lt;/a&gt; 中介绍了冷信号与热信号的概念，&lt;a href=&quot;http://tech.meituan.com/talk-about-reactivecocoas-cold-signal-and-hot-signal-part-2.html&quot;&gt;前一篇文章&lt;/a&gt; 讨论了为什么要区分冷信号与热信号，这篇作者会先为大家揭晓热信号的本质，再给出冷信号转换成热信号的方法。&lt;/p&gt;
-
-&lt;p&gt;4.&lt;a href=&quot;http://blog.ibireme.com/2015/11/02/ios_image_tips/&quot;&gt;iOS 处理图片的一些小Tip&lt;/a&gt; ：来至ibireme的一篇不错的tips类型文章。&lt;/p&gt;
-
-&lt;p&gt;##工具&lt;br /&gt;
-1.&lt;a href=&quot;https://github.com/ajjnix/xCodeGenerateDescriptionPlugin&quot;&gt;xCodeGenerateDescriptionPlugin&lt;/a&gt; ：为了调试的方便,我们会在类中写上description方法，但写这个方法很繁琐、费时。相信xCodeGenerateDescriptionPlugin能帮你解决该困扰。&lt;br /&gt;
-!!!Q群的朋友反应在Xcode7.1下没法安装成功，遇到类似问题的朋友可以使用github上ajjnix写的&lt;a href=&quot;https://github.com/ajjnix/xCodeGenerateDescriptionPlugin&quot;&gt;修复版&lt;/a&gt;。Build完成后记得检查一下DVTPlugInCompatibilityUUIDs是否完整。【在此我已将原先的地址也替换为该地址，也多谢Q群里的Echo 提出这个问题】&lt;br /&gt;
-&lt;img src=&quot;https://github.com/adamontherun/xCodeGenerateDescriptionPlugin/raw/master/AutoGenerateDescriptionPluginProd/AutoGenerateDescriptionPluginProd/header.png&quot; alt=&quot;图片标题&quot; /&gt;&lt;br /&gt;
-&lt;img src=&quot;https://github.com/adamontherun/xCodeGenerateDescriptionPlugin/raw/master/AutoGenerateDescriptionPluginProd/AutoGenerateDescriptionPluginProd/implementation.png&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/ThilinaHewagama/HCTAutoFolding&quot;&gt;HCTAutoFolding&lt;/a&gt; : 用过Intellij产品的朋友们，肯定觉得它的代码折叠做得非常棒。HCTAutoFolding帮你在Xcode中实现代码折叠效果。&lt;br /&gt;
-&lt;img src=&quot;https://github.com/ThilinaHewagama/HCTAutoFolding/raw/master/HCTAutoFolding/hctautofolding_screen_shot.jpg&quot; alt=&quot;这里写图片描述&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;https://github.com/youweit/DCLazyInstantiate&quot;&gt;DCLazyInstantiate&lt;/a&gt; : 在代码中我们常常需要使用到类型的“懒初始化”或者叫“延时初始化”，该部分的代码逻辑一致，写起来总感一些乏味。DCLazyInstantiate的目标就是没有乏味。&lt;br /&gt;
-&lt;img src=&quot;https://raw.githubusercontent.com/Tengag/DCLazyInstantiate/master/screenshot.gif&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;开源&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;https://github.com/ibireme/YYText&quot;&gt;YYText&lt;/a&gt;：看到效果图你应该惊呆了吧？YYText是我见到过的功能最强大的基于 CoreText 的排版框架。&lt;br /&gt;
-&lt;img src=&quot;https://camo.githubusercontent.com/fb454f77c109e6ac671e8fdb3220ade92238715b/68747470733a2f2f7261772e6769746875622e636f6d2f69626972656d652f5959546578742f6d61737465722f417474726962757465732f59595465787420457874656e6465642f5959546578744174746163686d656e742e676966&quot; alt=&quot;图片标题&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/agdsdl/DLSlideView&quot;&gt;DLSlideView&lt;/a&gt; ：DLSlideView对常见的顶部Tab页点击、滑动分页做了封装。 它使用基于ViewController的container特性（而不是scrollview）来管理各个子页面，保留原始的系统消息，没有隐患。同时内存模型更优于使用scrollview的方式，理论上可以支持无限分页。&lt;br /&gt;
-&lt;img src=&quot;https://github.com/agdsdl/DLSlideView/raw/master/Images/demo1.jpg&quot; alt=&quot;这里写图片描述&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;https://github.com/exsortis/DateTimeKit&quot;&gt;DateTimeKit&lt;/a&gt; :一个超赞的时间处理的库，Joda-Time ！ 他能帮你轻松处理时区，处理时间加减，计算到期时间等等场景下的问题。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-</description>
-        <pubDate>Mon, 30 Nov 2015 22:17:46 +0800</pubDate>
-        <link>http://catchzeng.com/2015/11/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC9%E6%9C%9F/</link>
-        <guid isPermaLink="true">http://catchzeng.com/2015/11/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC9%E6%9C%9F/</guid>
         
         <category>iOS</category>
         
