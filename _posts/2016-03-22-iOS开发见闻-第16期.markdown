@@ -52,4 +52,3 @@ tags:
 
 5.[TGCameraViewController](https://github.com/tdginternet/TGCameraViewController) : 一款可定制的AVFoundation相机,界面美观、实用性强且容易集成到自己的项目中。
 ![TGCameraViewController](https://camo.githubusercontent.com/420d3b828938e244f8bcf943343dc271ecc9e150/687474703a2f2f7332382e706f7374696d672e6f72672f65656c69316f6d63742f544743616d6572615f566965775f436f6e74726f6c6c65722e706e67)
-![TGCameraViewController](https://camo.githubusercontent.com/420d3b828938e244f8bcf943343dc271ecc9e150/687474703a2f2f7332382e706f7374696d672e6f72672f65656c69316f6d63742f544743616d6572615f566965775f436f6e74726f6c6c65722e706e67)
