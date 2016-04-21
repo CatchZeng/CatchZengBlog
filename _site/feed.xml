@@ -5,9 +5,64 @@
     <description></description>
     <link>http://catchzeng.com/</link>
     <atom:link href="http://catchzeng.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 23 Mar 2016 23:13:08 +0800</pubDate>
-    <lastBuildDate>Wed, 23 Mar 2016 23:13:08 +0800</lastBuildDate>
+    <pubDate>Fri, 22 Apr 2016 00:27:45 +0800</pubDate>
+    <lastBuildDate>Fri, 22 Apr 2016 00:27:45 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>iOS开发见闻-第17期</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;http://ifujun.com/yi-wen-zai-iosshang-zi-dong-jian-ce-nei-cun-xie-lu/?hmsr=toutiao.io&amp;amp;utm_medium=toutiao.io&amp;amp;utm_source=toutiao.io&quot;&gt;在iOS上自动检测内存泄露&lt;/a&gt; : Facebook一口气发布了三个利器FBRetainCycleDetector、FBAllocationTracker、FBMemoryProfiler。该篇文章的难得之处在于侧面上反应了Facebook面对问题的思考角度、深度，值得我们借鉴。&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;http://www.jackpu.com/react-nativezui-jia-xue-xi-mo-ban-f8-appkai-yuan-liao/?hmsr=toutiao.io&amp;amp;utm_medium=toutiao.io&amp;amp;utm_source=toutiao.io&quot;&gt;React Native最佳学习模版- F8 App开源了&lt;/a&gt; ：如果说最近iOS界什么名词最火，我会说的React Native。该篇文章带来了最佳学习模版-F8 App，在研究React Native的朋友别错过。&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;http://www.jianshu.com/p/d684693f1d77&quot;&gt;高速公路换轮胎——为遗留系统替换数据库&lt;/a&gt; : 作者由几个月的重构项目经历，讲述了如何一步步替换数据库的过程。文章思路清晰，从背景、系统面貌到方案选型、技术实现，是篇值得称赞的文章。&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;http://mp.weixin.qq.com/s?__biz=MzA3ODg4MDk0Ng==&amp;amp;mid=403474677&amp;amp;idx=1&amp;amp;sn=5163adb2d80aa5b4f0099f79e6d783e1&amp;amp;scene=2&amp;amp;srcid=0410nXOlaNgnthsBuLXyP7yA#wechat_redirect&quot;&gt;网易漫画Swift混编实践&lt;/a&gt; ：时至今日，工程是否要换成Swift写仍是讨论的热题。如果你想换不妨先看看网易怎么做的，至少能少踩坑。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/bang590/JSPatchX&quot;&gt;JSPatchX&lt;/a&gt; ：JSPatch XCode 代码自动补全插件。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/ad17370a5e5ecf1e5196146405f57126eb649390/68747470733a2f2f7261772e6769746875622e636f6d2f62616e673539302f4a535061746368582f6d61737465722f5265736f757263652f53637265656e73686f742e676966&quot; alt=&quot;JSPatchX&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/wzqcongcong/AtAutoCompletion&quot;&gt;AtAutoCompletion&lt;/a&gt; : 一款@的自动补全插件。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/wzqcongcong/AtAutoCompletion/raw/master/screenshot/screenshot.png&quot; alt=&quot;AtAutoCompletion&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/tyeen/BlockJump&quot;&gt;BlockJump&lt;/a&gt; : 让你在类文件中快速跳转的插件。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/bcf2547bd90504fcfe4f4cecd3bc8a6f31161e55/68747470733a2f2f7261772e6769746875622e636f6d2f747965656e2f426c6f636b4a756d702f6d61737465722f73637265656e5f7265636f72642e676966&quot; alt=&quot;BlockJump&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/yeziahehe/YFStartView&quot;&gt;YFStartView&lt;/a&gt; : 在启动图都是一个PNG的年代下，有强迫症的我已经受不了，换个设计吧。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/170b43643d7208c9f7a4ad584bfda8b8f97057d8/687474703a2f2f37786b7674352e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f6769746875622f5946537461727456696577627574746f6d2e676966&quot; alt=&quot;YFStartView&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/95b7b10a0a40166ae26e8ee7bb7902fdfe0e09f3/687474703a2f2f37786b7674352e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f6769746875622f594653746172745669657763656e7465722e676966&quot; alt=&quot;YFStartView&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/renzifeng/ZFPlayer&quot;&gt;ZFPlayer&lt;/a&gt; : 基于AVPlayer，支持横屏、竖屏（全屏播放还可锁定屏幕方向），上下滑动调节音量、屏幕亮度，左右滑动调节播放进度。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/renzifeng/ZFPlayer/raw/master/screen.gif&quot; alt=&quot;ZFPlayer&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/renzifeng/ZFPlayer/raw/master/volume.png&quot; alt=&quot;ZFPlayer&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/renzifeng/ZFPlayer/raw/master/brightness.png&quot; alt=&quot;ZFPlayer&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/daltoniam/DCAnimationKit&quot;&gt;DCAnimationKit&lt;/a&gt; : 各种动态效果于一身，喜欢动画的朋友可以Star一下。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/a5974a8a57c442d5b6c23d01ed3e94dfd1c4ac37/68747470733a2f2f7261772e6769746875622e636f6d2f64616c746f6e69616d2f4443416e696d6174696f6e4b69742f6d61737465722f676966732f746164612e676966&quot; alt=&quot;DCAnimationKit&quot; /&gt; &lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/4eb7f20fcae456c8f28ad1b9ffb015ff7242b3b0/68747470733a2f2f7261772e6769746875622e636f6d2f64616c746f6e69616d2f4443416e696d6174696f6e4b69742f6d61737465722f676966732f70756c73652e676966&quot; alt=&quot;DCAnimationKit&quot; /&gt; &lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/0a27424f1d55f93ba399adfc3877a5b19efa59c1/68747470733a2f2f7261772e6769746875622e636f6d2f64616c746f6e69616d2f4443416e696d6174696f6e4b69742f6d61737465722f676966732f7368616b652e676966&quot; alt=&quot;DCAnimationKit&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/delba/TextAttributes&quot;&gt;TextAttributes&lt;/a&gt; : 一款使得attributed strings更易拼接的库,而且支持动态更新。&lt;br /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/delba/TextAttributes/assets/demo.gif&quot; alt=&quot;TextAttributes&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;5.&lt;a href=&quot;https://github.com/CatchZeng/CATLog&quot;&gt;CATLog&lt;/a&gt; : 利用Xcodecolors &amp;amp; KZLinkedConsole两个插件实现的一款日志工具，支持分级别、log文件、记录Crash信息、分级颜色显示、点击Log信息跳转到类文件等特性,欢迎Star、Fork、Issue。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/CATLog/raw/master/color.jpg&quot; alt=&quot;CATLog&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/krzysztofzablocki/KZLinkedConsole/raw/master/logs.gif?raw=true&quot; alt=&quot;CATLog&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 21 Apr 2016 17:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/04/21/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC17%E6%9C%9F/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/04/21/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC17%E6%9C%9F/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
     
       <item>
         <title>iOS开发见闻-第16期</title>
@@ -52,7 +107,6 @@
 &lt;img src=&quot;https://github.com/zhangsuya/SYStickHeaderWaterFall/raw/master/SYStickHeaderWaterFall/4.gif&quot; alt=&quot;SYStickHeaderWaterFall&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;5.&lt;a href=&quot;https://github.com/tdginternet/TGCameraViewController&quot;&gt;TGCameraViewController&lt;/a&gt; : 一款可定制的AVFoundation相机,界面美观、实用性强且容易集成到自己的项目中。&lt;br /&gt;
-&lt;img src=&quot;https://camo.githubusercontent.com/420d3b828938e244f8bcf943343dc271ecc9e150/687474703a2f2f7332382e706f7374696d672e6f72672f65656c69316f6d63742f544743616d6572615f566965775f436f6e74726f6c6c65722e706e67&quot; alt=&quot;TGCameraViewController&quot; /&gt;&lt;br /&gt;
 &lt;img src=&quot;https://camo.githubusercontent.com/420d3b828938e244f8bcf943343dc271ecc9e150/687474703a2f2f7332382e706f7374696d672e6f72672f65656c69316f6d63742f544743616d6572615f566965775f436f6e74726f6c6c65722e706e67&quot; alt=&quot;TGCameraViewController&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 22 Mar 2016 17:38:27 +0800</pubDate>
@@ -785,53 +839,6 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
         <pubDate>Wed, 09 Dec 2015 18:38:31 +0800</pubDate>
         <link>http://catchzeng.com/2015/12/09/iOS-%E5%87%BD%E6%95%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B-ReactiveCocoa/</link>
         <guid isPermaLink="true">http://catchzeng.com/2015/12/09/iOS-%E5%87%BD%E6%95%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B-ReactiveCocoa/</guid>
-        
-        <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>iOS开发见闻-第10期</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/b69d9b615ee5&quot;&gt;Swift 官方 API 设计准则&lt;/a&gt; :与&lt;a href=&quot;http://www.jianshu.com/p/fce426e4f1c4&quot;&gt;《Swift 3 API 设计准则》&lt;/a&gt;的区别在于，那片文章只是一个概览说明，此文章是苹果官方发布的 API 设计准则，虽然还处于样稿阶段，但是有一定的参考价值。&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;http://blog.sunnyxx.com/2015/09/13/class-ivar-layout/&quot;&gt;Objective-C Class Ivar Layout 探索 &lt;/a&gt; ：刨根究底的sunnyxx这次又带给我们惊喜。（关于Class Ivar Layout可能比较少人接触，不过看完文章自然就懂了）&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;http://www.heyuan110.com/2015/06/16/IOS%E9%93%B6%E8%A1%8C%E5%8D%A1%E5%90%88%E6%B3%95%E6%80%A7%E6%A0%A1%E9%AA%8C/&quot;&gt;IOS银行卡合法性校验 &lt;/a&gt; : Luhn检验数字算法，也叫做模数10公式，是一种简单的算法，用于验证银行卡、信用卡号码的有效性的算法，喜欢研究算法的朋友不要错过。&lt;/p&gt;
-
-&lt;p&gt;4.&lt;a href=&quot;http://foggry.com/blog/2015/07/27/ru-he-shou-dong-jie-xi-crashlog/&quot;&gt;手动解析CrashLog之—-方法篇&lt;/a&gt; ：虽然目前已经有很多不错的第三方CrashLog搜集平台（如友盟、Crashlytics等），通常已经不需要我们手工处理CrashLog，但了解CrashLog的还原原理和方法还是有必要的。感兴趣的朋友可以继续研读&lt;a href=&quot;http://foggry.com/blog/2015/08/10/ru-he-shou-dong-jie-xi-crashlogzhi-yuan-li-pian/&quot;&gt;原理篇&lt;/a&gt;。&lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;https://github.com/acoomans/ACCodeSnippetRepositoryPlugin&quot;&gt;ACCodeSnippetRepositoryPlugin&lt;/a&gt; ：一个Xcode代码段的管理插件，像管理Xcode的插件一样，在Xcode里管理代码段是不容易的。该插件用Git仓库来同步Xcode的代码片段。&lt;br /&gt;
-&lt;img src=&quot;https://github.com/acoomans/ACCodeSnippetRepositoryPlugin/raw/master/Screenshots/screenshot02.png&quot; alt=&quot;ACCodeSnippetReposito&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/kimsungwhee/KSHObjcUML&quot;&gt;KSHObjcUML&lt;/a&gt; : Objective-C类引用关系图的Xcode插件。【这款插件在我重构代码的过程中帮了不少忙，推荐使用】&lt;br /&gt;
-&lt;img src=&quot;https://github.com/kimsungwhee/KSHObjcUML/raw/master/KSHObjcUML.png&quot; alt=&quot;KSHObjcUML&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;https://github.com/ryanmeisters/Xcode-Plugin-Open-Sublime-Text&quot;&gt;Open-Sublime-Text&lt;/a&gt; : 相信大家对Sublime Text并不陌生，它的强大编辑工程确实称赞。这款插件能帮助我们将代码在Sublime Text打开并编辑。&lt;br /&gt;
-&lt;img src=&quot;https://raw.githubusercontent.com/ryanmeisters/Xcode-Plugin-Open-Sublime-Text/master/Misc/OpenInSublimeText.gif&quot; alt=&quot;Open-Sublime-Text&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;https://github.com/gontovnik/DGElasticPullToRefresh&quot;&gt;DGElasticPullToRefresh&lt;/a&gt;：是一款带有弹性效果的 iOS 下拉刷新组件，效果很赞。&lt;br /&gt;
-&lt;img src=&quot;https://raw.githubusercontent.com/gontovnik/DGElasticPullToRefresh/master/DGElasticPullToRefreshPreview1.gif&quot; alt=&quot;DGElasticPullToRefresh&quot; /&gt;&lt;img src=&quot;https://raw.githubusercontent.com/gontovnik/DGElasticPullToRefresh/master/DGElasticPullToRefreshPreview2.gif&quot; alt=&quot;DGElasticPullToRefresh&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/804145113/BaiDuMusic&quot;&gt;BaiDuMusic&lt;/a&gt; ：用swift写的一个简单的播放器(百度随心听)，可在线播放音乐电台，支持后台播放，封面信息，可显示歌手名，专辑名，当前播放时间等，项目用到了第三方开源框架，有OC的，也有纯swift的，可以当做学习swift的例子。&lt;br /&gt;
-&lt;img src=&quot;https://camo.githubusercontent.com/ddeabadc1c4ee3bca1ad96589b7fac18ebc63654/687474703a2f2f6931322e74696574756b752e636f6d2f323231373834373463643437646133312e706e67&quot; alt=&quot;BaiDuMusic&quot; /&gt; &lt;br /&gt;
-&lt;img src=&quot;https://camo.githubusercontent.com/1a18481c226e5ca01b6984346b57adc4e1ec3799/687474703a2f2f6931322e74696574756b752e636f6d2f346530323265313061653038353466352e706e67&quot; alt=&quot;BaiDuMusic&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;https://github.com/TimOliver/TOCropViewController&quot;&gt;TOCropViewController&lt;/a&gt; :一个开源的 UIViewController 的子类，允许用户对 UIImage 的对象执行基本的操作，尤其是裁剪和一些基本的旋转。它在设计时考虑到了iOS8照片应用程序，正因为如此，它在表现方面不会让大多数用户感到陌生。&lt;img src=&quot;https://github.com/TimOliver/TOCropViewController/raw/master/screenshot.jpg&quot; alt=&quot;TOCropViewController&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;4.&lt;a href=&quot;https://github.com/bahlo/SwiftGif&quot;&gt;SwiftGif&lt;/a&gt; : Swift 对 UIImage 的扩展，实现了 Gif 动画图像的支持。&lt;br /&gt;
-&lt;img src=&quot;https://github.com/bahlo/SwiftGif/raw/master/demo.gif&quot; alt=&quot;SwiftGif&quot; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-</description>
-        <pubDate>Tue, 08 Dec 2015 18:31:18 +0800</pubDate>
-        <link>http://catchzeng.com/2015/12/08/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC10%E6%9C%9F/</link>
-        <guid isPermaLink="true">http://catchzeng.com/2015/12/08/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC10%E6%9C%9F/</guid>
         
         <category>iOS</category>
         
