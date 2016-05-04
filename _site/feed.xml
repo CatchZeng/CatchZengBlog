@@ -5,8 +5,8 @@
     <description></description>
     <link>http://catchzeng.com/</link>
     <atom:link href="http://catchzeng.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 04 May 2016 23:38:10 +0800</pubDate>
-    <lastBuildDate>Wed, 04 May 2016 23:38:10 +0800</lastBuildDate>
+    <pubDate>Wed, 04 May 2016 23:48:10 +0800</pubDate>
+    <lastBuildDate>Wed, 04 May 2016 23:48:10 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
     
       <item>
@@ -14,6 +14,8 @@
         <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;欢迎加QQ群讨论：157672725&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;!!!若遇图片载入问题可到&lt;a href=&quot;http://www.jianshu.com/p/cd109018877d&quot;&gt;简书上看&lt;/a&gt;。&lt;/p&gt;
 
 &lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
 &lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/ca51c9d3575b#rd&quot;&gt;离屏渲染优化&lt;/a&gt; : 前段时间关于圆角的库是一个接着一个，但是真正有哪个做得好的呢？这篇用实际数据说话的文章应该可以停止这段风潮了。&lt;/p&gt;
@@ -35,9 +37,8 @@
 &lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-a3488569c36c3702.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Go2Shell&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;https://github.com/iosWellLin/OCR&quot;&gt;OCR&lt;/a&gt; : 光学文字识别身份证。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-21903bc6dd7bb064.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;OCR&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/iosWellLin/OCR&quot;&gt;OCR&lt;/a&gt; : 光学文字识别身份证。&lt;br /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-21903bc6dd7bb064.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;OCR&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;2.&lt;a href=&quot;https://github.com/Guikunzhi/BeautifyFaceDemo&quot;&gt;BeautifyFaceDemo&lt;/a&gt; : 使用人脸磨皮算法美化脸部的相机实例。作者对磨皮算法也专门写了&lt;a href=&quot;http://m.blog.csdn.net/article/details?id=50496969&quot;&gt;一篇博文&lt;/a&gt;,值得一看。&lt;br /&gt;
 &lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-b065406e00e232a6?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;BeautifyFaceDemo&quot; /&gt;&lt;/p&gt;
@@ -52,7 +53,6 @@
 &lt;img src=&quot;https://github.com/DenHeadless/Shapes/raw/master/Images/dimming_view.gif&quot; alt=&quot;Shapes&quot; /&gt;&lt;br /&gt;
 &lt;img src=&quot;https://github.com/DenHeadless/Shapes/raw/master/Images/app_store_download_button.gif&quot; alt=&quot;Shapes&quot; /&gt;&lt;br /&gt;
 &lt;img src=&quot;https://github.com/DenHeadless/Shapes/raw/master/Images/voice_memos_record_button.gif&quot; alt=&quot;Shapes&quot; /&gt;&lt;/p&gt;
-
 </description>
         <pubDate>Wed, 04 May 2016 17:38:27 +0800</pubDate>
         <link>http://catchzeng.com/2016/05/04/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC18%E6%9C%9F/</link>
