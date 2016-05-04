@@ -1,0 +1,53 @@
+---
+layout:     post
+title:      "iOS开发见闻-第18期"
+subtitle:   "iOS开发见闻"
+date:       2016-05-04 09:38:27 
+author:     "CatchZeng"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - iOS
+---
+<span id="busuanzi_container_page_pv"></span>
+
+**欢迎加QQ群讨论：157672725**
+
+## 文章
+1.[离屏渲染优化](http://www.jianshu.com/p/ca51c9d3575b#rd) : 前段时间关于圆角的库是一个接着一个，但是真正有哪个做得好的呢？这篇用实际数据说话的文章应该可以停止这段风潮了。
+
+2.[去model化和数据对象](http://casatwy.com/OOP_nomodel.html) ：castaway老师的文章只能叫好！这篇文章主要讨论的问题是：数据传递时，是否要采用数据对象？这里的数据传递并不是说类似RPC的场景，而是在单个工程内部，各对象之间、各组件之间、各层之间的数据传递。
+
+3.[在 iOS 上开始创建你的虚拟现实应用](https://www.tuccuay.com/2016/03/cardboard-ios-sdk-getting-started/) :  虚拟现实现在可以在iOS上可以体验了。谷歌开源了cardboard的iOS版本sdk,感兴趣的朋友可以看看。
+
+4.[手把手教你反编译别人的app ](http://www.jianshu.com/p/10873c5c1e08) ：反编译android的看多了，看看怎么反编译iOS吧。
+
+
+## 工具
+1.[appetize.io](https://appetize.io/demo?device=iphone5s&scale=75&orientation=portrait&osVersion=9.3)：为你的 demo 创建在线预览的工具。
+![appetize.io](http://upload-images.jianshu.io/upload_images/943491-1b2021ea821014f7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+2.[transmit](http://panic.com/transmit/) : 一个Mac OS X 上FTP客户端，有着非常漂亮的用户界面和有用的功能。
+![transmit](http://upload-images.jianshu.io/upload_images/943491-c725ca96daf9e82a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+3.[Go2Shell](https://itunes.apple.com/us/app/go2shell/id445770608?mt=12&ign-mpt=uo%3D4) : 非常实用的小工具，可在任何文目录中打开终端窗口进行操作。
+![Go2Shell](http://upload-images.jianshu.io/upload_images/943491-a3488569c36c3702.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+## 开源
+1.[OCR](https://github.com/iosWellLin/OCR) : 光学文字识别身份证。
+
+![OCR](http://upload-images.jianshu.io/upload_images/943491-21903bc6dd7bb064.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+2.[BeautifyFaceDemo](https://github.com/Guikunzhi/BeautifyFaceDemo) : 使用人脸磨皮算法美化脸部的相机实例。作者对磨皮算法也专门写了[一篇博文](http://m.blog.csdn.net/article/details?id=50496969),值得一看。
+![BeautifyFaceDemo](http://upload-images.jianshu.io/upload_images/943491-b065406e00e232a6?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) 
+
+3.[XYRouter](https://github.com/uxyheaven/XYRouter) : XYRouter是一个通过URL routing来解决UIViewController跳转依赖的库。
+ 
+4.[Panorama](https://github.com/iSame7/Panorama) : 类似 Facebook's Paper App中的图片倾斜效果。
+![Panorama](https://camo.githubusercontent.com/264ad4ee96c2c0a607928a3ff6ddb700e612bc9f/687474703a2f2f73332e6a742e696f2f74696c742e676966)
+
+4.[Shapes](https://github.com/DenHeadless/Shapes) : 绘制形状视图并为其加入动画的库，研究动画的朋友别错过。
+![Shapes](https://github.com/DenHeadless/Shapes/raw/master/Images/progress_view.gif)
+![Shapes](https://github.com/DenHeadless/Shapes/raw/master/Images/dimming_view.gif)
+![Shapes](https://github.com/DenHeadless/Shapes/raw/master/Images/app_store_download_button.gif)
+![Shapes](https://github.com/DenHeadless/Shapes/raw/master/Images/voice_memos_record_button.gif)
+

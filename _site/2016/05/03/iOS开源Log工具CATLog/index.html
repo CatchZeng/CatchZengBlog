@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>iOS开发见闻-第12期 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>iOS开源Log工具CATLog - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/2016/01/07/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC12%E6%9C%9F/">
+    <link rel="canonical" href="http://catchzeng.com/2016/05/03/iOS%E5%BC%80%E6%BA%90Log%E5%B7%A5%E5%85%B7CATLog/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -143,12 +143,12 @@
                         <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
                         
                     </div>
-                    <h1>iOS开发见闻-第12期</h1>
+                    <h1>iOS开源Log工具CATLog</h1>
                     
                     
                     <h2 class="subheading">iOS开发见闻</h2>
                     
-                    <span class="meta">Posted by CatchZeng on January 7, 2016</span>
+                    <span class="meta">Posted by CatchZeng on May 3, 2016</span>
                 </div>
             </div>
         </div>
@@ -168,44 +168,33 @@
 
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
-<h2 id="section">文章</h2>
-<p>1.<a href="http://blog.cnbang.net/living/2970/">bangbang的年终回顾</a> :每天被繁杂的代码充斥着，来一篇生活篇吧！看看JSPatch作者bangbang的2015，或许你会有些许感慨。</p>
+<h2 id="section">前言</h2>
+<p>做过Java开发的朋友，都会回想log4j。喜欢它的分级输出和Eclipse或Idea分颜色输出以及点击定位到类文件，在iOS中却只剩下NSlog。于是，开始寻找log4j的类似框架。CocoaLumberjack是最早使用的，其功能齐全、接口灵活、自定义方便等特性着实让人喜欢，但也遇到了<a href="http://m.oschina.net/blog/381201">一些问题</a>。之后，看到Coneboy-k开源的<a href="https://github.com/Coneboy-k/KKLog">KKLog</a>，其轻量、简洁、实用的API着实让我喜欢，再也没有什么配置、link等错误,但不支持格式化输出、颜色打印、点击跳转等让我觉得不够用。最后，参考了<a href="https://github.com/Coneboy-k/KKLog">KKLog</a>设计了一个<a href="https://github.com/CatchZeng/CATLog">Log工具</a>，在此，对Coneboy-k表示感谢。</p>
 
-<p>2.<a href="http://blog.devtang.com/blog/2016/01/03/reactive-cocoa-discussion/">ReactiveCocoa 讨论会</a> ：期待已久的RAC讨论会终于出来了，看看巧哥和其他大神对RAC的看法吧。</p>
+<h2 id="log">说说到底想要什么样的Log</h2>
+<p>也许你会说，你还真挑，不就一个Log工具，你想要什么样的？</p>
 
-<p>3.<a href="http://blog.cnbluebox.com/blog/2015/09/18/howtolayoutview/">如何做好IOS View的布局</a> : 对开发app来说，布局是个永久的话题。这篇文章总结了view、subview、scrollView、childViewController、Autolayout、tableView等等较为细致的经验，非常值得学习！</p>
+<h4 id="section-1">必要的功能</h4>
+<p>1.支持设置日志级别<br />
+2.支持日志输出到文件<br />
+3.支持日志记录Crash信息</p>
 
-<p>4.<a href="http://merowing.info/2016/01/improve-your-ios-architecture-with-flowcontrollers/">使用flowcontrollers来改善你的iOS架构 </a> ：本文讲述了一种很好地思路来解决在不同设备上视图呈现风格不一的问题（例如：一个视图在iPhone和iPad呈现效果不一样的情况），如果觉得英文看起来费劲，后续有时间会翻译给大家。</p>
+<h4 id="section-2">进一步的要求</h4>
+<p>1.自动删除旧的日志文件<br />
+2.方便地自定义日志宏<br />
+3.支持颜色打印日志<br />
+4.支持点击日志信息跳转到代码中，方便定位错误信息</p>
 
-<p>5.<a href="http://www.jianshu.com/p/77660e626874#">iOS崩溃调试 </a> ：崩溃不可怕，可怕的是不知道怎么崩溃的。小壮总结了一些针对于崩溃的调试技巧，实用性很强。</p>
+<h4 id="section-3">还想要的</h4>
+<p>有个Mac客户端，调试的时候不连接数据线也能看日志</p>
 
-<h2 id="section-1">工具</h2>
-<p>1.<a href="https://shimo.im/">石墨文档</a> ：团队协作中难免需要文档的协作，石墨文档为你带来一次全新的文档协作体验，让所有人步调一致，从未如此简单。</p>
+<h2 id="catlog">CATLog</h2>
+<p>看看CATLog长什么样吧。<br />
+<img src="https://github.com/CatchZeng/CATLog/raw/master/CATLog.gif" alt="CATLog" /></p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/943491-4e210d9a72f1ce87.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="石墨文档" /></p>
-
-<p>2.<a href="https://www.iconfinder.com/">iconfinder</a> : 在线icon查找网站，使用名称查找你所需的icon。当自己在做开发而又没有美工的时候iconfinder将为你解决icon问题。</p>
-
-<p><img src="http://upload-images.jianshu.io/upload_images/943491-d5313eaf185090fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iconfinder" /></p>
-
-<p>3.<a href="http://www.jb51.net/softs/265717.html">coderunner</a> :  一个轻量级的代码感知文本编辑器，知道怎么编译和运行多种语言的代码。想快速测试一段Objective-C代码，又不想创建一整个Xcode项目？试试Code Runner吧。</p>
-
-<p><img src="http://upload-images.jianshu.io/upload_images/943491-a77e0a2cd8ab73b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="coderunner" /></p>
-
-<h2 id="section-2">开源</h2>
-<p>1.<a href="https://github.com/zhengjinghua/MQRCodeReaderViewController">MQRCodeReaderViewController</a>：基于原生二维码扫描封装的一款扫描库，识别速度快，界面设计优美。<br />
-<img src="https://camo.githubusercontent.com/1c5d9e98f640e775bcba6dfcd1b097a6b675986b/687474703a2f2f37786e6664632e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f7172636f64655f73637265656e73686f742e676966" alt="MQRCodeReaderViewController" /></p>
-
-<p>2.<a href="http://code.cocoachina.com/view/128968">CALayer及其子类</a> ：CALayer及其子类的用法,和核心动画的简单使用等. 包含:CALyer、CAGradientLayer、 CATiledLayer 、CAShapeLayer、 CATextLayer、 CAEmitterLayer CAReplicatorLayer 、CAScrollLayer 。<br />
-<img src="http://code.cocoachina.com/uploads/attachments/20160105/128968/916fe1dbc63e14ef0ea919b7c9c563c2.gif" alt="CALayer及其子类" /></p>
-
-<p>3.<a href="https://github.com/zsy78191/XXXRoundMenuButton/">XXXRoundMenuButton</a> : 一款实用的菜单按钮。<img src="https://raw.githubusercontent.com/zsy78191/XXXRoundMenuButton/master/XXXRoundMenu.gif" alt="XXXRoundMenuButton" /></p>
-
-<p>4.<a href="https://github.com/sammcewan/WYPopoverController">WYPopoverController</a> : 为了在iPhone上实现popover效果，找了好几个库，发现WYPopoverController在使用和兼容性方面都做得较好。<br />
-<img src="https://camo.githubusercontent.com/43c604f9b8e72cd52dd8dd4f9f0bd268659655fa/68747470733a2f2f7261772e6769746875622e636f6d2f6e69636f6c61736368656e676465762f5759506f706f766572436f6e74726f6c6c65722f6d61737465722f73637265656e73686f74732f7779706f706f7665725f73637265656e73686f745f322e706e67" alt="WYPopoverController" /></p>
-
-<p>5.<a href="https://github.com/xmartlabs/XLPagerTabStrip">XLPagerTabStrip</a> : 一个容器视图控制器，它可以让你很容易的在视图控制器集合间转换。它可以显示当前的、之前的、之后的视图控制器的交互导航。<br />
-<img src="https://github.com/xmartlabs/XLPagerTabStrip/raw/master/XLPagerTabStrip/Demo/PagerSlidingTabStrip.gif" alt="XLPagerTabStrip" /></p>
+<h2 id="section-4">最后</h2>
+<p>附上链接<a href="https://github.com/CatchZeng/CATLog">https://github.com/CatchZeng/CATLog</a> 欢迎star、fork、issue。<br />
+有问题可以到群里讨论 QQ群：157672725</p>
 
 
                 <hr>
@@ -215,14 +204,14 @@
                 </style>
                 <div class="ds-share"
                     style="text-align: right"
-                    data-thread-key="/2016/01/07/iOS开发见闻-第12期"
-                    data-title="iOS开发见闻-第12期"
-                    data-url="http://catchzeng.com/2016/01/07/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC12%E6%9C%9F/"
+                    data-thread-key="/2016/05/03/iOS开源Log工具CATLog"
+                    data-title="iOS开源Log工具CATLog"
+                    data-url="http://catchzeng.com/2016/05/03/iOS%E5%BC%80%E6%BA%90Log%E5%B7%A5%E5%85%B7CATLog/"
                     data-images="http://catchzeng.com/img/post-bg-2015.jpg"
                     data-content="
 
-文章
-1.bangbang的年终回顾 :每天被繁杂的代码充斥着，来一篇生活篇吧！看看JSPatch作者bangbang的2015，或许你会有些许感慨。... | CatchZeng的技术博客 | CatchZeng Blog " >
+前言
+做过Java开发的朋友，都会回想log4j。喜欢它的分级输出和Eclipse或Idea分颜色输出以及点击定位到类文件，在iOS中却只剩下NSlo... | CatchZeng的技术博客 | CatchZeng Blog " >
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
                         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -242,12 +231,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2015/12/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC11%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第11期">&larr; Previous Post</a>
+                        <a href="/2016/04/21/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC17%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第17期">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6%E5%B7%A5%E5%85%B7/" data-toggle="tooltip" data-placement="top" title="iOS清理工程中未使用的类文件工具">Next Post &rarr;</a>
+                        <a href="/2016/05/04/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC18%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第18期">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -257,9 +246,9 @@
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/2016/01/07/iOS开发见闻-第12期"
-                        data-title="iOS开发见闻-第12期"
-                        data-url="http://catchzeng.com/2016/01/07/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC12%E6%9C%9F/" >
+                        data-thread-key="/2016/05/03/iOS开源Log工具CATLog"
+                        data-title="iOS开源Log工具CATLog"
+                        data-url="http://catchzeng.com/2016/05/03/iOS%E5%BC%80%E6%BA%90Log%E5%B7%A5%E5%85%B7CATLog/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->

@@ -5,9 +5,104 @@
     <description></description>
     <link>http://catchzeng.com/</link>
     <atom:link href="http://catchzeng.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 22 Apr 2016 00:27:45 +0800</pubDate>
-    <lastBuildDate>Fri, 22 Apr 2016 00:27:45 +0800</lastBuildDate>
+    <pubDate>Wed, 04 May 2016 23:38:10 +0800</pubDate>
+    <lastBuildDate>Wed, 04 May 2016 23:38:10 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>iOS开发见闻-第18期</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;欢迎加QQ群讨论：157672725&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/ca51c9d3575b#rd&quot;&gt;离屏渲染优化&lt;/a&gt; : 前段时间关于圆角的库是一个接着一个，但是真正有哪个做得好的呢？这篇用实际数据说话的文章应该可以停止这段风潮了。&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;http://casatwy.com/OOP_nomodel.html&quot;&gt;去model化和数据对象&lt;/a&gt; ：castaway老师的文章只能叫好！这篇文章主要讨论的问题是：数据传递时，是否要采用数据对象？这里的数据传递并不是说类似RPC的场景，而是在单个工程内部，各对象之间、各组件之间、各层之间的数据传递。&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://www.tuccuay.com/2016/03/cardboard-ios-sdk-getting-started/&quot;&gt;在 iOS 上开始创建你的虚拟现实应用&lt;/a&gt; :  虚拟现实现在可以在iOS上可以体验了。谷歌开源了cardboard的iOS版本sdk,感兴趣的朋友可以看看。&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;http://www.jianshu.com/p/10873c5c1e08&quot;&gt;手把手教你反编译别人的app &lt;/a&gt; ：反编译android的看多了，看看怎么反编译iOS吧。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://appetize.io/demo?device=iphone5s&amp;amp;scale=75&amp;amp;orientation=portrait&amp;amp;osVersion=9.3&quot;&gt;appetize.io&lt;/a&gt;：为你的 demo 创建在线预览的工具。&lt;br /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-1b2021ea821014f7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;appetize.io&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;http://panic.com/transmit/&quot;&gt;transmit&lt;/a&gt; : 一个Mac OS X 上FTP客户端，有着非常漂亮的用户界面和有用的功能。&lt;br /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-c725ca96daf9e82a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;transmit&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://itunes.apple.com/us/app/go2shell/id445770608?mt=12&amp;amp;ign-mpt=uo%3D4&quot;&gt;Go2Shell&lt;/a&gt; : 非常实用的小工具，可在任何文目录中打开终端窗口进行操作。&lt;br /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-a3488569c36c3702.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Go2Shell&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/iosWellLin/OCR&quot;&gt;OCR&lt;/a&gt; : 光学文字识别身份证。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-21903bc6dd7bb064.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;OCR&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/Guikunzhi/BeautifyFaceDemo&quot;&gt;BeautifyFaceDemo&lt;/a&gt; : 使用人脸磨皮算法美化脸部的相机实例。作者对磨皮算法也专门写了&lt;a href=&quot;http://m.blog.csdn.net/article/details?id=50496969&quot;&gt;一篇博文&lt;/a&gt;,值得一看。&lt;br /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-b065406e00e232a6?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;BeautifyFaceDemo&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/uxyheaven/XYRouter&quot;&gt;XYRouter&lt;/a&gt; : XYRouter是一个通过URL routing来解决UIViewController跳转依赖的库。&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/iSame7/Panorama&quot;&gt;Panorama&lt;/a&gt; : 类似 Facebook’s Paper App中的图片倾斜效果。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/264ad4ee96c2c0a607928a3ff6ddb700e612bc9f/687474703a2f2f73332e6a742e696f2f74696c742e676966&quot; alt=&quot;Panorama&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/DenHeadless/Shapes&quot;&gt;Shapes&lt;/a&gt; : 绘制形状视图并为其加入动画的库，研究动画的朋友别错过。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/DenHeadless/Shapes/raw/master/Images/progress_view.gif&quot; alt=&quot;Shapes&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/DenHeadless/Shapes/raw/master/Images/dimming_view.gif&quot; alt=&quot;Shapes&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/DenHeadless/Shapes/raw/master/Images/app_store_download_button.gif&quot; alt=&quot;Shapes&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/DenHeadless/Shapes/raw/master/Images/voice_memos_record_button.gif&quot; alt=&quot;Shapes&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 04 May 2016 17:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/05/04/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC18%E6%9C%9F/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/05/04/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC18%E6%9C%9F/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>iOS开源Log工具CATLog</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;前言&lt;/h2&gt;
+&lt;p&gt;做过Java开发的朋友，都会回想log4j。喜欢它的分级输出和Eclipse或Idea分颜色输出以及点击定位到类文件，在iOS中却只剩下NSlog。于是，开始寻找log4j的类似框架。CocoaLumberjack是最早使用的，其功能齐全、接口灵活、自定义方便等特性着实让人喜欢，但也遇到了&lt;a href=&quot;http://m.oschina.net/blog/381201&quot;&gt;一些问题&lt;/a&gt;。之后，看到Coneboy-k开源的&lt;a href=&quot;https://github.com/Coneboy-k/KKLog&quot;&gt;KKLog&lt;/a&gt;，其轻量、简洁、实用的API着实让我喜欢，再也没有什么配置、link等错误,但不支持格式化输出、颜色打印、点击跳转等让我觉得不够用。最后，参考了&lt;a href=&quot;https://github.com/Coneboy-k/KKLog&quot;&gt;KKLog&lt;/a&gt;设计了一个&lt;a href=&quot;https://github.com/CatchZeng/CATLog&quot;&gt;Log工具&lt;/a&gt;，在此，对Coneboy-k表示感谢。&lt;/p&gt;
+
+&lt;h2 id=&quot;log&quot;&gt;说说到底想要什么样的Log&lt;/h2&gt;
+&lt;p&gt;也许你会说，你还真挑，不就一个Log工具，你想要什么样的？&lt;/p&gt;
+
+&lt;h4 id=&quot;section-1&quot;&gt;必要的功能&lt;/h4&gt;
+&lt;p&gt;1.支持设置日志级别&lt;br /&gt;
+2.支持日志输出到文件&lt;br /&gt;
+3.支持日志记录Crash信息&lt;/p&gt;
+
+&lt;h4 id=&quot;section-2&quot;&gt;进一步的要求&lt;/h4&gt;
+&lt;p&gt;1.自动删除旧的日志文件&lt;br /&gt;
+2.方便地自定义日志宏&lt;br /&gt;
+3.支持颜色打印日志&lt;br /&gt;
+4.支持点击日志信息跳转到代码中，方便定位错误信息&lt;/p&gt;
+
+&lt;h4 id=&quot;section-3&quot;&gt;还想要的&lt;/h4&gt;
+&lt;p&gt;有个Mac客户端，调试的时候不连接数据线也能看日志&lt;/p&gt;
+
+&lt;h2 id=&quot;catlog&quot;&gt;CATLog&lt;/h2&gt;
+&lt;p&gt;看看CATLog长什么样吧。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/CATLog/raw/master/CATLog.gif&quot; alt=&quot;CATLog&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;最后&lt;/h2&gt;
+&lt;p&gt;附上链接&lt;a href=&quot;https://github.com/CatchZeng/CATLog&quot;&gt;https://github.com/CatchZeng/CATLog&lt;/a&gt; 欢迎star、fork、issue。&lt;br /&gt;
+有问题可以到群里讨论 QQ群：157672725&lt;/p&gt;
+</description>
+        <pubDate>Tue, 03 May 2016 17:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/05/03/iOS%E5%BC%80%E6%BA%90Log%E5%B7%A5%E5%85%B7CATLog/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/05/03/iOS%E5%BC%80%E6%BA%90Log%E5%B7%A5%E5%85%B7CATLog/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
     
       <item>
         <title>iOS开发见闻-第17期</title>
@@ -703,142 +798,6 @@ Entity&lt;/p&gt;
         <pubDate>Thu, 07 Jan 2016 17:38:27 +0800</pubDate>
         <link>http://catchzeng.com/2016/01/07/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC12%E6%9C%9F/</link>
         <guid isPermaLink="true">http://catchzeng.com/2016/01/07/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC12%E6%9C%9F/</guid>
-        
-        <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>iOS开发见闻-第11期</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;http://blog.devtang.com/blog/2015/12/18/from-dev-to-manager/&quot;&gt;涅槃重生:我的技术转管理之路&lt;/a&gt; :巧哥的涅槃重生，这篇虽不是技术文章，但深刻地描述了大神从技术走向管理的思考，值得细细品味。&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;http://joeyio.com/ios/2014/06/04/swift---/&quot;&gt;Swift之 ? 和 ! &lt;/a&gt; ：这篇老文章对于Swift的初学者面对？和！的疑惑还是挺有帮助的。&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;http://blog.ibireme.com/2015/12/17/move/&quot;&gt;搬家前&lt;/a&gt; : 你一定很想知道ibireme的大神之路是怎么炼成的吧，看看他这次搬家带给我们那些好书。&lt;/p&gt;
-
-&lt;p&gt;4.&lt;a href=&quot;http://mp.weixin.qq.com/s?__biz=MzAwNDY1ODY2OQ==&amp;amp;mid=400417748&amp;amp;idx=1&amp;amp;sn=0c5f6747dd192c5a0eea32bb4650c160&amp;amp;scene=23&amp;amp;srcid=1219QBIWbUYXl3nXdxA4Rxaj#rd&quot;&gt;iOS 事件处理机制与图像渲染过程 &lt;/a&gt; ：作者从RunLoop、线程、事件响应、layer、cpu&amp;amp;gpu等到Facebook Pop、AsyncDisplay较为细致地讲解了事件处理机制与图像渲染过程，是篇不可多得的好文章。&lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;http://blog.zhowkev.in/2015/12/11/xiang-yao-da-zao-ji-zhi-de-yong-hu-ti-yan-yong-appsee/&quot;&gt;想要打造极致的用户体验？用 AppSee&lt;/a&gt; ：这篇貌似是产品经理看的，但如果你用一颗产品经理的心去做事将会让你从另外一个维度认识你、提高你。&lt;br /&gt;
-&lt;img src=&quot;http://blog.zhowkev.in/content/images/2015/12/-----2015-12-11---3-56-09.png&quot; alt=&quot;AppSee&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://blog.zhowkev.in/content/images/2015/12/-----2015-12-11---4-02-18.png&quot; alt=&quot;AppSee&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/MakeZL/ZLXCodeLine&quot;&gt;ZLXCodeLine&lt;/a&gt; : 一款查看代码行数/记录排行榜的插件。&lt;br /&gt;
-&lt;img src=&quot;https://github.com/MakeZL/ZLXCodeLine/raw/master/screenhost5.gif&quot; alt=&quot;ZLXCodeLine&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;https://github.com/804145113/xTransCodelation&quot;&gt;xTransCodelation&lt;/a&gt; : 中英文翻译插件，提供API查询模式和网页模式，利用有道SDK翻译和百度网页翻译。另外集成了一个可以一键关闭其他所有APP的实用功能，方便开发者，CTO再也不怕我是个英文盲。&lt;br /&gt;
-&lt;img src=&quot;https://camo.githubusercontent.com/890d4f23396fabdfec0cc30f422ecffbca735be0/687474703a2f2f69312e74696574756b752e636f6d2f303235303231383561653136303532392e676966&quot; alt=&quot;xTransCodelation&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;https://github.com/CezaryKopacz/CKWaveCollectionViewTransition&quot;&gt;CKWaveCollectionViewTransition&lt;/a&gt;：是一款可以在两个或更多的 UICollectionViewControllers 中自定义切换动画的库。&lt;br /&gt;
-&lt;img src=&quot;https://raw.githubusercontent.com/CezaryKopacz/CKWaveCollectionViewTransition/master/anim.gif&quot; alt=&quot;CKWaveCollectionViewTransition&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/liu044100/SmileWeather&quot;&gt;SmileWeather&lt;/a&gt; ：一个较为完整的天气应用。&lt;br /&gt;
-&lt;img src=&quot;https://github.com/liu044100/SmileWeather/raw/master/SmileWeather-Example/demo_gif/new_pro.jpg&quot; alt=&quot;SmileWeather&quot; /&gt; &lt;br /&gt;
-&lt;img src=&quot;https://raw.githubusercontent.com/liu044100/SmileWeather/master/SmileWeather-Example/demo_gif/localization.png&quot; alt=&quot;SmileWeather&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;https://github.com/36Kr-Mobile/KRVideoPlayer&quot;&gt;KRVideoPlayer&lt;/a&gt; : 来至36Kr类似Weico的播放器，支持竖屏模式下全屏播放。&lt;img src=&quot;https://github.com/36Kr-Mobile/KRVideoPlayer/raw/master/kr_player.gif&quot; alt=&quot;KRVideoPlayer&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;4.&lt;a href=&quot;https://github.com/matehat/Objective-LevelDB&quot;&gt;Objective-LevelDB&lt;/a&gt; : Uber开源的轻量级KV数据库框架。&lt;br /&gt;
-&lt;img src=&quot;https://leanote.com/api/file/getImage?fileId=5674c89dab64416467003713&quot; alt=&quot;Objective-LevelDB&quot; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-</description>
-        <pubDate>Sat, 19 Dec 2015 19:08:55 +0800</pubDate>
-        <link>http://catchzeng.com/2015/12/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC11%E6%9C%9F/</link>
-        <guid isPermaLink="true">http://catchzeng.com/2015/12/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC11%E6%9C%9F/</guid>
-        
-        <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>iOS 函数响应式编程 （ReactiveCocoa）</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section&quot;&gt;前言&lt;/h2&gt;
-&lt;p&gt;近来，Q群的几个朋友谈起如何使用ReactiveCocoa（以下简称RAC）开发的问题。大家觉得RAC很好，但不知如何运用它。在此整理一些对RAC的看法，希望对学习RAC的朋友有所帮助。本篇是前篇，主要涉及以下内容。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;现有的编程问题&lt;/li&gt;
-  &lt;li&gt;为何出现了这些问题&lt;/li&gt;
-  &lt;li&gt;编程思想的变化&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;现有的编程问题&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;状态量问题（类似Cache问题）&lt;br /&gt;
-在开发中时常需要一些状态量来辅助处理事务。比如：按下登录按钮后发起请求时需要一个状态量（isRequesting）来标注正在请求。&lt;br /&gt;
-&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=566787a5ab6441601e001166&quot; alt=&quot;状态量问题&quot; /&gt;&lt;br /&gt;
-但是由于isRequesting的改变相对随意，也时常会忘记对它正确赋值，导致难以维护。这也就跟Cache中的难点（难以知道何时去更新Cache中的值）一样。另外，当状态量多起来时便会出现组合爆炸的问题（状态成指数级增长），不利于扩展及维护。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Controller爆炸问题&lt;br /&gt;
-随着程序逻辑复杂度的提高，你是否也发现了App中一些ViewController的代码行数急剧增多，达到了2，3千行，甚至更多。这带来了许多问题:1.不利于后续维护2.不利于支撑UI的变动3.不利于复用 4….&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;消息传递机制方式繁多，带来的选择性问题&lt;br /&gt;
-iOS 开发中有着各种消息传递机制，包括 KVO、block、Notification、delegation以及 target-action 方式。各种消息传递机制使得开发者在做具体选择时感到困惑，虽然有不少大牛分享了他们选择的经验，但是在开发中始终觉得繁琐。重点是如果选择错了方式，极不利于代码质量的保证。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;为何出现了这些问题&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56678bc5ab6441601e001182&quot; alt=&quot;1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56678bd3ab6441616d00114d&quot; alt=&quot;2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56679cdbab6441616d0013fb&quot; alt=&quot;3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;从上面几张图我们可以看出，app其实是一个输入-》处理-》输出的过程。而它随着输入输出的增多，开发的难度也越来越大。抽象一点来讲就是变化越多，控制越难。&lt;/p&gt;
-
-&lt;p&gt;传统的命令式编程，是以命令为主的，给机器提供一条又一条的命令序列让其原封不动的执行，这就限制了编程的灵活性。&lt;br /&gt;
-变化（输入、输出）越来越多-》分支越来越多-》状态量问题&lt;br /&gt;
-变化越来越多-》Handler处理的实务越来越多-》Controller爆炸问题（可通过MVVM模式解决）&lt;br /&gt;
-变化越来越多-》需要不同的消息处理机制-》消息传递机制方式的选择问题&lt;br /&gt;
-……&lt;/p&gt;
-
-&lt;p&gt;既然命令式编程不能满足我们的需求，那便寻求解决之法。于是我们想到了Functional Reactive Programming。&lt;/p&gt;
-
-&lt;h2 id=&quot;section-3&quot;&gt;编程思想的变化&lt;/h2&gt;
-&lt;p&gt;最近关于是否使用RAC的讨论非常多。相当一部分的原因是RAC的学习成本高在团队协作中需要每个人都学会使用。使用了一段时间后，个人觉得RAC学习成本高的原因是编程思想上的改变。&lt;br /&gt;
-RAC运用的响应式编程（Functional Reactive Programming,以下简称FRP）与传统的命令式编程思想差异较大。下面我们先来了解一下RAC使用的FRP思想。&lt;/p&gt;
-
-&lt;h2 id=&quot;rac&quot;&gt;RAC中的函数式思想&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;高阶函数：函数作为参数来回传递。在oc中，block是被广泛使用的参数传递，它实际上是匿名函数。&lt;br /&gt;
-例:&lt;br /&gt;
-&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56678d47ab6441616d0011d1&quot; alt=&quot;高阶函数&quot; /&gt;&lt;br /&gt;
-上面的例子中先使用filter（过滤）判断value是否有“catch”前缀，然后使用map（映射）将值映射成no more，最后输出。不难看出例子中的filter 和 map block正是高阶函数的应用。&lt;/li&gt;
-  &lt;li&gt;惰性求值：只有当被使用到时，才会对其求值。在RAC中&lt;strong&gt;&lt;em&gt;信号只有被订阅了，才会触发&lt;/em&gt;&lt;/strong&gt;。&lt;br /&gt;
-例:&lt;br /&gt;
-&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56678dc8ab6441601e001195&quot; alt=&quot;惰性求值&quot; /&gt;&lt;br /&gt;
-将例子中的订阅部分注释，会发现虽然username改变了但是filter 和map不会触发，这就是惰性求值思想的应用。&lt;br /&gt;
-在RAC中将&lt;strong&gt;&lt;em&gt;未被订阅的信号称为“冷信号”，将已被订阅的信号称为“热信号”&lt;/em&gt;&lt;/strong&gt;。&lt;br /&gt;
-例2:&lt;br /&gt;
-&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56678f0dab6441616d0011e5&quot; alt=&quot;惰性求值2&quot; /&gt;&lt;br /&gt;
-RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的时候，断点是不触发的），这也是惰性求值思想的应用。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;rac-1&quot;&gt;RAC中的响应式思想&lt;/h2&gt;
-&lt;p&gt;响应式编程是一种和事件流有关的编程模式，关注导致状态值改变的行为事件，一系列事件组成了事件流。一系列事件是导致属性值发生变化的原因。FRP非常类似于设计模式里的&lt;strong&gt;&lt;em&gt;观察者模式&lt;/em&gt;&lt;/strong&gt;。&lt;br /&gt;
-例:&lt;br /&gt;
-&lt;img src=&quot;http://leanote.com/api/file/getImage?fileId=56679a9cab6441601e0013c7&quot; alt=&quot;RAC中的响应式思想&quot; /&gt;&lt;br /&gt;
-在传统命令式的编程中可解读成：a是 b + c 表达式的值。&lt;br /&gt;
-而在响应式的编程中应解读成：建立了一个&lt;strong&gt;&lt;em&gt;动态的数据流关系&lt;/em&gt;&lt;/strong&gt;（当c或者b的值发生变化时，a的值自动发生变化）。&lt;/p&gt;
-
-&lt;h2 id=&quot;section-4&quot;&gt;小结&lt;/h2&gt;
-&lt;p&gt;本篇概述了RAC与传统编程方式的区别，下一篇开始，我们将利用RAC来开发一个完整的应用，以此来边掌握RAC的知识。这期就到这了，下期见。&lt;/p&gt;
-</description>
-        <pubDate>Wed, 09 Dec 2015 18:38:31 +0800</pubDate>
-        <link>http://catchzeng.com/2015/12/09/iOS-%E5%87%BD%E6%95%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B-ReactiveCocoa/</link>
-        <guid isPermaLink="true">http://catchzeng.com/2015/12/09/iOS-%E5%87%BD%E6%95%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B-ReactiveCocoa/</guid>
         
         <category>iOS</category>
         
