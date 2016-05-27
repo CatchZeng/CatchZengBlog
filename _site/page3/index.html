@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>CatchZeng的技术博客 | CatchZeng Blog</title>
+
+    <link rel="canonical" href="http://catchzeng.com/page3/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">CatchZeng Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>CatchZeng Blog</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">记录开发的所见所闻</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- Post Container -->
+    		<div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+    			
+<div class="post-preview">
+    <a href="/2015/11/24/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC8%E6%9C%9F/">
+        <h2 class="post-title">
+            iOS开发见闻-第8期
+        </h2>
+        
+        <h3 class="post-subtitle">
+            iOS开发见闻
+        </h3>
+        
+        <div class="post-content-preview">
+            
+
+文章
+1.跳出面向对象思想(三) 封装 :继承具有“只关注于使用，而不关心具体的实现”的特点，所以在团队协作中发挥极大的作用。看看Casa Taloyum怎么讲封装吧。
+
+2.Mac 应用出现「已损坏」问题，苹果到底犯了什么傻逼错误？ ：巧哥的文章总是给人惊喜，不解释直接看。
+
+
+3.prototyping-floating-burger-menu-with-cashapelayer :...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by CatchZeng on November 24, 2015
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2015/11/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC7%E6%9C%9F/">
+        <h2 class="post-title">
+            iOS开发见闻-第7期
+        </h2>
+        
+        <h3 class="post-subtitle">
+            iOS开发见闻
+        </h3>
+        
+        <div class="post-content-preview">
+            
+
+文章
+1.让我们来搞崩 Cocoa 吧   :有时候搞崩程序比编写它们更有趣，看看作者怎么整跨oc吧。
+
+2.Core Data: 多线程大量数据同步 ：作者看到一个面试题后，整理的一篇关于core data 在多线程中处理大数据的注意事项的文章，总结得很好。
+
+3.iOS APP 架构漫谈 : 文章虽然不是最近的，但是“不会开机的男孩”的文章总是让人读起来受益匪浅，另外还有他的第二篇i...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by CatchZeng on November 19, 2015
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2015/11/15/IntelliJ-IDEA-Spring-MVC%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+        <h2 class="post-title">
+            IntelliJ IDEA Spring MVC环境搭建
+        </h2>
+        
+        <h3 class="post-subtitle">
+            IntelliJ IDEA
+        </h3>
+        
+        <div class="post-content-preview">
+            
+
+前言
+IntelliJ在业界被公认为最好的java开发工具之一，尤其在智能代码助手、代码自动提示、重构、J2EE支持、Ant、JUnit、CVS整合、代码审查、 创新的GUI设计等方面的功能可以说是超常的。
+	Spring MVC属于SpringFrameWork的后续产品，提供了构建 Web 应用程序的全功能 MVC 模块。使用 Spring 可插入的 MVC架构，易于同其它View框...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by CatchZeng on November 15, 2015
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2015/11/12/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC6%E6%9C%9F/">
+        <h2 class="post-title">
+            iOS开发见闻-第6期
+        </h2>
+        
+        <h3 class="post-subtitle">
+            iOS开发见闻
+        </h3>
+        
+        <div class="post-content-preview">
+            
+
+文章
+1.利用UIWebView打造一个炫酷的视频背景视图（OC &amp; Swift）  :实现类似一号专车带视频的启动页。
+
+
+2.iOS 精益编程 ：作者从一个小demo开始讲述如何一步一步改进代码的质量，值得学习。
+
+3.iOS UIView动画详解 :  动画框架有苹果自带的CoreAnimation框架，Facebook的Pop等等，这些的确都是程序员的利器。但是如果我们仅...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by CatchZeng on November 12, 2015
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2015/11/05/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC5%E6%9C%9F/">
+        <h2 class="post-title">
+            iOS开发见闻-第5期
+        </h2>
+        
+        <h3 class="post-subtitle">
+            iOS开发见闻
+        </h3>
+        
+        <div class="post-content-preview">
+            
+
+文章
+1.被误解的 MVC 和被神化的 MVVM  :如果你徘徊在MVC与MVVM中（特别是要不要使用ReactiveCocoa），那还是先看看巧哥这篇文章吧。
+
+
+2.iOS9 每日学习  ：正在学习iOS9的朋友不要错过Nathan_Bao的每日学习。
+
+3.你会用swift创建复杂的加载动画吗 : 本文讲述了swift的复杂加载动画实现过程，喜欢的就mark一下吧。
+  
+
+4.初...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by CatchZeng on November 5, 2015
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2015/10/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC4%E6%9C%9F/">
+        <h2 class="post-title">
+            iOS开发见闻-第4期
+        </h2>
+        
+        <h3 class="post-subtitle">
+            iOS开发见闻
+        </h3>
+        
+        <div class="post-content-preview">
+            
+
+文章
+1.这样好用的ReactiveCocoa，根本停不下来  : 讲述了“代码的四十八手”,使用ReactiveCocoa的朋友强烈推荐看看这篇文章。
+
+2.使用命令行工具运行Xcode 7 UI Tests  ：Xcode 7中引入了一项新技术UI Tests，允许开发者使用Swift或Objective C代码来进行UI测试。【外文地址】
+
+3.实时显示iOS编写UI代码效果 : ...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by CatchZeng on October 30, 2015
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2015/10/26/%E4%B8%BAAppDelegate%E7%98%A6%E8%BA%AB/">
+        <h2 class="post-title">
+            为AppDelegate瘦身
+        </h2>
+        
+        <h3 class="post-subtitle">
+            runtime&load
+        </h3>
+        
+        <div class="post-content-preview">
+            
+
+前言
+
+项目开发了一段时间后，相信大家都会遇到AppDelegate中的didFinishLaunch函数不断增大带来的不便管理问题。在Java中我们常使用JVM的ClassLoader对类进行加载、连接、初始化等操作，在oc中对应的就是load和initialize。
+
+瘦身
+load和initialize在使用中需要注意的点：
+
+
+  系统最多会调用一次（除非开发者主动调用）
+  都...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by CatchZeng on October 26, 2015
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2015/10/26/iOS9%E9%80%82%E9%85%8D%E9%97%AE%E9%A2%98/">
+        <h2 class="post-title">
+            iOS9适配问题
+        </h2>
+        
+        <h3 class="post-subtitle">
+            iOS9
+        </h3>
+        
+        <div class="post-content-preview">
+            
+
+前言
+最近升级到XCode7之后发现工程需要针对iOS9做一些适配，如下几点是我项目中遇到的适配问题，仅供大家参考如有问题欢迎加Q群157672725讨论：
+
+
+  网络适配ATS问题
+  Bitcode导致的编译问题
+  状态栏样式问题
+  白名单问题
+
+
+网络适配ATS问题
+App Transport Security(ATS)是Apple为提高系统及应用安全性而在iOS 9和OS ...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by CatchZeng on October 26, 2015
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2015/10/26/Mac%E4%B8%8BMaven%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+        <h2 class="post-title">
+            Mac下Maven环境搭建
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Maven
+        </h3>
+        
+        <div class="post-content-preview">
+            
+
+1.下载maven zip包
+
+http://maven.apache.org/download.cgi
+
+2.配置环境变量
+
+
+
+M3_HOME为 maven zip包解压缩后存放的目录。
+
+3.执行 **source .bash_profile 命令更新。**
+
+
+
+4.检验
+
+
+若输出以上信息，表示安装成功。
+
+5.增加国内镜像地址 【默认的地址需要翻墙才能访问到，而且速度慢，特别...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by CatchZeng on October 26, 2015
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2015/10/26/Mac-OS-X-10.11%E5%8D%87%E7%BA%A7%E5%B8%A6%E6%9D%A5%E7%9A%84-cocoapods%E9%97%AE%E9%A2%98/">
+        <h2 class="post-title">
+            Mac OS X 10.11升级带来的 cocoapods问题
+        </h2>
+        
+        <h3 class="post-subtitle">
+            cocoapods
+        </h3>
+        
+        <div class="post-content-preview">
+            
+
+前言
+昨天升级完Mac OS X 10.11，发现cocoapods不能用了。
+后面用以下命令解决了，在此记录希望能帮到需要的朋友。
+如在执行以下命令时出现问题，请看更新部分
+
+sudo chmod -R 755 /usr/local/bin
+sudo gem uninstall cocoapods
+sudo gem install -n /usr/local/bin cocoapods...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by CatchZeng on October 26, 2015
+    </p>
+</div>
+<hr>
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    <li class="previous">
+        <a href="/page2">&larr; Newer Posts</a>
+    </li>
+    
+    
+    <li class="next">
+        <a href="/page4">Older Posts &rarr;</a>
+    </li>
+    
+</ul>
+
+
+    		</div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                            
+                                <a href="/tags/#iOS" title="iOS" rel="32">
+                                    iOS
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Java Web" title="Java Web" rel="3">
+                                    Java Web
+                                </a>
+                            
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="">ABOUT ME</a></h5>
+                    <div class="short-about">
+                        
+                            <img src="/img/avatar-hux.jpg" />
+                        
+                        
+                            <p>记录开发的所见所闻</p>
+                        
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                            
+                            
+                            
+                            <li>
+                                <a target="_blank" href="http://weibo.com/u/2167807070">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://github.com/catchzeng">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </section>
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://catchzeng.com">CatchZeng Blog</a></li>
+                    
+                </ul>
+                
+    		</div>
+        
+	</div>
+</div>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+                    
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/u/2167807070">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/catchzeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                Copyright &copy; CatchZeng Blog 2016
+                <br>
+                <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+                <span id="busuanzi_container_site_uv">您是第<span id="busuanzi_value_site_uv"></span>位访客</span>
+                <span id="busuanzi_container_site_uv"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+        o = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- Highlight.js -->
+<script>
+    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+          hljs.initHighlightingOnLoad();
+          })
+          // only load tagcloud.js in tag.html
+          if($('#tag_cloud').length !== 0){
+              async("/js/jquery.tagcloud.js",function(){
+                    $.fn.tagcloud.defaults = {
+                    //size: {start: 1, end: 1, unit: 'em'},
+                    color: {start: '#bbbbee', end: '#0085a1'},
+                    };
+                    $('#tag_cloud a').tagcloud();
+                    })
+          }
+</script>
+<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+    
+    <!--fastClick.js -->
+    <script>
+        async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+              var $nav = document.querySelector("nav");
+              if($nav) FastClick.attach($nav);
+              })
+        </script>
+    
+    
+    <!-- Google Analytics -->
+    
+    <script>
+        // dynamic User by Hux
+        var _gaId = 'UA-49627206-1';
+        var _gaDomain = 'catchzeng.com';
+        
+        // Originial
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+         
+         ga('create', _gaId, _gaDomain);
+         ga('send', 'pageview');
+        </script>
+    
+    
+    
+    <!-- Baidu Tongji -->
+    
+    <script>
+        // dynamic User by Hux
+        var _baId = 'ede41d96392251499c57ebaa6d256c8a';
+        
+        // Originial
+        var _hmt = _hmt || [];
+        (function() {
+         var hm = document.createElement("script");
+         hm.src = "//hm.baidu.com/hm.js?" + _baId;
+         var s = document.getElementsByTagName("script")[0];
+         s.parentNode.insertBefore(hm, s);
+         })();
+        </script>
+    
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

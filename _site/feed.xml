@@ -1,0 +1,1376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CatchZeng Blog</title>
+    <description></description>
+    <link>http://catchzeng.com/</link>
+    <atom:link href="http://catchzeng.com/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Fri, 27 May 2016 22:31:21 +0800</pubDate>
+    <lastBuildDate>Fri, 27 May 2016 22:31:21 +0800</lastBuildDate>
+    <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>iOS Localizable.strings与Excel互相转换工具</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;前言&lt;/h2&gt;
+&lt;p&gt;相信做过多国化的朋友们一定为Localizable.strings的翻译工作而烦恼。先是写出需要用到的多国化字符串，然后交由翻译人员翻译成各国语言，最后再把翻译后的文档整理写入Localizable.strings。这个工作无聊、反复、繁琐，所以写了个&lt;a href=&quot;https://github.com/CatchZeng/Localizable.strings2Excel&quot;&gt;Localizable.strings与Excel互相转换的工具&lt;/a&gt;，来提高效率。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;效果&lt;/h2&gt;
+&lt;p&gt;1.Localizable.strings转换成Excel&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/Localizable.strings2Excel/raw/master/imgs/stoe.jpg&quot; alt=&quot;Localizable.strings转换成Excel&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.Excel转换成Localizable.strings&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/Localizable.strings2Excel/raw/master/imgs/etos.jpg&quot; alt=&quot;Excel转换成Localizable.strings&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;使用方法&lt;/h2&gt;
+&lt;p&gt;1.切换到pyexcelerator-0.6.4.1目录,执行&lt;code&gt;sudo python setup.py install&lt;/code&gt; 安装pyexcelerator组件。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/Localizable.strings2Excel/raw/master/imgs/installpy.jpg&quot; alt=&quot;安装pyexcelerator&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.执行 &lt;code&gt;python Localizable.py&lt;/code&gt;命令把Localizable.strings转换成Localizable.xls,然后交由翻译人员进行翻译。&lt;/p&gt;
+
+&lt;p&gt;3.将翻译后的Localizable.xls文件重命名为LocalizableBack.xls，然后执行&lt;code&gt;python LocalizableBack.py&lt;/code&gt;把LocalizableBack.xls转换成LocalizableBack.strings，最后将LocalizableBack.strings重命名为Localizable.strings即可放入工程使用。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;最后&lt;/h2&gt;
+&lt;p&gt;附上链接&lt;a href=&quot;https://github.com/CatchZeng/Localizable.strings2Excel&quot;&gt;https://github.com/CatchZeng/Localizable.strings2Excel&lt;/a&gt; 欢迎star、fork、issue。&lt;br /&gt;
+有问题可以到群里讨论 QQ群：157672725&lt;/p&gt;
+</description>
+        <pubDate>Fri, 27 May 2016 19:40:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/05/27/iOS-Localizable.strings%E4%B8%8EExcel%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/05/27/iOS-Localizable.strings%E4%B8%8EExcel%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>iOS安全之路－－RSA</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;rsa&quot;&gt;一、RSA简介&lt;/h2&gt;
+&lt;p&gt;在介绍RSA之前，先介绍下对称、非对称加密。&lt;br /&gt;
+#### 对称加密：&lt;br /&gt;
+A选择某一种加密规则，对信息进行加密；&lt;br /&gt;
+B使用同一种规则，对信息进行解密。&lt;br /&gt;
+由于加密和解密使用同样规则（密钥），这被称为”对称加密算法”。&lt;br /&gt;
+#### 非对称加密：&lt;br /&gt;
+B生成两把密钥（公钥和私钥）。公钥是公开的，任何人都可以获得，私钥则是保密的。&lt;br /&gt;
+A获取B的公钥，然后用它对信息加密。&lt;br /&gt;
+B得到加密后的信息，用私钥解密。&lt;br /&gt;
+公钥加密的信息只有私钥解得开，加解密的密钥是不同的，这被称为”非对称加密算法”。&lt;/p&gt;
+
+&lt;p&gt;＊以上的A一般指的是客户端、B一般是服务器端。&lt;/p&gt;
+
+&lt;p&gt;RSA就是非对称加密算法的一种。&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;二、算法描述&lt;/h2&gt;
+&lt;p&gt;RSA算法的数论基础：将两个大素数相乘十分容易，但是想要对其乘积进行因式分解却极其困难，因此可以将乘积公开作为加密密钥。&lt;br /&gt;
+在算法描述之前，需要补充一些数学知识。&lt;/p&gt;
+
+&lt;h4 id=&quot;section-1&quot;&gt;素数(质数)&lt;/h4&gt;
+&lt;p&gt;　　素数指在一个大于1的自然数中，除了1和此整数自身外，不能被其他自然数整除的数。&lt;/p&gt;
+
+&lt;h4 id=&quot;section-2&quot;&gt;互质数&lt;/h4&gt;
+&lt;p&gt;　　公因数只有1的两个数，叫做互质数。&lt;br /&gt;
+判断方法主要有以下几种：&lt;br /&gt;
+两个不同的质数一定是互质数。例如，2与7、13与19。&lt;br /&gt;
+一个质数，另一个不为它的倍数，这两个数为互质数。例如，3与10、5与 26。&lt;br /&gt;
+相邻的两个自然数是互质数。如 15与 16。&lt;br /&gt;
+相邻的两个奇数是互质数。如 49与 51。&lt;br /&gt;
+较大数是质数的两个数是互质数。如97与88。&lt;br /&gt;
+小数是质数，大数不是小数的倍数的两个数是互质数。例如 7和 16。&lt;br /&gt;
+2和任何奇数是互质数。例如2和87。&lt;br /&gt;
+1不是质数也不是合数，它和任何一个自然数在一起都是互质数。如1和9908。&lt;br /&gt;
+辗转相除法。&lt;/p&gt;
+
+&lt;h4 id=&quot;section-3&quot;&gt;指数运算(乘方计算)&lt;/h4&gt;
+&lt;p&gt;　　指数运算计算结果称为幂。n^m指将n自乘m次。把n^m看作乘方的结果，叫做”n的m次幂”或”n的m次方”。其中，n称为“底数”，m称为“指数”。&lt;/p&gt;
+
+&lt;h4 id=&quot;section-4&quot;&gt;模运算&lt;/h4&gt;
+&lt;p&gt;　　模运算即求余运算。和模运算紧密相关的一个概念是“同余”。数学上，当两个整数除以同一个正整数，若得相同余数，则二整数同余。两个整数a，b，若它们除以正整数m所得的余数相等，则称a，b对于模m同余，记作: a ≡ b (mod m)；读作：a同余于b模m，或者，a与b关于模m同余。例如：26 ≡ 14 (mod 12)。&lt;/p&gt;
+
+&lt;h4 id=&quot;section-5&quot;&gt;欧拉函数&lt;/h4&gt;
+&lt;p&gt;任意给定正整数n，请问在小于等于n的正整数之中，有多少个与n构成互质关系？（比如，在1到8之中，有多少个数与8构成互质关系？）计算这个值的方法就叫做欧拉函数，以φ(n)表示。在1到8之中，与8形成互质关系的是1、3、5、7，所以 φ(n) = 4。&lt;br /&gt;
+&lt;img src=&quot;/img/in-post/post-security/rsa.jpg&quot; alt=&quot;欧拉函数&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;有了这些数学知识，下面开始描述RSA算法,场景为A要与B进行加密通信。&lt;a href=&quot;http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html&quot;&gt;描述出处&lt;/a&gt;&lt;/p&gt;
+
+&lt;h6 id=&quot;pq&quot;&gt;1.随机选择两个不相等的质数p和q。&lt;/h6&gt;
+&lt;p&gt;A选择了61和53。（实际应用中，这两个质数越大，就越难破解）&lt;/p&gt;
+
+&lt;h6 id=&quot;pqn&quot;&gt;2.计算p和q的乘积n。&lt;/h6&gt;
+&lt;p&gt;A把61和53相乘。&lt;br /&gt;
+&lt;code&gt;
+n = 61×53 = 3233
+&lt;/code&gt;&lt;br /&gt;
+n的长度就是密钥长度。3233写成二进制是110010100001，一共有12位，所以这个密钥就是12位。（实际应用中，RSA密钥一般是1024位，重要场合则为2048位）&lt;/p&gt;
+
+&lt;h6 id=&quot;nn&quot;&gt;3.计算n的欧拉函数φ(n)。&lt;/h6&gt;
+&lt;p&gt;根据公式：&lt;br /&gt;
+&lt;code&gt;
+　　φ(n) = (p-1)(q-1)
+&lt;/code&gt;&lt;br /&gt;
+A算出φ(3233)等于60×52，即3120。&lt;/p&gt;
+
+&lt;h6 id=&quot;e1-e--nen-&quot;&gt;4.随机选择一个整数e，条件是1&amp;lt; e &amp;lt; φ(n)，且e与φ(n) 互质。&lt;/h6&gt;
+&lt;p&gt;A在1到3120之间，随机选择了17。（实际应用中，常常选择65537）&lt;/p&gt;
+
+&lt;h6 id=&quot;end&quot;&gt;5.计算e对于φ(n)的模反元素d。&lt;/h6&gt;
+&lt;p&gt;所谓”模反元素”就是指有一个整数d，可以使得ed被φ(n)除的余数为1。&lt;br /&gt;
+&lt;code&gt;
+　ed ≡ 1 (mod φ(n))
+&lt;/code&gt;&lt;br /&gt;
+这个式子等价于&lt;br /&gt;
+&lt;code&gt;
+　　ed - 1 = kφ(n)
+&lt;/code&gt;&lt;br /&gt;
+于是，找到模反元素d，实质上就是对下面这个二元一次方程求解。&lt;br /&gt;
+&lt;code&gt;
+　　ex + φ(n)y = 1
+&lt;/code&gt;&lt;br /&gt;
+已知 e=17, φ(n)=3120，&lt;br /&gt;
+&lt;code&gt;
+　　17x + 3120y = 1
+&lt;/code&gt;&lt;br /&gt;
+这个方程可以用”扩展欧几里得算法”求解，此处省略具体过程。A算出一组整数解为 (x,y)=(2753,-15)，即 d=2753。&lt;br /&gt;
+至此所有计算完成。&lt;/p&gt;
+
+&lt;h6 id=&quot;nend&quot;&gt;6.将n和e封装成公钥，n和d封装成私钥。&lt;/h6&gt;
+&lt;p&gt;在例子中，n=3233，e=17，d=2753，所以公钥就是 (3233,17)，私钥就是（3233, 2753）。&lt;br /&gt;
+实际应用中，公钥和私钥的数据都采用&lt;a href=&quot;http://baike.baidu.com/link?url=hANHjn-dJ9j6B7zyRV4HMH_Tf_Pcz6_b5Op8kLzfKvdlPFT2XwNErIh5qoh16rGIkrXvtPNhZhkUvnh9mfAh7a&quot;&gt;ASN.1格式&lt;/a&gt;表达。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-6&quot;&gt;三、算法实现&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;@implementation CATSecurity
+
+#pragma mark -- RSA
+#pragma mark -- public methods
+
++ (NSString *)rsaEncryptString:(NSString *)str publicKey:(NSString *)pubKey{
+    NSData *data = [self rsaEncryptData:[str dataUsingEncoding:NSUTF8StringEncoding] publicKey:pubKey];
+    NSString *ret = base64_encode_data(data);
+    return ret;
+}
+
++ (NSData *)rsaEncryptData:(NSData *)data publicKey:(NSString *)pubKey{
+    if(!data || !pubKey){
+        return nil;
+    }
+    SecKeyRef keyRef = [self _addPublicKey:pubKey];
+    if(!keyRef){
+        return nil;
+    }
+    return [self _encryptData:data withKeyRef:keyRef];
+}
+
++ (NSString *)rsaDecryptString:(NSString *)str publicKey:(NSString *)pubKey{
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    data = [self rsaDecryptData:data publicKey:pubKey];
+    NSString *ret = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return ret;
+}
+
++ (NSData *)rsaDecryptData:(NSData *)data publicKey:(NSString *)pubKey{
+    if(!data || !pubKey){
+        return nil;
+    }
+    SecKeyRef keyRef = [self _addPublicKey:pubKey];
+    if(!keyRef){
+        return nil;
+    }
+    return [self _decryptData:data withKeyRef:keyRef];
+}
+
++ (NSString *)rsaDecryptString:(NSString *)str privateKey:(NSString *)privKey{
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    data = [self rsaDecryptData:data privateKey:privKey];
+    NSString *ret = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return ret;
+}
+
++ (NSData *)rsaDecryptData:(NSData *)data privateKey:(NSString *)privKey{
+    if(!data || !privKey){
+        return nil;
+    }
+    SecKeyRef keyRef = [self _addPrivateKey:privKey];
+    if(!keyRef){
+        return nil;
+    }
+    return [self _decryptData:data withKeyRef:keyRef];
+}
+
+#pragma mark -- RSA
+#pragma mark -- private methods
+
+static NSString *base64_encode_data(NSData *data){
+    data = [data base64EncodedDataWithOptions:0];
+    NSString *ret = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return ret;
+}
+
+static NSData *base64_decode(NSString *str){
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    return data;
+}
+
++ (NSData *)_stripPublicKeyHeader:(NSData *)d_key{
+    // Skip ASN.1 public key header
+    if (d_key == nil) return(nil);
+    
+    unsigned long len = [d_key length];
+    if (!len) return(nil);
+    
+    unsigned char *c_key = (unsigned char *)[d_key bytes];
+    unsigned int  idx	 = 0;
+    
+    if (c_key[idx++] != 0x30) return(nil);
+    
+    if (c_key[idx] &amp;gt; 0x80) idx += c_key[idx] - 0x80 + 1;
+    else idx++;
+    
+    // PKCS #1 rsaEncryption szOID_RSA_RSA
+    static unsigned char seqiod[] =
+    { 0x30,   0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01,
+        0x01, 0x05, 0x00 };
+    if (memcmp(&amp;amp;c_key[idx], seqiod, 15)) return(nil);
+    
+    idx += 15;
+    
+    if (c_key[idx++] != 0x03) return(nil);
+    
+    if (c_key[idx] &amp;gt; 0x80) idx += c_key[idx] - 0x80 + 1;
+    else idx++;
+    
+    if (c_key[idx++] != &#39;\0&#39;) return(nil);
+    
+    // Now make a new NSData from this buffer
+    return([NSData dataWithBytes:&amp;amp;c_key[idx] length:len - idx]);
+}
+
+//credit: http://hg.mozilla.org/services/fx-home/file/tip/Sources/NetworkAndStorage/CryptoUtils.m#l1036
++ (NSData *)_stripPrivateKeyHeader:(NSData *)d_key{
+    // Skip ASN.1 private key header
+    if (d_key == nil) return(nil);
+    
+    unsigned long len = [d_key length];
+    if (!len) return(nil);
+    
+    unsigned char *c_key = (unsigned char *)[d_key bytes];
+    unsigned int  idx	 = 22; //magic byte at offset 22
+    
+    if (0x04 != c_key[idx++]) return nil;
+    
+    //calculate length of the key
+    unsigned int c_len = c_key[idx++];
+    int det = c_len &amp;amp; 0x80;
+    if (!det) {
+        c_len = c_len &amp;amp; 0x7f;
+    } else {
+        int byteCount = c_len &amp;amp; 0x7f;
+        if (byteCount + idx &amp;gt; len) {
+            //rsa length field longer than buffer
+            return nil;
+        }
+        unsigned int accum = 0;
+        unsigned char *ptr = &amp;amp;c_key[idx];
+        idx += byteCount;
+        while (byteCount) {
+            accum = (accum &amp;lt;&amp;lt; 8) + *ptr;
+            ptr++;
+            byteCount--;
+        }
+        c_len = accum;
+    }
+    
+    // Now make a new NSData from this buffer
+    return [d_key subdataWithRange:NSMakeRange(idx, c_len)];
+}
+
++ (SecKeyRef)_addPublicKey:(NSString *)key{
+    NSRange spos = [key rangeOfString:@&quot;-----BEGIN PUBLIC KEY-----&quot;];
+    NSRange epos = [key rangeOfString:@&quot;-----END PUBLIC KEY-----&quot;];
+    if(spos.location != NSNotFound &amp;amp;&amp;amp; epos.location != NSNotFound){
+        NSUInteger s = spos.location + spos.length;
+        NSUInteger e = epos.location;
+        NSRange range = NSMakeRange(s, e-s);
+        key = [key substringWithRange:range];
+    }
+    key = [key stringByReplacingOccurrencesOfString:@&quot;\r&quot; withString:@&quot;&quot;];
+    key = [key stringByReplacingOccurrencesOfString:@&quot;\n&quot; withString:@&quot;&quot;];
+    key = [key stringByReplacingOccurrencesOfString:@&quot;\t&quot; withString:@&quot;&quot;];
+    key = [key stringByReplacingOccurrencesOfString:@&quot; &quot;  withString:@&quot;&quot;];
+    
+    // This will be base64 encoded, decode it.
+    NSData *data = base64_decode(key);
+    data = [self _stripPublicKeyHeader:data];
+    if(!data){
+        return nil;
+    }
+    
+    //a tag to read/write keychain storage
+    NSString *tag = @&quot;RSAUtil_PubKey&quot;;
+    NSData *d_tag = [NSData dataWithBytes:[tag UTF8String] length:[tag length]];
+    
+    // Delete any old lingering key with the same tag
+    NSMutableDictionary *publicKey = [[NSMutableDictionary alloc] init];
+    [publicKey setObject:(__bridge id) kSecClassKey forKey:(__bridge id)kSecClass];
+    [publicKey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
+    [publicKey setObject:d_tag forKey:(__bridge id)kSecAttrApplicationTag];
+    SecItemDelete((__bridge CFDictionaryRef)publicKey);
+    
+    // Add persistent version of the key to system keychain
+    [publicKey setObject:data forKey:(__bridge id)kSecValueData];
+    [publicKey setObject:(__bridge id) kSecAttrKeyClassPublic forKey:(__bridge id)
+     kSecAttrKeyClass];
+    [publicKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)
+     kSecReturnPersistentRef];
+    
+    CFTypeRef persistKey = nil;
+    OSStatus status = SecItemAdd((__bridge CFDictionaryRef)publicKey, &amp;amp;persistKey);
+    if (persistKey != nil){
+        CFRelease(persistKey);
+    }
+    if ((status != noErr) &amp;amp;&amp;amp; (status != errSecDuplicateItem)) {
+        return nil;
+    }
+    
+    [publicKey removeObjectForKey:(__bridge id)kSecValueData];
+    [publicKey removeObjectForKey:(__bridge id)kSecReturnPersistentRef];
+    [publicKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnRef];
+    [publicKey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
+    
+    // Now fetch the SecKeyRef version of the key
+    SecKeyRef keyRef = nil;
+    status = SecItemCopyMatching((__bridge CFDictionaryRef)publicKey, (CFTypeRef *)&amp;amp;keyRef);
+    if(status != noErr){
+        return nil;
+    }
+    return keyRef;
+}
+
++ (SecKeyRef)_addPrivateKey:(NSString *)key{
+    NSRange spos;
+    NSRange epos;
+    spos = [key rangeOfString:@&quot;-----BEGIN RSA PRIVATE KEY-----&quot;];
+    if(spos.length &amp;gt; 0){
+        epos = [key rangeOfString:@&quot;-----END RSA PRIVATE KEY-----&quot;];
+    }else{
+        spos = [key rangeOfString:@&quot;-----BEGIN PRIVATE KEY-----&quot;];
+        epos = [key rangeOfString:@&quot;-----END PRIVATE KEY-----&quot;];
+    }
+    if(spos.location != NSNotFound &amp;amp;&amp;amp; epos.location != NSNotFound){
+        NSUInteger s = spos.location + spos.length;
+        NSUInteger e = epos.location;
+        NSRange range = NSMakeRange(s, e-s);
+        key = [key substringWithRange:range];
+    }
+    key = [key stringByReplacingOccurrencesOfString:@&quot;\r&quot; withString:@&quot;&quot;];
+    key = [key stringByReplacingOccurrencesOfString:@&quot;\n&quot; withString:@&quot;&quot;];
+    key = [key stringByReplacingOccurrencesOfString:@&quot;\t&quot; withString:@&quot;&quot;];
+    key = [key stringByReplacingOccurrencesOfString:@&quot; &quot;  withString:@&quot;&quot;];
+    
+    // This will be base64 encoded, decode it.
+    NSData *data = base64_decode(key);
+    data = [self _stripPrivateKeyHeader:data];
+    if(!data){
+        return nil;
+    }
+    
+    //a tag to read/write keychain storage
+    NSString *tag = @&quot;RSAUtil_PrivKey&quot;;
+    NSData *d_tag = [NSData dataWithBytes:[tag UTF8String] length:[tag length]];
+    
+    // Delete any old lingering key with the same tag
+    NSMutableDictionary *privateKey = [[NSMutableDictionary alloc] init];
+    [privateKey setObject:(__bridge id) kSecClassKey forKey:(__bridge id)kSecClass];
+    [privateKey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
+    [privateKey setObject:d_tag forKey:(__bridge id)kSecAttrApplicationTag];
+    SecItemDelete((__bridge CFDictionaryRef)privateKey);
+    
+    // Add persistent version of the key to system keychain
+    [privateKey setObject:data forKey:(__bridge id)kSecValueData];
+    [privateKey setObject:(__bridge id) kSecAttrKeyClassPrivate forKey:(__bridge id)
+     kSecAttrKeyClass];
+    [privateKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)
+     kSecReturnPersistentRef];
+    
+    CFTypeRef persistKey = nil;
+    OSStatus status = SecItemAdd((__bridge CFDictionaryRef)privateKey, &amp;amp;persistKey);
+    if (persistKey != nil){
+        CFRelease(persistKey);
+    }
+    if ((status != noErr) &amp;amp;&amp;amp; (status != errSecDuplicateItem)) {
+        return nil;
+    }
+    
+    [privateKey removeObjectForKey:(__bridge id)kSecValueData];
+    [privateKey removeObjectForKey:(__bridge id)kSecReturnPersistentRef];
+    [privateKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnRef];
+    [privateKey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
+    
+    // Now fetch the SecKeyRef version of the key
+    SecKeyRef keyRef = nil;
+    status = SecItemCopyMatching((__bridge CFDictionaryRef)privateKey, (CFTypeRef *)&amp;amp;keyRef);
+    if(status != noErr){
+        return nil;
+    }
+    return keyRef;
+}
+
++ (NSData *)_encryptData:(NSData *)data withKeyRef:(SecKeyRef) keyRef{
+    const uint8_t *srcbuf = (const uint8_t *)[data bytes];
+    size_t srclen = (size_t)data.length;
+    
+    size_t block_size = SecKeyGetBlockSize(keyRef) * sizeof(uint8_t);
+    void *outbuf = malloc(block_size);
+    size_t src_block_size = block_size - 11;
+    
+    NSMutableData *ret = [[NSMutableData alloc] init];
+    for(int idx=0; idx&amp;lt;srclen; idx+=src_block_size){
+        //NSLog(@&quot;%d/%d block_size: %d&quot;, idx, (int)srclen, (int)block_size);
+        size_t data_len = srclen - idx;
+        if(data_len &amp;gt; src_block_size){
+            data_len = src_block_size;
+        }
+        
+        size_t outlen = block_size;
+        OSStatus status = noErr;
+        status = SecKeyEncrypt(keyRef,
+                               kSecPaddingPKCS1,
+                               srcbuf + idx,
+                               data_len,
+                               outbuf,
+                               &amp;amp;outlen
+                               );
+        if (status != 0) {
+            NSLog(@&quot;SecKeyEncrypt fail. Error Code: %d&quot;, status);
+            ret = nil;
+            break;
+        }else{
+            [ret appendBytes:outbuf length:outlen];
+        }
+    }
+    
+    free(outbuf);
+    CFRelease(keyRef);
+    return ret;
+}
+
++ (NSString *)_encryptString:(NSString *)str privateKey:(NSString *)privKey{
+    NSData *data = [self encryptData:[str dataUsingEncoding:NSUTF8StringEncoding] privateKey:privKey];
+    NSString *ret = base64_encode_data(data);
+    return ret;
+}
+
++ (NSData *)encryptData:(NSData *)data privateKey:(NSString *)privKey{
+    if(!data || !privKey){
+        return nil;
+    }
+    SecKeyRef keyRef = [self _addPrivateKey:privKey];
+    if(!keyRef){
+        return nil;
+    }
+    return [self _encryptData:data withKeyRef:keyRef];
+}
+
++ (NSData *)_decryptData:(NSData *)data withKeyRef:(SecKeyRef) keyRef{
+    const uint8_t *srcbuf = (const uint8_t *)[data bytes];
+    size_t srclen = (size_t)data.length;
+    
+    size_t block_size = SecKeyGetBlockSize(keyRef) * sizeof(uint8_t);
+    UInt8 *outbuf = malloc(block_size);
+    size_t src_block_size = block_size;
+    
+    NSMutableData *ret = [[NSMutableData alloc] init];
+    for(int idx=0; idx&amp;lt;srclen; idx+=src_block_size){
+        //NSLog(@&quot;%d/%d block_size: %d&quot;, idx, (int)srclen, (int)block_size);
+        size_t data_len = srclen - idx;
+        if(data_len &amp;gt; src_block_size){
+            data_len = src_block_size;
+        }
+        
+        size_t outlen = block_size;
+        OSStatus status = noErr;
+        status = SecKeyDecrypt(keyRef,
+                               kSecPaddingNone,
+                               srcbuf + idx,
+                               data_len,
+                               outbuf,
+                               &amp;amp;outlen
+                               );
+        if (status != 0) {
+            NSLog(@&quot;SecKeyEncrypt fail. Error Code: %d&quot;, status);
+            ret = nil;
+            break;
+        }else{
+            //the actual decrypted data is in the middle, locate it!
+            int idxFirstZero = -1;
+            int idxNextZero = (int)outlen;
+            for ( int i = 0; i &amp;lt; outlen; i++ ) {
+                if ( outbuf[i] == 0 ) {
+                    if ( idxFirstZero &amp;lt; 0 ) {
+                        idxFirstZero = i;
+                    } else {
+                        idxNextZero = i;
+                        break;
+                    }
+                }
+            }
+            
+            [ret appendBytes:&amp;amp;outbuf[idxFirstZero+1] length:idxNextZero-idxFirstZero-1];
+        }
+    }
+    
+    free(outbuf);
+    CFRelease(keyRef);
+    return ret;
+}
+@end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;最后附上&lt;a href=&quot;https://github.com/CatchZeng/CATSecurity&quot;&gt;工程地址&lt;/a&gt;。&lt;/p&gt;
+</description>
+        <pubDate>Wed, 11 May 2016 19:40:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-RSA/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-RSA/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>iOS安全之路－－AES</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;aes&quot;&gt;一、AES简介&lt;/h2&gt;
+&lt;p&gt;高级加密标准（英语：Advanced Encryption Standard，缩写：AES），在密码学中又称Rijndael加密法。AES是一个对称分组密码算法，旨在取代DES成为广泛使用的标准。根据使用的密码长度，AES最常见的有3种方案，用以适应不同的场景要求，分别是AES-128、AES-192和AES-256。&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;二、算法描述&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-security/aes1.jpg&quot; alt=&quot;AES1&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;/img/in-post/post-security/aes2.jpg&quot; alt=&quot;AES2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;AES算法较为复杂这里不再赘述，如有兴趣可点击&lt;a href=&quot;http://blog.csdn.net/searchsun/article/details/2516191&quot;&gt;描述出处&lt;/a&gt;查看更多资料。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;三、算法实现&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;@implementation CATSecurity
+
+#pragma mark --
+#pragma mark -- AES
+
+/**
+ *  get data&#39;s aes256 encrypt data
+ *
+ *  @param data source data
+ *  @param key  key for encrypt/decrypt  !!!key length must be 16
+ *
+ *  @return aes256 encrypt data
+ */
++(NSData *)aes256EncryptWithData:(NSData *)data key:(NSString *)key{
+    if (!key || key.length !=16) {
+        NSLog(@&quot;key length must be 16&quot;);
+        return nil;
+    }
+    char keyPtr[kCCKeySizeAES256+1];
+    bzero(keyPtr, sizeof(keyPtr));
+    [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
+    NSUInteger dataLength = data.length;
+    size_t bufferSize = dataLength + kCCBlockSizeAES128;
+    void *buffer = malloc(bufferSize);
+    size_t numBytesEncrypted = 0;
+    CCCryptorStatus cryptStatus = CCCrypt(kCCEncrypt, kCCAlgorithmAES128,
+                                          kCCOptionPKCS7Padding | kCCOptionECBMode,
+                                          keyPtr, kCCBlockSizeAES128,
+                                          NULL,
+                                          data.bytes, dataLength,
+                                          buffer, bufferSize,
+                                          &amp;amp;numBytesEncrypted);
+    if (cryptStatus == kCCSuccess) {
+        return [NSData dataWithBytesNoCopy:buffer length:numBytesEncrypted];
+    }
+    free(buffer);
+    return nil;
+}
+
+/**
+ *  get source data from aes256 encrypt data
+ *
+ *  @param data aes256 encrypt data
+ *  @param key  key for encrypt/decrypt  !!!key length must be 16
+ *
+ *  @return source data
+ */
++(NSData *)aes256DecryptWithData:(NSData *)data key:(NSString *)key{
+    if (!key || key.length !=16) {
+        NSLog(@&quot;key length must be 16&quot;);
+        return nil;
+    }
+    char keyPtr[kCCKeySizeAES256+1];
+    bzero(keyPtr, sizeof(keyPtr));
+    [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
+    NSUInteger dataLength = data.length;
+    size_t bufferSize = dataLength + kCCBlockSizeAES128;
+    void *buffer = malloc(bufferSize);
+    size_t numBytesDecrypted = 0;
+    CCCryptorStatus cryptStatus = CCCrypt(kCCDecrypt, kCCAlgorithmAES128,
+                                          kCCOptionPKCS7Padding | kCCOptionECBMode,
+                                          keyPtr, kCCBlockSizeAES128,
+                                          NULL,
+                                          data.bytes, dataLength,
+                                          buffer, bufferSize,
+                                          &amp;amp;numBytesDecrypted);
+    if (cryptStatus == kCCSuccess) {
+        return [NSData dataWithBytesNoCopy:buffer length:numBytesDecrypted];
+    }
+    free(buffer);
+    return nil;
+}
+
+/**
+ *  get string&#39;s aes256 encrypt data
+ *
+ *  @param string source string
+ *  @param key  key for encrypt/decrypt  !!!key length must be 16
+ *
+ *  @return aes256 encrypt data
+ */
++(NSData*)aes256EncryptWithString:(NSString*)string key:(NSString *)key{
+    if (!key || key.length !=16) {
+        NSLog(@&quot;key length must be 16&quot;);
+        return nil;
+    }
+    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *encryptedData = [self aes256EncryptWithData:data key:key];
+    return encryptedData;
+}
+
+/**
+ *  get source string from aes256 encrypt data
+ *
+ *  @param data aes256 encrypt data
+ *  @param key  key for encrypt/decrypt  !!!key length must be 16
+ *
+ *  @return source string
+ */
++(NSString*)aes256DecryptStringWithData:(NSData *)data key:(NSString *)key{
+    if (!key || key.length !=16) {
+        NSLog(@&quot;key length must be 16&quot;);
+        return nil;
+    }
+    NSData *decryData = [self aes256DecryptWithData:data key:key];
+    NSString *string = [[NSString alloc] initWithData:decryData encoding:NSUTF8StringEncoding];
+    return string;
+}
+
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;四、补充&lt;/h2&gt;
+&lt;p&gt;由于iOS、java的平台差异，AES的加密算法存在兼容性问题(iOS的AES Padding只支持ccPKCS7Padding, ccNoPadding)，为了使用方便，我找了一份可兼容的Java的代码并做了测试，详见&lt;a href=&quot;https://github.com/CatchZeng/CATSecurity&quot;&gt;工程&lt;/a&gt;的java目录。&lt;/p&gt;
+</description>
+        <pubDate>Wed, 11 May 2016 19:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-AES/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-AES/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>iOS安全之路－－Base64</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;base64&quot;&gt;一、Base64简介&lt;/h2&gt;
+&lt;p&gt;Base64是网络上最常见的用于传输8Bit字节代码的编码方式之一。Base64编码可用于在HTTP环境下传递较长的标识信息。例如，在Java Persistence系统Hibernate中，就采用了Base64来将一个较长的唯一标识符（一般为128-bit的UUID）编码为一个字符串，用作HTTP表单和HTTP GET URL中的参数。在其他应用程序中，也常常需要把二进制数据编码为适合放在URL（包括隐藏表单域）中的形式。此时，采用Base64编码具有不可读性，即所编码的数据不会被人用肉眼所直接看到。做过XMPP开发的朋友可能使用过Base64将图片编码后再传输。另外迅雷的“专用地址”也是用Base64”加密”的，其过程是在地址的前后分别添加AA和ZZ，然后对新的字符串进行Base64编码。&lt;/p&gt;
+
+&lt;p&gt;需要说明的是Base64 可以对任意的文件进行加密，但是Base64 过程是可逆的. 可以反向解密。所以，严格地讲Base64只是一种编码方式，并非加密算法。另外Base64将原来8个bit为一个字节的数据,6个bit为一个单位处理，会导致数据量会增大1/3［(8-6)/6］。&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;二、算法描述&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://baike.baidu.com/link?url=7DZ9nrUIzMosCyS-J-AqQOwS3X-IiOHPKcCOVCkuq5e42ZNRrlKLV86qKfGMVp_EexvM0_DNDcRXdk_Bsz3Hma&quot;&gt;描述出处&lt;/a&gt;&lt;br /&gt;
+转码过程例子：&lt;br /&gt;
+3＊8=4＊6&lt;/p&gt;
+
+&lt;p&gt;内存1个字符占8位&lt;br /&gt;
+转前： s 1 3&lt;br /&gt;
+先转成ascii：对应 115 49 51&lt;br /&gt;
+2进制： 01110011 00110001 00110011&lt;br /&gt;
+6个一组（4组） 011100110011000100110011&lt;br /&gt;
+然后才有后面的 011100 110011 000100 110011&lt;br /&gt;
+然后计算机是8位8位的存数 6不够，自动就补两个高位0了&lt;br /&gt;
+所有有了 高位补0&lt;br /&gt;
+科学计算器输入 00011100 00110011 00000100 00110011&lt;br /&gt;
+得到 28 51 4 51&lt;br /&gt;
+查对下照表 c z E z&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;三、算法实现&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;@implementation CATSecurity
+
+#pragma mark --
+#pragma mark -- Base64
+
+static const char base64EncodingTable[64] = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&quot;;
+static const short base64DecodingTable[256] = {
+    -2, -2, -2, -2, -2, -2, -2, -2, -2, -1, -1, -2,  -1,  -1, -2, -2,
+    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
+    -1, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, 62,  -2,  -2, -2, 63,
+    52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -2, -2,  -2,  -2, -2, -2,
+    -2, 0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10,  11,  12, 13, 14,
+    15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -2,  -2,  -2, -2, -2,
+    -2, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,  37,  38, 39, 40,
+    41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -2,  -2,  -2, -2, -2,
+    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
+    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
+    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
+    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
+    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
+    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
+    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
+    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2
+};
+
+/**
+ *  get data&#39;s base64 encoded string
+ *
+ *  @param data source data
+ *
+ *  @return base64 encoded string
+ */
++(NSString *)base64EncodedStringWithData:(NSData *)data{
+    NSUInteger length = data.length;
+    if (length == 0)
+        return @&quot;&quot;;
+    
+    NSUInteger out_length = ((length + 2) / 3) * 4;
+    uint8_t *output = malloc(((out_length + 2) / 3) * 4);
+    if (output == NULL)
+        return nil;
+    
+    const char *input = data.bytes;
+    NSInteger i, value;
+    for (i = 0; i &amp;lt; length; i += 3) {
+        value = 0;
+        for (NSInteger j = i; j &amp;lt; i + 3; j++) {
+            value &amp;lt;&amp;lt;= 8;
+            if (j &amp;lt; length) {
+                value |= (0xFF &amp;amp; input[j]);
+            }
+        }
+        NSInteger index = (i / 3) * 4;
+        output[index + 0] = base64EncodingTable[(value &amp;gt;&amp;gt; 18) &amp;amp; 0x3F];
+        output[index + 1] = base64EncodingTable[(value &amp;gt;&amp;gt; 12) &amp;amp; 0x3F];
+        output[index + 2] = ((i + 1) &amp;lt; length)
+        ? base64EncodingTable[(value &amp;gt;&amp;gt; 6) &amp;amp; 0x3F]
+        : &#39;=&#39;;
+        output[index + 3] = ((i + 2) &amp;lt; length)
+        ? base64EncodingTable[(value &amp;gt;&amp;gt; 0) &amp;amp; 0x3F]
+        : &#39;=&#39;;
+    }
+    
+    NSString *base64 = [[NSString alloc] initWithBytes:output length:out_length encoding:NSASCIIStringEncoding];
+    free(output);
+    return base64;
+}
+
+/**
+ *  get source data from base64 encoded string
+ *
+ *  @param base64EncodedString base64 encoded string
+ *
+ *  @return source data
+ */
++(NSData *)dataWithBase64EncodedString:(NSString *)base64EncodedString{
+    NSInteger length = base64EncodedString.length;
+    const char *string = [base64EncodedString cStringUsingEncoding:NSASCIIStringEncoding];
+    if (string  == NULL)
+        return nil;
+    
+    while (length &amp;gt; 0 &amp;amp;&amp;amp; string[length - 1] == &#39;=&#39;)
+        length--;
+    
+    NSInteger outputLength = length * 3 / 4;
+    NSMutableData *data = [NSMutableData dataWithLength:outputLength];
+    if (data == nil)
+        return nil;
+    if (length == 0)
+        return data;
+    
+    uint8_t *output = data.mutableBytes;
+    NSInteger inputPoint = 0;
+    NSInteger outputPoint = 0;
+    while (inputPoint &amp;lt; length) {
+        char i0 = string[inputPoint++];
+        char i1 = string[inputPoint++];
+        char i2 = inputPoint &amp;lt; length ? string[inputPoint++] : &#39;A&#39;;
+        char i3 = inputPoint &amp;lt; length ? string[inputPoint++] : &#39;A&#39;;
+        
+        output[outputPoint++] = (base64DecodingTable[i0] &amp;lt;&amp;lt; 2)
+        | (base64DecodingTable[i1] &amp;gt;&amp;gt; 4);
+        if (outputPoint &amp;lt; outputLength) {
+            output[outputPoint++] = ((base64DecodingTable[i1] &amp;amp; 0xf) &amp;lt;&amp;lt; 4)
+            | (base64DecodingTable[i2] &amp;gt;&amp;gt; 2);
+        }
+        if (outputPoint &amp;lt; outputLength) {
+            output[outputPoint++] = ((base64DecodingTable[i2] &amp;amp; 0x3) &amp;lt;&amp;lt; 6)
+            | base64DecodingTable[i3];
+        }
+    }
+    
+    return data;
+}
+
+/**
+ *  get str&#39;s base64 encoded string
+ *
+ *  @param str source string
+ *
+ *  @return base64 encoded string
+ */
++(NSString *)base64EncodedStringWithString:(NSString *)str{
+    NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    return [self base64EncodedStringWithData:data];
+}
+
+/**
+ *  get source string from base64 encoded string
+ *
+ *  @param base64EncodedString base64 encoded string
+ *
+ *  @return source string
+ */
++ (NSString *)stringWithBase64EncodedString:(NSString *)base64EncodedString{
+    NSData *data = [self dataWithBase64EncodedString:base64EncodedString];
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
+
+@end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;最后附上&lt;a href=&quot;https://github.com/CatchZeng/CATSecurity&quot;&gt;工程地址&lt;/a&gt;。&lt;/p&gt;
+</description>
+        <pubDate>Wed, 11 May 2016 18:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-Base64/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-Base64/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>iOS安全之路－－MD5</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;md5&quot;&gt;一、MD5简介&lt;/h2&gt;
+&lt;p&gt;MD5的全称是Message-Digest Algorithm 5（信息-摘要算法）。其作用是对一段信息(该信息可以很大)生成信息摘要(很小)，该摘要对该信息具有唯一性,可以作为数字签名。用于验证文件的有效性(是否有丢失或损坏的数据，云盘对文件的校验也是使用MD5) 和对用户密码的加密等。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-security/md5.jpg&quot; alt=&quot;云盘文件校验&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;需要说明的是唯一性和不可逆性都不是绝对的，从理论上分析是一种多对一的关系，但两个不同的信息产生相同摘要的概率很小。不可逆是指从输出反推输入所需的运算量和计算时间太大，使用穷搜字典的方法又需要太多的存储空间。所以MD5也并非完全安全的，现在可以搜索到许多MD5的破解软件。&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;二、算法描述&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://dev.21tx.com/2004/12/16/13075.shtml&quot;&gt;描述出处&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;算法输入是一个字节串，每个字节是8个bit. &lt;br /&gt;
+算法的执行分为以下几个步骤：&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;1.补位：&lt;/h3&gt;
+&lt;p&gt;MD5算法先对输入的数据进行补位，使得数据的长度(以byte为单位)对64求余的结果是56。&lt;br /&gt;
+即数据扩展至LEN=K*64+56个字节，K为整数。&lt;br /&gt;
+补位方法：补一个1，然后补0至满足上述要求。相当于补一个0x80的字节，再补值为0的字节。这一步里总共补充的字节数为0～63个。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;2.附加数据长度：&lt;/h3&gt;
+&lt;p&gt;用一个64位的整数表示数据的原始长度(以bit为单位)，将这个数字的8个字节按低位的在前，&lt;br /&gt;
+高位在后的顺序附加在补位后的数据后面。这时，数据被填补后的总长度为：LEN = K&lt;em&gt;64+56+8=(K+1)&lt;/em&gt;64 Bytes。&lt;br /&gt;
+※注意那个64位整数是输入数据的原始长度而不是填充字节后的长度,我就在这里栽了跟头.&lt;/p&gt;
+
+&lt;h3 id=&quot;md5-1&quot;&gt;3.初始化MD5参数：&lt;/h3&gt;
+&lt;p&gt;有四个32位整数变量 (A,B,C,D) 用来计算信息摘要，每一个变量被初始化成以下以十六进制数表示的数值，低位的字节在前面。&lt;br /&gt;
+  word A: 01 23 45 67&lt;br /&gt;
+  word B: 89 ab cd ef&lt;br /&gt;
+  word C: fe dc ba 98&lt;br /&gt;
+  word D: 76 54 32 10&lt;br /&gt;
+※注意低位的字节在前面指的是Little Endian平台上内存中字节的排列方式，而在程序中书写时，要写成：&lt;br /&gt;
+  A=0x67452301&lt;br /&gt;
+  B=0xefcdab89&lt;br /&gt;
+  C=0x98badcfe&lt;br /&gt;
+  D=0x10325476&lt;/p&gt;
+
+&lt;h3 id=&quot;md5-2&quot;&gt;4.定义四个MD5基本的按位操作函数：&lt;/h3&gt;
+&lt;p&gt;X，Y，Z为32位整数。 &lt;br /&gt;
+  F(X,Y,Z) = (X and Y) or (not(X) and Z)&lt;br /&gt;
+  G(X,Y,Z) = (X and Z) or (Y and not(Z))&lt;br /&gt;
+  H(X,Y,Z) = X xor Y xor Z&lt;br /&gt;
+  I(X,Y,Z) = Y xor (X or not(Z))&lt;/p&gt;
+
+&lt;p&gt;再定义四个分别用于四轮变换的函数。设Mj表示消息的第j个子分组（从0到15），«&amp;lt;s表示循环左移s位，则四种操作为：&lt;br /&gt;
+  FF(a,b,c,d,Mj,s,ti)表示a=b+((a+(F(b,c,d)+Mj+ti)«&amp;lt;s)&lt;br /&gt;
+  GG(a,b,c,d,Mj,s,ti)表示a=b+((a+(G(b,c,d)+Mj+ti)«&amp;lt;s)&lt;br /&gt;
+  HH(a,b,c,d,Mj,s,ti)表示a=b+((a+(H(b,c,d)+Mj+ti)«&amp;lt;s)&lt;br /&gt;
+  II(a,b,c,d,Mj,s,ti)表示a=b+((a+(I(b,c,d)+Mj+ti)«&amp;lt;s)&lt;/p&gt;
+
+&lt;h3 id=&quot;section-3&quot;&gt;5.对输入数据作变换。&lt;/h3&gt;
+&lt;p&gt;处理数据，N是总的字节数，以64个字节为一组，每组作一次循环，每次循环进行四轮操作。要变换的64个字节用16个32位的整数数组M[0 …15]表示。而数组T[1 … 64]表示一组常数， T[i]为4294967296*abs(sin(i))的32位整数部分，i的单位是弧度,i的取值从1到64。具体过程如下：&lt;/p&gt;
+
+&lt;p&gt;/* 设置主循环变量 */&lt;br /&gt;
+For i = 0 to N/16-1 do&lt;/p&gt;
+
+&lt;p&gt;/&lt;em&gt;每循环一次，把数据原文存放在16个元素的数组X中. */&lt;br /&gt;
+For j = 0 to 15 do&lt;br /&gt;
+Set X[j] to M[i&lt;/em&gt;16+j].&lt;br /&gt;
+end /结束对J的循环&lt;/p&gt;
+
+&lt;p&gt;/* Save A as AA, B as BB, C as CC, and D as DD.&lt;br /&gt;
+*/&lt;br /&gt;
+AA = A&lt;br /&gt;
+BB = B&lt;br /&gt;
+CC = C&lt;br /&gt;
+DD = D&lt;/p&gt;
+
+&lt;p&gt;/* 第1轮&lt;em&gt;/&lt;br /&gt;
+/&lt;/em&gt; 以 [abcd k s i]表示如下操作&lt;br /&gt;
+a = b + ((a + F(b,c,d) + X[k] + T[i]) «&amp;lt; s). &lt;em&gt;/&lt;br /&gt;
+/&lt;/em&gt; Do the following 16 operations. */&lt;br /&gt;
+[ABCD  0  7  1]  [DABC  1 12  2]  [CDAB  2 17  3]  [BCDA  3 22  4]&lt;br /&gt;
+[ABCD  4  7  5]  [DABC  5 12  6]  [CDAB  6 17  7]  [BCDA  7 22  8]&lt;br /&gt;
+[ABCD  8  7  9]  [DABC  9 12 10]  [CDAB 10 17 11]  [BCDA 11 22 12]&lt;br /&gt;
+[ABCD 12  7 13]  [DABC 13 12 14]  [CDAB 14 17 15]  [BCDA 15 22 16]&lt;/p&gt;
+
+&lt;p&gt;/* 第2轮* &lt;em&gt;/&lt;br /&gt;
+/&lt;/em&gt; 以 [abcd k s i]表示如下操作&lt;br /&gt;
+a = b + ((a + G(b,c,d) + X[k] + T[i]) «&amp;lt; s). &lt;em&gt;/&lt;br /&gt;
+/&lt;/em&gt; Do the following 16 operations. */&lt;br /&gt;
+[ABCD  1  5 17]  [DABC  6  9 18]  [CDAB 11 14 19]  [BCDA  0 20 20]&lt;br /&gt;
+[ABCD  5  5 21]  [DABC 10  9 22]  [CDAB 15 14 23]  [BCDA  4 20 24]&lt;br /&gt;
+[ABCD  9  5 25]  [DABC 14  9 26]  [CDAB  3 14 27]  [BCDA  8 20 28]&lt;br /&gt;
+[ABCD 13  5 29]  [DABC  2  9 30]  [CDAB  7 14 31]  [BCDA 12 20 32]&lt;/p&gt;
+
+&lt;p&gt;/* 第3轮&lt;em&gt;/&lt;br /&gt;
+/&lt;/em&gt; 以 [abcd k s i]表示如下操作&lt;br /&gt;
+a = b + ((a + H(b,c,d) + X[k] + T[i]) «&amp;lt; s). &lt;em&gt;/&lt;br /&gt;
+/&lt;/em&gt; Do the following 16 operations. */&lt;br /&gt;
+[ABCD  5  4 33]  [DABC  8 11 34]  [CDAB 11 16 35]  [BCDA 14 23 36]&lt;br /&gt;
+[ABCD  1  4 37]  [DABC  4 11 38]  [CDAB  7 16 39]  [BCDA 10 23 40]&lt;br /&gt;
+[ABCD 13  4 41]  [DABC  0 11 42]  [CDAB  3 16 43]  [BCDA  6 23 44]&lt;br /&gt;
+[ABCD  9  4 45]  [DABC 12 11 46]  [CDAB 15 16 47]  [BCDA  2 23 48]&lt;/p&gt;
+
+&lt;p&gt;/* 第4轮&lt;em&gt;/&lt;br /&gt;
+/&lt;/em&gt; 以 [abcd k s i]表示如下操作&lt;br /&gt;
+a = b + ((a + I(b,c,d) + X[k] + T[i]) «&amp;lt; s). &lt;em&gt;/&lt;br /&gt;
+/&lt;/em&gt; Do the following 16 operations. */&lt;br /&gt;
+[ABCD  0  6 49]  [DABC  7 10 50]  [CDAB 14 15 51]  [BCDA  5 21 52]&lt;br /&gt;
+[ABCD 12  6 53]  [DABC  3 10 54]  [CDAB 10 15 55]  [BCDA  1 21 56]&lt;br /&gt;
+[ABCD  8  6 57]  [DABC 15 10 58]  [CDAB  6 15 59]  [BCDA 13 21 60]&lt;br /&gt;
+[ABCD  4  6 61]  [DABC 11 10 62]  [CDAB  2 15 63]  [BCDA  9 21 64]&lt;/p&gt;
+
+&lt;p&gt;/* 然后进行如下操作 */&lt;br /&gt;
+A = A + AA&lt;br /&gt;
+B = B + BB&lt;br /&gt;
+C = C + CC&lt;br /&gt;
+D = D + DD&lt;/p&gt;
+
+&lt;p&gt;Next i /* 结束对I的循环*/&lt;/p&gt;
+
+&lt;h3 id=&quot;section-4&quot;&gt;6.输出结果。&lt;/h3&gt;
+&lt;p&gt;A，B，C，D连续存放，共16个字节，128位。按十六进制依次输出这个16个字节。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;三、算法实现&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;@implementation CATSecurity
+
+#pragma mark --
+#pragma mark -- MD5
+
+/**
+ *  get data&#39;s md5 string
+ *
+ *  @param data source data
+ *
+ *  @return md5 string
+ */
++(NSString *)md5StringWithData:(NSData *)data{
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(data.bytes, (CC_LONG)data.length, result);
+    return [NSString stringWithFormat:
+            @&quot;%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x&quot;,
+            result[0], result[1], result[2], result[3],
+            result[4], result[5], result[6], result[7],
+            result[8], result[9], result[10], result[11],
+            result[12], result[13], result[14], result[15]
+            ];
+}
+
+/**
+ *  get data&#39;s md5 data
+ *
+ *  @param data source data
+ *
+ *  @return md5 data
+ */
++(NSData *)md5DataWithData:(NSData *)data{
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(data.bytes, (CC_LONG)data.length, result);
+    return [NSData dataWithBytes:result length:CC_MD5_DIGEST_LENGTH];
+}
+
+/**
+ *  get string&#39;s md5 string
+ *
+ *  @param str source string
+ *
+ *  @return md5 string
+ */
++(NSString *)md5StringWithString:(NSString *)str{
+    NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    return [self md5StringWithData:data];
+}
+
+@end
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;section-6&quot;&gt;四、算法优化&lt;/h2&gt;
+
+&lt;h3 id=&quot;md5-3&quot;&gt;加盐MD5（盐的复杂度决定了增加的破解难度）&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;/**
+ *  get string&#39;s md5 string
+ *
+ *  @param str source string
+ *  @param salt salt string
+ *
+ *  @return md5 string
+ */
++(NSString *)md5StringWithString:(NSString *)str salt:(NSString *)salt{
+    NSString* strTmp = [str stringByAppendingString:salt];
+    return [self md5StringWithString:strTmp];
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;md5-4&quot;&gt;二次MD5（容易被找到规律而破解）&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;/**
+ *  get string&#39;s multiple md5 string
+ *
+ *  @param str source string
+ *
+ *  @return md5 string
+ */
++(NSString *)md5StringMultipleWithString:(NSString *)str{
+    NSString* strTmp = [self md5StringWithString:str];
+    strTmp = [self md5StringWithString:strTmp];
+    return strTmp;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;md5-5&quot;&gt;MD5后乱序（破解难度较大）&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;/**
+ *  get string&#39;s disorder md5 string
+ *
+ *  @param str source string
+ *
+ *  @return md5 string
+ */
++(NSString *)md5StringDisorderWithString:(NSString *)str{
+    NSString *ss = [self md5StringWithString:str];
+    NSString *header = [ss substringToIndex:2];
+    NSString *footer = [ss substringFromIndex:2];
+    ss = [footer stringByAppendingString:header];
+    return ss;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;最后附上&lt;a href=&quot;https://github.com/CatchZeng/CATSecurity&quot;&gt;工程地址&lt;/a&gt;。&lt;/p&gt;
+</description>
+        <pubDate>Wed, 11 May 2016 17:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-MD5/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-MD5/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>搭建一个轻量级的Java Web框架--使用IntelliJ IDEA 搭建Java Web 项目</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;java-web&quot;&gt;搭建Java Web项目&lt;/h2&gt;
+
+&lt;p&gt;1.新建maven项目，create from archetype，选择maven-archetype-webapp&lt;br /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-06088fc954b13f8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Idea&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.填写GroupId，ArtifactId和Version&lt;br /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-dbcd1c3fce24fde0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;GroupId，ArtifactId，Version&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.Maven&lt;br /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-d4949b78d0dbb6ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Maven&quot; /&gt;&lt;br /&gt;
+在这里若遇到maven生成骨架的时候将会非常慢，可以在Properties中添加一个参数archetypeCatalog=internal（我的工程生成很快故没有加该参数）。&lt;br /&gt;
+&lt;code&gt;
+archetypeCatalog表示插件使用的archetype元数据，默认为remote即中央仓库，由于中央仓库的archetype太多了，所以导致很慢，指定internal来表示仅使用内部元数据。
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;4.Project name &amp;amp; Location &lt;br /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-079b382f96a1c7e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Project name &amp;amp; Location&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;5.工程结构&lt;br /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-a1b055dbbcfe7ac1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;工程结构&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;6.在main文件夹下添加 Java 目录,并把它设为源代码文件夹。&lt;br /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-8bbc53efee53c0fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;屏幕快照 2016-05-05 下午9.27.20.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;7.配置pom.xml文件 &lt;br /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-edccd475572ddf78.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;配置pom.xml文件 &quot; /&gt;&lt;br /&gt;
+具体如下:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&amp;gt;    &amp;lt;modelVersion&amp;gt;4.0.0&amp;lt;/modelVersion&amp;gt;    &amp;lt;groupId&amp;gt;com.catch&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;catchjava&amp;lt;/artifactId&amp;gt;    &amp;lt;packaging&amp;gt;war&amp;lt;/packaging&amp;gt;    &amp;lt;version&amp;gt;1.0&amp;lt;/version&amp;gt;    &amp;lt;name&amp;gt;catchjava Maven Webapp&amp;lt;/name&amp;gt;    &amp;lt;url&amp;gt;[http://maven.apache.org](http://maven.apache.org)&amp;lt;/url&amp;gt;    &amp;lt;!--编码格式UTF-8--&amp;gt;   &amp;lt;properties&amp;gt;        &amp;lt;project.build.sourceEncoding&amp;gt;UTF-8&amp;lt;/project.build.sourceEncoding&amp;gt;    &amp;lt;/properties&amp;gt;    &amp;lt;!--依赖--&amp;gt;   &amp;lt;dependencies&amp;gt;        &amp;lt;!-- Servlet --&amp;gt;       &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt;javax.servlet&amp;lt;/groupId&amp;gt;            &amp;lt;artifactId&amp;gt;javax.servlet-api&amp;lt;/artifactId&amp;gt;            &amp;lt;version&amp;gt;3.1.0&amp;lt;/version&amp;gt;            &amp;lt;scope&amp;gt;provided&amp;lt;/scope&amp;gt;        &amp;lt;/dependency&amp;gt;        &amp;lt;!-- JSP --&amp;gt;       &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt;javax.servlet.jsp&amp;lt;/groupId&amp;gt;            &amp;lt;artifactId&amp;gt;jsp-api&amp;lt;/artifactId&amp;gt;            &amp;lt;version&amp;gt;2.2&amp;lt;/version&amp;gt;            &amp;lt;scope&amp;gt;provided&amp;lt;/scope&amp;gt;        &amp;lt;/dependency&amp;gt;        &amp;lt;!-- JSTL --&amp;gt;       &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt;javax.servlet&amp;lt;/groupId&amp;gt;            &amp;lt;artifactId&amp;gt;jstl&amp;lt;/artifactId&amp;gt;            &amp;lt;version&amp;gt;1.2&amp;lt;/version&amp;gt;            &amp;lt;scope&amp;gt;runtime&amp;lt;/scope&amp;gt;        &amp;lt;/dependency&amp;gt;        &amp;lt;!--Junit--&amp;gt;       &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt;junit&amp;lt;/groupId&amp;gt;            &amp;lt;artifactId&amp;gt;junit&amp;lt;/artifactId&amp;gt;            &amp;lt;version&amp;gt;3.8.1&amp;lt;/version&amp;gt;            &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;        &amp;lt;/dependency&amp;gt;    &amp;lt;/dependencies&amp;gt;    &amp;lt;!--编译--&amp;gt;   &amp;lt;build&amp;gt;        &amp;lt;plugins&amp;gt;            &amp;lt;!-- Compile --&amp;gt;           &amp;lt;plugin&amp;gt;                &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;                &amp;lt;artifactId&amp;gt;maven-compiler-plugin&amp;lt;/artifactId&amp;gt;                &amp;lt;version&amp;gt;3.3&amp;lt;/version&amp;gt;                &amp;lt;configuration&amp;gt;                    &amp;lt;source&amp;gt;1.6&amp;lt;/source&amp;gt;                    &amp;lt;target&amp;gt;1.6&amp;lt;/target&amp;gt;                &amp;lt;/configuration&amp;gt;            &amp;lt;/plugin&amp;gt;            &amp;lt;!-- Test --&amp;gt;           &amp;lt;plugin&amp;gt;                &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;                &amp;lt;artifactId&amp;gt;maven-surefire-plugin&amp;lt;/artifactId&amp;gt;                &amp;lt;version&amp;gt;2.18.1&amp;lt;/version&amp;gt;                &amp;lt;configuration&amp;gt;                    &amp;lt;skipTests&amp;gt;true&amp;lt;/skipTests&amp;gt;                &amp;lt;/configuration&amp;gt;            &amp;lt;/plugin&amp;gt;            &amp;lt;!-- Tomcat --&amp;gt;           &amp;lt;plugin&amp;gt;                &amp;lt;groupId&amp;gt;org.apache.tomcat.maven&amp;lt;/groupId&amp;gt;                &amp;lt;artifactId&amp;gt;tomcat7-maven-plugin&amp;lt;/artifactId&amp;gt;                &amp;lt;version&amp;gt;2.2&amp;lt;/version&amp;gt;                &amp;lt;configuration&amp;gt;                    &amp;lt;path&amp;gt;/${project.artifactId}&amp;lt;/path&amp;gt;                &amp;lt;/configuration&amp;gt;            &amp;lt;/plugin&amp;gt;        &amp;lt;/plugins&amp;gt;        &amp;lt;finalName&amp;gt;catchjava&amp;lt;/finalName&amp;gt;    &amp;lt;/build&amp;gt;&amp;lt;/project&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;8.新建HelloServlet,并重写doGet方法。&lt;br /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-0ad32550da3f316a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;新建HelloServlet&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-e70a2aca7711869d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;doGet&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;9.新建hello.jsp&lt;br /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-934b70fbacfa76bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;hello.jsp&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;10.加入@WebServlet标记&lt;br /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-1d5acbd4795be0d6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;@WebServlet&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;11.配置Tomcat&lt;br /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-2f72aac5963da27b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Tomcat&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-2b5673c0cc9a3f51.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Tomcat&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-17326d620b383ed9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Tomcat&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-25ce46d229e6baa9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Tomcat&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-5b97dd21579a76b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Tomcat&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-7bc4b35cdd692f00.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Tomcat&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;12.Run&lt;br /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-f1e211658682aca2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Run&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;13.加入&amp;lt;%@ page isELIgnored =”false”%&amp;gt;去除j sp显示错误。&lt;br /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-37efd5527e8ba3f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;isELIgnored&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;14.再次Run，输入http://localhost:8080/catchjava/hello 得到正确结果。[HelloServlet中 @WebServlet(“/hello”)的作用就在于此]&lt;br /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-bac9d43f3c714275.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Run&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;后续&lt;/h2&gt;
+&lt;p&gt;本期介绍了如果使用IntelliJ IDEA搭建一个Java Web项目。后续的文章将在这一篇的基础上一步一步搭建一个轻量级的Java Web框架，有兴趣的朋友咱们下期见。&lt;/p&gt;
+</description>
+        <pubDate>Thu, 05 May 2016 17:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/05/05/%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84Java-Web%E6%A1%86%E6%9E%B6-%E4%BD%BF%E7%94%A8IntelliJ-IDEA-%E6%90%AD%E5%BB%BAJava-Web-%E9%A1%B9%E7%9B%AE/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/05/05/%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84Java-Web%E6%A1%86%E6%9E%B6-%E4%BD%BF%E7%94%A8IntelliJ-IDEA-%E6%90%AD%E5%BB%BAJava-Web-%E9%A1%B9%E7%9B%AE/</guid>
+        
+        <category>Java Web</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>iOS开发见闻-第18期</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;欢迎加QQ群讨论：157672725&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/ca51c9d3575b#rd&quot;&gt;离屏渲染优化&lt;/a&gt; : 前段时间关于圆角的库是一个接着一个，但是真正有哪个做得好的呢？这篇用实际数据说话的文章应该可以停止这段风潮了。&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;http://casatwy.com/OOP_nomodel.html&quot;&gt;去model化和数据对象&lt;/a&gt; ：castaway老师的文章只能叫好！这篇文章主要讨论的问题是：数据传递时，是否要采用数据对象？这里的数据传递并不是说类似RPC的场景，而是在单个工程内部，各对象之间、各组件之间、各层之间的数据传递。&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://www.tuccuay.com/2016/03/cardboard-ios-sdk-getting-started/&quot;&gt;在 iOS 上开始创建你的虚拟现实应用&lt;/a&gt; :  虚拟现实现在可以在iOS上可以体验了。谷歌开源了cardboard的iOS版本sdk,感兴趣的朋友可以看看。&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;http://www.jianshu.com/p/10873c5c1e08&quot;&gt;手把手教你反编译别人的app &lt;/a&gt; ：反编译android的看多了，看看怎么反编译iOS吧。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://appetize.io/demo?device=iphone5s&amp;amp;scale=75&amp;amp;orientation=portrait&amp;amp;osVersion=9.3&quot;&gt;appetize.io&lt;/a&gt;：为你的 demo 创建在线预览的工具。&lt;br /&gt;
+&lt;img src=&quot;/img/in-post/post-18/18-1.jpg&quot; alt=&quot;appetize.io&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;http://panic.com/transmit/&quot;&gt;transmit&lt;/a&gt; : 一个Mac OS X 上FTP客户端，有着非常漂亮的用户界面和有用的功能。&lt;br /&gt;
+&lt;img src=&quot;/img/in-post/post-18/18-2.jpg&quot; alt=&quot;transmit&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://itunes.apple.com/us/app/go2shell/id445770608?mt=12&amp;amp;ign-mpt=uo%3D4&quot;&gt;Go2Shell&lt;/a&gt; : 非常实用的小工具，可在任何文目录中打开终端窗口进行操作。&lt;br /&gt;
+&lt;img src=&quot;/img/in-post/post-18/18-3.jpg&quot; alt=&quot;Go2Shell&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/iosWellLin/OCR&quot;&gt;OCR&lt;/a&gt; : 光学文字识别身份证。&lt;br /&gt;
+&lt;img src=&quot;/img/in-post/post-18/18-4.jpg&quot; alt=&quot;OCR&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/Guikunzhi/BeautifyFaceDemo&quot;&gt;BeautifyFaceDemo&lt;/a&gt; : 使用人脸磨皮算法美化脸部的相机实例。作者对磨皮算法也专门写了&lt;a href=&quot;http://m.blog.csdn.net/article/details?id=50496969&quot;&gt;一篇博文&lt;/a&gt;,值得一看。&lt;br /&gt;
+&lt;img src=&quot;/img/in-post/post-18/18-5.jpg&quot; alt=&quot;BeautifyFaceDemo&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/uxyheaven/XYRouter&quot;&gt;XYRouter&lt;/a&gt; : XYRouter是一个通过URL routing来解决UIViewController跳转依赖的库。&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/iSame7/Panorama&quot;&gt;Panorama&lt;/a&gt; : 类似 Facebook’s Paper App中的图片倾斜效果。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/264ad4ee96c2c0a607928a3ff6ddb700e612bc9f/687474703a2f2f73332e6a742e696f2f74696c742e676966&quot; alt=&quot;Panorama&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/DenHeadless/Shapes&quot;&gt;Shapes&lt;/a&gt; : 绘制形状视图并为其加入动画的库，研究动画的朋友别错过。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/DenHeadless/Shapes/raw/master/Images/progress_view.gif&quot; alt=&quot;Shapes&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/DenHeadless/Shapes/raw/master/Images/dimming_view.gif&quot; alt=&quot;Shapes&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/DenHeadless/Shapes/raw/master/Images/app_store_download_button.gif&quot; alt=&quot;Shapes&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/DenHeadless/Shapes/raw/master/Images/voice_memos_record_button.gif&quot; alt=&quot;Shapes&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 04 May 2016 17:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/05/04/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC18%E6%9C%9F/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/05/04/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC18%E6%9C%9F/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>iOS开源Log工具CATLog</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;前言&lt;/h2&gt;
+&lt;p&gt;做过Java开发的朋友，都会回想log4j。喜欢它的分级输出和Eclipse或Idea分颜色输出以及点击定位到类文件，在iOS中却只剩下NSlog。于是，开始寻找log4j的类似框架。CocoaLumberjack是最早使用的，其功能齐全、接口灵活、自定义方便等特性着实让人喜欢，但也遇到了&lt;a href=&quot;http://m.oschina.net/blog/381201&quot;&gt;一些问题&lt;/a&gt;。之后，看到Coneboy-k开源的&lt;a href=&quot;https://github.com/Coneboy-k/KKLog&quot;&gt;KKLog&lt;/a&gt;，其轻量、简洁、实用的API着实让我喜欢，再也没有什么配置、link等错误,但不支持格式化输出、颜色打印、点击跳转等让我觉得不够用。最后，参考了&lt;a href=&quot;https://github.com/Coneboy-k/KKLog&quot;&gt;KKLog&lt;/a&gt;设计了一个&lt;a href=&quot;https://github.com/CatchZeng/CATLog&quot;&gt;Log工具&lt;/a&gt;，在此，对Coneboy-k表示感谢。&lt;/p&gt;
+
+&lt;h2 id=&quot;log&quot;&gt;说说到底想要什么样的Log&lt;/h2&gt;
+&lt;p&gt;也许你会说，你还真挑，不就一个Log工具，你想要什么样的？&lt;/p&gt;
+
+&lt;h4 id=&quot;section-1&quot;&gt;必要的功能&lt;/h4&gt;
+&lt;p&gt;1.支持设置日志级别&lt;br /&gt;
+2.支持日志输出到文件&lt;br /&gt;
+3.支持日志记录Crash信息&lt;/p&gt;
+
+&lt;h4 id=&quot;section-2&quot;&gt;进一步的要求&lt;/h4&gt;
+&lt;p&gt;1.自动删除旧的日志文件&lt;br /&gt;
+2.方便地自定义日志宏&lt;br /&gt;
+3.支持颜色打印日志&lt;br /&gt;
+4.支持点击日志信息跳转到代码中，方便定位错误信息&lt;/p&gt;
+
+&lt;h4 id=&quot;section-3&quot;&gt;还想要的&lt;/h4&gt;
+&lt;p&gt;有个Mac客户端，调试的时候不连接数据线也能看日志&lt;/p&gt;
+
+&lt;h2 id=&quot;catlog&quot;&gt;CATLog&lt;/h2&gt;
+&lt;p&gt;看看CATLog长什么样吧。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/CATLog/raw/master/CATLog.gif&quot; alt=&quot;CATLog&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;最后&lt;/h2&gt;
+&lt;p&gt;附上链接&lt;a href=&quot;https://github.com/CatchZeng/CATLog&quot;&gt;https://github.com/CatchZeng/CATLog&lt;/a&gt; 欢迎star、fork、issue。&lt;br /&gt;
+有问题可以到群里讨论 QQ群：157672725&lt;/p&gt;
+</description>
+        <pubDate>Tue, 03 May 2016 17:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/05/03/iOS%E5%BC%80%E6%BA%90Log%E5%B7%A5%E5%85%B7CATLog/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/05/03/iOS%E5%BC%80%E6%BA%90Log%E5%B7%A5%E5%85%B7CATLog/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>iOS开发见闻-第17期</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;http://ifujun.com/yi-wen-zai-iosshang-zi-dong-jian-ce-nei-cun-xie-lu/?hmsr=toutiao.io&amp;amp;utm_medium=toutiao.io&amp;amp;utm_source=toutiao.io&quot;&gt;在iOS上自动检测内存泄露&lt;/a&gt; : Facebook一口气发布了三个利器FBRetainCycleDetector、FBAllocationTracker、FBMemoryProfiler。该篇文章的难得之处在于侧面上反应了Facebook面对问题的思考角度、深度，值得我们借鉴。&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;http://www.jackpu.com/react-nativezui-jia-xue-xi-mo-ban-f8-appkai-yuan-liao/?hmsr=toutiao.io&amp;amp;utm_medium=toutiao.io&amp;amp;utm_source=toutiao.io&quot;&gt;React Native最佳学习模版- F8 App开源了&lt;/a&gt; ：如果说最近iOS界什么名词最火，我会说的React Native。该篇文章带来了最佳学习模版-F8 App，在研究React Native的朋友别错过。&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;http://www.jianshu.com/p/d684693f1d77&quot;&gt;高速公路换轮胎——为遗留系统替换数据库&lt;/a&gt; : 作者由几个月的重构项目经历，讲述了如何一步步替换数据库的过程。文章思路清晰，从背景、系统面貌到方案选型、技术实现，是篇值得称赞的文章。&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;http://mp.weixin.qq.com/s?__biz=MzA3ODg4MDk0Ng==&amp;amp;mid=403474677&amp;amp;idx=1&amp;amp;sn=5163adb2d80aa5b4f0099f79e6d783e1&amp;amp;scene=2&amp;amp;srcid=0410nXOlaNgnthsBuLXyP7yA#wechat_redirect&quot;&gt;网易漫画Swift混编实践&lt;/a&gt; ：时至今日，工程是否要换成Swift写仍是讨论的热题。如果你想换不妨先看看网易怎么做的，至少能少踩坑。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/bang590/JSPatchX&quot;&gt;JSPatchX&lt;/a&gt; ：JSPatch XCode 代码自动补全插件。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/ad17370a5e5ecf1e5196146405f57126eb649390/68747470733a2f2f7261772e6769746875622e636f6d2f62616e673539302f4a535061746368582f6d61737465722f5265736f757263652f53637265656e73686f742e676966&quot; alt=&quot;JSPatchX&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/wzqcongcong/AtAutoCompletion&quot;&gt;AtAutoCompletion&lt;/a&gt; : 一款@的自动补全插件。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/wzqcongcong/AtAutoCompletion/raw/master/screenshot/screenshot.png&quot; alt=&quot;AtAutoCompletion&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/tyeen/BlockJump&quot;&gt;BlockJump&lt;/a&gt; : 让你在类文件中快速跳转的插件。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/bcf2547bd90504fcfe4f4cecd3bc8a6f31161e55/68747470733a2f2f7261772e6769746875622e636f6d2f747965656e2f426c6f636b4a756d702f6d61737465722f73637265656e5f7265636f72642e676966&quot; alt=&quot;BlockJump&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/yeziahehe/YFStartView&quot;&gt;YFStartView&lt;/a&gt; : 在启动图都是一个PNG的年代下，有强迫症的我已经受不了，换个设计吧。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/170b43643d7208c9f7a4ad584bfda8b8f97057d8/687474703a2f2f37786b7674352e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f6769746875622f5946537461727456696577627574746f6d2e676966&quot; alt=&quot;YFStartView&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/95b7b10a0a40166ae26e8ee7bb7902fdfe0e09f3/687474703a2f2f37786b7674352e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f6769746875622f594653746172745669657763656e7465722e676966&quot; alt=&quot;YFStartView&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/renzifeng/ZFPlayer&quot;&gt;ZFPlayer&lt;/a&gt; : 基于AVPlayer，支持横屏、竖屏（全屏播放还可锁定屏幕方向），上下滑动调节音量、屏幕亮度，左右滑动调节播放进度。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/renzifeng/ZFPlayer/raw/master/screen.gif&quot; alt=&quot;ZFPlayer&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/renzifeng/ZFPlayer/raw/master/volume.png&quot; alt=&quot;ZFPlayer&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/renzifeng/ZFPlayer/raw/master/brightness.png&quot; alt=&quot;ZFPlayer&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/daltoniam/DCAnimationKit&quot;&gt;DCAnimationKit&lt;/a&gt; : 各种动态效果于一身，喜欢动画的朋友可以Star一下。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/a5974a8a57c442d5b6c23d01ed3e94dfd1c4ac37/68747470733a2f2f7261772e6769746875622e636f6d2f64616c746f6e69616d2f4443416e696d6174696f6e4b69742f6d61737465722f676966732f746164612e676966&quot; alt=&quot;DCAnimationKit&quot; /&gt; &lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/4eb7f20fcae456c8f28ad1b9ffb015ff7242b3b0/68747470733a2f2f7261772e6769746875622e636f6d2f64616c746f6e69616d2f4443416e696d6174696f6e4b69742f6d61737465722f676966732f70756c73652e676966&quot; alt=&quot;DCAnimationKit&quot; /&gt; &lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/0a27424f1d55f93ba399adfc3877a5b19efa59c1/68747470733a2f2f7261772e6769746875622e636f6d2f64616c746f6e69616d2f4443416e696d6174696f6e4b69742f6d61737465722f676966732f7368616b652e676966&quot; alt=&quot;DCAnimationKit&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/delba/TextAttributes&quot;&gt;TextAttributes&lt;/a&gt; : 一款使得attributed strings更易拼接的库,而且支持动态更新。&lt;br /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/delba/TextAttributes/assets/demo.gif&quot; alt=&quot;TextAttributes&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;5.&lt;a href=&quot;https://github.com/CatchZeng/CATLog&quot;&gt;CATLog&lt;/a&gt; : 利用Xcodecolors &amp;amp; KZLinkedConsole两个插件实现的一款日志工具，支持分级别、log文件、记录Crash信息、分级颜色显示、点击Log信息跳转到类文件等特性,欢迎Star、Fork、Issue。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/CatchZeng/CATLog/raw/master/color.jpg&quot; alt=&quot;CATLog&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/krzysztofzablocki/KZLinkedConsole/raw/master/logs.gif?raw=true&quot; alt=&quot;CATLog&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 21 Apr 2016 17:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/04/21/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC17%E6%9C%9F/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/04/21/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC17%E6%9C%9F/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>iOS开发见闻-第16期</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;http://casatwy.com/iOS-Modulization.html&quot;&gt;iOS应用架构谈 组件化方案 &lt;/a&gt; : 组件化是 App 膨胀到一定体积后的解决方案，能一定程度上解决问题。casatwy老师的这篇文章起源于Limboy的&lt;a href=&quot;http://limboy.me/ios/2016/03/10/mgj-components.html&quot;&gt;蘑菇街 App 的组件化之路&lt;/a&gt;。18号bang大神也出来发话了&lt;a href=&quot;http://blog.cnbang.net/tech/3080/&quot;&gt;iOS 组件化方案探索&lt;/a&gt;。看完三篇文章后收益良多，极力推荐。&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;http://www.jianshu.com/p/a0c4d34feadd&quot;&gt;ApplePay高调入华，教你在app里上线ApplePay&lt;/a&gt; ：ApplePay与各大银行开展了国内市场，我们的app是否也要加入ApplePay了呢？需要的朋友可以参考这篇文章。&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;http://www.ismash.cn/post/ru-he-shi-xian-zi-ji-mei-shi-xian-guo-de-xu-qiu-zhi-wen-ben-dong-hua-pian&quot;&gt;如何实现自己没实现过的需求之文本动画&lt;/a&gt; : 本文细致地讲解了文本动画相关的知识，是篇难得的好文章。&lt;br /&gt;
+&lt;img src=&quot;https://cloud.githubusercontent.com/assets/3759810/13845905/1e55a5d0-ec7e-11e5-9631-68aaf6b07ba1.gif&quot; alt=&quot;如何实现自己没实现过的需求之文本动画&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;http://www.olinone.com/?p=484&quot;&gt;iOS图片圆角优化&lt;/a&gt; ：本文提及了开源项目&lt;a href=&quot;https://github.com/panghaijiao/HJCornerRadius&quot;&gt;HJCornerRadius&lt;/a&gt;但目的不是介绍如何使用该工具，而是想跟大家分享开发时用到的几点设计思想。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://itunes.apple.com/app/prepo/id476533227?mt=12&quot;&gt;Prepo&lt;/a&gt; ：一款图标转化器，它可以帮助设计师快速的导出各种尺寸的图标。设计师通过Prepo把任何格式的图片文件转换成iOS可用的图片格式。此外，通过点击Prepo对话框底部“copy plist”按钮，设计师可以轻松的把导出的文件复制到Xcode中，节省了设计师大量的工作时间。&lt;br /&gt;
+&lt;img src=&quot;http://a5.mzstatic.com/us/r30/Purple4/v4/ff/30/41/ff30414a-fdc5-ea96-4a2f-396291368d18/screen800x500.jpeg&quot; alt=&quot;Prepo&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://www.cocoacontrols.com/&quot;&gt;Cocoa Controls&lt;/a&gt; : 一些很棒的你可以用在你的iOS应用中的组件（代码）的列表。有时你可以找到一段优秀代码来节省时间，有时你也可以学习其他开发者是如何完成某个功能的。订阅他们的每周一报吧，都是精华，极少糟粕。&lt;br /&gt;
+&lt;img src=&quot;https://www.cocoacontrols.com/assets/logo@2x-1b08dd117f43ea835e9af45533fd6e75.png&quot; alt=&quot;Cocoa Controls&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/MellongLau/AMMethod2Implement&quot;&gt;AMMethod2Implement&lt;/a&gt; : 支持h文件声明方法自动生成实现，m或者mm文件已写好的方法生成方法声明到h文件， extern NSString * const， @select(method:) 和 [self methodName] 实现代码生成。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/f22645bb84f9ddbdcca5cf9850eb7dc8f66f1ea3/68747470733a2f2f7261772e6769746875622e636f6d2f4d656c6c6f6e674c61752f414d4d6574686f6432496d706c656d656e742f6d61737465722f53637265656e73686f74732f757361676553637265656e73686f742e676966&quot; alt=&quot;AMMethod2Implement&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/krzysztofzablocki/KZLinkedConsole&quot;&gt;KZLinkedConsole&lt;/a&gt;: 可以直接从错误日志跳转到源代码的插件。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/krzysztofzablocki/KZLinkedConsole/raw/master/logs.gif?raw=true&quot; alt=&quot;KZLinkedConsole&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/EddyBorja/EBPhotoPages&quot;&gt;EBPhotoPages&lt;/a&gt; : 用于显示一个滚动型照片页和元数据的图片库。用户可以放大、缩小图片，以及创建，编辑或删除注释和标记，共享或删除照片，并报告不当的照片。所有照片和内容异步加载。相片的用户权限通过委托协议控制。该库是使用状态模式来控制画廊的行为，让其他开发人员可以轻松地修改或增加新的状态，而不必了解太多的原代码设计。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/EddyBorja/EBPhotoPages/raw/master/EBPhotoPages@1x.png&quot; alt=&quot;EBPhotoPages&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/EddyBorja/EBPhotoPages/raw/master/3.png&quot; alt=&quot;EBPhotoPages&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://github.com/EddyBorja/EBPhotoPages/raw/master/5.png&quot; alt=&quot;EBPhotoPages&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/Ramotion/navigation-stack&quot;&gt;navigation-stack&lt;/a&gt; : 用于导航控制器的 Stack 视图模型最佳实践类库及演示。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/Ramotion/navigation-stack/raw/master/Navigation-Stack.gif&quot; alt=&quot;navigation-stack&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/marmelroy/PeekPop&quot;&gt;PeekPop&lt;/a&gt; : Peek 和 Pop 是 iPhone 6S 和 6S+ 新推出的一项很棒的特性，可以让你轻松通过 3D touch 实现内容预览。但是还有大概 80% 的 iOS 用户使用的是老的设备。而 PeekPop 是一个 Swift 框架，可以让你的老系统支持 Peek 和 Pop 特性。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/4a3f8f136def3a4fa4fe0c00cb02118e72d838dc/687474703a2f2f692e67697068792e636f6d2f336f3761626c7530616449436651334f58432e676966&quot; alt=&quot;PeekPop&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/zhangsuya/SYStickHeaderWaterFall&quot;&gt;SYStickHeaderWaterFall&lt;/a&gt; : 一款更加灵活支持各种类型的瀑布流结构的库。&lt;br /&gt;
+&lt;img src=&quot;https://github.com/zhangsuya/SYStickHeaderWaterFall/raw/master/SYStickHeaderWaterFall/4.gif&quot; alt=&quot;SYStickHeaderWaterFall&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;5.&lt;a href=&quot;https://github.com/tdginternet/TGCameraViewController&quot;&gt;TGCameraViewController&lt;/a&gt; : 一款可定制的AVFoundation相机,界面美观、实用性强且容易集成到自己的项目中。&lt;br /&gt;
+&lt;img src=&quot;https://camo.githubusercontent.com/420d3b828938e244f8bcf943343dc271ecc9e150/687474703a2f2f7332382e706f7374696d672e6f72672f65656c69316f6d63742f544743616d6572615f566965775f436f6e74726f6c6c65722e706e67&quot; alt=&quot;TGCameraViewController&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 22 Mar 2016 17:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/03/22/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC16%E6%9C%9F/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/03/22/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC16%E6%9C%9F/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
+    
+  </channel>
+</rss>

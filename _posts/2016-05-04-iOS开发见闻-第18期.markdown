@@ -12,8 +12,6 @@ tags:
 
 **欢迎加QQ群讨论：157672725**
 
-!!!若遇图片载入问题可到[简书上看](http://www.jianshu.com/p/cd109018877d)。
-
 ## 文章
 1.[离屏渲染优化](http://www.jianshu.com/p/ca51c9d3575b#rd) : 前段时间关于圆角的库是一个接着一个，但是真正有哪个做得好的呢？这篇用实际数据说话的文章应该可以停止这段风潮了。
 
@@ -26,20 +24,20 @@ tags:
 
 ## 工具
 1.[appetize.io](https://appetize.io/demo?device=iphone5s&scale=75&orientation=portrait&osVersion=9.3)：为你的 demo 创建在线预览的工具。
-![appetize.io](http://upload-images.jianshu.io/upload_images/943491-1b2021ea821014f7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![appetize.io](/img/in-post/post-18/18-1.jpg)
 
 2.[transmit](http://panic.com/transmit/) : 一个Mac OS X 上FTP客户端，有着非常漂亮的用户界面和有用的功能。
-![transmit](http://upload-images.jianshu.io/upload_images/943491-c725ca96daf9e82a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![transmit](/img/in-post/post-18/18-2.jpg)
 
 3.[Go2Shell](https://itunes.apple.com/us/app/go2shell/id445770608?mt=12&ign-mpt=uo%3D4) : 非常实用的小工具，可在任何文目录中打开终端窗口进行操作。
-![Go2Shell](http://upload-images.jianshu.io/upload_images/943491-a3488569c36c3702.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![Go2Shell](/img/in-post/post-18/18-3.jpg)
 
 ## 开源
 1.[OCR](https://github.com/iosWellLin/OCR) : 光学文字识别身份证。
-![OCR](http://upload-images.jianshu.io/upload_images/943491-21903bc6dd7bb064.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![OCR](/img/in-post/post-18/18-4.jpg)
 
 2.[BeautifyFaceDemo](https://github.com/Guikunzhi/BeautifyFaceDemo) : 使用人脸磨皮算法美化脸部的相机实例。作者对磨皮算法也专门写了[一篇博文](http://m.blog.csdn.net/article/details?id=50496969),值得一看。
-![BeautifyFaceDemo](http://upload-images.jianshu.io/upload_images/943491-b065406e00e232a6?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) 
+![BeautifyFaceDemo](/img/in-post/post-18/18-5.jpg)
 
 3.[XYRouter](https://github.com/uxyheaven/XYRouter) : XYRouter是一个通过URL routing来解决UIViewController跳转依赖的库。
  
