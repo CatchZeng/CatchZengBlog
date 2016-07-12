@@ -1,0 +1,171 @@
+<p><span id="busuanzi_container_page_pv"></span></p>
+
+<h2 id="base64">一、Base64简介</h2>
+<p>Base64是网络上最常见的用于传输8Bit字节代码的编码方式之一。Base64编码可用于在HTTP环境下传递较长的标识信息。例如，在Java Persistence系统Hibernate中，就采用了Base64来将一个较长的唯一标识符（一般为128-bit的UUID）编码为一个字符串，用作HTTP表单和HTTP GET URL中的参数。在其他应用程序中，也常常需要把二进制数据编码为适合放在URL（包括隐藏表单域）中的形式。此时，采用Base64编码具有不可读性，即所编码的数据不会被人用肉眼所直接看到。做过XMPP开发的朋友可能使用过Base64将图片编码后再传输。另外迅雷的“专用地址”也是用Base64”加密”的，其过程是在地址的前后分别添加AA和ZZ，然后对新的字符串进行Base64编码。</p>
+
+<p>需要说明的是Base64 可以对任意的文件进行加密，但是Base64 过程是可逆的. 可以反向解密。所以，严格地讲Base64只是一种编码方式，并非加密算法。另外Base64将原来8个bit为一个字节的数据,6个bit为一个单位处理，会导致数据量会增大1/3［(8-6)/6］。</p>
+
+<h2 id="section">二、算法描述</h2>
+<p><a href="http://baike.baidu.com/link?url=7DZ9nrUIzMosCyS-J-AqQOwS3X-IiOHPKcCOVCkuq5e42ZNRrlKLV86qKfGMVp_EexvM0_DNDcRXdk_Bsz3Hma">描述出处</a>
+转码过程例子：
+3＊8=4＊6</p>
+
+<p>内存1个字符占8位
+转前： s 1 3
+先转成ascii：对应 115 49 51
+2进制： 01110011 00110001 00110011
+6个一组（4组） 011100110011000100110011
+然后才有后面的 011100 110011 000100 110011
+然后计算机是8位8位的存数 6不够，自动就补两个高位0了
+所有有了 高位补0
+科学计算器输入 00011100 00110011 00000100 00110011
+得到 28 51 4 51
+查对下照表 c z E z</p>
+
+<h2 id="section-1">三、算法实现</h2>
+
+<p>```
+@implementation CATSecurity</p>
+
+<h1 id="pragma-mark---">pragma mark –</h1>
+<p>#pragma mark – Base64</p>
+
+<p>static const char base64EncodingTable[64] = “ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/”;
+static const short base64DecodingTable[256] = {
+    -2, -2, -2, -2, -2, -2, -2, -2, -2, -1, -1, -2,  -1,  -1, -2, -2,
+    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
+    -1, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, 62,  -2,  -2, -2, 63,
+    52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -2, -2,  -2,  -2, -2, -2,
+    -2, 0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10,  11,  12, 13, 14,
+    15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -2,  -2,  -2, -2, -2,
+    -2, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,  37,  38, 39, 40,
+    41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -2,  -2,  -2, -2, -2,
+    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
+    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
+    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
+    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
+    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
+    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
+    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
+    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2
+};</p>
+
+<p>/**
+ *  get data’s base64 encoded string
+ *
+ *  @param data source data
+ *
+ *  @return base64 encoded string
+ */
++(NSString *)base64EncodedStringWithData:(NSData *)data{
+    NSUInteger length = data.length;
+    if (length == 0)
+        return @””;</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>NSUInteger out_length = ((length + 2) / 3) * 4;
+uint8_t *output = malloc(((out_length + 2) / 3) * 4);
+if (output == NULL)
+    return nil;
+
+const char *input = data.bytes;
+NSInteger i, value;
+for (i = 0; i &lt; length; i += 3) {
+    value = 0;
+    for (NSInteger j = i; j &lt; i + 3; j++) {
+        value &lt;&lt;= 8;
+        if (j &lt; length) {
+            value |= (0xFF &amp; input[j]);
+        }
+    }
+    NSInteger index = (i / 3) * 4;
+    output[index + 0] = base64EncodingTable[(value &gt;&gt; 18) &amp; 0x3F];
+    output[index + 1] = base64EncodingTable[(value &gt;&gt; 12) &amp; 0x3F];
+    output[index + 2] = ((i + 1) &lt; length)
+    ? base64EncodingTable[(value &gt;&gt; 6) &amp; 0x3F]
+    : '=';
+    output[index + 3] = ((i + 2) &lt; length)
+    ? base64EncodingTable[(value &gt;&gt; 0) &amp; 0x3F]
+    : '=';
+}
+
+NSString *base64 = [[NSString alloc] initWithBytes:output length:out_length encoding:NSASCIIStringEncoding];
+free(output);
+return base64; }
+</code></pre>
+</div>
+
+<p>/**
+ *  get source data from base64 encoded string
+ *
+ *  @param base64EncodedString base64 encoded string
+ *
+ *  @return source data
+ */
++(NSData *)dataWithBase64EncodedString:(NSString *)base64EncodedString{
+    NSInteger length = base64EncodedString.length;
+    const char *string = [base64EncodedString cStringUsingEncoding:NSASCIIStringEncoding];
+    if (string  == NULL)
+        return nil;</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>while (length &gt; 0 &amp;&amp; string[length - 1] == '=')
+    length--;
+
+NSInteger outputLength = length * 3 / 4;
+NSMutableData *data = [NSMutableData dataWithLength:outputLength];
+if (data == nil)
+    return nil;
+if (length == 0)
+    return data;
+
+uint8_t *output = data.mutableBytes;
+NSInteger inputPoint = 0;
+NSInteger outputPoint = 0;
+while (inputPoint &lt; length) {
+    char i0 = string[inputPoint++];
+    char i1 = string[inputPoint++];
+    char i2 = inputPoint &lt; length ? string[inputPoint++] : 'A';
+    char i3 = inputPoint &lt; length ? string[inputPoint++] : 'A';
+    
+    output[outputPoint++] = (base64DecodingTable[i0] &lt;&lt; 2)
+    | (base64DecodingTable[i1] &gt;&gt; 4);
+    if (outputPoint &lt; outputLength) {
+        output[outputPoint++] = ((base64DecodingTable[i1] &amp; 0xf) &lt;&lt; 4)
+        | (base64DecodingTable[i2] &gt;&gt; 2);
+    }
+    if (outputPoint &lt; outputLength) {
+        output[outputPoint++] = ((base64DecodingTable[i2] &amp; 0x3) &lt;&lt; 6)
+        | base64DecodingTable[i3];
+    }
+}
+
+return data; }
+</code></pre>
+</div>
+
+<p>/**
+ *  get str’s base64 encoded string
+ *
+ *  @param str source string
+ *
+ *  @return base64 encoded string
+ <em>/
++(NSString *)base64EncodedStringWithString:(NSString *)str{
+    NSData</em> data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    return [self base64EncodedStringWithData:data];
+}</p>
+
+<p>/**
+ *  get source string from base64 encoded string
+ *
+ *  @param base64EncodedString base64 encoded string
+ *
+ *  @return source string
+ */
++ (NSString *)stringWithBase64EncodedString:(NSString *)base64EncodedString{
+    NSData *data = [self dataWithBase64EncodedString:base64EncodedString];
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}</p>
+
+<p>@end
+```
+最后附上<a href="https://github.com/CatchZeng/CATSecurity">工程地址</a>。</p>

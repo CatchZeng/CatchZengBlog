@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>iOS动画－－进阶（一） - CatchZeng的技术博客 | CatchZeng Blog</title>
+
+    <link rel="canonical" href="http://catchzeng.com/2016/07/12/iOS%E5%8A%A8%E7%94%BB-%E8%BF%9B%E9%98%B6-%E4%B8%80/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">CatchZeng Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-2015.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/post-bg-2015.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
+                        
+                    </div>
+                    <h1>iOS动画－－进阶（一）</h1>
+                    
+                    
+                    <h2 class="subheading">iOS动画</h2>
+                    
+                    <span class="meta">Posted by CatchZeng on July 12, 2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<p><span id="busuanzi_container_page_pv"></span></p>
+
+<h2 id="section">前言</h2>
+<p>优秀的动画来源于设计，优秀的设计来源于灵感和动效的积累。我们不是设计师，但可以积累动画的基础。在动画的进阶部分，我们先积累一些与动画相关的知识。</p>
+
+<ul>
+  <li>贝塞尔曲线</li>
+  <li>CAShapeLayer、CAReplicatorLayer</li>
+</ul>
+
+<hr />
+
+<h2 id="section-1">贝塞尔曲线</h2>
+<p>Bezier curve(贝塞尔曲线)是应用于二维图形应用程序的数学曲线.主要有起始点、终止点（也称锚点）、控制点这几个概念。通过调整控制点，贝塞尔曲线的形状会发生变化。</p>
+
+<h4 id="section-2">一阶贝塞尔曲线(线段)：</h4>
+<p><img src="/img/in-post/post-animation/g1.png" alt="一阶公式" /></p>
+
+<p><img src="/img/in-post/post-animation/1.gif" alt="一阶贝塞尔曲线" /></p>
+
+<h4 id="section-3">二阶贝塞尔曲线(抛物线)：</h4>
+<p><img src="/img/in-post/post-animation/g2.png" alt="二阶公式" /></p>
+
+<p><img src="/img/in-post/post-animation/2.gif" alt="二阶贝塞尔曲线" /></p>
+
+<h4 id="section-4">三阶贝塞尔曲线：</h4>
+<p><img src="/img/in-post/post-animation/g3.png" alt="三阶公式" /></p>
+
+<p><img src="/img/in-post/post-animation/3.gif" alt="三阶贝塞尔曲线" /></p>
+
+<p>三阶以上的贝塞尔曲线在iOS开发中使用较少，这里不再赘述。在iOS中使用<a href="http://www.jianshu.com/p/bbb2cc485a45">UIBezierPath</a>来实现贝塞尔曲线。<br />
+贝塞尔曲线能描述动画的轨迹，但是UIBezierPath不具有显示的功能。所以下面我们还需要了解iOS负责View显示的CALayer。</p>
+
+<hr />
+
+<h2 id="cashapelayer">CAShapeLayer</h2>
+<p>CAShapeLayer继承自CALayer，是一个通过矢量图形（ 非bitmap） 来绘制的图层类。</p>
+
+<p>CALayer在被初始化时是需要给一个frame值的（一般等于view的bounds值），本身有形状的，且为矩形。<br />
+CAShapeLayer需通过CGPath 来定义想要绘制的形状，因此常与UIBezierPath配合使用。</p>
+
+<p>与使用 Core Graphics 直接向 CALayer 的内容中绘制一个路径（- drawLayer: inContext:)相比，使用 CAShapeLayer 有以下优点：</p>
+
+<ul>
+  <li>渲染快：CAShapeLayer 使用了硬件加速，绘制图层较快。</li>
+  <li>内存消耗少： CAShapeLayer 不需要创建寄宿图形（CALayer需要），内存消耗少。</li>
+  <li>不会被图层边界剪裁掉： CAShapeLayer 可以在边界之外绘制，因此图层路径不会被剪裁掉.</li>
+  <li>不会出现像素化：使用CAShapeLayer 做 3D 变换时，由于无寄宿图所以不会出现像素化问题。</li>
+</ul>
+
+<h2 id="careplicatorlayer">CAReplicatorLayer</h2>
+<p>CAReplicatorLayer可以复制自己子层的layer,并且复制的出来的layer和原来的子layer拥有相同的动效。</p>
+
+<hr />
+
+<p>实践比理论更加易懂，下面就以例子来续动画的话题。</p>
+
+<h2 id="section-5">环形进度条</h2>
+
+<p><img src="https://github.com/CatchZeng/CATCurveProgressView/raw/master/images/1.gif" alt="效果" /></p>
+
+<p>进度条的构成为进度环和底色环。</p>
+
+<p><img src="/img/in-post/post-animation/4.png" alt="进度条构成" /></p>
+
+<p>两个环的实现依赖于以上所讲的贝塞尔曲线和CAShapeLayer。<br />
+首先，使用贝塞尔曲线描绘底色环的路径</p>
+
+<pre><code>UIBezierPath *path=[UIBezierPath bezierPathWithArcCenter:CGPointMake(50,50) 
+                                                  radius:25 
+                                                  startAngle:CATDegreesToRadians(_startAngle)                              
+                                                  endAngle:CATDegreesToRadians(_endAngle) 
+                                                  clockwise:YES];
+</code></pre>
+
+<p>然后将其赋予CAShapeLayer的path属性，最后将其加入self.layer显示</p>
+
+<pre><code>    _trackLayer=[CAShapeLayer layer];
+    _trackLayer.frame=self.bounds;
+    _trackLayer.fillColor = [UIColor clearColor].CGColor;
+    _trackLayer.strokeColor = _curveBgColor.CGColor;
+    _trackLayer.lineCap = kCALineCapRound;
+    _trackLayer.path=path.CGPath;
+    [self.layer addSublayer:_trackLayer];
+</code></pre>
+
+<p>进度环的实现与底色环相近，并结合CATransaction实现动画</p>
+
+<pre><code>    [CATransaction begin];
+    [CATransaction setDisableActions:!animated];
+    [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
+    [CATransaction setAnimationDuration:1];
+    _progressLayer.strokeEnd=progress;
+    [CATransaction commit];
+</code></pre>
+
+<p>具体实现见工程:<a href="https://github.com/CatchZeng/CATCurveProgressView">CATCurveProgressView</a></p>
+
+<hr />
+
+<h2 id="section-6">雷达图（咻一咻、波纹）</h2>
+
+<p><img src="https://github.com/CatchZeng/CATRadarView/blob/master/CATRadarView.gif?raw=true" alt="效果" /></p>
+
+<p>雷达图的实现分为三个步骤，首先利用CAShapeLayer创建脉冲层（pulseLayer，就是一个圈圈…）</p>
+
+<pre><code>  _pulseLayer = [CAShapeLayer layer];
+  _pulseLayer.frame = self.layer.bounds;
+  _pulseLayer.path = [UIBezierPath bezierPathWithOvalInRect:_pulseLayer.bounds].CGPath;
+  _pulseLayer.fillColor = [UIColor blueColor].CGColor;
+</code></pre>
+
+<p>然后使用CAReplicatorLayer复制多个脉冲层</p>
+
+<pre><code>  _replicatorLayer = [CAReplicatorLayer layer];
+  _replicatorLayer.frame = self.bounds;
+  _replicatorLayer.instanceCount = 6;
+  _replicatorLayer.instanceDelay = 1.5;
+  [_replicatorLayer addSublayer:self.pulseLayer];
+</code></pre>
+
+<p>最后加上透明度与大小的动画，来实现雷达的效果</p>
+
+<pre><code>CABasicAnimation *scaleAnima = [CABasicAnimation animationWithKeyPath:@"transform"];
+scaleAnima.fromValue = [NSValue valueWithCATransform3D:CATransform3DScale(CATransform3DIdentity, 0.0, 0.0, 0.0)];
+scaleAnima.toValue = [NSValue valueWithCATransform3D:CATransform3DScale(CATransform3DIdentity, 1.0, 1.0, 0.0)];
+       
+_opacityAnima = [CABasicAnimation animationWithKeyPath:@"opacity"];
+_opacityAnima.fromValue = @(0.3);
+_opacityAnima.toValue = @(0.0);
+
+_animaGroup = [CAAnimationGroup animation];
+_animaGroup.animations = @[self.opacityAnima, scaleAnima];
+_animaGroup.duration = 9;
+_animaGroup.autoreverses = NO;
+_animaGroup.repeatCount = HUGE;
+
+[self.pulseLayer addAnimation:self.animaGroup forKey:@"groupAnimation"];
+</code></pre>
+
+<p>具体实现见工程:<a href="https://github.com/CatchZeng/CATRadarView">CATRadarView</a></p>
+
+<p>进阶部分的首篇就先到这了，咱们下一篇见。</p>
+
+
+                <hr>
+
+                
+                <!-- 多说 Share start -->
+                </style>
+                <div class="ds-share"
+                    style="text-align: right"
+                    data-thread-key="/2016/07/12/iOS动画－－进阶（一）"
+                    data-title="iOS动画－－进阶（一）"
+                    data-url="http://catchzeng.com/2016/07/12/iOS%E5%8A%A8%E7%94%BB-%E8%BF%9B%E9%98%B6-%E4%B8%80/"
+                    data-images="http://catchzeng.com/img/post-bg-2015.jpg"
+                    data-content="
+
+前言
+优秀的动画来源于设计，优秀的设计来源于灵感和动效的积累。我们不是设计师，但可以积累动画的基础。在动画的进阶部分，我们先积累一些与动画相关的知识。... | CatchZeng的技术博客 | CatchZeng Blog " >
+                    <div class="ds-share-inline">
+                      <ul  class="ds-share-icons-16">
+                        <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                        <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                        <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                        <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                      </ul>
+                      <div class="ds-share-icons-more">
+                      </div>
+                    </div>
+                <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/06/16/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC19%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第19期">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                        data-thread-key="/2016/07/12/iOS动画－－进阶（一）"
+                        data-title="iOS动画－－进阶（一）"
+                        data-url="http://catchzeng.com/2016/07/12/iOS%E5%8A%A8%E7%94%BB-%E8%BF%9B%E9%98%B6-%E4%B8%80/" >
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#iOS" title="iOS" rel="34">
+                                    iOS
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Java Web" title="Java Web" rel="3">
+                                    Java Web
+                                </a>
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://catchzeng.com">CatchZeng Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'catchzeng';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+                    
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/u/2167807070">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/catchzeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                Copyright &copy; CatchZeng Blog 2016
+                <br>
+                <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+                <span id="busuanzi_container_site_uv">您是第<span id="busuanzi_value_site_uv"></span>位访客</span>
+                <span id="busuanzi_container_site_uv"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+        o = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- Highlight.js -->
+<script>
+    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+          hljs.initHighlightingOnLoad();
+          })
+          // only load tagcloud.js in tag.html
+          if($('#tag_cloud').length !== 0){
+              async("/js/jquery.tagcloud.js",function(){
+                    $.fn.tagcloud.defaults = {
+                    //size: {start: 1, end: 1, unit: 'em'},
+                    color: {start: '#bbbbee', end: '#0085a1'},
+                    };
+                    $('#tag_cloud a').tagcloud();
+                    })
+          }
+</script>
+<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+    
+    <!--fastClick.js -->
+    <script>
+        async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+              var $nav = document.querySelector("nav");
+              if($nav) FastClick.attach($nav);
+              })
+        </script>
+    
+    
+    <!-- Google Analytics -->
+    
+    <script>
+        // dynamic User by Hux
+        var _gaId = 'UA-49627206-1';
+        var _gaDomain = 'catchzeng.com';
+        
+        // Originial
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+         
+         ga('create', _gaId, _gaDomain);
+         ga('send', 'pageview');
+        </script>
+    
+    
+    
+    <!-- Baidu Tongji -->
+    
+    <script>
+        // dynamic User by Hux
+        var _baId = 'ede41d96392251499c57ebaa6d256c8a';
+        
+        // Originial
+        var _hmt = _hmt || [];
+        (function() {
+         var hm = document.createElement("script");
+         hm.src = "//hm.baidu.com/hm.js?" + _baId;
+         var s = document.getElementsByTagName("script")[0];
+         s.parentNode.insertBefore(hm, s);
+         })();
+        </script>
+    
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

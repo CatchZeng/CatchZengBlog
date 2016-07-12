@@ -1,0 +1,31 @@
+<p><span id="busuanzi_container_page_pv"></span></p>
+
+<h2 id="section">前言</h2>
+
+<p>项目开发了一段时间后，相信大家都会遇到AppDelegate中的didFinishLaunch函数不断增大带来的不便管理问题。在Java中我们常使用JVM的ClassLoader对类进行加载、连接、初始化等操作，在oc中对应的就是load和initialize。</p>
+
+<h2 id="section-1">瘦身</h2>
+<p>load和initialize在使用中需要注意的点：</p>
+
+<ul>
+  <li>系统最多会调用一次（除非开发者主动调用）</li>
+  <li>都能为程序初始化一些数据，创造适合的运行环境</li>
+  <li>父类调用一定在子类之前</li>
+  <li>由下图文档可知，<strong>load是只要类或者category被加入runtime便会被调用</strong>，而initialize是在类或者其子类的第一个方法被调用前调用。
+<img src="http://img.blog.csdn.net/20151024085728124" alt="这里写图片描述" /></li>
+</ul>
+
+<p>我们可以利用<strong>load是只要类或者category被加入runtime便会被调用</strong>这个特性，来为AppDelegate瘦身：
+<img src="http://img.blog.csdn.net/20151024092327331" alt="这里写图片描述" /></p>
+
+<hr />
+
+<h2 id="section-2">题外</h2>
+<p>1.搜索一下自己的项目，可以发现某些第三方库也是利用load方法来实现<strong>自动运行</strong>(如：IQKeyboardManager)。
+<img src="http://img.blog.csdn.net/20151024093003486" alt="这里写图片描述" /></p>
+
+<p><img src="http://img.blog.csdn.net/20151024093137407" alt="这里写图片描述" /></p>
+
+<p>2.由于<strong>系统最多会调用一次（除非开发者主动调用）</strong>，为了防止主动调用，可以在load方法中加上dispatch_once</p>
+
+<p><img src="http://img.blog.csdn.net/20151024093529899" alt="这里写图片描述" /></p>

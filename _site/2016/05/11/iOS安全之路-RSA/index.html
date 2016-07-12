@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>iOS安全之路－－RSA - CatchZeng的技术博客 | CatchZeng Blog</title>
+
+    <link rel="canonical" href="http://catchzeng.com/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-RSA/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">CatchZeng Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-2015.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/post-bg-2015.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
+                        
+                    </div>
+                    <h1>iOS安全之路－－RSA</h1>
+                    
+                    
+                    <h2 class="subheading">iOS安全之路</h2>
+                    
+                    <span class="meta">Posted by CatchZeng on May 11, 2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<p><span id="busuanzi_container_page_pv"></span></p>
+
+<h2 id="rsa">一、RSA简介</h2>
+<p>在介绍RSA之前，先介绍下对称、非对称加密。<br />
+#### 对称加密：<br />
+A选择某一种加密规则，对信息进行加密；<br />
+B使用同一种规则，对信息进行解密。<br />
+由于加密和解密使用同样规则（密钥），这被称为”对称加密算法”。<br />
+#### 非对称加密：<br />
+B生成两把密钥（公钥和私钥）。公钥是公开的，任何人都可以获得，私钥则是保密的。<br />
+A获取B的公钥，然后用它对信息加密。<br />
+B得到加密后的信息，用私钥解密。<br />
+公钥加密的信息只有私钥解得开，加解密的密钥是不同的，这被称为”非对称加密算法”。</p>
+
+<p>＊以上的A一般指的是客户端、B一般是服务器端。</p>
+
+<p>RSA就是非对称加密算法的一种。</p>
+
+<h2 id="section">二、算法描述</h2>
+<p>RSA算法的数论基础：将两个大素数相乘十分容易，但是想要对其乘积进行因式分解却极其困难，因此可以将乘积公开作为加密密钥。<br />
+在算法描述之前，需要补充一些数学知识。</p>
+
+<h4 id="section-1">素数(质数)</h4>
+<p>　　素数指在一个大于1的自然数中，除了1和此整数自身外，不能被其他自然数整除的数。</p>
+
+<h4 id="section-2">互质数</h4>
+<p>　　公因数只有1的两个数，叫做互质数。<br />
+判断方法主要有以下几种：<br />
+两个不同的质数一定是互质数。例如，2与7、13与19。<br />
+一个质数，另一个不为它的倍数，这两个数为互质数。例如，3与10、5与 26。<br />
+相邻的两个自然数是互质数。如 15与 16。<br />
+相邻的两个奇数是互质数。如 49与 51。<br />
+较大数是质数的两个数是互质数。如97与88。<br />
+小数是质数，大数不是小数的倍数的两个数是互质数。例如 7和 16。<br />
+2和任何奇数是互质数。例如2和87。<br />
+1不是质数也不是合数，它和任何一个自然数在一起都是互质数。如1和9908。<br />
+辗转相除法。</p>
+
+<h4 id="section-3">指数运算(乘方计算)</h4>
+<p>　　指数运算计算结果称为幂。n^m指将n自乘m次。把n^m看作乘方的结果，叫做”n的m次幂”或”n的m次方”。其中，n称为“底数”，m称为“指数”。</p>
+
+<h4 id="section-4">模运算</h4>
+<p>　　模运算即求余运算。和模运算紧密相关的一个概念是“同余”。数学上，当两个整数除以同一个正整数，若得相同余数，则二整数同余。两个整数a，b，若它们除以正整数m所得的余数相等，则称a，b对于模m同余，记作: a ≡ b (mod m)；读作：a同余于b模m，或者，a与b关于模m同余。例如：26 ≡ 14 (mod 12)。</p>
+
+<h4 id="section-5">欧拉函数</h4>
+<p>任意给定正整数n，请问在小于等于n的正整数之中，有多少个与n构成互质关系？（比如，在1到8之中，有多少个数与8构成互质关系？）计算这个值的方法就叫做欧拉函数，以φ(n)表示。在1到8之中，与8形成互质关系的是1、3、5、7，所以 φ(n) = 4。<br />
+<img src="/img/in-post/post-security/rsa.jpg" alt="欧拉函数" /></p>
+
+<p>有了这些数学知识，下面开始描述RSA算法,场景为A要与B进行加密通信。<a href="http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html">描述出处</a></p>
+
+<h6 id="pq">1.随机选择两个不相等的质数p和q。</h6>
+<p>A选择了61和53。（实际应用中，这两个质数越大，就越难破解）</p>
+
+<h6 id="pqn">2.计算p和q的乘积n。</h6>
+<p>A把61和53相乘。<br />
+<code>
+n = 61×53 = 3233
+</code><br />
+n的长度就是密钥长度。3233写成二进制是110010100001，一共有12位，所以这个密钥就是12位。（实际应用中，RSA密钥一般是1024位，重要场合则为2048位）</p>
+
+<h6 id="nn">3.计算n的欧拉函数φ(n)。</h6>
+<p>根据公式：<br />
+<code>
+　　φ(n) = (p-1)(q-1)
+</code><br />
+A算出φ(3233)等于60×52，即3120。</p>
+
+<h6 id="e1-e--nen-">4.随机选择一个整数e，条件是1&lt; e &lt; φ(n)，且e与φ(n) 互质。</h6>
+<p>A在1到3120之间，随机选择了17。（实际应用中，常常选择65537）</p>
+
+<h6 id="end">5.计算e对于φ(n)的模反元素d。</h6>
+<p>所谓”模反元素”就是指有一个整数d，可以使得ed被φ(n)除的余数为1。<br />
+<code>
+　ed ≡ 1 (mod φ(n))
+</code><br />
+这个式子等价于<br />
+<code>
+　　ed - 1 = kφ(n)
+</code><br />
+于是，找到模反元素d，实质上就是对下面这个二元一次方程求解。<br />
+<code>
+　　ex + φ(n)y = 1
+</code><br />
+已知 e=17, φ(n)=3120，<br />
+<code>
+　　17x + 3120y = 1
+</code><br />
+这个方程可以用”扩展欧几里得算法”求解，此处省略具体过程。A算出一组整数解为 (x,y)=(2753,-15)，即 d=2753。<br />
+至此所有计算完成。</p>
+
+<h6 id="nend">6.将n和e封装成公钥，n和d封装成私钥。</h6>
+<p>在例子中，n=3233，e=17，d=2753，所以公钥就是 (3233,17)，私钥就是（3233, 2753）。<br />
+实际应用中，公钥和私钥的数据都采用<a href="http://baike.baidu.com/link?url=hANHjn-dJ9j6B7zyRV4HMH_Tf_Pcz6_b5Op8kLzfKvdlPFT2XwNErIh5qoh16rGIkrXvtPNhZhkUvnh9mfAh7a">ASN.1格式</a>表达。</p>
+
+<h2 id="section-6">三、算法实现</h2>
+
+<pre><code>@implementation CATSecurity
+
+#pragma mark -- RSA
+#pragma mark -- public methods
+
++ (NSString *)rsaEncryptString:(NSString *)str publicKey:(NSString *)pubKey{
+    NSData *data = [self rsaEncryptData:[str dataUsingEncoding:NSUTF8StringEncoding] publicKey:pubKey];
+    NSString *ret = base64_encode_data(data);
+    return ret;
+}
+
++ (NSData *)rsaEncryptData:(NSData *)data publicKey:(NSString *)pubKey{
+    if(!data || !pubKey){
+        return nil;
+    }
+    SecKeyRef keyRef = [self _addPublicKey:pubKey];
+    if(!keyRef){
+        return nil;
+    }
+    return [self _encryptData:data withKeyRef:keyRef];
+}
+
++ (NSString *)rsaDecryptString:(NSString *)str publicKey:(NSString *)pubKey{
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    data = [self rsaDecryptData:data publicKey:pubKey];
+    NSString *ret = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return ret;
+}
+
++ (NSData *)rsaDecryptData:(NSData *)data publicKey:(NSString *)pubKey{
+    if(!data || !pubKey){
+        return nil;
+    }
+    SecKeyRef keyRef = [self _addPublicKey:pubKey];
+    if(!keyRef){
+        return nil;
+    }
+    return [self _decryptData:data withKeyRef:keyRef];
+}
+
++ (NSString *)rsaDecryptString:(NSString *)str privateKey:(NSString *)privKey{
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    data = [self rsaDecryptData:data privateKey:privKey];
+    NSString *ret = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return ret;
+}
+
++ (NSData *)rsaDecryptData:(NSData *)data privateKey:(NSString *)privKey{
+    if(!data || !privKey){
+        return nil;
+    }
+    SecKeyRef keyRef = [self _addPrivateKey:privKey];
+    if(!keyRef){
+        return nil;
+    }
+    return [self _decryptData:data withKeyRef:keyRef];
+}
+
+#pragma mark -- RSA
+#pragma mark -- private methods
+
+static NSString *base64_encode_data(NSData *data){
+    data = [data base64EncodedDataWithOptions:0];
+    NSString *ret = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return ret;
+}
+
+static NSData *base64_decode(NSString *str){
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    return data;
+}
+
++ (NSData *)_stripPublicKeyHeader:(NSData *)d_key{
+    // Skip ASN.1 public key header
+    if (d_key == nil) return(nil);
+    
+    unsigned long len = [d_key length];
+    if (!len) return(nil);
+    
+    unsigned char *c_key = (unsigned char *)[d_key bytes];
+    unsigned int  idx	 = 0;
+    
+    if (c_key[idx++] != 0x30) return(nil);
+    
+    if (c_key[idx] &gt; 0x80) idx += c_key[idx] - 0x80 + 1;
+    else idx++;
+    
+    // PKCS #1 rsaEncryption szOID_RSA_RSA
+    static unsigned char seqiod[] =
+    { 0x30,   0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01,
+        0x01, 0x05, 0x00 };
+    if (memcmp(&amp;c_key[idx], seqiod, 15)) return(nil);
+    
+    idx += 15;
+    
+    if (c_key[idx++] != 0x03) return(nil);
+    
+    if (c_key[idx] &gt; 0x80) idx += c_key[idx] - 0x80 + 1;
+    else idx++;
+    
+    if (c_key[idx++] != '\0') return(nil);
+    
+    // Now make a new NSData from this buffer
+    return([NSData dataWithBytes:&amp;c_key[idx] length:len - idx]);
+}
+
+//credit: http://hg.mozilla.org/services/fx-home/file/tip/Sources/NetworkAndStorage/CryptoUtils.m#l1036
++ (NSData *)_stripPrivateKeyHeader:(NSData *)d_key{
+    // Skip ASN.1 private key header
+    if (d_key == nil) return(nil);
+    
+    unsigned long len = [d_key length];
+    if (!len) return(nil);
+    
+    unsigned char *c_key = (unsigned char *)[d_key bytes];
+    unsigned int  idx	 = 22; //magic byte at offset 22
+    
+    if (0x04 != c_key[idx++]) return nil;
+    
+    //calculate length of the key
+    unsigned int c_len = c_key[idx++];
+    int det = c_len &amp; 0x80;
+    if (!det) {
+        c_len = c_len &amp; 0x7f;
+    } else {
+        int byteCount = c_len &amp; 0x7f;
+        if (byteCount + idx &gt; len) {
+            //rsa length field longer than buffer
+            return nil;
+        }
+        unsigned int accum = 0;
+        unsigned char *ptr = &amp;c_key[idx];
+        idx += byteCount;
+        while (byteCount) {
+            accum = (accum &lt;&lt; 8) + *ptr;
+            ptr++;
+            byteCount--;
+        }
+        c_len = accum;
+    }
+    
+    // Now make a new NSData from this buffer
+    return [d_key subdataWithRange:NSMakeRange(idx, c_len)];
+}
+
++ (SecKeyRef)_addPublicKey:(NSString *)key{
+    NSRange spos = [key rangeOfString:@"-----BEGIN PUBLIC KEY-----"];
+    NSRange epos = [key rangeOfString:@"-----END PUBLIC KEY-----"];
+    if(spos.location != NSNotFound &amp;&amp; epos.location != NSNotFound){
+        NSUInteger s = spos.location + spos.length;
+        NSUInteger e = epos.location;
+        NSRange range = NSMakeRange(s, e-s);
+        key = [key substringWithRange:range];
+    }
+    key = [key stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    key = [key stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    key = [key stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+    key = [key stringByReplacingOccurrencesOfString:@" "  withString:@""];
+    
+    // This will be base64 encoded, decode it.
+    NSData *data = base64_decode(key);
+    data = [self _stripPublicKeyHeader:data];
+    if(!data){
+        return nil;
+    }
+    
+    //a tag to read/write keychain storage
+    NSString *tag = @"RSAUtil_PubKey";
+    NSData *d_tag = [NSData dataWithBytes:[tag UTF8String] length:[tag length]];
+    
+    // Delete any old lingering key with the same tag
+    NSMutableDictionary *publicKey = [[NSMutableDictionary alloc] init];
+    [publicKey setObject:(__bridge id) kSecClassKey forKey:(__bridge id)kSecClass];
+    [publicKey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
+    [publicKey setObject:d_tag forKey:(__bridge id)kSecAttrApplicationTag];
+    SecItemDelete((__bridge CFDictionaryRef)publicKey);
+    
+    // Add persistent version of the key to system keychain
+    [publicKey setObject:data forKey:(__bridge id)kSecValueData];
+    [publicKey setObject:(__bridge id) kSecAttrKeyClassPublic forKey:(__bridge id)
+     kSecAttrKeyClass];
+    [publicKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)
+     kSecReturnPersistentRef];
+    
+    CFTypeRef persistKey = nil;
+    OSStatus status = SecItemAdd((__bridge CFDictionaryRef)publicKey, &amp;persistKey);
+    if (persistKey != nil){
+        CFRelease(persistKey);
+    }
+    if ((status != noErr) &amp;&amp; (status != errSecDuplicateItem)) {
+        return nil;
+    }
+    
+    [publicKey removeObjectForKey:(__bridge id)kSecValueData];
+    [publicKey removeObjectForKey:(__bridge id)kSecReturnPersistentRef];
+    [publicKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnRef];
+    [publicKey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
+    
+    // Now fetch the SecKeyRef version of the key
+    SecKeyRef keyRef = nil;
+    status = SecItemCopyMatching((__bridge CFDictionaryRef)publicKey, (CFTypeRef *)&amp;keyRef);
+    if(status != noErr){
+        return nil;
+    }
+    return keyRef;
+}
+
++ (SecKeyRef)_addPrivateKey:(NSString *)key{
+    NSRange spos;
+    NSRange epos;
+    spos = [key rangeOfString:@"-----BEGIN RSA PRIVATE KEY-----"];
+    if(spos.length &gt; 0){
+        epos = [key rangeOfString:@"-----END RSA PRIVATE KEY-----"];
+    }else{
+        spos = [key rangeOfString:@"-----BEGIN PRIVATE KEY-----"];
+        epos = [key rangeOfString:@"-----END PRIVATE KEY-----"];
+    }
+    if(spos.location != NSNotFound &amp;&amp; epos.location != NSNotFound){
+        NSUInteger s = spos.location + spos.length;
+        NSUInteger e = epos.location;
+        NSRange range = NSMakeRange(s, e-s);
+        key = [key substringWithRange:range];
+    }
+    key = [key stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    key = [key stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    key = [key stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+    key = [key stringByReplacingOccurrencesOfString:@" "  withString:@""];
+    
+    // This will be base64 encoded, decode it.
+    NSData *data = base64_decode(key);
+    data = [self _stripPrivateKeyHeader:data];
+    if(!data){
+        return nil;
+    }
+    
+    //a tag to read/write keychain storage
+    NSString *tag = @"RSAUtil_PrivKey";
+    NSData *d_tag = [NSData dataWithBytes:[tag UTF8String] length:[tag length]];
+    
+    // Delete any old lingering key with the same tag
+    NSMutableDictionary *privateKey = [[NSMutableDictionary alloc] init];
+    [privateKey setObject:(__bridge id) kSecClassKey forKey:(__bridge id)kSecClass];
+    [privateKey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
+    [privateKey setObject:d_tag forKey:(__bridge id)kSecAttrApplicationTag];
+    SecItemDelete((__bridge CFDictionaryRef)privateKey);
+    
+    // Add persistent version of the key to system keychain
+    [privateKey setObject:data forKey:(__bridge id)kSecValueData];
+    [privateKey setObject:(__bridge id) kSecAttrKeyClassPrivate forKey:(__bridge id)
+     kSecAttrKeyClass];
+    [privateKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)
+     kSecReturnPersistentRef];
+    
+    CFTypeRef persistKey = nil;
+    OSStatus status = SecItemAdd((__bridge CFDictionaryRef)privateKey, &amp;persistKey);
+    if (persistKey != nil){
+        CFRelease(persistKey);
+    }
+    if ((status != noErr) &amp;&amp; (status != errSecDuplicateItem)) {
+        return nil;
+    }
+    
+    [privateKey removeObjectForKey:(__bridge id)kSecValueData];
+    [privateKey removeObjectForKey:(__bridge id)kSecReturnPersistentRef];
+    [privateKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnRef];
+    [privateKey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
+    
+    // Now fetch the SecKeyRef version of the key
+    SecKeyRef keyRef = nil;
+    status = SecItemCopyMatching((__bridge CFDictionaryRef)privateKey, (CFTypeRef *)&amp;keyRef);
+    if(status != noErr){
+        return nil;
+    }
+    return keyRef;
+}
+
++ (NSData *)_encryptData:(NSData *)data withKeyRef:(SecKeyRef) keyRef{
+    const uint8_t *srcbuf = (const uint8_t *)[data bytes];
+    size_t srclen = (size_t)data.length;
+    
+    size_t block_size = SecKeyGetBlockSize(keyRef) * sizeof(uint8_t);
+    void *outbuf = malloc(block_size);
+    size_t src_block_size = block_size - 11;
+    
+    NSMutableData *ret = [[NSMutableData alloc] init];
+    for(int idx=0; idx&lt;srclen; idx+=src_block_size){
+        //NSLog(@"%d/%d block_size: %d", idx, (int)srclen, (int)block_size);
+        size_t data_len = srclen - idx;
+        if(data_len &gt; src_block_size){
+            data_len = src_block_size;
+        }
+        
+        size_t outlen = block_size;
+        OSStatus status = noErr;
+        status = SecKeyEncrypt(keyRef,
+                               kSecPaddingPKCS1,
+                               srcbuf + idx,
+                               data_len,
+                               outbuf,
+                               &amp;outlen
+                               );
+        if (status != 0) {
+            NSLog(@"SecKeyEncrypt fail. Error Code: %d", status);
+            ret = nil;
+            break;
+        }else{
+            [ret appendBytes:outbuf length:outlen];
+        }
+    }
+    
+    free(outbuf);
+    CFRelease(keyRef);
+    return ret;
+}
+
++ (NSString *)_encryptString:(NSString *)str privateKey:(NSString *)privKey{
+    NSData *data = [self encryptData:[str dataUsingEncoding:NSUTF8StringEncoding] privateKey:privKey];
+    NSString *ret = base64_encode_data(data);
+    return ret;
+}
+
++ (NSData *)encryptData:(NSData *)data privateKey:(NSString *)privKey{
+    if(!data || !privKey){
+        return nil;
+    }
+    SecKeyRef keyRef = [self _addPrivateKey:privKey];
+    if(!keyRef){
+        return nil;
+    }
+    return [self _encryptData:data withKeyRef:keyRef];
+}
+
++ (NSData *)_decryptData:(NSData *)data withKeyRef:(SecKeyRef) keyRef{
+    const uint8_t *srcbuf = (const uint8_t *)[data bytes];
+    size_t srclen = (size_t)data.length;
+    
+    size_t block_size = SecKeyGetBlockSize(keyRef) * sizeof(uint8_t);
+    UInt8 *outbuf = malloc(block_size);
+    size_t src_block_size = block_size;
+    
+    NSMutableData *ret = [[NSMutableData alloc] init];
+    for(int idx=0; idx&lt;srclen; idx+=src_block_size){
+        //NSLog(@"%d/%d block_size: %d", idx, (int)srclen, (int)block_size);
+        size_t data_len = srclen - idx;
+        if(data_len &gt; src_block_size){
+            data_len = src_block_size;
+        }
+        
+        size_t outlen = block_size;
+        OSStatus status = noErr;
+        status = SecKeyDecrypt(keyRef,
+                               kSecPaddingNone,
+                               srcbuf + idx,
+                               data_len,
+                               outbuf,
+                               &amp;outlen
+                               );
+        if (status != 0) {
+            NSLog(@"SecKeyEncrypt fail. Error Code: %d", status);
+            ret = nil;
+            break;
+        }else{
+            //the actual decrypted data is in the middle, locate it!
+            int idxFirstZero = -1;
+            int idxNextZero = (int)outlen;
+            for ( int i = 0; i &lt; outlen; i++ ) {
+                if ( outbuf[i] == 0 ) {
+                    if ( idxFirstZero &lt; 0 ) {
+                        idxFirstZero = i;
+                    } else {
+                        idxNextZero = i;
+                        break;
+                    }
+                }
+            }
+            
+            [ret appendBytes:&amp;outbuf[idxFirstZero+1] length:idxNextZero-idxFirstZero-1];
+        }
+    }
+    
+    free(outbuf);
+    CFRelease(keyRef);
+    return ret;
+}
+@end
+</code></pre>
+<p>最后附上<a href="https://github.com/CatchZeng/CATSecurity">工程地址</a>。</p>
+
+
+                <hr>
+
+                
+                <!-- 多说 Share start -->
+                </style>
+                <div class="ds-share"
+                    style="text-align: right"
+                    data-thread-key="/2016/05/11/iOS安全之路－－RSA"
+                    data-title="iOS安全之路－－RSA"
+                    data-url="http://catchzeng.com/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-RSA/"
+                    data-images="http://catchzeng.com/img/post-bg-2015.jpg"
+                    data-content="
+
+一、RSA简介
+在介绍RSA之前，先介绍下对称、非对称加密。
+#### 对称加密：
+A选择某一种加密规则，对信息进行加密；
+B使用同一种规则，对信息进... | CatchZeng的技术博客 | CatchZeng Blog " >
+                    <div class="ds-share-inline">
+                      <ul  class="ds-share-icons-16">
+                        <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                        <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                        <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                        <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                      </ul>
+                      <div class="ds-share-icons-more">
+                      </div>
+                    </div>
+                <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-AES/" data-toggle="tooltip" data-placement="top" title="iOS安全之路－－AES">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/05/27/iOS-Localizable.strings%E4%B8%8EExcel%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7/" data-toggle="tooltip" data-placement="top" title="iOS Localizable.strings与Excel互相转换工具">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                        data-thread-key="/2016/05/11/iOS安全之路－－RSA"
+                        data-title="iOS安全之路－－RSA"
+                        data-url="http://catchzeng.com/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-RSA/" >
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#iOS" title="iOS" rel="34">
+                                    iOS
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Java Web" title="Java Web" rel="3">
+                                    Java Web
+                                </a>
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://catchzeng.com">CatchZeng Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'catchzeng';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+                    
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/u/2167807070">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/catchzeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                Copyright &copy; CatchZeng Blog 2016
+                <br>
+                <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+                <span id="busuanzi_container_site_uv">您是第<span id="busuanzi_value_site_uv"></span>位访客</span>
+                <span id="busuanzi_container_site_uv"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+        o = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- Highlight.js -->
+<script>
+    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+          hljs.initHighlightingOnLoad();
+          })
+          // only load tagcloud.js in tag.html
+          if($('#tag_cloud').length !== 0){
+              async("/js/jquery.tagcloud.js",function(){
+                    $.fn.tagcloud.defaults = {
+                    //size: {start: 1, end: 1, unit: 'em'},
+                    color: {start: '#bbbbee', end: '#0085a1'},
+                    };
+                    $('#tag_cloud a').tagcloud();
+                    })
+          }
+</script>
+<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+    
+    <!--fastClick.js -->
+    <script>
+        async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+              var $nav = document.querySelector("nav");
+              if($nav) FastClick.attach($nav);
+              })
+        </script>
+    
+    
+    <!-- Google Analytics -->
+    
+    <script>
+        // dynamic User by Hux
+        var _gaId = 'UA-49627206-1';
+        var _gaDomain = 'catchzeng.com';
+        
+        // Originial
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+         
+         ga('create', _gaId, _gaDomain);
+         ga('send', 'pageview');
+        </script>
+    
+    
+    
+    <!-- Baidu Tongji -->
+    
+    <script>
+        // dynamic User by Hux
+        var _baId = 'ede41d96392251499c57ebaa6d256c8a';
+        
+        // Originial
+        var _hmt = _hmt || [];
+        (function() {
+         var hm = document.createElement("script");
+         hm.src = "//hm.baidu.com/hm.js?" + _baId;
+         var s = document.getElementsByTagName("script")[0];
+         s.parentNode.insertBefore(hm, s);
+         })();
+        </script>
+    
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

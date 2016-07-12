@@ -1,0 +1,224 @@
+<p><span id="busuanzi_container_page_pv"></span></p>
+
+<h2 id="md5">一、MD5简介</h2>
+<p>MD5的全称是Message-Digest Algorithm 5（信息-摘要算法）。其作用是对一段信息(该信息可以很大)生成信息摘要(很小)，该摘要对该信息具有唯一性,可以作为数字签名。用于验证文件的有效性(是否有丢失或损坏的数据，云盘对文件的校验也是使用MD5) 和对用户密码的加密等。</p>
+
+<p><img src="/img/in-post/post-security/md5.jpg" alt="云盘文件校验" /></p>
+
+<p>需要说明的是唯一性和不可逆性都不是绝对的，从理论上分析是一种多对一的关系，但两个不同的信息产生相同摘要的概率很小。不可逆是指从输出反推输入所需的运算量和计算时间太大，使用穷搜字典的方法又需要太多的存储空间。所以MD5也并非完全安全的，现在可以搜索到许多MD5的破解软件。</p>
+
+<h2 id="section">二、算法描述</h2>
+<p><a href="http://dev.21tx.com/2004/12/16/13075.shtml">描述出处</a></p>
+
+<p>算法输入是一个字节串，每个字节是8个bit. 
+算法的执行分为以下几个步骤：</p>
+
+<h3 id="section-1">1.补位：</h3>
+<p>MD5算法先对输入的数据进行补位，使得数据的长度(以byte为单位)对64求余的结果是56。
+即数据扩展至LEN=K*64+56个字节，K为整数。
+补位方法：补一个1，然后补0至满足上述要求。相当于补一个0x80的字节，再补值为0的字节。这一步里总共补充的字节数为0～63个。</p>
+
+<h3 id="section-2">2.附加数据长度：</h3>
+<p>用一个64位的整数表示数据的原始长度(以bit为单位)，将这个数字的8个字节按低位的在前，
+高位在后的顺序附加在补位后的数据后面。这时，数据被填补后的总长度为：LEN = K<em>64+56+8=(K+1)</em>64 Bytes。
+※注意那个64位整数是输入数据的原始长度而不是填充字节后的长度,我就在这里栽了跟头.</p>
+
+<h3 id="md5-1">3.初始化MD5参数：</h3>
+<p>有四个32位整数变量 (A,B,C,D) 用来计算信息摘要，每一个变量被初始化成以下以十六进制数表示的数值，低位的字节在前面。
+  word A: 01 23 45 67
+  word B: 89 ab cd ef
+  word C: fe dc ba 98
+  word D: 76 54 32 10
+※注意低位的字节在前面指的是Little Endian平台上内存中字节的排列方式，而在程序中书写时，要写成：
+  A=0x67452301
+  B=0xefcdab89
+  C=0x98badcfe
+  D=0x10325476</p>
+
+<h3 id="md5-2">4.定义四个MD5基本的按位操作函数：</h3>
+<p>X，Y，Z为32位整数。 
+  F(X,Y,Z) = (X and Y) or (not(X) and Z)
+  G(X,Y,Z) = (X and Z) or (Y and not(Z))
+  H(X,Y,Z) = X xor Y xor Z
+  I(X,Y,Z) = Y xor (X or not(Z))</p>
+
+<p>再定义四个分别用于四轮变换的函数。设Mj表示消息的第j个子分组（从0到15），«&lt;s表示循环左移s位，则四种操作为：
+  FF(a,b,c,d,Mj,s,ti)表示a=b+((a+(F(b,c,d)+Mj+ti)«&lt;s)
+  GG(a,b,c,d,Mj,s,ti)表示a=b+((a+(G(b,c,d)+Mj+ti)«&lt;s)
+  HH(a,b,c,d,Mj,s,ti)表示a=b+((a+(H(b,c,d)+Mj+ti)«&lt;s)
+  II(a,b,c,d,Mj,s,ti)表示a=b+((a+(I(b,c,d)+Mj+ti)«&lt;s)</p>
+
+<h3 id="section-3">5.对输入数据作变换。</h3>
+<p>处理数据，N是总的字节数，以64个字节为一组，每组作一次循环，每次循环进行四轮操作。要变换的64个字节用16个32位的整数数组M[0 …15]表示。而数组T[1 … 64]表示一组常数， T[i]为4294967296*abs(sin(i))的32位整数部分，i的单位是弧度,i的取值从1到64。具体过程如下：</p>
+
+<p>/* 设置主循环变量 */
+For i = 0 to N/16-1 do</p>
+
+<p>/<em>每循环一次，把数据原文存放在16个元素的数组X中. */
+For j = 0 to 15 do
+Set X[j] to M[i</em>16+j].
+end /结束对J的循环</p>
+
+<p>/* Save A as AA, B as BB, C as CC, and D as DD.
+*/
+AA = A
+BB = B
+CC = C
+DD = D</p>
+
+<p>/* 第1轮<em>/
+/</em> 以 [abcd k s i]表示如下操作
+a = b + ((a + F(b,c,d) + X[k] + T[i]) «&lt; s). <em>/
+/</em> Do the following 16 operations. */
+[ABCD  0  7  1]  [DABC  1 12  2]  [CDAB  2 17  3]  [BCDA  3 22  4]
+[ABCD  4  7  5]  [DABC  5 12  6]  [CDAB  6 17  7]  [BCDA  7 22  8]
+[ABCD  8  7  9]  [DABC  9 12 10]  [CDAB 10 17 11]  [BCDA 11 22 12]
+[ABCD 12  7 13]  [DABC 13 12 14]  [CDAB 14 17 15]  [BCDA 15 22 16]</p>
+
+<p>/* 第2轮* <em>/
+/</em> 以 [abcd k s i]表示如下操作
+a = b + ((a + G(b,c,d) + X[k] + T[i]) «&lt; s). <em>/
+/</em> Do the following 16 operations. */
+[ABCD  1  5 17]  [DABC  6  9 18]  [CDAB 11 14 19]  [BCDA  0 20 20]
+[ABCD  5  5 21]  [DABC 10  9 22]  [CDAB 15 14 23]  [BCDA  4 20 24]
+[ABCD  9  5 25]  [DABC 14  9 26]  [CDAB  3 14 27]  [BCDA  8 20 28]
+[ABCD 13  5 29]  [DABC  2  9 30]  [CDAB  7 14 31]  [BCDA 12 20 32]</p>
+
+<p>/* 第3轮<em>/
+/</em> 以 [abcd k s i]表示如下操作
+a = b + ((a + H(b,c,d) + X[k] + T[i]) «&lt; s). <em>/
+/</em> Do the following 16 operations. */
+[ABCD  5  4 33]  [DABC  8 11 34]  [CDAB 11 16 35]  [BCDA 14 23 36]
+[ABCD  1  4 37]  [DABC  4 11 38]  [CDAB  7 16 39]  [BCDA 10 23 40]
+[ABCD 13  4 41]  [DABC  0 11 42]  [CDAB  3 16 43]  [BCDA  6 23 44]
+[ABCD  9  4 45]  [DABC 12 11 46]  [CDAB 15 16 47]  [BCDA  2 23 48]</p>
+
+<p>/* 第4轮<em>/
+/</em> 以 [abcd k s i]表示如下操作
+a = b + ((a + I(b,c,d) + X[k] + T[i]) «&lt; s). <em>/
+/</em> Do the following 16 operations. */
+[ABCD  0  6 49]  [DABC  7 10 50]  [CDAB 14 15 51]  [BCDA  5 21 52]
+[ABCD 12  6 53]  [DABC  3 10 54]  [CDAB 10 15 55]  [BCDA  1 21 56]
+[ABCD  8  6 57]  [DABC 15 10 58]  [CDAB  6 15 59]  [BCDA 13 21 60]
+[ABCD  4  6 61]  [DABC 11 10 62]  [CDAB  2 15 63]  [BCDA  9 21 64]</p>
+
+<p>/* 然后进行如下操作 */
+A = A + AA
+B = B + BB
+C = C + CC
+D = D + DD</p>
+
+<p>Next i /* 结束对I的循环*/</p>
+
+<h3 id="section-4">6.输出结果。</h3>
+<p>A，B，C，D连续存放，共16个字节，128位。按十六进制依次输出这个16个字节。</p>
+
+<h2 id="section-5">三、算法实现</h2>
+<p>```
+@implementation CATSecurity</p>
+
+<h1 id="pragma-mark---">pragma mark –</h1>
+<p>#pragma mark – MD5</p>
+
+<p>/**
+ *  get data’s md5 string
+ *
+ *  @param data source data
+ *
+ *  @return md5 string
+ */
++(NSString *)md5StringWithData:(NSData *)data{
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(data.bytes, (CC_LONG)data.length, result);
+    return [NSString stringWithFormat:
+            @”%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x”,
+            result[0], result[1], result[2], result[3],
+            result[4], result[5], result[6], result[7],
+            result[8], result[9], result[10], result[11],
+            result[12], result[13], result[14], result[15]
+            ];
+}</p>
+
+<p>/**
+ *  get data’s md5 data
+ *
+ *  @param data source data
+ *
+ *  @return md5 data
+ */
++(NSData *)md5DataWithData:(NSData *)data{
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(data.bytes, (CC_LONG)data.length, result);
+    return [NSData dataWithBytes:result length:CC_MD5_DIGEST_LENGTH];
+}</p>
+
+<p>/**
+ *  get string’s md5 string
+ *
+ *  @param str source string
+ *
+ *  @return md5 string
+ <em>/
++(NSString *)md5StringWithString:(NSString *)str{
+    NSData</em> data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    return [self md5StringWithData:data];
+}</p>
+
+<p>@end</p>
+
+<p>```</p>
+
+<h2 id="section-6">四、算法优化</h2>
+
+<h3 id="md5-3">加盐MD5（盐的复杂度决定了增加的破解难度）</h3>
+<p>```
+/**
+ *  get string’s md5 string
+ *
+ *  @param str source string
+ *  @param salt salt string
+ *
+ *  @return md5 string
+ <em>/
++(NSString *)md5StringWithString:(NSString *)str salt:(NSString *)salt{
+    NSString</em> strTmp = [str stringByAppendingString:salt];
+    return [self md5StringWithString:strTmp];
+}</p>
+
+<p>```</p>
+
+<h3 id="md5-4">二次MD5（容易被找到规律而破解）</h3>
+
+<p><code class="highlighter-rouge">
+/**
+ *  get string's multiple md5 string
+ *
+ *  @param str source string
+ *
+ *  @return md5 string
+ */
++(NSString *)md5StringMultipleWithString:(NSString *)str{
+    NSString* strTmp = [self md5StringWithString:str];
+    strTmp = [self md5StringWithString:strTmp];
+    return strTmp;
+}
+</code></p>
+
+<h3 id="md5-5">MD5后乱序（破解难度较大）</h3>
+<p><code class="highlighter-rouge">
+/**
+ *  get string's disorder md5 string
+ *
+ *  @param str source string
+ *
+ *  @return md5 string
+ */
++(NSString *)md5StringDisorderWithString:(NSString *)str{
+    NSString *ss = [self md5StringWithString:str];
+    NSString *header = [ss substringToIndex:2];
+    NSString *footer = [ss substringFromIndex:2];
+    ss = [footer stringByAppendingString:header];
+    return ss;
+}
+</code>
+最后附上<a href="https://github.com/CatchZeng/CATSecurity">工程地址</a>。</p>

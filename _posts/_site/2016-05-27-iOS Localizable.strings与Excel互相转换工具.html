@@ -1,0 +1,23 @@
+<p><span id="busuanzi_container_page_pv"></span></p>
+
+<h2 id="section">前言</h2>
+<p>相信做过多国化的朋友们一定为Localizable.strings的翻译工作而烦恼。先是写出需要用到的多国化字符串，然后交由翻译人员翻译成各国语言，最后再把翻译后的文档整理写入Localizable.strings。这个工作无聊、反复、繁琐，所以写了个<a href="https://github.com/CatchZeng/Localizable.strings2Excel">Localizable.strings与Excel互相转换的工具</a>，来提高效率。</p>
+
+<h2 id="section-1">效果</h2>
+<p>1.Localizable.strings转换成Excel
+<img src="https://github.com/CatchZeng/Localizable.strings2Excel/raw/master/imgs/stoe.jpg" alt="Localizable.strings转换成Excel" /></p>
+
+<p>2.Excel转换成Localizable.strings
+<img src="https://github.com/CatchZeng/Localizable.strings2Excel/raw/master/imgs/etos.jpg" alt="Excel转换成Localizable.strings" /></p>
+
+<h2 id="section-2">使用方法</h2>
+<p>1.切换到pyexcelerator-0.6.4.1目录,执行<code class="highlighter-rouge">sudo python setup.py install</code> 安装pyexcelerator组件。
+<img src="https://github.com/CatchZeng/Localizable.strings2Excel/raw/master/imgs/installpy.jpg" alt="安装pyexcelerator" /></p>
+
+<p>2.执行 <code class="highlighter-rouge">python Localizable.py</code>命令把Localizable.strings转换成Localizable.xls,然后交由翻译人员进行翻译。</p>
+
+<p>3.将翻译后的Localizable.xls文件重命名为LocalizableBack.xls，然后执行<code class="highlighter-rouge">python LocalizableBack.py</code>把LocalizableBack.xls转换成LocalizableBack.strings，最后将LocalizableBack.strings重命名为Localizable.strings即可放入工程使用。</p>
+
+<h2 id="section-3">最后</h2>
+<p>附上链接<a href="https://github.com/CatchZeng/Localizable.strings2Excel">https://github.com/CatchZeng/Localizable.strings2Excel</a> 欢迎star、fork、issue。
+有问题可以到群里讨论 QQ群：157672725</p>

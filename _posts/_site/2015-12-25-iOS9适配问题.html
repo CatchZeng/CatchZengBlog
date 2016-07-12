@@ -1,0 +1,109 @@
+<p><span id="busuanzi_container_page_pv"></span></p>
+
+<h2 id="section">前言</h2>
+<p>最近升级到XCode7之后发现工程需要针对iOS9做一些适配，如下几点是我项目中遇到的适配问题，仅供大家参考如有问题欢迎加Q群157672725讨论：</p>
+
+<ul>
+  <li><strong>网络适配ATS问题</strong></li>
+  <li><strong>Bitcode导致的编译问题</strong></li>
+  <li><strong>状态栏样式问题</strong></li>
+  <li><strong>白名单问题</strong></li>
+</ul>
+
+<h2 id="ats">网络适配ATS问题</h2>
+<p>App Transport Security(ATS)是Apple为提高系统及应用安全性而在iOS 9和OS X EI Capitan中引入的新特性。一旦开启ATS后，应用所有的网络请求将会自动转换为HTPPS传输（HTTP形式的传输将会失败）。</p>
+
+<p>解决办法：
+<strong>1.在Info.plist中添加NSAppTransportSecurity，并添加item设置NSAllowsArbitraryLoads为YES，表示支持所有HTTP请求。</strong>
+<img src="http://img.blog.csdn.net/20150921211459160" alt="这里写图片描述" />
+源码形式：</p>
+
+<p>```</p>
+<key>NSAppTransportSecurity</key>
+<dict>
+<key>NSAllowsArbitraryLoads</key>
+<true />
+</dict>
+<p>```
+<strong>2.添加白名单</strong></p>
+
+<p>```</p>
+<key>NSAppTransportSecurity</key>
+<dict>
+  <key>NSExceptionDomains</key>
+  <dict>
+    <key>yourserver.com</key>
+    <dict>
+      <!--Include to allow subdomains-->
+      <key>NSIncludesSubdomains</key>
+      <true />
+      <!--Include to allow insecure HTTP requests-->
+      <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+      <true />
+      <!--Include to specify minimum TLS version-->
+      <key>NSTemporaryExceptionMinimumTLSVersion</key>
+      <string>TLSv1.1</string>
+    </dict>
+  </dict>
+</dict>
+<p>```
+<strong>3.改变服务器（改用HTTPS）,需要注意一下几点</strong>
+3.1Transport Layer Security协议版本要求TLS1.2以上
+3.2服务的Ciphers配置要求支持Forward Secrecy
+3.3证书签名算法符合ATS要求等</p>
+
+<p><strong>目前我选择第1种方法</strong>
+理由：服务器和第三方的框架使用的API大部分是HTTP形式的，服务器修改成HTTPS需要申请证书之类的，相对比较耗时，所以可以先考虑使用第一种做法。</p>
+
+<h2 id="bitcode">Bitcode导致的编译问题</h2>
+<p>开启Bitcode编译后，可以使得开发者上传App时只需上传Intermediate Representation(中间件)，而非最终的可执行二进制文件。在用户下载App之前，AppStore会自动编译中间件，产生设备所需的执行文件供用户下载安装。
+Xcode 7 会开启 Bitcode，如果项目中第三方库不包含bitcode,将会导致编译失败。</p>
+
+<p>解决办法：</p>
+
+<p><strong>1.更新第三方库使包含 Bitcode</strong></p>
+
+<p><strong>2.关闭Bitcode</strong>
+在Build Settings 中搜索bitcode 【记得选中ALL】将ENABLE_BITCODE 设置为NO
+<img src="http://img.blog.csdn.net/20150921214049103" alt="这里写图片描述" /></p>
+
+<p><strong>目前我选择了第2种方法</strong>
+理由：代码中的第三方库中的.a文件不是bitcode的会导致编译出错，故目前选择第2种，等待第三方库的更新。</p>
+
+<h2 id="section-1">状态栏样式问题</h2>
+<p>如果你使用[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];的形式来设置状态栏样式，则运行的时候会出现以下警告。</p>
+
+<p>```</p>
+<error>: CGContextSaveGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+<error>: CGContextTranslateCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+<error>: CGContextRestoreGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+```
+
+原因：在info.plist里面设置了View controller-based status bar appearance为NO，默认为YES，该种方式兼容iOS6、iOS7、iOS8但是到了iOS9会报警告。
+
+解决办法：
+1.将View controller-based status bar appearance设置为YES
+
+2.去除以下方式改变状态栏
+
+```
+[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+```
+3.使用新的改变状态栏方法
+在自定义控制器里面添加如下方法:
+
+```
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+```
+4.clean 或者删除应用程序重新运行,验证结果。
+
+
+## 白名单问题
+运行程序的时候出现类似以下的警告，表示你没有添加白名单
+error: "This app is not allowed to query for scheme mqqopensdkapiV2"
+
+解决办法：这里我推荐友盟的教程http://dev.umeng.com/social/ios/ios9
+</error></error></error>
