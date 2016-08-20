@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>iOS清理工程中未使用的类文件工具 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>iOS开发见闻-第20期 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6%E5%B7%A5%E5%85%B7/">
+    <link rel="canonical" href="http://catchzeng.com/2016/08/18/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC20%E6%9C%9F/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -143,12 +143,12 @@
                         <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
                         
                     </div>
-                    <h1>iOS清理工程中未使用的类文件工具</h1>
+                    <h1>iOS开发见闻-第20期</h1>
                     
                     
                     <h2 class="subheading">iOS开发见闻</h2>
                     
-                    <span class="meta">Posted by CatchZeng on January 23, 2016</span>
+                    <span class="meta">Posted by CatchZeng on August 18, 2016</span>
                 </div>
             </div>
         </div>
@@ -168,35 +168,53 @@
 
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
-<h2 id="section">前言</h2>
-<p>随着团队人数增多，工程的复杂度提高，工程文件数变得相当多，清理工程变得越来越复杂。于是，闲暇时写了一个清理工程中未使用的类文件工具。由于工程为oc代码，所以工具只适用于oc创建的工程。工具测试时间短、用例少难免有不足的地方，有兴趣的朋友<strong>使用前记得备份工程</strong>!<br />
-工具地址:<a href="https://github.com/CatchZeng/CATClearProjectTool">CATClearProjectTool</a>, 欢迎star、fork、issue。</p>
+<p><strong>欢迎加QQ群讨论：157672725</strong></p>
 
-<h2 id="section-1">效果</h2>
-<p>1.下图为测试工程结构：包含AppDelegate、ViewController、CATUsedClass、CATUsedClass2、CATUnUsedCLass以及test文件。其中test文件和CATUnUsedCLass未在工程中使用过。<br />
-<img src="https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/0.png" alt="测试工程结构" /></p>
+<h2 id="section">文章</h2>
 
-<p>2.将测试工程的.xcodeproj拖拽到工具中。<br />
-<img src="https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/1.png" alt="拖拽工程到工具" /></p>
+<p>1.<a href="http://limboy.me/tech/2016/07/06/starting-an-app.html">做一个 App 前需要考虑的几件事</a> : 想必许多做App的朋友都不知道做App前应该要考虑什么事情，看看limboy是如何考虑的吧。</p>
 
-<p>3.点击search按钮，文本框将列出所有未被使用的类文件。<br />
-<img src="https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/2.png" alt="搜索结果" /></p>
+<p>2.<a href="http://blog.cnbang.net/tech/3237/">iOS 动态更新方案对比:JSPatch vs React Native</a> : React Native想必是今年iOS界最火的词语之一了，它与JSPatch的VS结果如何呢？我们先听bang哥如何说的吧。</p>
 
-<p>4.点击click按钮，文本框将显示成功清理的类文件列表。<br />
-<img src="https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/3.png" alt="清理后的结果" /></p>
+<p>3.<a href="http://tutuge.me/2016/06/19/translation-why-objcmsgsend-must-be-written-in-assembly/">为什么objc_msgSend必须用汇编实现</a> ：总是看到有人说用汇编实现objc_msgSend是为了速度快，当然这个不可否认。但是难道没有别的原因？</p>
 
-<p>5.再次打开工程，能看到已成功清理未使用的类文件【注：工程中默认过滤掉AppDelegate,ViewController,main三个类文件的删除】<br />
-<img src="https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/4.png" alt="" /></p>
+<p>4.<a href="http://yulingtianxia.com/blog/2016/07/18/TBActionSheet/">自制一款强大的 ActionSheet</a> : 本文的精华不在于自制库的使用，而是作者在制库过程中的思考细节，有助于想造库的朋友。<br />
+<img src="/img/in-post/post-20/20-1.jpg" alt="ActionSheet" /></p>
 
-<p>6.你也可以加入过滤，如下图过滤掉CATUnUsedCLass，则即使它在工程中未使用过也不会将它删除（多个过滤文件，使用逗号隔开）。<br />
-<img src="https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/5.png" alt="加入过滤" /></p>
+<p>5.<a href="http://ios.jobbole.com/87918/">如何制作一个类似Uber的溅落式启动屏 </a> ：虽Uber中国已被滴滴收购,但那溅落式启动屏还是陪伴我们许多岁月而成为经典，想实现它的话可以看此文章。<br />
+<img src="/img/in-post/post-20/20-2.gif" alt="如何制作一个类似Uber的溅落式启动屏" /></p>
 
-<p>7.加过滤后清理的结果<br />
-<img src="https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/6.png" alt="加过滤后清理的结果" /><br />
-<img src="https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/7.png" alt="清理后的工程结构" /></p>
+<h2 id="section-1">工具</h2>
+<p>1.<a href="http://apistore.baidu.com">apistore</a>：提供了一些常用的API，包括生活常用、图像识别、应用开发等。</p>
 
-<h2 id="section-2">工具的原理</h2>
-<p>读取project文件中的文件组织信息，找到工程中所有的类，然后遍历所有类文件的#import情况,找出未使用的类文件删除，并删除project文件中未使用文件的记录数据。</p>
+<p><img src="/img/in-post/post-20/20-3.png" alt="apistore" /></p>
+
+<p>2.<a href="https://github.com/Automattic/simplenote-macos/blob/develop/readme.md">simplenote</a> : 一款帮你mac 下的开源笔记工具。<br />
+<img src="https://camo.githubusercontent.com/d4dc8cbda69b96796f502be9468db54f20af5835/68747470733a2f2f73696d706c656e6f7465626c6f672e66696c65732e776f726470726573732e636f6d2f323031352f30362f6461726b2d7468656d652d6d61632e706e67" alt="simpleno" /></p>
+
+<p>3.<a href="http://bughd.com">bughd</a> : 一款实时监控APP的崩溃分析工具。<br />
+<img src="/img/in-post/post-20/20-4.png" alt="bughd" /></p>
+
+<p>4.<a href="https://www.decosoftware.com/download">deco</a>: 一款优秀的React Naive IDE。<br />
+<img src="/img/in-post/post-20/20-5.png" alt="deco" /></p>
+
+<h2 id="section-2">开源</h2>
+<p>1.<a href="https://github.com/mihaelamj/mmjiostemplates">mmjiostemplates</a> : iOS项目模板工具，看作者的项目模板分层清晰、复用率高值得学习。<br />
+<img src="https://camo.githubusercontent.com/9c58667fd018b5559cc1d78dcd92d7e9ade1ba28/68747470733a2f2f7261772e6769746875622e636f6d2f6d696861656c616d6a2f6d6d6a696f7374656d706c617465732f6d61737465722f496d616765732f54656d706c617465732e706e67" alt="mmjiostemplates" /></p>
+
+<p>2.<a href="https://github.com/Roylee-ML/SwipeTableView">SwipeTableView</a> :— 类似半糖、美丽说主页与QQ音乐歌曲列表布局效果，实现不同菜单的左右滑动切换，同时支持类似tableview的顶部工具栏悬停（既可以左右滑动，又可以上下滑动）。兼容下拉刷新，自定义 collectionview实现自适应 contentSize 还可实现瀑布流功能。<br />
+<img src="https://github.com/Roylee-ML/SwipeTableView/raw/master/ScreenShots/screenshot1.gif" alt="SwipeTableView" /><br />
+<img src="https://github.com/Roylee-ML/SwipeTableView/raw/master/ScreenShots/screenshot2.gif" alt="SwipeTableView" /><br />
+<img src="https://github.com/Roylee-ML/SwipeTableView/raw/master/ScreenShots/screenshot3.gif" alt="SwipeTableView" /></p>
+
+<p>3.<a href="https://github.com/3tinkers/TKImageView">TKImageView</a> : 帮助你轻易实现图片裁剪功能。<br />
+<img src="https://github.com/3tinkers/TKImageView/raw/master/TKImageViewDemo/resources/sample1.gif" alt="TKImageView" /></p>
+
+<p>4.<a href="https://github.com/WelkinXie/WXWaveView">WXWaveView</a> :添加丝滑的水波纹到View中。<br />
+<img src="https://camo.githubusercontent.com/2c5b76e5a5afc3f54a0161f11899dd5e1a290c85/687474703a2f2f37786e6571642e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f776176652e676966" alt="WXWaveView" /></p>
+
+<p>5.<a href="https://github.com/jobandtalent/AnimatedTextInput">AnimatedTextInput</a>: 一款开源的动态文字输入控件。<br />
+<img src="https://github.com/jobandtalent/AnimatedTextInput/raw/master/Assets/general.gif" alt="AnimatedTextInput" /></p>
 
 
                 <hr>
@@ -206,14 +224,17 @@
                 </style>
                 <div class="ds-share"
                     style="text-align: right"
-                    data-thread-key="/2016/01/23/iOS清理工程中未使用的类文件工具"
-                    data-title="iOS清理工程中未使用的类文件工具"
-                    data-url="http://catchzeng.com/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6%E5%B7%A5%E5%85%B7/"
+                    data-thread-key="/2016/08/18/iOS开发见闻-第20期"
+                    data-title="iOS开发见闻-第20期"
+                    data-url="http://catchzeng.com/2016/08/18/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC20%E6%9C%9F/"
                     data-images="http://catchzeng.com/img/post-bg-2015.jpg"
                     data-content="
 
-前言
-随着团队人数增多，工程的复杂度提高，工程文件数变得相当多，清理工程变得越来越复杂。于是，闲暇时写了一个清理工程中未使用的类文件工具。由于工程为o... | CatchZeng的技术博客 | CatchZeng Blog " >
+欢迎加QQ群讨论：157672725
+
+文章
+
+1.做一个 App 前需要考虑的几件事 : 想必许多做App的朋友都不知道做App前应该要考虑什么事情... | CatchZeng的技术博客 | CatchZeng Blog " >
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
                         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -233,13 +254,9 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2016/01/07/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC12%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第12期">&larr; Previous Post</a>
+                        <a href="/2016/07/12/iOS%E5%8A%A8%E7%94%BB-%E8%BF%9B%E9%98%B6-%E4%B8%80/" data-toggle="tooltip" data-placement="top" title="iOS动画－－进阶（一）">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2016/01/26/iOS%E7%94%A8%E8%A2%AB%E8%AF%AF%E8%A7%A3%E7%9A%84MVC%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%81/" data-toggle="tooltip" data-placement="top" title="iOS用被误解的MVC重构代码">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
@@ -248,9 +265,9 @@
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/2016/01/23/iOS清理工程中未使用的类文件工具"
-                        data-title="iOS清理工程中未使用的类文件工具"
-                        data-url="http://catchzeng.com/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6%E5%B7%A5%E5%85%B7/" >
+                        data-thread-key="/2016/08/18/iOS开发见闻-第20期"
+                        data-title="iOS开发见闻-第20期"
+                        data-url="http://catchzeng.com/2016/08/18/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC20%E6%9C%9F/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
