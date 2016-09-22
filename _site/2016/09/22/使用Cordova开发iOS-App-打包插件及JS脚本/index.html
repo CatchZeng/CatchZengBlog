@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>iOS动画－－进阶（一） - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>使用Cordova开发iOS App -- 打包插件及JS脚本 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/2016/07/12/iOS%E5%8A%A8%E7%94%BB-%E8%BF%9B%E9%98%B6-%E4%B8%80/">
+    <link rel="canonical" href="http://catchzeng.com/2016/09/22/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E6%89%93%E5%8C%85%E6%8F%92%E4%BB%B6%E5%8F%8AJS%E8%84%9A%E6%9C%AC/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -143,12 +143,12 @@
                         <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
                         
                     </div>
-                    <h1>iOS动画－－进阶（一）</h1>
+                    <h1>使用Cordova开发iOS App -- 打包插件及JS脚本</h1>
                     
                     
-                    <h2 class="subheading">iOS动画</h2>
+                    <h2 class="subheading">iOS开发</h2>
                     
-                    <span class="meta">Posted by CatchZeng on July 12, 2016</span>
+                    <span class="meta">Posted by CatchZeng on September 22, 2016</span>
                 </div>
             </div>
         </div>
@@ -168,147 +168,138 @@
 
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
-<h2 id="section">前言</h2>
-<p>优秀的动画来源于设计，优秀的设计来源于灵感和动效的积累。我们不是设计师，但可以积累动画的基础。在动画的进阶部分，我们先积累一些与动画相关的知识。</p>
+<p>在<a href="http://catchzeng.com/2016/09/21/使用Cordova开发iOS-App-开发iOS插件/">上一篇–开发iOS插件</a>中我们开发了一个插件，本篇将讲解如何将插件打包。</p>
 
-<ul>
-  <li>贝塞尔曲线</li>
-  <li>CAShapeLayer、CAReplicatorLayer</li>
-</ul>
+<h3 id="section">一、创建插件包</h3>
+<p>首先在桌面上创建一个文件夹com.catchzeng.testplugin(遵守命名规范),并创建子文件夹及子文件如下图,将插件的代码复制到ios文件夹下。</p>
 
-<hr />
+<p><img src="/img/in-post/post-cordova3/1.png" alt="Plugins" /></p>
 
-<h2 id="section-1">贝塞尔曲线</h2>
-<p>Bezier curve(贝塞尔曲线)是应用于二维图形应用程序的数学曲线.主要有起始点、终止点（也称锚点）、控制点这几个概念。通过调整控制点，贝塞尔曲线的形状会发生变化。</p>
+<p><img src="/img/in-post/post-cordova3/2.png" alt="Plugins" /></p>
 
-<h4 id="section-2">一阶贝塞尔曲线(线段)：</h4>
-<p><img src="/img/in-post/post-animation/g1.png" alt="一阶公式" /></p>
+<h3 id="js">二、编写JS代码</h3>
+<p>编写testPlugin.js，向外部暴露testModel的testPlugin方法，这便是前端人员需要调用的接口。</p>
 
-<p><img src="/img/in-post/post-animation/1.gif" alt="一阶贝塞尔曲线" /></p>
+<pre><code>var exec = require("cordova/exec");
 
-<h4 id="section-3">二阶贝塞尔曲线(抛物线)：</h4>
-<p><img src="/img/in-post/post-animation/g2.png" alt="二阶公式" /></p>
+function TestModel() {};
 
-<p><img src="/img/in-post/post-animation/2.gif" alt="二阶贝塞尔曲线" /></p>
+TestModel.prototype.testPlugin = function (success,fail,option) {
+     exec(success, fail, 'testPlugin', 'testWithTitle', option);
+};
 
-<h4 id="section-4">三阶贝塞尔曲线：</h4>
-<p><img src="/img/in-post/post-animation/g3.png" alt="三阶公式" /></p>
+var testModel = new TestModel();
+module.exports = testModel;
 
-<p><img src="/img/in-post/post-animation/3.gif" alt="三阶贝塞尔曲线" /></p>
-
-<p>三阶以上的贝塞尔曲线在iOS开发中使用较少，这里不再赘述。在iOS中使用<a href="http://www.jianshu.com/p/bbb2cc485a45">UIBezierPath</a>来实现贝塞尔曲线。
-贝塞尔曲线能描述动画的轨迹，但是UIBezierPath不具有显示的功能。所以下面我们还需要了解iOS负责View显示的CALayer。</p>
-
-<hr />
-
-<h2 id="cashapelayer">CAShapeLayer</h2>
-<p>CAShapeLayer继承自CALayer，是一个通过矢量图形（ 非bitmap） 来绘制的图层类。</p>
-
-<p>CALayer在被初始化时是需要给一个frame值的（一般等于view的bounds值），本身有形状的，且为矩形。
-CAShapeLayer需通过CGPath 来定义想要绘制的形状，因此常与UIBezierPath配合使用。</p>
-
-<p>与使用 Core Graphics 直接向 CALayer 的内容中绘制一个路径（- drawLayer: inContext:)相比，使用 CAShapeLayer 有以下优点：</p>
-
-<ul>
-  <li>渲染快：CAShapeLayer 使用了硬件加速，绘制图层较快。</li>
-  <li>内存消耗少： CAShapeLayer 不需要创建寄宿图形（CALayer需要），内存消耗少。</li>
-  <li>不会被图层边界剪裁掉： CAShapeLayer 可以在边界之外绘制，因此图层路径不会被剪裁掉.</li>
-  <li>不会出现像素化：使用CAShapeLayer 做 3D 变换时，由于无寄宿图所以不会出现像素化问题。</li>
-</ul>
-
-<h2 id="careplicatorlayer">CAReplicatorLayer</h2>
-<p>CAReplicatorLayer可以复制自己子层的layer,并且复制的出来的layer和原来的子layer拥有相同的动效。</p>
-
-<hr />
-
-<p>实践比理论更加易懂，下面就以例子来续动画的话题。</p>
-
-<h2 id="section-5">环形进度条</h2>
-
-<p><img src="https://github.com/CatchZeng/CATCurveProgressView/raw/master/images/1.gif" alt="效果" /></p>
-
-<p>进度条的构成为进度环和底色环。</p>
-
-<p><img src="/img/in-post/post-animation/4.png" alt="进度条构成" /></p>
-
-<p>两个环的实现依赖于以上所讲的贝塞尔曲线和CAShapeLayer。
-首先，使用贝塞尔曲线描绘底色环的路径</p>
-
-<pre><code>UIBezierPath *path=[UIBezierPath bezierPathWithArcCenter:CGPointMake(50,50) 
-                                                  radius:25 
-                                                  startAngle:CATDegreesToRadians(_startAngle)                              
-                                                  endAngle:CATDegreesToRadians(_endAngle) 
-                                                  clockwise:YES];
 </code></pre>
 
-<p>然后将其赋予CAShapeLayer的path属性，最后将其加入self.layer显示</p>
+<h3 id="pluginxml">三、配置plugin.xml文件</h3>
+<p>配置plugin.xml 就是为了告诉cordova我们的文件路径在哪,我们的oc类名是什么,oc对象名是什么,js类名及js对象名是什么等信息。这样cordova在安装插件时,才能找到正确的插件文件。</p>
 
-<pre><code>    _trackLayer=[CAShapeLayer layer];
-    _trackLayer.frame=self.bounds;
-    _trackLayer.fillColor = [UIColor clearColor].CGColor;
-    _trackLayer.strokeColor = _curveBgColor.CGColor;
-    _trackLayer.lineCap = kCALineCapRound;
-    _trackLayer.path=path.CGPath;
-    [self.layer addSublayer:_trackLayer];
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;plugin xmlns="http://phonegap.com/ns/plugins/1.0"
+    id="com.catchzeng.testplugin"
+    version="1.0.0"&gt;
+    &lt;engines&gt;
+        &lt;engine name="cordova" version="&gt;=3.3.0" /&gt;
+    &lt;/engines&gt;
+    
+    &lt;name&gt;testPlugin&lt;/name&gt;
+    &lt;description&gt;测试插件&lt;/description&gt;
+    
+    &lt;js-module src="www/testPlugin.js" name="testModel"&gt;
+        &lt;clobbers target="testModel" /&gt;
+    &lt;/js-module&gt;
+    
+    &lt;platform name="ios"&gt;
+        &lt;source-file src="src/ios/TestPlugin.m" /&gt;
+        &lt;header-file src="src/ios/TestPlugin.h" /&gt;
+        &lt;source-file src="src/ios/TestViewController.m" /&gt;
+        &lt;header-file src="src/ios/TestViewController.h" /&gt;
+        &lt;resource-file src="src/ios/TestViewController.xib" /&gt;
+        &lt;resource-file src="src/ios/test.png" /&gt;
+        
+        &lt;config-file target="config.xml" parent="/widget"&gt;
+            
+            &lt;feature name="testPlugin"&gt;
+                &lt;param name="ios-package" value="TestPlugin" /&gt;
+            &lt;/feature&gt;
+        &lt;/config-file&gt;
+    &lt;/platform&gt;
+&lt;/plugin&gt;
 </code></pre>
+<p>参数说明：</p>
 
-<p>进度环的实现与底色环相近，并结合CATransaction实现动画</p>
+<p><code>id="com.catchzeng.testplugin"</code> ：插件id必须与文件夹名称相同</p>
 
-<pre><code>    [CATransaction begin];
-    [CATransaction setDisableActions:!animated];
-    [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
-    [CATransaction setAnimationDuration:1];
-    _progressLayer.strokeEnd=progress;
-    [CATransaction commit];
+<p><code>&lt;js-module src="www/testPlugin.js" name="testModel"&gt;</code>：此处配置js所在目录和调用的类（testModel）</p>
+
+<p><code>&lt;source-file&gt;</code>：标示插件所需的oc .m文件</p>
+
+<p><code>&lt;header-file&gt;</code>：标示插件所需的oc .h文件</p>
+
+<p><code>&lt;resource-file&gt;</code>：标示插件所需资源文件（图片、xib资源等）</p>
+
+<p><code>&lt;feature name="testPlugin"&gt;&lt;param name="ios-package" value="TestPlugin" /&gt;</code>：指明插件映射至ios的类名，此处的testPlugin便是对应到testPlugin.js <code> exec(success, fail, 'testPlugin', 'testWithTitle', option);</code> 中的testPlugin。</p>
+
+<h3 id="section-1">四、测试插件</h3>
+
+<p>新建一个Cordova项目，并添加iOS平台作为测试项目。</p>
+
+<p><img src="/img/in-post/post-cordova3/3.png" alt="Plugins" /></p>
+
+<p>添加插件到测试项目
+<code>
+cordova plugin add  xxxxxx
+</code></p>
+
+<p><img src="/img/in-post/post-cordova3/4.png" alt="Plugins" /></p>
+
+<p>修改工程项目的index.html</p>
+
+<p><img src="/img/in-post/post-cordova3/5.png" alt="Plugins" /></p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;TestPlugin&lt;/title&gt;
+        &lt;meta http-equiv="Content-type" content="text/html; charset=utf-8"&gt;
+            &lt;script type="text/javascript" charset="utf-8" src="cordova.js"&gt;&lt;/script&gt;
+            &lt;script type="text/javascript" charset="utf-8"&gt;
+
+            function testPlugin() {
+                testModel.testPlugin(alertSuccess,alertFail,["我是JS传来的参数！"]);
+            }
+
+            function alertSuccess(msg) {
+                alert(msg);
+            }
+
+            function alertFail(msg) {
+                alert('调用OC失败: ' + msg);
+            }
+            &lt;/script&gt;
+    &lt;/head&gt;
+
+    &lt;body style="padding-top:50px"&gt;
+        &lt;button style="font-size:17px;" onclick="testPlugin();"&gt;调用iOS插件&lt;/button&gt; &lt;br&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
+<p>重新build iOS项目
+<code>cordova build ios</code></p>
 
-<p>具体实现见工程:<a href="https://github.com/CatchZeng/CATCurveProgressView">CATCurveProgressView</a></p>
+<p><img src="/img/in-post/post-cordova3/6.png" alt="Plugins" /></p>
 
-<hr />
+<p>此时打开iOS工程后，运行程序便能得到看到插件的效果。</p>
 
-<h2 id="section-6">雷达图（咻一咻、波纹）</h2>
+<p><img src="/img/in-post/post-cordova3/7.gif" alt="Plugins" /></p>
 
-<p><img src="https://github.com/CatchZeng/CATRadarView/blob/master/CATRadarView.gif?raw=true" alt="效果" /></p>
+<p>将插件文件上传到git后，前端人员也可以使用git的方式安装我们编写的插件</p>
 
-<p>雷达图的实现分为三个步骤，首先利用CAShapeLayer创建脉冲层（pulseLayer，就是一个圈圈…）</p>
+<p><code> cordova plugin add  https://github.com/CatchZeng/com.catchzeng.testplugin</code></p>
 
-<pre><code>  _pulseLayer = [CAShapeLayer layer];
-  _pulseLayer.frame = self.layer.bounds;
-  _pulseLayer.path = [UIBezierPath bezierPathWithOvalInRect:_pulseLayer.bounds].CGPath;
-  _pulseLayer.fillColor = [UIColor blueColor].CGColor;
-</code></pre>
-
-<p>然后使用CAReplicatorLayer复制多个脉冲层</p>
-
-<pre><code>  _replicatorLayer = [CAReplicatorLayer layer];
-  _replicatorLayer.frame = self.bounds;
-  _replicatorLayer.instanceCount = 6;
-  _replicatorLayer.instanceDelay = 1.5;
-  [_replicatorLayer addSublayer:self.pulseLayer];
-</code></pre>
-
-<p>最后加上透明度与大小的动画，来实现雷达的效果</p>
-
-<pre><code>CABasicAnimation *scaleAnima = [CABasicAnimation animationWithKeyPath:@"transform"];
-scaleAnima.fromValue = [NSValue valueWithCATransform3D:CATransform3DScale(CATransform3DIdentity, 0.0, 0.0, 0.0)];
-scaleAnima.toValue = [NSValue valueWithCATransform3D:CATransform3DScale(CATransform3DIdentity, 1.0, 1.0, 0.0)];
-       
-_opacityAnima = [CABasicAnimation animationWithKeyPath:@"opacity"];
-_opacityAnima.fromValue = @(0.3);
-_opacityAnima.toValue = @(0.0);
-
-_animaGroup = [CAAnimationGroup animation];
-_animaGroup.animations = @[self.opacityAnima, scaleAnima];
-_animaGroup.duration = 9;
-_animaGroup.autoreverses = NO;
-_animaGroup.repeatCount = HUGE;
-
-[self.pulseLayer addAnimation:self.animaGroup forKey:@"groupAnimation"];
-</code></pre>
-
-<p>具体实现见工程:<a href="https://github.com/CatchZeng/CATRadarView">CATRadarView</a></p>
-
-<p>进阶部分的首篇就先到这了，咱们下一篇见。</p>
+<p>最后附上Demo地址：<a href="https://github.com/CatchZeng/com.catchzeng.testplugin">https://github.com/CatchZeng/com.catchzeng.testplugin</a></p>
 
 
                 <hr>
@@ -318,14 +309,16 @@ _animaGroup.repeatCount = HUGE;
                 </style>
                 <div class="ds-share"
                     style="text-align: right"
-                    data-thread-key="/2016/07/12/iOS动画－－进阶（一）"
-                    data-title="iOS动画－－进阶（一）"
-                    data-url="http://catchzeng.com/2016/07/12/iOS%E5%8A%A8%E7%94%BB-%E8%BF%9B%E9%98%B6-%E4%B8%80/"
+                    data-thread-key="/2016/09/22/使用Cordova开发iOS App -- 打包插件及JS脚本"
+                    data-title="使用Cordova开发iOS App -- 打包插件及JS脚本"
+                    data-url="http://catchzeng.com/2016/09/22/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E6%89%93%E5%8C%85%E6%8F%92%E4%BB%B6%E5%8F%8AJS%E8%84%9A%E6%9C%AC/"
                     data-images="http://catchzeng.com/img/post-bg-2015.jpg"
                     data-content="
 
-前言
-优秀的动画来源于设计，优秀的设计来源于灵感和动效的积累。我们不是设计师，但可以积累动画的基础。在动画的进阶部分，我们先积累一些与动画相关的知识。... | CatchZeng的技术博客 | CatchZeng Blog " >
+在上一篇–开发iOS插件中我们开发了一个插件，本篇将讲解如何将插件打包。
+
+一、创建插件包
+首先在桌面上创建一个文件夹com.catchzeng.te... | CatchZeng的技术博客 | CatchZeng Blog " >
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
                         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -345,13 +338,9 @@ _animaGroup.repeatCount = HUGE;
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2016/06/16/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC19%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第19期">&larr; Previous Post</a>
+                        <a href="/2016/09/21/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E5%BC%80%E5%8F%91iOS%E6%8F%92%E4%BB%B6/" data-toggle="tooltip" data-placement="top" title="使用Cordova开发iOS App -- 开发iOS插件">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2016/08/18/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC20%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第20期">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
@@ -360,9 +349,9 @@ _animaGroup.repeatCount = HUGE;
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/2016/07/12/iOS动画－－进阶（一）"
-                        data-title="iOS动画－－进阶（一）"
-                        data-url="http://catchzeng.com/2016/07/12/iOS%E5%8A%A8%E7%94%BB-%E8%BF%9B%E9%98%B6-%E4%B8%80/" >
+                        data-thread-key="/2016/09/22/使用Cordova开发iOS App -- 打包插件及JS脚本"
+                        data-title="使用Cordova开发iOS App -- 打包插件及JS脚本"
+                        data-url="http://catchzeng.com/2016/09/22/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E6%89%93%E5%8C%85%E6%8F%92%E4%BB%B6%E5%8F%8AJS%E8%84%9A%E6%9C%AC/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
