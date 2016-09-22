@@ -5,9 +5,112 @@
     <description></description>
     <link>http://catchzeng.com/</link>
     <atom:link href="http://catchzeng.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 22 Sep 2016 23:05:20 +0800</pubDate>
-    <lastBuildDate>Thu, 22 Sep 2016 23:05:20 +0800</lastBuildDate>
+    <pubDate>Thu, 22 Sep 2016 23:27:26 +0800</pubDate>
+    <lastBuildDate>Thu, 22 Sep 2016 23:27:26 +0800</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
+    
+      <item>
+        <title>使用Cordova开发iOS App -- 开发iOS插件</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;本篇在&lt;a href=&quot;http://catchzeng.com/2016/09/20/使用Cordova开发iOS-App-环境搭建/&quot;&gt;上一篇–Cordova的环境搭建&lt;/a&gt;基础上以一个例子讲解如何为Cordova开发iOS插件。&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;一、创建插件文件&lt;/h3&gt;
+
+&lt;p&gt;在Plugins文件夹下创建插件文件夹命名为com.catchzeng.testplugin
+&lt;img src=&quot;/img/in-post/post-cordova2/1.png&quot; alt=&quot;Plugins&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;创建类TestPlugin继承于CDVPlugin
+&lt;img src=&quot;/img/in-post/post-cordova2/2.png&quot; alt=&quot;Plugins&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;注意：创建类后会报头文件&lt;code&gt;#import &amp;lt;Cordova/Cordova.h&amp;gt;&lt;/code&gt;找不到的问题，替换成&lt;code&gt; #import &amp;lt;Cordova/CDVPlugin.h&amp;gt;&lt;/code&gt;即可。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;二、实现插件代码&lt;/h3&gt;
+
+&lt;p&gt;该插件实现的功能是JS调用原生的代码弹出一个自定义视图控制器（附带参数），并在弹起后回传参数给JS。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-cordova2/3.gif&quot; alt=&quot;Plugins&quot; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+@implementation TestPlugin
+
+-(void)testWithTitle:(CDVInvokedUrlCommand *)command{
+    if (command.arguments.count&amp;gt;0) {
+        //customize argument
+        NSString* title = command.arguments[0];
+        
+        TestViewController* testViewCtrl = [[TestViewController alloc]init];
+        [self.viewController presentViewController:testViewCtrl animated:YES completion:^{
+            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@&quot;我是OC回传的参数!&quot;];
+            testViewCtrl.labTitle.text = title;
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        }];
+    }else{
+        //callback
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@&quot;没有参数&quot;];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }
+}
+
+@end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;说明：&lt;/p&gt;
+
+&lt;p&gt;command.arguments：JS传递过来的参数列表，可自行协定参数的格式&lt;/p&gt;
+
+&lt;p&gt;CDVPluginResult：插件结果回调类，用于描述结果的状态和回传数据给JS&lt;/p&gt;
+
+&lt;p&gt;command.callbackId：对应回调JS时，指定发送的函数id&lt;/p&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;三、测试插件&lt;/h3&gt;
+&lt;p&gt;在config.xml文件中加入以下代码让JS能够调用我们的OC类,需要注意的是需要配置Staging下的config.xml,而不是外部的&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;feature name=&quot;ocTestPlugin&quot;&amp;gt;
+  &amp;lt;param name=&quot;ios-package&quot; value=&quot;TestPlugin&quot; /&amp;gt;
+&amp;lt;/feature&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;修改index.html&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+    &amp;lt;head&amp;gt;
+        &amp;lt;title&amp;gt;testPlugin&amp;lt;/title&amp;gt;
+        &amp;lt;meta http-equiv=&quot;Content-type&quot; content=&quot;text/html; charset=utf-8&quot;&amp;gt;
+            &amp;lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot; src=&quot;cordova.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+            &amp;lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&amp;gt;
+                
+            function testPlugin() {
+                cordova.exec(testSuccess,testFailed,&quot;ocTestPlugin&quot;,&quot;testWithTitle&quot;,[&quot;我是JS传的参数！&quot;]);
+            }
+            function testSuccess(msg) {
+                alert(msg);
+            }
+            function testFailed(msg) {
+                alert('failed: ' + msg);
+            }
+            &amp;lt;/script&amp;gt;
+            &amp;lt;/head&amp;gt;
+    
+    &amp;lt;body style=&quot;padding-top:100px&quot;&amp;gt;
+        &amp;lt;button style=&quot;font-size:17px;&quot; onclick=&quot;testPlugin();&quot;&amp;gt;测试iOS插件&amp;lt;/button&amp;gt;
+        &amp;lt;br&amp;gt;
+    &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;最后附上工程的结构图&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-cordova2/4.png&quot; alt=&quot;Plugins&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;开发iOS插件部分就先讲到这里，&lt;a href=&quot;http://www.catchzeng.com/2016/09/22/使用Cordova开发iOS-App-打包插件及JS脚本/&quot;&gt;下一篇&lt;/a&gt;将讲解如何将本篇的插件打包供前端人员使用。&lt;/p&gt;
+</description>
+        <pubDate>Wed, 21 Sep 2016 17:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/09/21/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E5%BC%80%E5%8F%91iOS%E6%8F%92%E4%BB%B6/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/09/21/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E5%BC%80%E5%8F%91iOS%E6%8F%92%E4%BB%B6/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
     
       <item>
         <title>使用Cordova开发iOS App -- 环境搭建</title>
@@ -84,7 +187,7 @@ sudo cordova platform add ios
 &lt;p&gt;再次运行项目，可以看到界面上显示了HI，iOSDeveloper.
 &lt;img src=&quot;/img/in-post/post-cordova1/7.png&quot; alt=&quot;result&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;至此，环境搭建完毕。下一篇将讲解&lt;a href=&quot;http://www.jianshu.com/p/96079fcccb4e&quot;&gt;为Cordova开发iOS插件&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;至此，环境搭建完毕。下一篇将讲解&lt;a href=&quot;http://catchzeng.com/2016/09/21/使用Cordova开发iOS-App-开发iOS插件&quot;&gt;为Cordova开发iOS插件&lt;/a&gt;。&lt;/p&gt;
 </description>
         <pubDate>Tue, 20 Sep 2016 17:38:27 +0800</pubDate>
         <link>http://catchzeng.com/2016/09/20/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
@@ -1445,85 +1548,6 @@ D = D + DD&lt;/p&gt;
         <guid isPermaLink="true">http://catchzeng.com/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-MD5/</guid>
         
         <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>搭建一个轻量级的Java Web框架--使用IntelliJ IDEA 搭建Java Web 项目</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;java-web&quot;&gt;搭建Java Web项目&lt;/h2&gt;
-
-&lt;p&gt;1.新建maven项目，create from archetype，选择maven-archetype-webapp
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-06088fc954b13f8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Idea&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.填写GroupId，ArtifactId和Version
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-dbcd1c3fce24fde0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;GroupId，ArtifactId，Version&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.Maven
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-d4949b78d0dbb6ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Maven&quot; /&gt;
-在这里若遇到maven生成骨架的时候将会非常慢，可以在Properties中添加一个参数archetypeCatalog=internal（我的工程生成很快故没有加该参数）。
-&lt;code&gt;
-archetypeCatalog表示插件使用的archetype元数据，默认为remote即中央仓库，由于中央仓库的archetype太多了，所以导致很慢，指定internal来表示仅使用内部元数据。
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;4.Project name &amp;amp; Location 
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-079b382f96a1c7e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Project name &amp;amp; Location&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;5.工程结构
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-a1b055dbbcfe7ac1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;工程结构&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;6.在main文件夹下添加 Java 目录,并把它设为源代码文件夹。
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-8bbc53efee53c0fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;屏幕快照 2016-05-05 下午9.27.20.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;7.配置pom.xml文件 
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-edccd475572ddf78.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;配置pom.xml文件 &quot; /&gt;
-具体如下:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&amp;gt;    &amp;lt;modelVersion&amp;gt;4.0.0&amp;lt;/modelVersion&amp;gt;    &amp;lt;groupId&amp;gt;com.catch&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;catchjava&amp;lt;/artifactId&amp;gt;    &amp;lt;packaging&amp;gt;war&amp;lt;/packaging&amp;gt;    &amp;lt;version&amp;gt;1.0&amp;lt;/version&amp;gt;    &amp;lt;name&amp;gt;catchjava Maven Webapp&amp;lt;/name&amp;gt;    &amp;lt;url&amp;gt;[http://maven.apache.org](http://maven.apache.org)&amp;lt;/url&amp;gt;    &amp;lt;!--编码格式UTF-8--&amp;gt;   &amp;lt;properties&amp;gt;        &amp;lt;project.build.sourceEncoding&amp;gt;UTF-8&amp;lt;/project.build.sourceEncoding&amp;gt;    &amp;lt;/properties&amp;gt;    &amp;lt;!--依赖--&amp;gt;   &amp;lt;dependencies&amp;gt;        &amp;lt;!-- Servlet --&amp;gt;       &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt;javax.servlet&amp;lt;/groupId&amp;gt;            &amp;lt;artifactId&amp;gt;javax.servlet-api&amp;lt;/artifactId&amp;gt;            &amp;lt;version&amp;gt;3.1.0&amp;lt;/version&amp;gt;            &amp;lt;scope&amp;gt;provided&amp;lt;/scope&amp;gt;        &amp;lt;/dependency&amp;gt;        &amp;lt;!-- JSP --&amp;gt;       &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt;javax.servlet.jsp&amp;lt;/groupId&amp;gt;            &amp;lt;artifactId&amp;gt;jsp-api&amp;lt;/artifactId&amp;gt;            &amp;lt;version&amp;gt;2.2&amp;lt;/version&amp;gt;            &amp;lt;scope&amp;gt;provided&amp;lt;/scope&amp;gt;        &amp;lt;/dependency&amp;gt;        &amp;lt;!-- JSTL --&amp;gt;       &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt;javax.servlet&amp;lt;/groupId&amp;gt;            &amp;lt;artifactId&amp;gt;jstl&amp;lt;/artifactId&amp;gt;            &amp;lt;version&amp;gt;1.2&amp;lt;/version&amp;gt;            &amp;lt;scope&amp;gt;runtime&amp;lt;/scope&amp;gt;        &amp;lt;/dependency&amp;gt;        &amp;lt;!--Junit--&amp;gt;       &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt;junit&amp;lt;/groupId&amp;gt;            &amp;lt;artifactId&amp;gt;junit&amp;lt;/artifactId&amp;gt;            &amp;lt;version&amp;gt;3.8.1&amp;lt;/version&amp;gt;            &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;        &amp;lt;/dependency&amp;gt;    &amp;lt;/dependencies&amp;gt;    &amp;lt;!--编译--&amp;gt;   &amp;lt;build&amp;gt;        &amp;lt;plugins&amp;gt;            &amp;lt;!-- Compile --&amp;gt;           &amp;lt;plugin&amp;gt;                &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;                &amp;lt;artifactId&amp;gt;maven-compiler-plugin&amp;lt;/artifactId&amp;gt;                &amp;lt;version&amp;gt;3.3&amp;lt;/version&amp;gt;                &amp;lt;configuration&amp;gt;                    &amp;lt;source&amp;gt;1.6&amp;lt;/source&amp;gt;                    &amp;lt;target&amp;gt;1.6&amp;lt;/target&amp;gt;                &amp;lt;/configuration&amp;gt;            &amp;lt;/plugin&amp;gt;            &amp;lt;!-- Test --&amp;gt;           &amp;lt;plugin&amp;gt;                &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;                &amp;lt;artifactId&amp;gt;maven-surefire-plugin&amp;lt;/artifactId&amp;gt;                &amp;lt;version&amp;gt;2.18.1&amp;lt;/version&amp;gt;                &amp;lt;configuration&amp;gt;                    &amp;lt;skipTests&amp;gt;true&amp;lt;/skipTests&amp;gt;                &amp;lt;/configuration&amp;gt;            &amp;lt;/plugin&amp;gt;            &amp;lt;!-- Tomcat --&amp;gt;           &amp;lt;plugin&amp;gt;                &amp;lt;groupId&amp;gt;org.apache.tomcat.maven&amp;lt;/groupId&amp;gt;                &amp;lt;artifactId&amp;gt;tomcat7-maven-plugin&amp;lt;/artifactId&amp;gt;                &amp;lt;version&amp;gt;2.2&amp;lt;/version&amp;gt;                &amp;lt;configuration&amp;gt;                    &amp;lt;path&amp;gt;/${project.artifactId}&amp;lt;/path&amp;gt;                &amp;lt;/configuration&amp;gt;            &amp;lt;/plugin&amp;gt;        &amp;lt;/plugins&amp;gt;        &amp;lt;finalName&amp;gt;catchjava&amp;lt;/finalName&amp;gt;    &amp;lt;/build&amp;gt;&amp;lt;/project&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;8.新建HelloServlet,并重写doGet方法。
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-0ad32550da3f316a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;新建HelloServlet&quot; /&gt;
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-e70a2aca7711869d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;doGet&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;9.新建hello.jsp
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-934b70fbacfa76bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;hello.jsp&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;10.加入@WebServlet标记
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-1d5acbd4795be0d6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;@WebServlet&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;11.配置Tomcat
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-2f72aac5963da27b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Tomcat&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-2b5673c0cc9a3f51.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Tomcat&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-17326d620b383ed9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Tomcat&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-25ce46d229e6baa9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Tomcat&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-5b97dd21579a76b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Tomcat&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-7bc4b35cdd692f00.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Tomcat&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;12.Run
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-f1e211658682aca2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Run&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;13.加入&amp;lt;%@ page isELIgnored =”false”%&amp;gt;去除j sp显示错误。
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-37efd5527e8ba3f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;isELIgnored&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;14.再次Run，输入http://localhost:8080/catchjava/hello 得到正确结果。[HelloServlet中 @WebServlet(“/hello”)的作用就在于此]
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-bac9d43f3c714275.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Run&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section&quot;&gt;后续&lt;/h2&gt;
-&lt;p&gt;本期介绍了如果使用IntelliJ IDEA搭建一个Java Web项目。后续的文章将在这一篇的基础上一步一步搭建一个轻量级的Java Web框架，有兴趣的朋友咱们下期见。&lt;/p&gt;
-</description>
-        <pubDate>Thu, 05 May 2016 17:38:27 +0800</pubDate>
-        <link>http://catchzeng.com/2016/05/05/%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84Java-Web%E6%A1%86%E6%9E%B6-%E4%BD%BF%E7%94%A8IntelliJ-IDEA-%E6%90%AD%E5%BB%BAJava-Web-%E9%A1%B9%E7%9B%AE/</link>
-        <guid isPermaLink="true">http://catchzeng.com/2016/05/05/%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84Java-Web%E6%A1%86%E6%9E%B6-%E4%BD%BF%E7%94%A8IntelliJ-IDEA-%E6%90%AD%E5%BB%BAJava-Web-%E9%A1%B9%E7%9B%AE/</guid>
-        
-        <category>Java Web</category>
         
         
       </item>

@@ -84,4 +84,4 @@ iOS工程运行结果
 再次运行项目，可以看到界面上显示了HI，iOSDeveloper.
 ![result](/img/in-post/post-cordova1/7.png)
 
-至此，环境搭建完毕。下一篇将讲解[为Cordova开发iOS插件](http://www.jianshu.com/p/96079fcccb4e)。
+至此，环境搭建完毕。下一篇将讲解[为Cordova开发iOS插件](http://catchzeng.com/2016/09/21/使用Cordova开发iOS-App-开发iOS插件)。
