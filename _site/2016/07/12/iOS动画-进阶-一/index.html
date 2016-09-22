@@ -196,7 +196,7 @@
 
 <p><img src="/img/in-post/post-animation/3.gif" alt="三阶贝塞尔曲线" /></p>
 
-<p>三阶以上的贝塞尔曲线在iOS开发中使用较少，这里不再赘述。在iOS中使用<a href="http://www.jianshu.com/p/bbb2cc485a45">UIBezierPath</a>来实现贝塞尔曲线。<br />
+<p>三阶以上的贝塞尔曲线在iOS开发中使用较少，这里不再赘述。在iOS中使用<a href="http://www.jianshu.com/p/bbb2cc485a45">UIBezierPath</a>来实现贝塞尔曲线。
 贝塞尔曲线能描述动画的轨迹，但是UIBezierPath不具有显示的功能。所以下面我们还需要了解iOS负责View显示的CALayer。</p>
 
 <hr />
@@ -204,7 +204,7 @@
 <h2 id="cashapelayer">CAShapeLayer</h2>
 <p>CAShapeLayer继承自CALayer，是一个通过矢量图形（ 非bitmap） 来绘制的图层类。</p>
 
-<p>CALayer在被初始化时是需要给一个frame值的（一般等于view的bounds值），本身有形状的，且为矩形。<br />
+<p>CALayer在被初始化时是需要给一个frame值的（一般等于view的bounds值），本身有形状的，且为矩形。
 CAShapeLayer需通过CGPath 来定义想要绘制的形状，因此常与UIBezierPath配合使用。</p>
 
 <p>与使用 Core Graphics 直接向 CALayer 的内容中绘制一个路径（- drawLayer: inContext:)相比，使用 CAShapeLayer 有以下优点：</p>
@@ -231,7 +231,7 @@ CAShapeLayer需通过CGPath 来定义想要绘制的形状，因此常与UIBezie
 
 <p><img src="/img/in-post/post-animation/4.png" alt="进度条构成" /></p>
 
-<p>两个环的实现依赖于以上所讲的贝塞尔曲线和CAShapeLayer。<br />
+<p>两个环的实现依赖于以上所讲的贝塞尔曲线和CAShapeLayer。
 首先，使用贝塞尔曲线描绘底色环的路径</p>
 
 <pre><code>UIBezierPath *path=[UIBezierPath bezierPathWithArcCenter:CGPointMake(50,50) 
@@ -386,7 +386,7 @@ _animaGroup.repeatCount = HUGE;
                     <div class="tags">
         				
                             
-                				<a href="/tags/#iOS" title="iOS" rel="35">
+                				<a href="/tags/#iOS" title="iOS" rel="36">
                                     iOS
                                 </a>
                             

@@ -170,46 +170,46 @@
 
 <h2 id="java-web">搭建Java Web项目</h2>
 
-<p>1.新建maven项目，create from archetype，选择maven-archetype-webapp<br />
+<p>1.新建maven项目，create from archetype，选择maven-archetype-webapp
 <img src="http://upload-images.jianshu.io/upload_images/943491-06088fc954b13f8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Idea" /></p>
 
-<p>2.填写GroupId，ArtifactId和Version<br />
+<p>2.填写GroupId，ArtifactId和Version
 <img src="http://upload-images.jianshu.io/upload_images/943491-dbcd1c3fce24fde0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="GroupId，ArtifactId，Version" /></p>
 
-<p>3.Maven<br />
-<img src="http://upload-images.jianshu.io/upload_images/943491-d4949b78d0dbb6ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Maven" /><br />
-在这里若遇到maven生成骨架的时候将会非常慢，可以在Properties中添加一个参数archetypeCatalog=internal（我的工程生成很快故没有加该参数）。<br />
+<p>3.Maven
+<img src="http://upload-images.jianshu.io/upload_images/943491-d4949b78d0dbb6ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Maven" />
+在这里若遇到maven生成骨架的时候将会非常慢，可以在Properties中添加一个参数archetypeCatalog=internal（我的工程生成很快故没有加该参数）。
 <code>
 archetypeCatalog表示插件使用的archetype元数据，默认为remote即中央仓库，由于中央仓库的archetype太多了，所以导致很慢，指定internal来表示仅使用内部元数据。
 </code></p>
 
-<p>4.Project name &amp; Location <br />
+<p>4.Project name &amp; Location 
 <img src="http://upload-images.jianshu.io/upload_images/943491-079b382f96a1c7e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Project name &amp; Location" /></p>
 
-<p>5.工程结构<br />
+<p>5.工程结构
 <img src="http://upload-images.jianshu.io/upload_images/943491-a1b055dbbcfe7ac1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="工程结构" /></p>
 
-<p>6.在main文件夹下添加 Java 目录,并把它设为源代码文件夹。<br />
+<p>6.在main文件夹下添加 Java 目录,并把它设为源代码文件夹。
 <img src="http://upload-images.jianshu.io/upload_images/943491-8bbc53efee53c0fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2016-05-05 下午9.27.20.png" /></p>
 
-<p>7.配置pom.xml文件 <br />
-<img src="http://upload-images.jianshu.io/upload_images/943491-edccd475572ddf78.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="配置pom.xml文件 " /><br />
+<p>7.配置pom.xml文件 
+<img src="http://upload-images.jianshu.io/upload_images/943491-edccd475572ddf78.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="配置pom.xml文件 " />
 具体如下:</p>
 
 <pre><code>&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"&gt;    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;    &lt;groupId&gt;com.catch&lt;/groupId&gt;    &lt;artifactId&gt;catchjava&lt;/artifactId&gt;    &lt;packaging&gt;war&lt;/packaging&gt;    &lt;version&gt;1.0&lt;/version&gt;    &lt;name&gt;catchjava Maven Webapp&lt;/name&gt;    &lt;url&gt;[http://maven.apache.org](http://maven.apache.org)&lt;/url&gt;    &lt;!--编码格式UTF-8--&gt;   &lt;properties&gt;        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;    &lt;/properties&gt;    &lt;!--依赖--&gt;   &lt;dependencies&gt;        &lt;!-- Servlet --&gt;       &lt;dependency&gt;            &lt;groupId&gt;javax.servlet&lt;/groupId&gt;            &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;            &lt;version&gt;3.1.0&lt;/version&gt;            &lt;scope&gt;provided&lt;/scope&gt;        &lt;/dependency&gt;        &lt;!-- JSP --&gt;       &lt;dependency&gt;            &lt;groupId&gt;javax.servlet.jsp&lt;/groupId&gt;            &lt;artifactId&gt;jsp-api&lt;/artifactId&gt;            &lt;version&gt;2.2&lt;/version&gt;            &lt;scope&gt;provided&lt;/scope&gt;        &lt;/dependency&gt;        &lt;!-- JSTL --&gt;       &lt;dependency&gt;            &lt;groupId&gt;javax.servlet&lt;/groupId&gt;            &lt;artifactId&gt;jstl&lt;/artifactId&gt;            &lt;version&gt;1.2&lt;/version&gt;            &lt;scope&gt;runtime&lt;/scope&gt;        &lt;/dependency&gt;        &lt;!--Junit--&gt;       &lt;dependency&gt;            &lt;groupId&gt;junit&lt;/groupId&gt;            &lt;artifactId&gt;junit&lt;/artifactId&gt;            &lt;version&gt;3.8.1&lt;/version&gt;            &lt;scope&gt;test&lt;/scope&gt;        &lt;/dependency&gt;    &lt;/dependencies&gt;    &lt;!--编译--&gt;   &lt;build&gt;        &lt;plugins&gt;            &lt;!-- Compile --&gt;           &lt;plugin&gt;                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;                &lt;version&gt;3.3&lt;/version&gt;                &lt;configuration&gt;                    &lt;source&gt;1.6&lt;/source&gt;                    &lt;target&gt;1.6&lt;/target&gt;                &lt;/configuration&gt;            &lt;/plugin&gt;            &lt;!-- Test --&gt;           &lt;plugin&gt;                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;                &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;                &lt;version&gt;2.18.1&lt;/version&gt;                &lt;configuration&gt;                    &lt;skipTests&gt;true&lt;/skipTests&gt;                &lt;/configuration&gt;            &lt;/plugin&gt;            &lt;!-- Tomcat --&gt;           &lt;plugin&gt;                &lt;groupId&gt;org.apache.tomcat.maven&lt;/groupId&gt;                &lt;artifactId&gt;tomcat7-maven-plugin&lt;/artifactId&gt;                &lt;version&gt;2.2&lt;/version&gt;                &lt;configuration&gt;                    &lt;path&gt;/${project.artifactId}&lt;/path&gt;                &lt;/configuration&gt;            &lt;/plugin&gt;        &lt;/plugins&gt;        &lt;finalName&gt;catchjava&lt;/finalName&gt;    &lt;/build&gt;&lt;/project&gt;
 </code></pre>
 
-<p>8.新建HelloServlet,并重写doGet方法。<br />
-<img src="http://upload-images.jianshu.io/upload_images/943491-0ad32550da3f316a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="新建HelloServlet" /><br />
+<p>8.新建HelloServlet,并重写doGet方法。
+<img src="http://upload-images.jianshu.io/upload_images/943491-0ad32550da3f316a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="新建HelloServlet" />
 <img src="http://upload-images.jianshu.io/upload_images/943491-e70a2aca7711869d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="doGet" /></p>
 
-<p>9.新建hello.jsp<br />
+<p>9.新建hello.jsp
 <img src="http://upload-images.jianshu.io/upload_images/943491-934b70fbacfa76bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="hello.jsp" /></p>
 
-<p>10.加入@WebServlet标记<br />
+<p>10.加入@WebServlet标记
 <img src="http://upload-images.jianshu.io/upload_images/943491-1d5acbd4795be0d6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="@WebServlet" /></p>
 
-<p>11.配置Tomcat<br />
+<p>11.配置Tomcat
 <img src="http://upload-images.jianshu.io/upload_images/943491-2f72aac5963da27b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Tomcat" /></p>
 
 <p><img src="http://upload-images.jianshu.io/upload_images/943491-2b5673c0cc9a3f51.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Tomcat" /></p>
@@ -222,13 +222,13 @@ archetypeCatalog表示插件使用的archetype元数据，默认为remote即中�
 
 <p><img src="http://upload-images.jianshu.io/upload_images/943491-7bc4b35cdd692f00.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Tomcat" /></p>
 
-<p>12.Run<br />
+<p>12.Run
 <img src="http://upload-images.jianshu.io/upload_images/943491-f1e211658682aca2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Run" /></p>
 
-<p>13.加入&lt;%@ page isELIgnored =”false”%&gt;去除j sp显示错误。<br />
+<p>13.加入&lt;%@ page isELIgnored =”false”%&gt;去除j sp显示错误。
 <img src="http://upload-images.jianshu.io/upload_images/943491-37efd5527e8ba3f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="isELIgnored" /></p>
 
-<p>14.再次Run，输入http://localhost:8080/catchjava/hello 得到正确结果。[HelloServlet中 @WebServlet(“/hello”)的作用就在于此]<br />
+<p>14.再次Run，输入http://localhost:8080/catchjava/hello 得到正确结果。[HelloServlet中 @WebServlet(“/hello”)的作用就在于此]
 <img src="http://upload-images.jianshu.io/upload_images/943491-bac9d43f3c714275.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Run" /></p>
 
 <h2 id="section">后续</h2>
@@ -314,7 +314,7 @@ archetypeCatalog表示插件使用的archetype元数据，默认为remote即中�
                     <div class="tags">
         				
                             
-                				<a href="/tags/#iOS" title="iOS" rel="35">
+                				<a href="/tags/#iOS" title="iOS" rel="36">
                                     iOS
                                 </a>
                             

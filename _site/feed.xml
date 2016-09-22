@@ -5,9 +5,95 @@
     <description></description>
     <link>http://catchzeng.com/</link>
     <atom:link href="http://catchzeng.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 20 Aug 2016 14:47:30 +0800</pubDate>
-    <lastBuildDate>Sat, 20 Aug 2016 14:47:30 +0800</lastBuildDate>
-    <generator>Jekyll v3.0.1</generator>
+    <pubDate>Thu, 22 Sep 2016 23:05:20 +0800</pubDate>
+    <lastBuildDate>Thu, 22 Sep 2016 23:05:20 +0800</lastBuildDate>
+    <generator>Jekyll v3.2.1</generator>
+    
+      <item>
+        <title>使用Cordova开发iOS App -- 环境搭建</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;一、简介&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://cordova.apache.org/&quot;&gt;Cordova&lt;/a&gt;大家可能比较陌生，但肯定听过 PhoneGap ，Cordova 就是 PhoneGap 被 Adobe 收购后所改的名字。它是一个可以让 JS 与原生代码互相通信的一个库，并且提供了一系列的插件类（如 JS 直接操作本地数据库的插件类）。&lt;/p&gt;
+
+&lt;h4 id=&quot;cordova&quot;&gt;Cordova优缺点&lt;/h4&gt;
+&lt;p&gt;优点: 降低开发成本一次开发多平台套用，版本更新容易可动态更新。&lt;/p&gt;
+
+&lt;p&gt;缺点: cordova其实就是在原生app上加了一个webView,并提供一套JS与原生代码交互的类库。交互效果一般，且访问原生控件时受限,常常无法满足业务需求。&lt;/p&gt;
+
+&lt;h4 id=&quot;cordova-1&quot;&gt;Cordova插件&lt;/h4&gt;
+&lt;p&gt;为了解决Cordova的缺点，就出现了cordova插件的概念。即由各个平台的开发者实现webView中无法实现的功能，并打包成插件供前端开发人员调用，这样来优化cordova app的体验问题。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;二、文章安排&lt;/h2&gt;
+&lt;p&gt;本系列文章主要围绕Cordova for iOS部分讲解，主要分为如下几个部分：&lt;/p&gt;
+
+&lt;p&gt;1.环境搭建&lt;/p&gt;
+
+&lt;p&gt;2.开发iOS插件&lt;/p&gt;
+
+&lt;p&gt;3.打包插件及JS脚本&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;三、环境搭建&lt;/h2&gt;
+
+&lt;h4 id=&quot;nodejs&quot;&gt;1.检测是否安装了node.js&lt;/h4&gt;
+&lt;p&gt;打开终端输入&lt;code&gt;npm --version&lt;/code&gt;，若无打印版本则需先安装&lt;a href=&quot;https://nodejs.org/en/&quot;&gt;node.js&lt;/a&gt;
+&lt;img src=&quot;/img/in-post/post-cordova1/1.png&quot; alt=&quot;node.js&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;cordova-2&quot;&gt;2.命令行安装cordova&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;npm install -g cordova&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;section-3&quot;&gt;3.创建项目&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;cordova create testCordovaProject com.catchzeng.testCordova testCordova&lt;/code&gt;
+&lt;img src=&quot;/img/in-post/post-cordova1/2.png&quot; alt=&quot;create&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;参数说明：&lt;/p&gt;
+
+&lt;p&gt;testCordovaProject: 项目文件夹名称&lt;/p&gt;
+
+&lt;p&gt;com.catchzeng.testCordova: 项目的bundleID&lt;/p&gt;
+
+&lt;p&gt;testCordova:项目名称&lt;/p&gt;
+
+&lt;h4 id=&quot;section-4&quot;&gt;4.添加平台&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;cd testCordovaProject/
+sudo cordova platform add ios
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-cordova1/3.png&quot; alt=&quot;add platform&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;添加成功后可在项目的platforms文件夹中看到ios文件夹,进入后就可以看到ios工程了。
+&lt;img src=&quot;/img/in-post/post-cordova1/4.png&quot; alt=&quot;iOS project&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;iOS工程运行结果
+&lt;img src=&quot;/img/in-post/post-cordova1/5.png&quot; alt=&quot;result&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;cordova-3&quot;&gt;5.Cordova开发体验&lt;/h4&gt;
+&lt;p&gt;修改Staging-&amp;gt;www-&amp;gt;index.html
+&lt;img src=&quot;/img/in-post/post-cordova1/6.png&quot; alt=&quot;result&quot; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;div class=&quot;app&quot;&amp;gt;
+      &amp;lt;h1&amp;gt;Apache Cordova&amp;lt;/h1&amp;gt;
+      &amp;lt;div id=&quot;deviceready&quot; class=&quot;blink&quot;&amp;gt;
+          &amp;lt;p class=&quot;event listening&quot;&amp;gt;Connecting to Device&amp;lt;/p&amp;gt;
+          &amp;lt;p class=&quot;event received&quot;&amp;gt;Device is Ready&amp;lt;/p&amp;gt;
+          &amp;lt;h1 align=&quot;center&quot;&amp;gt;
+                HI，iOSDeveloper.
+           &amp;lt;/h1&amp;gt;
+      &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;再次运行项目，可以看到界面上显示了HI，iOSDeveloper.
+&lt;img src=&quot;/img/in-post/post-cordova1/7.png&quot; alt=&quot;result&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;至此，环境搭建完毕。下一篇将讲解&lt;a href=&quot;http://www.jianshu.com/p/96079fcccb4e&quot;&gt;为Cordova开发iOS插件&lt;/a&gt;。&lt;/p&gt;
+</description>
+        <pubDate>Tue, 20 Sep 2016 17:38:27 +0800</pubDate>
+        <link>http://catchzeng.com/2016/09/20/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2016/09/20/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
     
       <item>
         <title>iOS开发见闻-第20期</title>
@@ -23,10 +109,10 @@
 
 &lt;p&gt;3.&lt;a href=&quot;http://tutuge.me/2016/06/19/translation-why-objcmsgsend-must-be-written-in-assembly/&quot;&gt;为什么objc_msgSend必须用汇编实现&lt;/a&gt; ：总是看到有人说用汇编实现objc_msgSend是为了速度快，当然这个不可否认。但是难道没有别的原因？&lt;/p&gt;
 
-&lt;p&gt;4.&lt;a href=&quot;http://yulingtianxia.com/blog/2016/07/18/TBActionSheet/&quot;&gt;自制一款强大的 ActionSheet&lt;/a&gt; : 本文的精华不在于自制库的使用，而是作者在制库过程中的思考细节，有助于想造库的朋友。&lt;br /&gt;
+&lt;p&gt;4.&lt;a href=&quot;http://yulingtianxia.com/blog/2016/07/18/TBActionSheet/&quot;&gt;自制一款强大的 ActionSheet&lt;/a&gt; : 本文的精华不在于自制库的使用，而是作者在制库过程中的思考细节，有助于想造库的朋友。
 &lt;img src=&quot;/img/in-post/post-20/20-1.jpg&quot; alt=&quot;ActionSheet&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;5.&lt;a href=&quot;http://ios.jobbole.com/87918/&quot;&gt;如何制作一个类似Uber的溅落式启动屏 &lt;/a&gt; ：虽Uber中国已被滴滴收购,但那溅落式启动屏还是陪伴我们许多岁月而成为经典，想实现它的话可以看此文章。&lt;br /&gt;
+&lt;p&gt;5.&lt;a href=&quot;http://ios.jobbole.com/87918/&quot;&gt;如何制作一个类似Uber的溅落式启动屏 &lt;/a&gt; ：虽Uber中国已被滴滴收购,但那溅落式启动屏还是陪伴我们许多岁月而成为经典，想实现它的话可以看此文章。
 &lt;img src=&quot;/img/in-post/post-20/20-2.gif&quot; alt=&quot;如何制作一个类似Uber的溅落式启动屏&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
@@ -34,31 +120,31 @@
 
 &lt;p&gt;&lt;img src=&quot;/img/in-post/post-20/20-3.png&quot; alt=&quot;apistore&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/Automattic/simplenote-macos/blob/develop/readme.md&quot;&gt;simplenote&lt;/a&gt; : 一款帮你mac 下的开源笔记工具。&lt;br /&gt;
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/Automattic/simplenote-macos/blob/develop/readme.md&quot;&gt;simplenote&lt;/a&gt; : 一款帮你mac 下的开源笔记工具。
 &lt;img src=&quot;https://camo.githubusercontent.com/d4dc8cbda69b96796f502be9468db54f20af5835/68747470733a2f2f73696d706c656e6f7465626c6f672e66696c65732e776f726470726573732e636f6d2f323031352f30362f6461726b2d7468656d652d6d61632e706e67&quot; alt=&quot;simpleno&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;3.&lt;a href=&quot;http://bughd.com&quot;&gt;bughd&lt;/a&gt; : 一款实时监控APP的崩溃分析工具。&lt;br /&gt;
+&lt;p&gt;3.&lt;a href=&quot;http://bughd.com&quot;&gt;bughd&lt;/a&gt; : 一款实时监控APP的崩溃分析工具。
 &lt;img src=&quot;/img/in-post/post-20/20-4.png&quot; alt=&quot;bughd&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;4.&lt;a href=&quot;https://www.decosoftware.com/download&quot;&gt;deco&lt;/a&gt;: 一款优秀的React Naive IDE。&lt;br /&gt;
+&lt;p&gt;4.&lt;a href=&quot;https://www.decosoftware.com/download&quot;&gt;deco&lt;/a&gt;: 一款优秀的React Naive IDE。
 &lt;img src=&quot;/img/in-post/post-20/20-5.png&quot; alt=&quot;deco&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;https://github.com/mihaelamj/mmjiostemplates&quot;&gt;mmjiostemplates&lt;/a&gt; : iOS项目模板工具，看作者的项目模板分层清晰、复用率高值得学习。&lt;br /&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/mihaelamj/mmjiostemplates&quot;&gt;mmjiostemplates&lt;/a&gt; : iOS项目模板工具，看作者的项目模板分层清晰、复用率高值得学习。
 &lt;img src=&quot;https://camo.githubusercontent.com/9c58667fd018b5559cc1d78dcd92d7e9ade1ba28/68747470733a2f2f7261772e6769746875622e636f6d2f6d696861656c616d6a2f6d6d6a696f7374656d706c617465732f6d61737465722f496d616765732f54656d706c617465732e706e67&quot; alt=&quot;mmjiostemplates&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/Roylee-ML/SwipeTableView&quot;&gt;SwipeTableView&lt;/a&gt; :— 类似半糖、美丽说主页与QQ音乐歌曲列表布局效果，实现不同菜单的左右滑动切换，同时支持类似tableview的顶部工具栏悬停（既可以左右滑动，又可以上下滑动）。兼容下拉刷新，自定义 collectionview实现自适应 contentSize 还可实现瀑布流功能。&lt;br /&gt;
-&lt;img src=&quot;https://github.com/Roylee-ML/SwipeTableView/raw/master/ScreenShots/screenshot1.gif&quot; alt=&quot;SwipeTableView&quot; /&gt;&lt;br /&gt;
-&lt;img src=&quot;https://github.com/Roylee-ML/SwipeTableView/raw/master/ScreenShots/screenshot2.gif&quot; alt=&quot;SwipeTableView&quot; /&gt;&lt;br /&gt;
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/Roylee-ML/SwipeTableView&quot;&gt;SwipeTableView&lt;/a&gt; :— 类似半糖、美丽说主页与QQ音乐歌曲列表布局效果，实现不同菜单的左右滑动切换，同时支持类似tableview的顶部工具栏悬停（既可以左右滑动，又可以上下滑动）。兼容下拉刷新，自定义 collectionview实现自适应 contentSize 还可实现瀑布流功能。
+&lt;img src=&quot;https://github.com/Roylee-ML/SwipeTableView/raw/master/ScreenShots/screenshot1.gif&quot; alt=&quot;SwipeTableView&quot; /&gt;
+&lt;img src=&quot;https://github.com/Roylee-ML/SwipeTableView/raw/master/ScreenShots/screenshot2.gif&quot; alt=&quot;SwipeTableView&quot; /&gt;
 &lt;img src=&quot;https://github.com/Roylee-ML/SwipeTableView/raw/master/ScreenShots/screenshot3.gif&quot; alt=&quot;SwipeTableView&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;3.&lt;a href=&quot;https://github.com/3tinkers/TKImageView&quot;&gt;TKImageView&lt;/a&gt; : 帮助你轻易实现图片裁剪功能。&lt;br /&gt;
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/3tinkers/TKImageView&quot;&gt;TKImageView&lt;/a&gt; : 帮助你轻易实现图片裁剪功能。
 &lt;img src=&quot;https://github.com/3tinkers/TKImageView/raw/master/TKImageViewDemo/resources/sample1.gif&quot; alt=&quot;TKImageView&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;4.&lt;a href=&quot;https://github.com/WelkinXie/WXWaveView&quot;&gt;WXWaveView&lt;/a&gt; :添加丝滑的水波纹到View中。&lt;br /&gt;
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/WelkinXie/WXWaveView&quot;&gt;WXWaveView&lt;/a&gt; :添加丝滑的水波纹到View中。
 &lt;img src=&quot;https://camo.githubusercontent.com/2c5b76e5a5afc3f54a0161f11899dd5e1a290c85/687474703a2f2f37786e6571642e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f776176652e676966&quot; alt=&quot;WXWaveView&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;5.&lt;a href=&quot;https://github.com/jobandtalent/AnimatedTextInput&quot;&gt;AnimatedTextInput&lt;/a&gt;: 一款开源的动态文字输入控件。&lt;br /&gt;
+&lt;p&gt;5.&lt;a href=&quot;https://github.com/jobandtalent/AnimatedTextInput&quot;&gt;AnimatedTextInput&lt;/a&gt;: 一款开源的动态文字输入控件。
 &lt;img src=&quot;https://github.com/jobandtalent/AnimatedTextInput/raw/master/Assets/general.gif&quot; alt=&quot;AnimatedTextInput&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Thu, 18 Aug 2016 17:38:27 +0800</pubDate>
@@ -102,7 +188,7 @@
 
 &lt;p&gt;&lt;img src=&quot;/img/in-post/post-animation/3.gif&quot; alt=&quot;三阶贝塞尔曲线&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;三阶以上的贝塞尔曲线在iOS开发中使用较少，这里不再赘述。在iOS中使用&lt;a href=&quot;http://www.jianshu.com/p/bbb2cc485a45&quot;&gt;UIBezierPath&lt;/a&gt;来实现贝塞尔曲线。&lt;br /&gt;
+&lt;p&gt;三阶以上的贝塞尔曲线在iOS开发中使用较少，这里不再赘述。在iOS中使用&lt;a href=&quot;http://www.jianshu.com/p/bbb2cc485a45&quot;&gt;UIBezierPath&lt;/a&gt;来实现贝塞尔曲线。
 贝塞尔曲线能描述动画的轨迹，但是UIBezierPath不具有显示的功能。所以下面我们还需要了解iOS负责View显示的CALayer。&lt;/p&gt;
 
 &lt;hr /&gt;
@@ -110,7 +196,7 @@
 &lt;h2 id=&quot;cashapelayer&quot;&gt;CAShapeLayer&lt;/h2&gt;
 &lt;p&gt;CAShapeLayer继承自CALayer，是一个通过矢量图形（ 非bitmap） 来绘制的图层类。&lt;/p&gt;
 
-&lt;p&gt;CALayer在被初始化时是需要给一个frame值的（一般等于view的bounds值），本身有形状的，且为矩形。&lt;br /&gt;
+&lt;p&gt;CALayer在被初始化时是需要给一个frame值的（一般等于view的bounds值），本身有形状的，且为矩形。
 CAShapeLayer需通过CGPath 来定义想要绘制的形状，因此常与UIBezierPath配合使用。&lt;/p&gt;
 
 &lt;p&gt;与使用 Core Graphics 直接向 CALayer 的内容中绘制一个路径（- drawLayer: inContext:)相比，使用 CAShapeLayer 有以下优点：&lt;/p&gt;
@@ -137,7 +223,7 @@ CAShapeLayer需通过CGPath 来定义想要绘制的形状，因此常与UIBezie
 
 &lt;p&gt;&lt;img src=&quot;/img/in-post/post-animation/4.png&quot; alt=&quot;进度条构成&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;两个环的实现依赖于以上所讲的贝塞尔曲线和CAShapeLayer。&lt;br /&gt;
+&lt;p&gt;两个环的实现依赖于以上所讲的贝塞尔曲线和CAShapeLayer。
 首先，使用贝塞尔曲线描绘底色环的路径&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;UIBezierPath *path=[UIBezierPath bezierPathWithArcCenter:CGPointMake(50,50) 
@@ -244,32 +330,32 @@ _animaGroup.repeatCount = HUGE;
 &lt;p&gt;5.&lt;a href=&quot;http://www.jianshu.com/p/31367c97c67d&quot;&gt;现在开始把UI Testing用起来！ &lt;/a&gt; ：一直很关注自动化测试，因为手动进行测试很枯燥，而且容易遗漏相关测试。苹果在Xcode7中引入了UI Testing，感兴趣的朋友可以试试。&lt;/p&gt;
 
 &lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;http://www.cutterman.cn/v2/cutterman&quot;&gt;cutterman&lt;/a&gt;：是一款运行在photoshop中的插件，能够自动将你需要的图层进行输出，以替代传统的手工 “导出web所用格式” 以及使用切片工具进行挨个切图的繁琐流程。它支持各种各样的图片尺寸、格式、形态输出，方便你在pc、ios、Android等端上使用。&lt;br /&gt;
+&lt;p&gt;1.&lt;a href=&quot;http://www.cutterman.cn/v2/cutterman&quot;&gt;cutterman&lt;/a&gt;：是一款运行在photoshop中的插件，能够自动将你需要的图层进行输出，以替代传统的手工 “导出web所用格式” 以及使用切片工具进行挨个切图的繁琐流程。它支持各种各样的图片尺寸、格式、形态输出，方便你在pc、ios、Android等端上使用。
 &lt;img src=&quot;http://www.cutterman.cn/images/v2/cutterman/desktop.png&quot; alt=&quot;cutterman&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/music4kid/FastStub-Xcode&quot;&gt;FastStub-Xcode&lt;/a&gt; : 一款帮你找到在.h、protocols、父类中漏掉的方法的 Xcode 插件。&lt;br /&gt;
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/music4kid/FastStub-Xcode&quot;&gt;FastStub-Xcode&lt;/a&gt; : 一款帮你找到在.h、protocols、父类中漏掉的方法的 Xcode 插件。
 &lt;img src=&quot;https://camo2.githubusercontent.com/29d976d6d5991902d307b5afafa82dd8a7525eb9/687474703a2f2f6d727065616b2e636e2f696d616765732f66735f6865616465722e676966&quot; alt=&quot;FastStub-Xcode&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;3.&lt;a href=&quot;https://github.com/jakob/TableTool&quot;&gt;TableTool&lt;/a&gt; : 一款Mac上的CSV编辑器。&lt;br /&gt;
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/jakob/TableTool&quot;&gt;TableTool&lt;/a&gt; : 一款Mac上的CSV编辑器。
 &lt;img src=&quot;https://github.com/jakob/TableTool/raw/master/Artwork/Screenshots/2016-06-08%20Tabletool%201.1%20Customers.jpg&quot; alt=&quot;TableTool&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;https://github.com/tianzhuo112/VTMagic&quot;&gt;VTMagic&lt;/a&gt; : 耗时近两年打磨而成的类似网易、腾讯等应用的菜单分页组件框架。&lt;br /&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/tianzhuo112/VTMagic&quot;&gt;VTMagic&lt;/a&gt; : 耗时近两年打磨而成的类似网易、腾讯等应用的菜单分页组件框架。
 &lt;img src=&quot;/img/in-post/post-19/19-1.gif&quot; alt=&quot;VTMagic&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;2.&lt;a href=&quot;https://github.com/yahoo/AppDevKit&quot;&gt;AppDevKit&lt;/a&gt; : 包含了Common Tools、UI Tools、Animation Tools、Image Tools、ListView Tools的开发包，实用性较强。&lt;/p&gt;
 
-&lt;p&gt;3.&lt;a href=&quot;https://github.com/Cokile/CCActivityHUD&quot;&gt;CCActivityHUD&lt;/a&gt; : 实用的HUD，效果看图。&lt;br /&gt;
-&lt;img src=&quot;https://github.com/Cokile/CCActivityHUD/raw/master/Captures/capture1.gif&quot; alt=&quot;CCActivityHUD&quot; /&gt;&lt;br /&gt;
-&lt;img src=&quot;https://github.com/Cokile/CCActivityHUD/raw/master/Captures/capture2.gif&quot; alt=&quot;CCActivityHUD&quot; /&gt;&lt;br /&gt;
-&lt;img src=&quot;https://github.com/Cokile/CCActivityHUD/raw/master/Captures/capture3.gif&quot; alt=&quot;CCActivityHUD&quot; /&gt;&lt;br /&gt;
-&lt;img src=&quot;https://github.com/Cokile/CCActivityHUD/raw/master/Captures/capture4.gif&quot; alt=&quot;CCActivityHUD&quot; /&gt;&lt;br /&gt;
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/Cokile/CCActivityHUD&quot;&gt;CCActivityHUD&lt;/a&gt; : 实用的HUD，效果看图。
+&lt;img src=&quot;https://github.com/Cokile/CCActivityHUD/raw/master/Captures/capture1.gif&quot; alt=&quot;CCActivityHUD&quot; /&gt;
+&lt;img src=&quot;https://github.com/Cokile/CCActivityHUD/raw/master/Captures/capture2.gif&quot; alt=&quot;CCActivityHUD&quot; /&gt;
+&lt;img src=&quot;https://github.com/Cokile/CCActivityHUD/raw/master/Captures/capture3.gif&quot; alt=&quot;CCActivityHUD&quot; /&gt;
+&lt;img src=&quot;https://github.com/Cokile/CCActivityHUD/raw/master/Captures/capture4.gif&quot; alt=&quot;CCActivityHUD&quot; /&gt;
 &lt;img src=&quot;https://github.com/Cokile/CCActivityHUD/raw/master/Captures/capture5.gif&quot; alt=&quot;CCActivityHUD&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;4.&lt;a href=&quot;https://github.com/GGGHub/Reader&quot;&gt;Reader&lt;/a&gt; : 基于Core Text实现的iOS客户端的txt电子书阅读器。&lt;/p&gt;
 
-&lt;p&gt;5.&lt;a href=&quot;https://github.com/zhengmin1989/iOS_ICE_AND_FIRE&quot;&gt;iOS_ICE_AND_FIRE&lt;/a&gt; :蒸米的iOS冰与火之歌。&lt;br /&gt;
-&lt;img src=&quot;http://static.wooyun.org//drops/20160612/2016061208231268844131.jpeg&quot; alt=&quot;iOS_ICE_AND_FIRE&quot; /&gt;&lt;br /&gt;
+&lt;p&gt;5.&lt;a href=&quot;https://github.com/zhengmin1989/iOS_ICE_AND_FIRE&quot;&gt;iOS_ICE_AND_FIRE&lt;/a&gt; :蒸米的iOS冰与火之歌。
+&lt;img src=&quot;http://static.wooyun.org//drops/20160612/2016061208231268844131.jpeg&quot; alt=&quot;iOS_ICE_AND_FIRE&quot; /&gt;
 &lt;img src=&quot;http://static.wooyun.org//drops/20160612/2016061208231533246145.png&quot; alt=&quot;iOS_ICE_AND_FIRE&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Thu, 16 Jun 2016 17:38:27 +0800</pubDate>
@@ -289,14 +375,14 @@ _animaGroup.repeatCount = HUGE;
 &lt;p&gt;相信做过多国化的朋友们一定为Localizable.strings的翻译工作而烦恼。先是写出需要用到的多国化字符串，然后交由翻译人员翻译成各国语言，最后再把翻译后的文档整理写入Localizable.strings。这个工作无聊、反复、繁琐，所以写了个&lt;a href=&quot;https://github.com/CatchZeng/Localizable.strings2Excel&quot;&gt;Localizable.strings与Excel互相转换的工具&lt;/a&gt;，来提高效率。&lt;/p&gt;
 
 &lt;h2 id=&quot;section-1&quot;&gt;效果&lt;/h2&gt;
-&lt;p&gt;1.Localizable.strings转换成Excel&lt;br /&gt;
+&lt;p&gt;1.Localizable.strings转换成Excel
 &lt;img src=&quot;https://github.com/CatchZeng/Localizable.strings2Excel/raw/master/imgs/stoe.jpg&quot; alt=&quot;Localizable.strings转换成Excel&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;2.Excel转换成Localizable.strings&lt;br /&gt;
+&lt;p&gt;2.Excel转换成Localizable.strings
 &lt;img src=&quot;https://github.com/CatchZeng/Localizable.strings2Excel/raw/master/imgs/etos.jpg&quot; alt=&quot;Excel转换成Localizable.strings&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section-2&quot;&gt;使用方法&lt;/h2&gt;
-&lt;p&gt;1.切换到pyexcelerator-0.6.4.1目录,执行&lt;code&gt;sudo python setup.py install&lt;/code&gt; 安装pyexcelerator组件。&lt;br /&gt;
+&lt;p&gt;1.切换到pyexcelerator-0.6.4.1目录,执行&lt;code&gt;sudo python setup.py install&lt;/code&gt; 安装pyexcelerator组件。
 &lt;img src=&quot;https://github.com/CatchZeng/Localizable.strings2Excel/raw/master/imgs/installpy.jpg&quot; alt=&quot;安装pyexcelerator&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;2.执行 &lt;code&gt;python Localizable.py&lt;/code&gt;命令把Localizable.strings转换成Localizable.xls,然后交由翻译人员进行翻译。&lt;/p&gt;
@@ -304,7 +390,7 @@ _animaGroup.repeatCount = HUGE;
 &lt;p&gt;3.将翻译后的Localizable.xls文件重命名为LocalizableBack.xls，然后执行&lt;code&gt;python LocalizableBack.py&lt;/code&gt;把LocalizableBack.xls转换成LocalizableBack.strings，最后将LocalizableBack.strings重命名为Localizable.strings即可放入工程使用。&lt;/p&gt;
 
 &lt;h2 id=&quot;section-3&quot;&gt;最后&lt;/h2&gt;
-&lt;p&gt;附上链接&lt;a href=&quot;https://github.com/CatchZeng/Localizable.strings2Excel&quot;&gt;https://github.com/CatchZeng/Localizable.strings2Excel&lt;/a&gt; 欢迎star、fork、issue。&lt;br /&gt;
+&lt;p&gt;附上链接&lt;a href=&quot;https://github.com/CatchZeng/Localizable.strings2Excel&quot;&gt;https://github.com/CatchZeng/Localizable.strings2Excel&lt;/a&gt; 欢迎star、fork、issue。
 有问题可以到群里讨论 QQ群：157672725&lt;/p&gt;
 </description>
         <pubDate>Fri, 27 May 2016 19:40:27 +0800</pubDate>
@@ -321,15 +407,15 @@ _animaGroup.repeatCount = HUGE;
         <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;rsa&quot;&gt;一、RSA简介&lt;/h2&gt;
-&lt;p&gt;在介绍RSA之前，先介绍下对称、非对称加密。&lt;br /&gt;
-#### 对称加密：&lt;br /&gt;
-A选择某一种加密规则，对信息进行加密；&lt;br /&gt;
-B使用同一种规则，对信息进行解密。&lt;br /&gt;
-由于加密和解密使用同样规则（密钥），这被称为”对称加密算法”。&lt;br /&gt;
-#### 非对称加密：&lt;br /&gt;
-B生成两把密钥（公钥和私钥）。公钥是公开的，任何人都可以获得，私钥则是保密的。&lt;br /&gt;
-A获取B的公钥，然后用它对信息加密。&lt;br /&gt;
-B得到加密后的信息，用私钥解密。&lt;br /&gt;
+&lt;p&gt;在介绍RSA之前，先介绍下对称、非对称加密。
+#### 对称加密：
+A选择某一种加密规则，对信息进行加密；
+B使用同一种规则，对信息进行解密。
+由于加密和解密使用同样规则（密钥），这被称为”对称加密算法”。
+#### 非对称加密：
+B生成两把密钥（公钥和私钥）。公钥是公开的，任何人都可以获得，私钥则是保密的。
+A获取B的公钥，然后用它对信息加密。
+B得到加密后的信息，用私钥解密。
 公钥加密的信息只有私钥解得开，加解密的密钥是不同的，这被称为”非对称加密算法”。&lt;/p&gt;
 
 &lt;p&gt;＊以上的A一般指的是客户端、B一般是服务器端。&lt;/p&gt;
@@ -337,23 +423,23 @@ B得到加密后的信息，用私钥解密。&lt;br /&gt;
 &lt;p&gt;RSA就是非对称加密算法的一种。&lt;/p&gt;
 
 &lt;h2 id=&quot;section&quot;&gt;二、算法描述&lt;/h2&gt;
-&lt;p&gt;RSA算法的数论基础：将两个大素数相乘十分容易，但是想要对其乘积进行因式分解却极其困难，因此可以将乘积公开作为加密密钥。&lt;br /&gt;
+&lt;p&gt;RSA算法的数论基础：将两个大素数相乘十分容易，但是想要对其乘积进行因式分解却极其困难，因此可以将乘积公开作为加密密钥。
 在算法描述之前，需要补充一些数学知识。&lt;/p&gt;
 
 &lt;h4 id=&quot;section-1&quot;&gt;素数(质数)&lt;/h4&gt;
 &lt;p&gt;　　素数指在一个大于1的自然数中，除了1和此整数自身外，不能被其他自然数整除的数。&lt;/p&gt;
 
 &lt;h4 id=&quot;section-2&quot;&gt;互质数&lt;/h4&gt;
-&lt;p&gt;　　公因数只有1的两个数，叫做互质数。&lt;br /&gt;
-判断方法主要有以下几种：&lt;br /&gt;
-两个不同的质数一定是互质数。例如，2与7、13与19。&lt;br /&gt;
-一个质数，另一个不为它的倍数，这两个数为互质数。例如，3与10、5与 26。&lt;br /&gt;
-相邻的两个自然数是互质数。如 15与 16。&lt;br /&gt;
-相邻的两个奇数是互质数。如 49与 51。&lt;br /&gt;
-较大数是质数的两个数是互质数。如97与88。&lt;br /&gt;
-小数是质数，大数不是小数的倍数的两个数是互质数。例如 7和 16。&lt;br /&gt;
-2和任何奇数是互质数。例如2和87。&lt;br /&gt;
-1不是质数也不是合数，它和任何一个自然数在一起都是互质数。如1和9908。&lt;br /&gt;
+&lt;p&gt;　　公因数只有1的两个数，叫做互质数。
+判断方法主要有以下几种：
+两个不同的质数一定是互质数。例如，2与7、13与19。
+一个质数，另一个不为它的倍数，这两个数为互质数。例如，3与10、5与 26。
+相邻的两个自然数是互质数。如 15与 16。
+相邻的两个奇数是互质数。如 49与 51。
+较大数是质数的两个数是互质数。如97与88。
+小数是质数，大数不是小数的倍数的两个数是互质数。例如 7和 16。
+2和任何奇数是互质数。例如2和87。
+1不是质数也不是合数，它和任何一个自然数在一起都是互质数。如1和9908。
 辗转相除法。&lt;/p&gt;
 
 &lt;h4 id=&quot;section-3&quot;&gt;指数运算(乘方计算)&lt;/h4&gt;
@@ -363,7 +449,7 @@ B得到加密后的信息，用私钥解密。&lt;br /&gt;
 &lt;p&gt;　　模运算即求余运算。和模运算紧密相关的一个概念是“同余”。数学上，当两个整数除以同一个正整数，若得相同余数，则二整数同余。两个整数a，b，若它们除以正整数m所得的余数相等，则称a，b对于模m同余，记作: a ≡ b (mod m)；读作：a同余于b模m，或者，a与b关于模m同余。例如：26 ≡ 14 (mod 12)。&lt;/p&gt;
 
 &lt;h4 id=&quot;section-5&quot;&gt;欧拉函数&lt;/h4&gt;
-&lt;p&gt;任意给定正整数n，请问在小于等于n的正整数之中，有多少个与n构成互质关系？（比如，在1到8之中，有多少个数与8构成互质关系？）计算这个值的方法就叫做欧拉函数，以φ(n)表示。在1到8之中，与8形成互质关系的是1、3、5、7，所以 φ(n) = 4。&lt;br /&gt;
+&lt;p&gt;任意给定正整数n，请问在小于等于n的正整数之中，有多少个与n构成互质关系？（比如，在1到8之中，有多少个数与8构成互质关系？）计算这个值的方法就叫做欧拉函数，以φ(n)表示。在1到8之中，与8形成互质关系的是1、3、5、7，所以 φ(n) = 4。
 &lt;img src=&quot;/img/in-post/post-security/rsa.jpg&quot; alt=&quot;欧拉函数&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;有了这些数学知识，下面开始描述RSA算法,场景为A要与B进行加密通信。&lt;a href=&quot;http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html&quot;&gt;描述出处&lt;/a&gt;&lt;/p&gt;
@@ -372,44 +458,44 @@ B得到加密后的信息，用私钥解密。&lt;br /&gt;
 &lt;p&gt;A选择了61和53。（实际应用中，这两个质数越大，就越难破解）&lt;/p&gt;
 
 &lt;h6 id=&quot;pqn&quot;&gt;2.计算p和q的乘积n。&lt;/h6&gt;
-&lt;p&gt;A把61和53相乘。&lt;br /&gt;
+&lt;p&gt;A把61和53相乘。
 &lt;code&gt;
 n = 61×53 = 3233
-&lt;/code&gt;&lt;br /&gt;
+&lt;/code&gt;
 n的长度就是密钥长度。3233写成二进制是110010100001，一共有12位，所以这个密钥就是12位。（实际应用中，RSA密钥一般是1024位，重要场合则为2048位）&lt;/p&gt;
 
 &lt;h6 id=&quot;nn&quot;&gt;3.计算n的欧拉函数φ(n)。&lt;/h6&gt;
-&lt;p&gt;根据公式：&lt;br /&gt;
+&lt;p&gt;根据公式：
 &lt;code&gt;
 　　φ(n) = (p-1)(q-1)
-&lt;/code&gt;&lt;br /&gt;
+&lt;/code&gt;
 A算出φ(3233)等于60×52，即3120。&lt;/p&gt;
 
 &lt;h6 id=&quot;e1-e--nen-&quot;&gt;4.随机选择一个整数e，条件是1&amp;lt; e &amp;lt; φ(n)，且e与φ(n) 互质。&lt;/h6&gt;
 &lt;p&gt;A在1到3120之间，随机选择了17。（实际应用中，常常选择65537）&lt;/p&gt;
 
 &lt;h6 id=&quot;end&quot;&gt;5.计算e对于φ(n)的模反元素d。&lt;/h6&gt;
-&lt;p&gt;所谓”模反元素”就是指有一个整数d，可以使得ed被φ(n)除的余数为1。&lt;br /&gt;
+&lt;p&gt;所谓”模反元素”就是指有一个整数d，可以使得ed被φ(n)除的余数为1。
 &lt;code&gt;
 　ed ≡ 1 (mod φ(n))
-&lt;/code&gt;&lt;br /&gt;
-这个式子等价于&lt;br /&gt;
+&lt;/code&gt;
+这个式子等价于
 &lt;code&gt;
 　　ed - 1 = kφ(n)
-&lt;/code&gt;&lt;br /&gt;
-于是，找到模反元素d，实质上就是对下面这个二元一次方程求解。&lt;br /&gt;
+&lt;/code&gt;
+于是，找到模反元素d，实质上就是对下面这个二元一次方程求解。
 &lt;code&gt;
 　　ex + φ(n)y = 1
-&lt;/code&gt;&lt;br /&gt;
-已知 e=17, φ(n)=3120，&lt;br /&gt;
+&lt;/code&gt;
+已知 e=17, φ(n)=3120，
 &lt;code&gt;
 　　17x + 3120y = 1
-&lt;/code&gt;&lt;br /&gt;
-这个方程可以用”扩展欧几里得算法”求解，此处省略具体过程。A算出一组整数解为 (x,y)=(2753,-15)，即 d=2753。&lt;br /&gt;
+&lt;/code&gt;
+这个方程可以用”扩展欧几里得算法”求解，此处省略具体过程。A算出一组整数解为 (x,y)=(2753,-15)，即 d=2753。
 至此所有计算完成。&lt;/p&gt;
 
 &lt;h6 id=&quot;nend&quot;&gt;6.将n和e封装成公钥，n和d封装成私钥。&lt;/h6&gt;
-&lt;p&gt;在例子中，n=3233，e=17，d=2753，所以公钥就是 (3233,17)，私钥就是（3233, 2753）。&lt;br /&gt;
+&lt;p&gt;在例子中，n=3233，e=17，d=2753，所以公钥就是 (3233,17)，私钥就是（3233, 2753）。
 实际应用中，公钥和私钥的数据都采用&lt;a href=&quot;http://baike.baidu.com/link?url=hANHjn-dJ9j6B7zyRV4HMH_Tf_Pcz6_b5Op8kLzfKvdlPFT2XwNErIh5qoh16rGIkrXvtPNhZhkUvnh9mfAh7a&quot;&gt;ASN.1格式&lt;/a&gt;表达。&lt;/p&gt;
 
 &lt;h2 id=&quot;section-6&quot;&gt;三、算法实现&lt;/h2&gt;
@@ -514,7 +600,7 @@ static NSData *base64_decode(NSString *str){
     if (c_key[idx] &amp;gt; 0x80) idx += c_key[idx] - 0x80 + 1;
     else idx++;
     
-    if (c_key[idx++] != &#39;\0&#39;) return(nil);
+    if (c_key[idx++] != '\0') return(nil);
     
     // Now make a new NSData from this buffer
     return([NSData dataWithBytes:&amp;amp;c_key[idx] length:len - idx]);
@@ -820,7 +906,7 @@ static NSData *base64_decode(NSString *str){
 
 &lt;h2 id=&quot;section&quot;&gt;二、算法描述&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/in-post/post-security/aes1.jpg&quot; alt=&quot;AES1&quot; /&gt;&lt;br /&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-security/aes1.jpg&quot; alt=&quot;AES1&quot; /&gt;
 &lt;img src=&quot;/img/in-post/post-security/aes2.jpg&quot; alt=&quot;AES2&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;AES算法较为复杂这里不再赘述，如有兴趣可点击&lt;a href=&quot;http://blog.csdn.net/searchsun/article/details/2516191&quot;&gt;描述出处&lt;/a&gt;查看更多资料。&lt;/p&gt;
@@ -833,7 +919,7 @@ static NSData *base64_decode(NSString *str){
 #pragma mark -- AES
 
 /**
- *  get data&#39;s aes256 encrypt data
+ *  get data's aes256 encrypt data
  *
  *  @param data source data
  *  @param key  key for encrypt/decrypt  !!!key length must be 16
@@ -901,7 +987,7 @@ static NSData *base64_decode(NSString *str){
 }
 
 /**
- *  get string&#39;s aes256 encrypt data
+ *  get string's aes256 encrypt data
  *
  *  @param string source string
  *  @param key  key for encrypt/decrypt  !!!key length must be 16
@@ -961,20 +1047,20 @@ static NSData *base64_decode(NSString *str){
 &lt;p&gt;需要说明的是Base64 可以对任意的文件进行加密，但是Base64 过程是可逆的. 可以反向解密。所以，严格地讲Base64只是一种编码方式，并非加密算法。另外Base64将原来8个bit为一个字节的数据,6个bit为一个单位处理，会导致数据量会增大1/3［(8-6)/6］。&lt;/p&gt;
 
 &lt;h2 id=&quot;section&quot;&gt;二、算法描述&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;http://baike.baidu.com/link?url=7DZ9nrUIzMosCyS-J-AqQOwS3X-IiOHPKcCOVCkuq5e42ZNRrlKLV86qKfGMVp_EexvM0_DNDcRXdk_Bsz3Hma&quot;&gt;描述出处&lt;/a&gt;&lt;br /&gt;
-转码过程例子：&lt;br /&gt;
+&lt;p&gt;&lt;a href=&quot;http://baike.baidu.com/link?url=7DZ9nrUIzMosCyS-J-AqQOwS3X-IiOHPKcCOVCkuq5e42ZNRrlKLV86qKfGMVp_EexvM0_DNDcRXdk_Bsz3Hma&quot;&gt;描述出处&lt;/a&gt;
+转码过程例子：
 3＊8=4＊6&lt;/p&gt;
 
-&lt;p&gt;内存1个字符占8位&lt;br /&gt;
-转前： s 1 3&lt;br /&gt;
-先转成ascii：对应 115 49 51&lt;br /&gt;
-2进制： 01110011 00110001 00110011&lt;br /&gt;
-6个一组（4组） 011100110011000100110011&lt;br /&gt;
-然后才有后面的 011100 110011 000100 110011&lt;br /&gt;
-然后计算机是8位8位的存数 6不够，自动就补两个高位0了&lt;br /&gt;
-所有有了 高位补0&lt;br /&gt;
-科学计算器输入 00011100 00110011 00000100 00110011&lt;br /&gt;
-得到 28 51 4 51&lt;br /&gt;
+&lt;p&gt;内存1个字符占8位
+转前： s 1 3
+先转成ascii：对应 115 49 51
+2进制： 01110011 00110001 00110011
+6个一组（4组） 011100110011000100110011
+然后才有后面的 011100 110011 000100 110011
+然后计算机是8位8位的存数 6不够，自动就补两个高位0了
+所有有了 高位补0
+科学计算器输入 00011100 00110011 00000100 00110011
+得到 28 51 4 51
 查对下照表 c z E z&lt;/p&gt;
 
 &lt;h2 id=&quot;section-1&quot;&gt;三、算法实现&lt;/h2&gt;
@@ -1005,7 +1091,7 @@ static const short base64DecodingTable[256] = {
 };
 
 /**
- *  get data&#39;s base64 encoded string
+ *  get data's base64 encoded string
  *
  *  @param data source data
  *
@@ -1036,10 +1122,10 @@ static const short base64DecodingTable[256] = {
         output[index + 1] = base64EncodingTable[(value &amp;gt;&amp;gt; 12) &amp;amp; 0x3F];
         output[index + 2] = ((i + 1) &amp;lt; length)
         ? base64EncodingTable[(value &amp;gt;&amp;gt; 6) &amp;amp; 0x3F]
-        : &#39;=&#39;;
+        : '=';
         output[index + 3] = ((i + 2) &amp;lt; length)
         ? base64EncodingTable[(value &amp;gt;&amp;gt; 0) &amp;amp; 0x3F]
-        : &#39;=&#39;;
+        : '=';
     }
     
     NSString *base64 = [[NSString alloc] initWithBytes:output length:out_length encoding:NSASCIIStringEncoding];
@@ -1060,7 +1146,7 @@ static const short base64DecodingTable[256] = {
     if (string  == NULL)
         return nil;
     
-    while (length &amp;gt; 0 &amp;amp;&amp;amp; string[length - 1] == &#39;=&#39;)
+    while (length &amp;gt; 0 &amp;amp;&amp;amp; string[length - 1] == '=')
         length--;
     
     NSInteger outputLength = length * 3 / 4;
@@ -1076,8 +1162,8 @@ static const short base64DecodingTable[256] = {
     while (inputPoint &amp;lt; length) {
         char i0 = string[inputPoint++];
         char i1 = string[inputPoint++];
-        char i2 = inputPoint &amp;lt; length ? string[inputPoint++] : &#39;A&#39;;
-        char i3 = inputPoint &amp;lt; length ? string[inputPoint++] : &#39;A&#39;;
+        char i2 = inputPoint &amp;lt; length ? string[inputPoint++] : 'A';
+        char i3 = inputPoint &amp;lt; length ? string[inputPoint++] : 'A';
         
         output[outputPoint++] = (base64DecodingTable[i0] &amp;lt;&amp;lt; 2)
         | (base64DecodingTable[i1] &amp;gt;&amp;gt; 4);
@@ -1095,7 +1181,7 @@ static const short base64DecodingTable[256] = {
 }
 
 /**
- *  get str&#39;s base64 encoded string
+ *  get str's base64 encoded string
  *
  *  @param str source string
  *
@@ -1145,102 +1231,102 @@ static const short base64DecodingTable[256] = {
 &lt;h2 id=&quot;section&quot;&gt;二、算法描述&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;http://dev.21tx.com/2004/12/16/13075.shtml&quot;&gt;描述出处&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;算法输入是一个字节串，每个字节是8个bit. &lt;br /&gt;
+&lt;p&gt;算法输入是一个字节串，每个字节是8个bit. 
 算法的执行分为以下几个步骤：&lt;/p&gt;
 
 &lt;h3 id=&quot;section-1&quot;&gt;1.补位：&lt;/h3&gt;
-&lt;p&gt;MD5算法先对输入的数据进行补位，使得数据的长度(以byte为单位)对64求余的结果是56。&lt;br /&gt;
-即数据扩展至LEN=K*64+56个字节，K为整数。&lt;br /&gt;
+&lt;p&gt;MD5算法先对输入的数据进行补位，使得数据的长度(以byte为单位)对64求余的结果是56。
+即数据扩展至LEN=K*64+56个字节，K为整数。
 补位方法：补一个1，然后补0至满足上述要求。相当于补一个0x80的字节，再补值为0的字节。这一步里总共补充的字节数为0～63个。&lt;/p&gt;
 
 &lt;h3 id=&quot;section-2&quot;&gt;2.附加数据长度：&lt;/h3&gt;
-&lt;p&gt;用一个64位的整数表示数据的原始长度(以bit为单位)，将这个数字的8个字节按低位的在前，&lt;br /&gt;
-高位在后的顺序附加在补位后的数据后面。这时，数据被填补后的总长度为：LEN = K&lt;em&gt;64+56+8=(K+1)&lt;/em&gt;64 Bytes。&lt;br /&gt;
+&lt;p&gt;用一个64位的整数表示数据的原始长度(以bit为单位)，将这个数字的8个字节按低位的在前，
+高位在后的顺序附加在补位后的数据后面。这时，数据被填补后的总长度为：LEN = K&lt;em&gt;64+56+8=(K+1)&lt;/em&gt;64 Bytes。
 ※注意那个64位整数是输入数据的原始长度而不是填充字节后的长度,我就在这里栽了跟头.&lt;/p&gt;
 
 &lt;h3 id=&quot;md5-1&quot;&gt;3.初始化MD5参数：&lt;/h3&gt;
-&lt;p&gt;有四个32位整数变量 (A,B,C,D) 用来计算信息摘要，每一个变量被初始化成以下以十六进制数表示的数值，低位的字节在前面。&lt;br /&gt;
-  word A: 01 23 45 67&lt;br /&gt;
-  word B: 89 ab cd ef&lt;br /&gt;
-  word C: fe dc ba 98&lt;br /&gt;
-  word D: 76 54 32 10&lt;br /&gt;
-※注意低位的字节在前面指的是Little Endian平台上内存中字节的排列方式，而在程序中书写时，要写成：&lt;br /&gt;
-  A=0x67452301&lt;br /&gt;
-  B=0xefcdab89&lt;br /&gt;
-  C=0x98badcfe&lt;br /&gt;
+&lt;p&gt;有四个32位整数变量 (A,B,C,D) 用来计算信息摘要，每一个变量被初始化成以下以十六进制数表示的数值，低位的字节在前面。
+  word A: 01 23 45 67
+  word B: 89 ab cd ef
+  word C: fe dc ba 98
+  word D: 76 54 32 10
+※注意低位的字节在前面指的是Little Endian平台上内存中字节的排列方式，而在程序中书写时，要写成：
+  A=0x67452301
+  B=0xefcdab89
+  C=0x98badcfe
   D=0x10325476&lt;/p&gt;
 
 &lt;h3 id=&quot;md5-2&quot;&gt;4.定义四个MD5基本的按位操作函数：&lt;/h3&gt;
-&lt;p&gt;X，Y，Z为32位整数。 &lt;br /&gt;
-  F(X,Y,Z) = (X and Y) or (not(X) and Z)&lt;br /&gt;
-  G(X,Y,Z) = (X and Z) or (Y and not(Z))&lt;br /&gt;
-  H(X,Y,Z) = X xor Y xor Z&lt;br /&gt;
+&lt;p&gt;X，Y，Z为32位整数。 
+  F(X,Y,Z) = (X and Y) or (not(X) and Z)
+  G(X,Y,Z) = (X and Z) or (Y and not(Z))
+  H(X,Y,Z) = X xor Y xor Z
   I(X,Y,Z) = Y xor (X or not(Z))&lt;/p&gt;
 
-&lt;p&gt;再定义四个分别用于四轮变换的函数。设Mj表示消息的第j个子分组（从0到15），«&amp;lt;s表示循环左移s位，则四种操作为：&lt;br /&gt;
-  FF(a,b,c,d,Mj,s,ti)表示a=b+((a+(F(b,c,d)+Mj+ti)«&amp;lt;s)&lt;br /&gt;
-  GG(a,b,c,d,Mj,s,ti)表示a=b+((a+(G(b,c,d)+Mj+ti)«&amp;lt;s)&lt;br /&gt;
-  HH(a,b,c,d,Mj,s,ti)表示a=b+((a+(H(b,c,d)+Mj+ti)«&amp;lt;s)&lt;br /&gt;
+&lt;p&gt;再定义四个分别用于四轮变换的函数。设Mj表示消息的第j个子分组（从0到15），«&amp;lt;s表示循环左移s位，则四种操作为：
+  FF(a,b,c,d,Mj,s,ti)表示a=b+((a+(F(b,c,d)+Mj+ti)«&amp;lt;s)
+  GG(a,b,c,d,Mj,s,ti)表示a=b+((a+(G(b,c,d)+Mj+ti)«&amp;lt;s)
+  HH(a,b,c,d,Mj,s,ti)表示a=b+((a+(H(b,c,d)+Mj+ti)«&amp;lt;s)
   II(a,b,c,d,Mj,s,ti)表示a=b+((a+(I(b,c,d)+Mj+ti)«&amp;lt;s)&lt;/p&gt;
 
 &lt;h3 id=&quot;section-3&quot;&gt;5.对输入数据作变换。&lt;/h3&gt;
 &lt;p&gt;处理数据，N是总的字节数，以64个字节为一组，每组作一次循环，每次循环进行四轮操作。要变换的64个字节用16个32位的整数数组M[0 …15]表示。而数组T[1 … 64]表示一组常数， T[i]为4294967296*abs(sin(i))的32位整数部分，i的单位是弧度,i的取值从1到64。具体过程如下：&lt;/p&gt;
 
-&lt;p&gt;/* 设置主循环变量 */&lt;br /&gt;
+&lt;p&gt;/* 设置主循环变量 */
 For i = 0 to N/16-1 do&lt;/p&gt;
 
-&lt;p&gt;/&lt;em&gt;每循环一次，把数据原文存放在16个元素的数组X中. */&lt;br /&gt;
-For j = 0 to 15 do&lt;br /&gt;
-Set X[j] to M[i&lt;/em&gt;16+j].&lt;br /&gt;
+&lt;p&gt;/&lt;em&gt;每循环一次，把数据原文存放在16个元素的数组X中. */
+For j = 0 to 15 do
+Set X[j] to M[i&lt;/em&gt;16+j].
 end /结束对J的循环&lt;/p&gt;
 
-&lt;p&gt;/* Save A as AA, B as BB, C as CC, and D as DD.&lt;br /&gt;
-*/&lt;br /&gt;
-AA = A&lt;br /&gt;
-BB = B&lt;br /&gt;
-CC = C&lt;br /&gt;
+&lt;p&gt;/* Save A as AA, B as BB, C as CC, and D as DD.
+*/
+AA = A
+BB = B
+CC = C
 DD = D&lt;/p&gt;
 
-&lt;p&gt;/* 第1轮&lt;em&gt;/&lt;br /&gt;
-/&lt;/em&gt; 以 [abcd k s i]表示如下操作&lt;br /&gt;
-a = b + ((a + F(b,c,d) + X[k] + T[i]) «&amp;lt; s). &lt;em&gt;/&lt;br /&gt;
-/&lt;/em&gt; Do the following 16 operations. */&lt;br /&gt;
-[ABCD  0  7  1]  [DABC  1 12  2]  [CDAB  2 17  3]  [BCDA  3 22  4]&lt;br /&gt;
-[ABCD  4  7  5]  [DABC  5 12  6]  [CDAB  6 17  7]  [BCDA  7 22  8]&lt;br /&gt;
-[ABCD  8  7  9]  [DABC  9 12 10]  [CDAB 10 17 11]  [BCDA 11 22 12]&lt;br /&gt;
+&lt;p&gt;/* 第1轮&lt;em&gt;/
+/&lt;/em&gt; 以 [abcd k s i]表示如下操作
+a = b + ((a + F(b,c,d) + X[k] + T[i]) «&amp;lt; s). &lt;em&gt;/
+/&lt;/em&gt; Do the following 16 operations. */
+[ABCD  0  7  1]  [DABC  1 12  2]  [CDAB  2 17  3]  [BCDA  3 22  4]
+[ABCD  4  7  5]  [DABC  5 12  6]  [CDAB  6 17  7]  [BCDA  7 22  8]
+[ABCD  8  7  9]  [DABC  9 12 10]  [CDAB 10 17 11]  [BCDA 11 22 12]
 [ABCD 12  7 13]  [DABC 13 12 14]  [CDAB 14 17 15]  [BCDA 15 22 16]&lt;/p&gt;
 
-&lt;p&gt;/* 第2轮* &lt;em&gt;/&lt;br /&gt;
-/&lt;/em&gt; 以 [abcd k s i]表示如下操作&lt;br /&gt;
-a = b + ((a + G(b,c,d) + X[k] + T[i]) «&amp;lt; s). &lt;em&gt;/&lt;br /&gt;
-/&lt;/em&gt; Do the following 16 operations. */&lt;br /&gt;
-[ABCD  1  5 17]  [DABC  6  9 18]  [CDAB 11 14 19]  [BCDA  0 20 20]&lt;br /&gt;
-[ABCD  5  5 21]  [DABC 10  9 22]  [CDAB 15 14 23]  [BCDA  4 20 24]&lt;br /&gt;
-[ABCD  9  5 25]  [DABC 14  9 26]  [CDAB  3 14 27]  [BCDA  8 20 28]&lt;br /&gt;
+&lt;p&gt;/* 第2轮* &lt;em&gt;/
+/&lt;/em&gt; 以 [abcd k s i]表示如下操作
+a = b + ((a + G(b,c,d) + X[k] + T[i]) «&amp;lt; s). &lt;em&gt;/
+/&lt;/em&gt; Do the following 16 operations. */
+[ABCD  1  5 17]  [DABC  6  9 18]  [CDAB 11 14 19]  [BCDA  0 20 20]
+[ABCD  5  5 21]  [DABC 10  9 22]  [CDAB 15 14 23]  [BCDA  4 20 24]
+[ABCD  9  5 25]  [DABC 14  9 26]  [CDAB  3 14 27]  [BCDA  8 20 28]
 [ABCD 13  5 29]  [DABC  2  9 30]  [CDAB  7 14 31]  [BCDA 12 20 32]&lt;/p&gt;
 
-&lt;p&gt;/* 第3轮&lt;em&gt;/&lt;br /&gt;
-/&lt;/em&gt; 以 [abcd k s i]表示如下操作&lt;br /&gt;
-a = b + ((a + H(b,c,d) + X[k] + T[i]) «&amp;lt; s). &lt;em&gt;/&lt;br /&gt;
-/&lt;/em&gt; Do the following 16 operations. */&lt;br /&gt;
-[ABCD  5  4 33]  [DABC  8 11 34]  [CDAB 11 16 35]  [BCDA 14 23 36]&lt;br /&gt;
-[ABCD  1  4 37]  [DABC  4 11 38]  [CDAB  7 16 39]  [BCDA 10 23 40]&lt;br /&gt;
-[ABCD 13  4 41]  [DABC  0 11 42]  [CDAB  3 16 43]  [BCDA  6 23 44]&lt;br /&gt;
+&lt;p&gt;/* 第3轮&lt;em&gt;/
+/&lt;/em&gt; 以 [abcd k s i]表示如下操作
+a = b + ((a + H(b,c,d) + X[k] + T[i]) «&amp;lt; s). &lt;em&gt;/
+/&lt;/em&gt; Do the following 16 operations. */
+[ABCD  5  4 33]  [DABC  8 11 34]  [CDAB 11 16 35]  [BCDA 14 23 36]
+[ABCD  1  4 37]  [DABC  4 11 38]  [CDAB  7 16 39]  [BCDA 10 23 40]
+[ABCD 13  4 41]  [DABC  0 11 42]  [CDAB  3 16 43]  [BCDA  6 23 44]
 [ABCD  9  4 45]  [DABC 12 11 46]  [CDAB 15 16 47]  [BCDA  2 23 48]&lt;/p&gt;
 
-&lt;p&gt;/* 第4轮&lt;em&gt;/&lt;br /&gt;
-/&lt;/em&gt; 以 [abcd k s i]表示如下操作&lt;br /&gt;
-a = b + ((a + I(b,c,d) + X[k] + T[i]) «&amp;lt; s). &lt;em&gt;/&lt;br /&gt;
-/&lt;/em&gt; Do the following 16 operations. */&lt;br /&gt;
-[ABCD  0  6 49]  [DABC  7 10 50]  [CDAB 14 15 51]  [BCDA  5 21 52]&lt;br /&gt;
-[ABCD 12  6 53]  [DABC  3 10 54]  [CDAB 10 15 55]  [BCDA  1 21 56]&lt;br /&gt;
-[ABCD  8  6 57]  [DABC 15 10 58]  [CDAB  6 15 59]  [BCDA 13 21 60]&lt;br /&gt;
+&lt;p&gt;/* 第4轮&lt;em&gt;/
+/&lt;/em&gt; 以 [abcd k s i]表示如下操作
+a = b + ((a + I(b,c,d) + X[k] + T[i]) «&amp;lt; s). &lt;em&gt;/
+/&lt;/em&gt; Do the following 16 operations. */
+[ABCD  0  6 49]  [DABC  7 10 50]  [CDAB 14 15 51]  [BCDA  5 21 52]
+[ABCD 12  6 53]  [DABC  3 10 54]  [CDAB 10 15 55]  [BCDA  1 21 56]
+[ABCD  8  6 57]  [DABC 15 10 58]  [CDAB  6 15 59]  [BCDA 13 21 60]
 [ABCD  4  6 61]  [DABC 11 10 62]  [CDAB  2 15 63]  [BCDA  9 21 64]&lt;/p&gt;
 
-&lt;p&gt;/* 然后进行如下操作 */&lt;br /&gt;
-A = A + AA&lt;br /&gt;
-B = B + BB&lt;br /&gt;
-C = C + CC&lt;br /&gt;
+&lt;p&gt;/* 然后进行如下操作 */
+A = A + AA
+B = B + BB
+C = C + CC
 D = D + DD&lt;/p&gt;
 
 &lt;p&gt;Next i /* 结束对I的循环*/&lt;/p&gt;
@@ -1255,7 +1341,7 @@ D = D + DD&lt;/p&gt;
 #pragma mark -- MD5
 
 /**
- *  get data&#39;s md5 string
+ *  get data's md5 string
  *
  *  @param data source data
  *
@@ -1274,7 +1360,7 @@ D = D + DD&lt;/p&gt;
 }
 
 /**
- *  get data&#39;s md5 data
+ *  get data's md5 data
  *
  *  @param data source data
  *
@@ -1287,7 +1373,7 @@ D = D + DD&lt;/p&gt;
 }
 
 /**
- *  get string&#39;s md5 string
+ *  get string's md5 string
  *
  *  @param str source string
  *
@@ -1306,7 +1392,7 @@ D = D + DD&lt;/p&gt;
 
 &lt;h3 id=&quot;md5-3&quot;&gt;加盐MD5（盐的复杂度决定了增加的破解难度）&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;/**
- *  get string&#39;s md5 string
+ *  get string's md5 string
  *
  *  @param str source string
  *  @param salt salt string
@@ -1323,7 +1409,7 @@ D = D + DD&lt;/p&gt;
 &lt;h3 id=&quot;md5-4&quot;&gt;二次MD5（容易被找到规律而破解）&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code&gt;/**
- *  get string&#39;s multiple md5 string
+ *  get string's multiple md5 string
  *
  *  @param str source string
  *
@@ -1338,7 +1424,7 @@ D = D + DD&lt;/p&gt;
 
 &lt;h3 id=&quot;md5-5&quot;&gt;MD5后乱序（破解难度较大）&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;/**
- *  get string&#39;s disorder md5 string
+ *  get string's disorder md5 string
  *
  *  @param str source string
  *
@@ -1369,46 +1455,46 @@ D = D + DD&lt;/p&gt;
 
 &lt;h2 id=&quot;java-web&quot;&gt;搭建Java Web项目&lt;/h2&gt;
 
-&lt;p&gt;1.新建maven项目，create from archetype，选择maven-archetype-webapp&lt;br /&gt;
+&lt;p&gt;1.新建maven项目，create from archetype，选择maven-archetype-webapp
 &lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-06088fc954b13f8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Idea&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;2.填写GroupId，ArtifactId和Version&lt;br /&gt;
+&lt;p&gt;2.填写GroupId，ArtifactId和Version
 &lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-dbcd1c3fce24fde0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;GroupId，ArtifactId，Version&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;3.Maven&lt;br /&gt;
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-d4949b78d0dbb6ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Maven&quot; /&gt;&lt;br /&gt;
-在这里若遇到maven生成骨架的时候将会非常慢，可以在Properties中添加一个参数archetypeCatalog=internal（我的工程生成很快故没有加该参数）。&lt;br /&gt;
+&lt;p&gt;3.Maven
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-d4949b78d0dbb6ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Maven&quot; /&gt;
+在这里若遇到maven生成骨架的时候将会非常慢，可以在Properties中添加一个参数archetypeCatalog=internal（我的工程生成很快故没有加该参数）。
 &lt;code&gt;
 archetypeCatalog表示插件使用的archetype元数据，默认为remote即中央仓库，由于中央仓库的archetype太多了，所以导致很慢，指定internal来表示仅使用内部元数据。
 &lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;4.Project name &amp;amp; Location &lt;br /&gt;
+&lt;p&gt;4.Project name &amp;amp; Location 
 &lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-079b382f96a1c7e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Project name &amp;amp; Location&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;5.工程结构&lt;br /&gt;
+&lt;p&gt;5.工程结构
 &lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-a1b055dbbcfe7ac1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;工程结构&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;6.在main文件夹下添加 Java 目录,并把它设为源代码文件夹。&lt;br /&gt;
+&lt;p&gt;6.在main文件夹下添加 Java 目录,并把它设为源代码文件夹。
 &lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-8bbc53efee53c0fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;屏幕快照 2016-05-05 下午9.27.20.png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;7.配置pom.xml文件 &lt;br /&gt;
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-edccd475572ddf78.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;配置pom.xml文件 &quot; /&gt;&lt;br /&gt;
+&lt;p&gt;7.配置pom.xml文件 
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-edccd475572ddf78.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;配置pom.xml文件 &quot; /&gt;
 具体如下:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&amp;gt;    &amp;lt;modelVersion&amp;gt;4.0.0&amp;lt;/modelVersion&amp;gt;    &amp;lt;groupId&amp;gt;com.catch&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;catchjava&amp;lt;/artifactId&amp;gt;    &amp;lt;packaging&amp;gt;war&amp;lt;/packaging&amp;gt;    &amp;lt;version&amp;gt;1.0&amp;lt;/version&amp;gt;    &amp;lt;name&amp;gt;catchjava Maven Webapp&amp;lt;/name&amp;gt;    &amp;lt;url&amp;gt;[http://maven.apache.org](http://maven.apache.org)&amp;lt;/url&amp;gt;    &amp;lt;!--编码格式UTF-8--&amp;gt;   &amp;lt;properties&amp;gt;        &amp;lt;project.build.sourceEncoding&amp;gt;UTF-8&amp;lt;/project.build.sourceEncoding&amp;gt;    &amp;lt;/properties&amp;gt;    &amp;lt;!--依赖--&amp;gt;   &amp;lt;dependencies&amp;gt;        &amp;lt;!-- Servlet --&amp;gt;       &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt;javax.servlet&amp;lt;/groupId&amp;gt;            &amp;lt;artifactId&amp;gt;javax.servlet-api&amp;lt;/artifactId&amp;gt;            &amp;lt;version&amp;gt;3.1.0&amp;lt;/version&amp;gt;            &amp;lt;scope&amp;gt;provided&amp;lt;/scope&amp;gt;        &amp;lt;/dependency&amp;gt;        &amp;lt;!-- JSP --&amp;gt;       &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt;javax.servlet.jsp&amp;lt;/groupId&amp;gt;            &amp;lt;artifactId&amp;gt;jsp-api&amp;lt;/artifactId&amp;gt;            &amp;lt;version&amp;gt;2.2&amp;lt;/version&amp;gt;            &amp;lt;scope&amp;gt;provided&amp;lt;/scope&amp;gt;        &amp;lt;/dependency&amp;gt;        &amp;lt;!-- JSTL --&amp;gt;       &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt;javax.servlet&amp;lt;/groupId&amp;gt;            &amp;lt;artifactId&amp;gt;jstl&amp;lt;/artifactId&amp;gt;            &amp;lt;version&amp;gt;1.2&amp;lt;/version&amp;gt;            &amp;lt;scope&amp;gt;runtime&amp;lt;/scope&amp;gt;        &amp;lt;/dependency&amp;gt;        &amp;lt;!--Junit--&amp;gt;       &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt;junit&amp;lt;/groupId&amp;gt;            &amp;lt;artifactId&amp;gt;junit&amp;lt;/artifactId&amp;gt;            &amp;lt;version&amp;gt;3.8.1&amp;lt;/version&amp;gt;            &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;        &amp;lt;/dependency&amp;gt;    &amp;lt;/dependencies&amp;gt;    &amp;lt;!--编译--&amp;gt;   &amp;lt;build&amp;gt;        &amp;lt;plugins&amp;gt;            &amp;lt;!-- Compile --&amp;gt;           &amp;lt;plugin&amp;gt;                &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;                &amp;lt;artifactId&amp;gt;maven-compiler-plugin&amp;lt;/artifactId&amp;gt;                &amp;lt;version&amp;gt;3.3&amp;lt;/version&amp;gt;                &amp;lt;configuration&amp;gt;                    &amp;lt;source&amp;gt;1.6&amp;lt;/source&amp;gt;                    &amp;lt;target&amp;gt;1.6&amp;lt;/target&amp;gt;                &amp;lt;/configuration&amp;gt;            &amp;lt;/plugin&amp;gt;            &amp;lt;!-- Test --&amp;gt;           &amp;lt;plugin&amp;gt;                &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;                &amp;lt;artifactId&amp;gt;maven-surefire-plugin&amp;lt;/artifactId&amp;gt;                &amp;lt;version&amp;gt;2.18.1&amp;lt;/version&amp;gt;                &amp;lt;configuration&amp;gt;                    &amp;lt;skipTests&amp;gt;true&amp;lt;/skipTests&amp;gt;                &amp;lt;/configuration&amp;gt;            &amp;lt;/plugin&amp;gt;            &amp;lt;!-- Tomcat --&amp;gt;           &amp;lt;plugin&amp;gt;                &amp;lt;groupId&amp;gt;org.apache.tomcat.maven&amp;lt;/groupId&amp;gt;                &amp;lt;artifactId&amp;gt;tomcat7-maven-plugin&amp;lt;/artifactId&amp;gt;                &amp;lt;version&amp;gt;2.2&amp;lt;/version&amp;gt;                &amp;lt;configuration&amp;gt;                    &amp;lt;path&amp;gt;/${project.artifactId}&amp;lt;/path&amp;gt;                &amp;lt;/configuration&amp;gt;            &amp;lt;/plugin&amp;gt;        &amp;lt;/plugins&amp;gt;        &amp;lt;finalName&amp;gt;catchjava&amp;lt;/finalName&amp;gt;    &amp;lt;/build&amp;gt;&amp;lt;/project&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;8.新建HelloServlet,并重写doGet方法。&lt;br /&gt;
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-0ad32550da3f316a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;新建HelloServlet&quot; /&gt;&lt;br /&gt;
+&lt;p&gt;8.新建HelloServlet,并重写doGet方法。
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-0ad32550da3f316a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;新建HelloServlet&quot; /&gt;
 &lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-e70a2aca7711869d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;doGet&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;9.新建hello.jsp&lt;br /&gt;
+&lt;p&gt;9.新建hello.jsp
 &lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-934b70fbacfa76bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;hello.jsp&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;10.加入@WebServlet标记&lt;br /&gt;
+&lt;p&gt;10.加入@WebServlet标记
 &lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-1d5acbd4795be0d6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;@WebServlet&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;11.配置Tomcat&lt;br /&gt;
+&lt;p&gt;11.配置Tomcat
 &lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-2f72aac5963da27b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Tomcat&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-2b5673c0cc9a3f51.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Tomcat&quot; /&gt;&lt;/p&gt;
@@ -1421,13 +1507,13 @@ archetypeCatalog表示插件使用的archetype元数据，默认为remote即中�
 
 &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-7bc4b35cdd692f00.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Tomcat&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;12.Run&lt;br /&gt;
+&lt;p&gt;12.Run
 &lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-f1e211658682aca2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Run&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;13.加入&amp;lt;%@ page isELIgnored =”false”%&amp;gt;去除j sp显示错误。&lt;br /&gt;
+&lt;p&gt;13.加入&amp;lt;%@ page isELIgnored =”false”%&amp;gt;去除j sp显示错误。
 &lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-37efd5527e8ba3f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;isELIgnored&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;14.再次Run，输入http://localhost:8080/catchjava/hello 得到正确结果。[HelloServlet中 @WebServlet(“/hello”)的作用就在于此]&lt;br /&gt;
+&lt;p&gt;14.再次Run，输入http://localhost:8080/catchjava/hello 得到正确结果。[HelloServlet中 @WebServlet(“/hello”)的作用就在于此]
 &lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-bac9d43f3c714275.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Run&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section&quot;&gt;后续&lt;/h2&gt;
@@ -1438,58 +1524,6 @@ archetypeCatalog表示插件使用的archetype元数据，默认为remote即中�
         <guid isPermaLink="true">http://catchzeng.com/2016/05/05/%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84Java-Web%E6%A1%86%E6%9E%B6-%E4%BD%BF%E7%94%A8IntelliJ-IDEA-%E6%90%AD%E5%BB%BAJava-Web-%E9%A1%B9%E7%9B%AE/</guid>
         
         <category>Java Web</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>iOS开发见闻-第18期</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;欢迎加QQ群讨论：157672725&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section&quot;&gt;文章&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/ca51c9d3575b#rd&quot;&gt;离屏渲染优化&lt;/a&gt; : 前段时间关于圆角的库是一个接着一个，但是真正有哪个做得好的呢？这篇用实际数据说话的文章应该可以停止这段风潮了。&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;http://casatwy.com/OOP_nomodel.html&quot;&gt;去model化和数据对象&lt;/a&gt; ：castaway老师的文章只能叫好！这篇文章主要讨论的问题是：数据传递时，是否要采用数据对象？这里的数据传递并不是说类似RPC的场景，而是在单个工程内部，各对象之间、各组件之间、各层之间的数据传递。&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;https://www.tuccuay.com/2016/03/cardboard-ios-sdk-getting-started/&quot;&gt;在 iOS 上开始创建你的虚拟现实应用&lt;/a&gt; :  虚拟现实现在可以在iOS上可以体验了。谷歌开源了cardboard的iOS版本sdk,感兴趣的朋友可以看看。&lt;/p&gt;
-
-&lt;p&gt;4.&lt;a href=&quot;http://www.jianshu.com/p/10873c5c1e08&quot;&gt;手把手教你反编译别人的app &lt;/a&gt; ：反编译android的看多了，看看怎么反编译iOS吧。&lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;工具&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;https://appetize.io/demo?device=iphone5s&amp;amp;scale=75&amp;amp;orientation=portrait&amp;amp;osVersion=9.3&quot;&gt;appetize.io&lt;/a&gt;：为你的 demo 创建在线预览的工具。&lt;br /&gt;
-&lt;img src=&quot;/img/in-post/post-18/18-1.jpg&quot; alt=&quot;appetize.io&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;http://panic.com/transmit/&quot;&gt;transmit&lt;/a&gt; : 一个Mac OS X 上FTP客户端，有着非常漂亮的用户界面和有用的功能。&lt;br /&gt;
-&lt;img src=&quot;/img/in-post/post-18/18-2.jpg&quot; alt=&quot;transmit&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;https://itunes.apple.com/us/app/go2shell/id445770608?mt=12&amp;amp;ign-mpt=uo%3D4&quot;&gt;Go2Shell&lt;/a&gt; : 非常实用的小工具，可在任何文目录中打开终端窗口进行操作。&lt;br /&gt;
-&lt;img src=&quot;/img/in-post/post-18/18-3.jpg&quot; alt=&quot;Go2Shell&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;开源&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;https://github.com/iosWellLin/OCR&quot;&gt;OCR&lt;/a&gt; : 光学文字识别身份证。&lt;br /&gt;
-&lt;img src=&quot;/img/in-post/post-18/18-4.jpg&quot; alt=&quot;OCR&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/Guikunzhi/BeautifyFaceDemo&quot;&gt;BeautifyFaceDemo&lt;/a&gt; : 使用人脸磨皮算法美化脸部的相机实例。作者对磨皮算法也专门写了&lt;a href=&quot;http://m.blog.csdn.net/article/details?id=50496969&quot;&gt;一篇博文&lt;/a&gt;,值得一看。&lt;br /&gt;
-&lt;img src=&quot;/img/in-post/post-18/18-5.jpg&quot; alt=&quot;BeautifyFaceDemo&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;https://github.com/uxyheaven/XYRouter&quot;&gt;XYRouter&lt;/a&gt; : XYRouter是一个通过URL routing来解决UIViewController跳转依赖的库。&lt;/p&gt;
-
-&lt;p&gt;4.&lt;a href=&quot;https://github.com/iSame7/Panorama&quot;&gt;Panorama&lt;/a&gt; : 类似 Facebook’s Paper App中的图片倾斜效果。&lt;br /&gt;
-&lt;img src=&quot;https://camo.githubusercontent.com/264ad4ee96c2c0a607928a3ff6ddb700e612bc9f/687474703a2f2f73332e6a742e696f2f74696c742e676966&quot; alt=&quot;Panorama&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;4.&lt;a href=&quot;https://github.com/DenHeadless/Shapes&quot;&gt;Shapes&lt;/a&gt; : 绘制形状视图并为其加入动画的库，研究动画的朋友别错过。&lt;br /&gt;
-&lt;img src=&quot;https://github.com/DenHeadless/Shapes/raw/master/Images/progress_view.gif&quot; alt=&quot;Shapes&quot; /&gt;&lt;br /&gt;
-&lt;img src=&quot;https://github.com/DenHeadless/Shapes/raw/master/Images/dimming_view.gif&quot; alt=&quot;Shapes&quot; /&gt;&lt;br /&gt;
-&lt;img src=&quot;https://github.com/DenHeadless/Shapes/raw/master/Images/app_store_download_button.gif&quot; alt=&quot;Shapes&quot; /&gt;&lt;br /&gt;
-&lt;img src=&quot;https://github.com/DenHeadless/Shapes/raw/master/Images/voice_memos_record_button.gif&quot; alt=&quot;Shapes&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Wed, 04 May 2016 17:38:27 +0800</pubDate>
-        <link>http://catchzeng.com/2016/05/04/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC18%E6%9C%9F/</link>
-        <guid isPermaLink="true">http://catchzeng.com/2016/05/04/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC18%E6%9C%9F/</guid>
-        
-        <category>iOS</category>
         
         
       </item>

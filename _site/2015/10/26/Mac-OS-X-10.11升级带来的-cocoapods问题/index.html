@@ -169,9 +169,9 @@
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
 <h2 id="section">前言</h2>
-<p>昨天升级完Mac OS X 10.11，发现cocoapods不能用了。<br />
-后面用以下命令解决了，在此记录希望能帮到需要的朋友。<br />
-<strong>如在执行以下命令时出现问题，请看更新部分</strong><br />
+<p>昨天升级完Mac OS X 10.11，发现cocoapods不能用了。
+后面用以下命令解决了，在此记录希望能帮到需要的朋友。
+<strong>如在执行以下命令时出现问题，请看更新部分</strong>
 <code>
 sudo chmod -R 755 /usr/local/bin
 sudo gem uninstall cocoapods
@@ -182,29 +182,29 @@ sudo xcode-select -switch /Applications/Xcode.app/
 <h2 id="section-1">更新</h2>
 <p>昨天又升级了一下自己的笔记本,发现了其他问题，整理如下。</p>
 
-<p><strong>1.执行sudo chmod -R 755 /usr/local/bin时出现没有该路径的问题</strong><br />
-<img src="http://img.blog.csdn.net/20151016090830621" alt="这里写图片描述" /><br />
-<strong>解决办法：在/usr/local/ 创建bin文件夹</strong><br />
+<p><strong>1.执行sudo chmod -R 755 /usr/local/bin时出现没有该路径的问题</strong>
+<img src="http://img.blog.csdn.net/20151016090830621" alt="这里写图片描述" />
+<strong>解决办法：在/usr/local/ 创建bin文件夹</strong>
 <img src="http://img.blog.csdn.net/20151016090937267" alt="这里写图片描述" /></p>
 
-<p><strong>2.执行gem install -n /usr/local/bin cocoapods时出现以下错误</strong><br />
-<img src="http://img.blog.csdn.net/20151016091828609" alt="这里写图片描述" /><br />
-<strong>解决办法:</strong> 添加http://rubygems.org/源地址<br />
+<p><strong>2.执行gem install -n /usr/local/bin cocoapods时出现以下错误</strong>
+<img src="http://img.blog.csdn.net/20151016091828609" alt="这里写图片描述" />
+<strong>解决办法:</strong> 添加http://rubygems.org/源地址
 <code>
 gem sources -a http://rubygems.org/
-</code><br />
-<strong>3.再次执行gem install -n /usr/local/bin cocoapods，出现权限问题</strong><br />
-解决办法:赋予权限<br />
+</code>
+<strong>3.再次执行gem install -n /usr/local/bin cocoapods，出现权限问题</strong>
+解决办法:赋予权限
 <code>
 sudo chmod -R 777 /Library/Ruby/Gems/2.0.0/
 sudo chmod -R 777 /usr/local/bin/
-</code><br />
-<strong>4.继续执行gem install -n /usr/local/bin cocoapods，安装成功！</strong><br />
+</code>
+<strong>4.继续执行gem install -n /usr/local/bin cocoapods，安装成功！</strong>
 <img src="http://img.blog.csdn.net/20151016092817880" alt="这里写图片描述" /></p>
 
-<p><strong>5.pod –version 检验，出现warning信息</strong><br />
-<img src="http://img.blog.csdn.net/20151016092858432" alt="这里写图片描述" /><br />
-<strong>解决办法: 此warning是因为我们刚才的权限赋值777的问题，完成安装后赋回755可去除warning。</strong><br />
+<p><strong>5.pod –version 检验，出现warning信息</strong>
+<img src="http://img.blog.csdn.net/20151016092858432" alt="这里写图片描述" />
+<strong>解决办法: 此warning是因为我们刚才的权限赋值777的问题，完成安装后赋回755可去除warning。</strong>
 <img src="http://img.blog.csdn.net/20151016093443798" alt="这里写图片描述" /></p>
 
 <p><img src="http://img.blog.csdn.net/20151015160729240" alt="这里写图片描述" /></p>
@@ -287,7 +287,7 @@ sudo chmod -R 777 /usr/local/bin/
                     <div class="tags">
         				
                             
-                				<a href="/tags/#iOS" title="iOS" rel="35">
+                				<a href="/tags/#iOS" title="iOS" rel="36">
                                     iOS
                                 </a>
                             

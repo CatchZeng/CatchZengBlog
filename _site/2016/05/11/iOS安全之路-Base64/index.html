@@ -174,20 +174,20 @@
 <p>需要说明的是Base64 可以对任意的文件进行加密，但是Base64 过程是可逆的. 可以反向解密。所以，严格地讲Base64只是一种编码方式，并非加密算法。另外Base64将原来8个bit为一个字节的数据,6个bit为一个单位处理，会导致数据量会增大1/3［(8-6)/6］。</p>
 
 <h2 id="section">二、算法描述</h2>
-<p><a href="http://baike.baidu.com/link?url=7DZ9nrUIzMosCyS-J-AqQOwS3X-IiOHPKcCOVCkuq5e42ZNRrlKLV86qKfGMVp_EexvM0_DNDcRXdk_Bsz3Hma">描述出处</a><br />
-转码过程例子：<br />
+<p><a href="http://baike.baidu.com/link?url=7DZ9nrUIzMosCyS-J-AqQOwS3X-IiOHPKcCOVCkuq5e42ZNRrlKLV86qKfGMVp_EexvM0_DNDcRXdk_Bsz3Hma">描述出处</a>
+转码过程例子：
 3＊8=4＊6</p>
 
-<p>内存1个字符占8位<br />
-转前： s 1 3<br />
-先转成ascii：对应 115 49 51<br />
-2进制： 01110011 00110001 00110011<br />
-6个一组（4组） 011100110011000100110011<br />
-然后才有后面的 011100 110011 000100 110011<br />
-然后计算机是8位8位的存数 6不够，自动就补两个高位0了<br />
-所有有了 高位补0<br />
-科学计算器输入 00011100 00110011 00000100 00110011<br />
-得到 28 51 4 51<br />
+<p>内存1个字符占8位
+转前： s 1 3
+先转成ascii：对应 115 49 51
+2进制： 01110011 00110001 00110011
+6个一组（4组） 011100110011000100110011
+然后才有后面的 011100 110011 000100 110011
+然后计算机是8位8位的存数 6不够，自动就补两个高位0了
+所有有了 高位补0
+科学计算器输入 00011100 00110011 00000100 00110011
+得到 28 51 4 51
 查对下照表 c z E z</p>
 
 <h2 id="section-1">三、算法实现</h2>
@@ -411,7 +411,7 @@ Base64是网络上最常见的用于传输8Bit字节代码的编码方式之一�
                     <div class="tags">
         				
                             
-                				<a href="/tags/#iOS" title="iOS" rel="35">
+                				<a href="/tags/#iOS" title="iOS" rel="36">
                                     iOS
                                 </a>
                             
