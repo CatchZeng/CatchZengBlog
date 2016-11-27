@@ -12,7 +12,7 @@
 
     <title>使用Cordova开发iOS App -- 打包插件及JS脚本 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/2016/09/22/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E6%89%93%E5%8C%85%E6%8F%92%E4%BB%B6%E5%8F%8AJS%E8%84%9A%E6%9C%AC/">
+    <link rel="canonical" href="http://localhost:4000/2016/09/22/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E6%89%93%E5%8C%85%E6%8F%92%E4%BB%B6%E5%8F%8AJS%E8%84%9A%E6%9C%AC/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -170,14 +170,14 @@
 
 <p>在<a href="http://catchzeng.com/2016/09/21/使用Cordova开发iOS-App-开发iOS插件/">上一篇–开发iOS插件</a>中我们开发了一个插件，本篇将讲解如何将插件打包。</p>
 
-<h3 id="section">一、创建插件包</h3>
+<h3 id="一创建插件包">一、创建插件包</h3>
 <p>首先在桌面上创建一个文件夹com.catchzeng.testplugin(遵守命名规范),并创建子文件夹及子文件如下图,将插件的代码复制到ios文件夹下。</p>
 
 <p><img src="/img/in-post/post-cordova3/1.png" alt="Plugins" /></p>
 
 <p><img src="/img/in-post/post-cordova3/2.png" alt="Plugins" /></p>
 
-<h3 id="js">二、编写JS代码</h3>
+<h3 id="二编写js代码">二、编写JS代码</h3>
 <p>编写testPlugin.js，向外部暴露testModel的testPlugin方法，这便是前端人员需要调用的接口。</p>
 
 <pre><code>var exec = require("cordova/exec");
@@ -193,7 +193,7 @@ module.exports = testModel;
 
 </code></pre>
 
-<h3 id="pluginxml">三、配置plugin.xml文件</h3>
+<h3 id="三配置pluginxml文件">三、配置plugin.xml文件</h3>
 <p>配置plugin.xml 就是为了告诉cordova我们的文件路径在哪,我们的oc类名是什么,oc对象名是什么,js类名及js对象名是什么等信息。这样cordova在安装插件时,才能找到正确的插件文件。</p>
 
 <pre><code>&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
@@ -238,34 +238,33 @@ module.exports = testModel;
 
 <p><code>&lt;header-file&gt;</code>：标示插件所需的oc .h文件</p>
 
-<p><code>&lt;resource-file&gt;</code>：标示插件所需资源文件（图片、xib资源等）</p>
+<pre><code class="language-&lt;resource-file&gt;```：标示插件所需资源文件（图片、xib资源等）">
+```&lt;feature name="testPlugin"&gt;&lt;param name="ios-package" value="TestPlugin" /&gt;```：指明插件映射至ios的类名，此处的testPlugin便是对应到testPlugin.js ```  exec(success, fail, 'testPlugin', 'testWithTitle', option);``` 中的testPlugin。
 
-<p><code>&lt;feature name="testPlugin"&gt;&lt;param name="ios-package" value="TestPlugin" /&gt;</code>：指明插件映射至ios的类名，此处的testPlugin便是对应到testPlugin.js <code> exec(success, fail, 'testPlugin', 'testWithTitle', option);</code> 中的testPlugin。</p>
+### 四、测试插件
 
-<h3 id="section-1">四、测试插件</h3>
+新建一个Cordova项目，并添加iOS平台作为测试项目。
 
-<p>新建一个Cordova项目，并添加iOS平台作为测试项目。</p>
+![Plugins](/img/in-post/post-cordova3/3.png)
 
-<p><img src="/img/in-post/post-cordova3/3.png" alt="Plugins" /></p>
+添加插件到测试项目
+</code></pre>
+<p>cordova plugin add  xxxxxx</p>
+<pre><code>
+![Plugins](/img/in-post/post-cordova3/4.png)
 
-<p>添加插件到测试项目
-<code>
-cordova plugin add  xxxxxx
-</code></p>
+修改工程项目的index.html
 
-<p><img src="/img/in-post/post-cordova3/4.png" alt="Plugins" /></p>
+![Plugins](/img/in-post/post-cordova3/5.png)
 
-<p>修改工程项目的index.html</p>
-
-<p><img src="/img/in-post/post-cordova3/5.png" alt="Plugins" /></p>
-
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-    &lt;head&gt;
-        &lt;title&gt;TestPlugin&lt;/title&gt;
-        &lt;meta http-equiv="Content-type" content="text/html; charset=utf-8"&gt;
-            &lt;script type="text/javascript" charset="utf-8" src="cordova.js"&gt;&lt;/script&gt;
-            &lt;script type="text/javascript" charset="utf-8"&gt;
+</code></pre>
+<p>&lt;!DOCTYPE html&gt;</p>
+<html>
+    <head>
+        <title>TestPlugin</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+            <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+            <script type="text/javascript" charset="utf-8">
 
             function testPlugin() {
                 testModel.testPlugin(alertSuccess,alertFail,["我是JS传来的参数！"]);
@@ -278,16 +277,16 @@ cordova plugin add  xxxxxx
             function alertFail(msg) {
                 alert('调用OC失败: ' + msg);
             }
-            &lt;/script&gt;
-    &lt;/head&gt;
+            </script>
+    </head>
 
-    &lt;body style="padding-top:50px"&gt;
-        &lt;button style="font-size:17px;" onclick="testPlugin();"&gt;调用iOS插件&lt;/button&gt; &lt;br&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-<p>重新build iOS项目
-<code>cordova build ios</code></p>
+    <body style="padding-top:50px">
+        <button style="font-size:17px;" onclick="testPlugin();">调用iOS插件</button> <br />
+    </body>
+</html>
+<p><code>
+重新build iOS项目
+</code> cordova build ios ```</p>
 
 <p><img src="/img/in-post/post-cordova3/6.png" alt="Plugins" /></p>
 
@@ -311,8 +310,8 @@ cordova plugin add  xxxxxx
                     style="text-align: right"
                     data-thread-key="/2016/09/22/使用Cordova开发iOS App -- 打包插件及JS脚本"
                     data-title="使用Cordova开发iOS App -- 打包插件及JS脚本"
-                    data-url="http://catchzeng.com/2016/09/22/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E6%89%93%E5%8C%85%E6%8F%92%E4%BB%B6%E5%8F%8AJS%E8%84%9A%E6%9C%AC/"
-                    data-images="http://catchzeng.com/img/post-bg-2015.jpg"
+                    data-url="http://localhost:4000/2016/09/22/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E6%89%93%E5%8C%85%E6%8F%92%E4%BB%B6%E5%8F%8AJS%E8%84%9A%E6%9C%AC/"
+                    data-images="http://localhost:4000/img/post-bg-2015.jpg"
                     data-content="
 
 在上一篇–开发iOS插件中我们开发了一个插件，本篇将讲解如何将插件打包。
@@ -342,6 +341,10 @@ cordova plugin add  xxxxxx
                     </li>
                     
                     
+                    <li class="next">
+                        <a href="/2016/11/16/%E4%B8%80%E8%B5%B7%E4%B8%BAXcode8%E5%86%99%E6%8F%92%E4%BB%B6%E5%90%A7/" data-toggle="tooltip" data-placement="top" title="一起为Xcode8写插件吧">Next Post &rarr;</a>
+                    </li>
+                    
                 </ul>
 
 
@@ -351,7 +354,7 @@ cordova plugin add  xxxxxx
                     <div class="ds-thread"
                         data-thread-key="/2016/09/22/使用Cordova开发iOS App -- 打包插件及JS脚本"
                         data-title="使用Cordova开发iOS App -- 打包插件及JS脚本"
-                        data-url="http://catchzeng.com/2016/09/22/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E6%89%93%E5%8C%85%E6%8F%92%E4%BB%B6%E5%8F%8AJS%E8%84%9A%E6%9C%AC/" >
+                        data-url="http://localhost:4000/2016/09/22/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E6%89%93%E5%8C%85%E6%8F%92%E4%BB%B6%E5%8F%8AJS%E8%84%9A%E6%9C%AC/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
@@ -375,7 +378,7 @@ cordova plugin add  xxxxxx
                     <div class="tags">
         				
                             
-                				<a href="/tags/#iOS" title="iOS" rel="38">
+                				<a href="/tags/#iOS" title="iOS" rel="39">
                                     iOS
                                 </a>
                             

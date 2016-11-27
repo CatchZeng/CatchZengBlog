@@ -47,17 +47,17 @@ https://github.com/CatchZeng/PragmaMarkSourceEditor
 ## 二、Xcode Source Editor Extension 实例
 下面以删除选中行的Xcode8插件为例，详细介绍Extension的实现。
 #### 1.创建mac工程
-![创建mac工程](/img/in-post/post-pulgin/1.png)
+![创建mac工程](/img/in-post/post-plugin/1.png)
 
 #### 2.Add Target
-![Add Target](/img/in-post/post-pulgin/2.png)
+![Add Target](/img/in-post/post-plugin/2.png)
 
-![选择Xcode Source Editor Extension ](/img/in-post/post-pulgin/3.png)
+![选择Xcode Source Editor Extension ](/img/in-post/post-plugin/3.png)
 
-![输出信息](/img/in-post/post-pulgin/4.png)
+![输出信息](/img/in-post/post-plugin/4.png)
 
 #### 3.工程结构
-![工程结构](/img/in-post/post-pulgin/5.png)
+![工程结构](/img/in-post/post-plugin/5.png)
 
 #### 4.编写Extension代码(SourceEditorCommand.m)
 
@@ -83,18 +83,18 @@ https://github.com/CatchZeng/PragmaMarkSourceEditor
 ```
 
 #### 5.修改Extension显示名称
-![修改Extension显示名称](/img/in-post/post-pulgin/6.png)
-![修改Extension显示名称](/img/in-post/post-pulgin/7.png)
+![修改Extension显示名称](/img/in-post/post-plugin/6.png)
+![修改Extension显示名称](/img/in-post/post-plugin/7.png)
 
 #### 6.Run DeletePlugin
-![Run](/img/in-post/post-pulgin/8.png)
-![随意选择一个工程打开](/img/in-post/post-pulgin/9.png)
+![Run](/img/in-post/post-plugin/8.png)
+![随意选择一个工程打开](/img/in-post/post-plugin/9.png)
 
 #### 7.测试Extension
-![测试Extension](/img/in-post/post-pulgin/10.png)
+![测试Extension](/img/in-post/post-plugin/10.png)
 
 #### 8.绑定快捷键
-![绑定快捷键](/img/in-post/post-pulgin/11.png)
+![绑定快捷键](/img/in-post/post-plugin/11.png)
 
 下面解释一下Extension的Code部分
 

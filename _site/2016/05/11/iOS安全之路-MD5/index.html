@@ -12,7 +12,7 @@
 
     <title>iOS安全之路－－MD5 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-MD5/">
+    <link rel="canonical" href="http://localhost:4000/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-MD5/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -168,30 +168,30 @@
 
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
-<h2 id="md5">一、MD5简介</h2>
+<h2 id="一md5简介">一、MD5简介</h2>
 <p>MD5的全称是Message-Digest Algorithm 5（信息-摘要算法）。其作用是对一段信息(该信息可以很大)生成信息摘要(很小)，该摘要对该信息具有唯一性,可以作为数字签名。用于验证文件的有效性(是否有丢失或损坏的数据，云盘对文件的校验也是使用MD5) 和对用户密码的加密等。</p>
 
 <p><img src="/img/in-post/post-security/md5.jpg" alt="云盘文件校验" /></p>
 
 <p>需要说明的是唯一性和不可逆性都不是绝对的，从理论上分析是一种多对一的关系，但两个不同的信息产生相同摘要的概率很小。不可逆是指从输出反推输入所需的运算量和计算时间太大，使用穷搜字典的方法又需要太多的存储空间。所以MD5也并非完全安全的，现在可以搜索到许多MD5的破解软件。</p>
 
-<h2 id="section">二、算法描述</h2>
+<h2 id="二算法描述">二、算法描述</h2>
 <p><a href="http://dev.21tx.com/2004/12/16/13075.shtml">描述出处</a></p>
 
 <p>算法输入是一个字节串，每个字节是8个bit. 
 算法的执行分为以下几个步骤：</p>
 
-<h3 id="section-1">1.补位：</h3>
+<h3 id="1补位">1.补位：</h3>
 <p>MD5算法先对输入的数据进行补位，使得数据的长度(以byte为单位)对64求余的结果是56。
 即数据扩展至LEN=K*64+56个字节，K为整数。
 补位方法：补一个1，然后补0至满足上述要求。相当于补一个0x80的字节，再补值为0的字节。这一步里总共补充的字节数为0～63个。</p>
 
-<h3 id="section-2">2.附加数据长度：</h3>
+<h3 id="2附加数据长度">2.附加数据长度：</h3>
 <p>用一个64位的整数表示数据的原始长度(以bit为单位)，将这个数字的8个字节按低位的在前，
 高位在后的顺序附加在补位后的数据后面。这时，数据被填补后的总长度为：LEN = K<em>64+56+8=(K+1)</em>64 Bytes。
 ※注意那个64位整数是输入数据的原始长度而不是填充字节后的长度,我就在这里栽了跟头.</p>
 
-<h3 id="md5-1">3.初始化MD5参数：</h3>
+<h3 id="3初始化md5参数">3.初始化MD5参数：</h3>
 <p>有四个32位整数变量 (A,B,C,D) 用来计算信息摘要，每一个变量被初始化成以下以十六进制数表示的数值，低位的字节在前面。
   word A: 01 23 45 67
   word B: 89 ab cd ef
@@ -203,7 +203,7 @@
   C=0x98badcfe
   D=0x10325476</p>
 
-<h3 id="md5-2">4.定义四个MD5基本的按位操作函数：</h3>
+<h3 id="4定义四个md5基本的按位操作函数">4.定义四个MD5基本的按位操作函数：</h3>
 <p>X，Y，Z为32位整数。 
   F(X,Y,Z) = (X and Y) or (not(X) and Z)
   G(X,Y,Z) = (X and Z) or (Y and not(Z))
@@ -216,7 +216,7 @@
   HH(a,b,c,d,Mj,s,ti)表示a=b+((a+(H(b,c,d)+Mj+ti)«&lt;s)
   II(a,b,c,d,Mj,s,ti)表示a=b+((a+(I(b,c,d)+Mj+ti)«&lt;s)</p>
 
-<h3 id="section-3">5.对输入数据作变换。</h3>
+<h3 id="5对输入数据作变换">5.对输入数据作变换。</h3>
 <p>处理数据，N是总的字节数，以64个字节为一组，每组作一次循环，每次循环进行四轮操作。要变换的64个字节用16个32位的整数数组M[0 …15]表示。而数组T[1 … 64]表示一组常数， T[i]为4294967296*abs(sin(i))的32位整数部分，i的单位是弧度,i的取值从1到64。具体过程如下：</p>
 
 <p>/* 设置主循环变量 */
@@ -278,10 +278,10 @@ D = D + DD</p>
 
 <p>Next i /* 结束对I的循环*/</p>
 
-<h3 id="section-4">6.输出结果。</h3>
+<h3 id="6输出结果">6.输出结果。</h3>
 <p>A，B，C，D连续存放，共16个字节，128位。按十六进制依次输出这个16个字节。</p>
 
-<h2 id="section-5">三、算法实现</h2>
+<h2 id="三算法实现">三、算法实现</h2>
 <pre><code>@implementation CATSecurity
 
 #pragma mark --
@@ -335,9 +335,9 @@ D = D + DD</p>
 
 </code></pre>
 
-<h2 id="section-6">四、算法优化</h2>
+<h2 id="四算法优化">四、算法优化</h2>
 
-<h3 id="md5-3">加盐MD5（盐的复杂度决定了增加的破解难度）</h3>
+<h3 id="加盐md5盐的复杂度决定了增加的破解难度">加盐MD5（盐的复杂度决定了增加的破解难度）</h3>
 <pre><code>/**
  *  get string's md5 string
  *
@@ -353,7 +353,7 @@ D = D + DD</p>
 
 </code></pre>
 
-<h3 id="md5-4">二次MD5（容易被找到规律而破解）</h3>
+<h3 id="二次md5容易被找到规律而破解">二次MD5（容易被找到规律而破解）</h3>
 
 <pre><code>/**
  *  get string's multiple md5 string
@@ -369,7 +369,7 @@ D = D + DD</p>
 }
 </code></pre>
 
-<h3 id="md5-5">MD5后乱序（破解难度较大）</h3>
+<h3 id="md5后乱序破解难度较大">MD5后乱序（破解难度较大）</h3>
 <pre><code>/**
  *  get string's disorder md5 string
  *
@@ -397,8 +397,8 @@ D = D + DD</p>
                     style="text-align: right"
                     data-thread-key="/2016/05/11/iOS安全之路－－MD5"
                     data-title="iOS安全之路－－MD5"
-                    data-url="http://catchzeng.com/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-MD5/"
-                    data-images="http://catchzeng.com/img/post-bg-2015.jpg"
+                    data-url="http://localhost:4000/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-MD5/"
+                    data-images="http://localhost:4000/img/post-bg-2015.jpg"
                     data-content="
 
 一、MD5简介
@@ -439,7 +439,7 @@ MD5的全称是Message-Digest Algorithm 5（信息-摘要算法）。其作用�
                     <div class="ds-thread"
                         data-thread-key="/2016/05/11/iOS安全之路－－MD5"
                         data-title="iOS安全之路－－MD5"
-                        data-url="http://catchzeng.com/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-MD5/" >
+                        data-url="http://localhost:4000/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-MD5/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
@@ -463,7 +463,7 @@ MD5的全称是Message-Digest Algorithm 5（信息-摘要算法）。其作用�
                     <div class="tags">
         				
                             
-                				<a href="/tags/#iOS" title="iOS" rel="38">
+                				<a href="/tags/#iOS" title="iOS" rel="39">
                                     iOS
                                 </a>
                             

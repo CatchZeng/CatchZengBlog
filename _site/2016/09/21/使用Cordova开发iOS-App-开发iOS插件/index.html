@@ -12,7 +12,7 @@
 
     <title>使用Cordova开发iOS App -- 开发iOS插件 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/2016/09/21/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E5%BC%80%E5%8F%91iOS%E6%8F%92%E4%BB%B6/">
+    <link rel="canonical" href="http://localhost:4000/2016/09/21/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E5%BC%80%E5%8F%91iOS%E6%8F%92%E4%BB%B6/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -170,7 +170,7 @@
 
 <p>本篇在<a href="http://catchzeng.com/2016/09/20/使用Cordova开发iOS-App-环境搭建/">上一篇–Cordova的环境搭建</a>基础上以一个例子讲解如何为Cordova开发iOS插件。</p>
 
-<h3 id="section">一、创建插件文件</h3>
+<h3 id="一创建插件文件">一、创建插件文件</h3>
 
 <p>在Plugins文件夹下创建插件文件夹命名为com.catchzeng.testplugin
 <img src="/img/in-post/post-cordova2/1.png" alt="Plugins" /></p>
@@ -180,7 +180,7 @@
 
 <p>注意：创建类后会报头文件<code>#import &lt;Cordova/Cordova.h&gt;</code>找不到的问题，替换成<code> #import &lt;Cordova/CDVPlugin.h&gt;</code>即可。</p>
 
-<h3 id="section-1">二、实现插件代码</h3>
+<h3 id="二实现插件代码">二、实现插件代码</h3>
 
 <p>该插件实现的功能是JS调用原生的代码弹出一个自定义视图控制器（附带参数），并在弹起后回传参数给JS。</p>
 
@@ -217,7 +217,7 @@
 
 <p>command.callbackId：对应回调JS时，指定发送的函数id</p>
 
-<h3 id="section-2">三、测试插件</h3>
+<h3 id="三测试插件">三、测试插件</h3>
 <p>在config.xml文件中加入以下代码让JS能够调用我们的OC类,需要注意的是需要配置Staging下的config.xml,而不是外部的</p>
 
 <pre><code>&lt;feature name="ocTestPlugin"&gt;
@@ -268,8 +268,8 @@
                     style="text-align: right"
                     data-thread-key="/2016/09/21/使用Cordova开发iOS App -- 开发iOS插件"
                     data-title="使用Cordova开发iOS App -- 开发iOS插件"
-                    data-url="http://catchzeng.com/2016/09/21/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E5%BC%80%E5%8F%91iOS%E6%8F%92%E4%BB%B6/"
-                    data-images="http://catchzeng.com/img/post-bg-2015.jpg"
+                    data-url="http://localhost:4000/2016/09/21/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E5%BC%80%E5%8F%91iOS%E6%8F%92%E4%BB%B6/"
+                    data-images="http://localhost:4000/img/post-bg-2015.jpg"
                     data-content="
 
 本篇在上一篇–Cordova的环境搭建基础上以一个例子讲解如何为Cordova开发iOS插件。
@@ -313,7 +313,7 @@
                     <div class="ds-thread"
                         data-thread-key="/2016/09/21/使用Cordova开发iOS App -- 开发iOS插件"
                         data-title="使用Cordova开发iOS App -- 开发iOS插件"
-                        data-url="http://catchzeng.com/2016/09/21/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E5%BC%80%E5%8F%91iOS%E6%8F%92%E4%BB%B6/" >
+                        data-url="http://localhost:4000/2016/09/21/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E5%BC%80%E5%8F%91iOS%E6%8F%92%E4%BB%B6/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
@@ -337,7 +337,7 @@
                     <div class="tags">
         				
                             
-                				<a href="/tags/#iOS" title="iOS" rel="38">
+                				<a href="/tags/#iOS" title="iOS" rel="39">
                                     iOS
                                 </a>
                             

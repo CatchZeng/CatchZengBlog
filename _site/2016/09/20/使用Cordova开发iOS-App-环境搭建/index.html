@@ -12,7 +12,7 @@
 
     <title>使用Cordova开发iOS App -- 环境搭建 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/2016/09/20/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+    <link rel="canonical" href="http://localhost:4000/2016/09/20/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -168,18 +168,18 @@
 
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
-<h2 id="section">一、简介</h2>
+<h2 id="一简介">一、简介</h2>
 <p><a href="http://cordova.apache.org/">Cordova</a>大家可能比较陌生，但肯定听过 PhoneGap ，Cordova 就是 PhoneGap 被 Adobe 收购后所改的名字。它是一个可以让 JS 与原生代码互相通信的一个库，并且提供了一系列的插件类（如 JS 直接操作本地数据库的插件类）。</p>
 
-<h4 id="cordova">Cordova优缺点</h4>
+<h4 id="cordova优缺点">Cordova优缺点</h4>
 <p>优点: 降低开发成本一次开发多平台套用，版本更新容易可动态更新。</p>
 
 <p>缺点: cordova其实就是在原生app上加了一个webView,并提供一套JS与原生代码交互的类库。交互效果一般，且访问原生控件时受限,常常无法满足业务需求。</p>
 
-<h4 id="cordova-1">Cordova插件</h4>
+<h4 id="cordova插件">Cordova插件</h4>
 <p>为了解决Cordova的缺点，就出现了cordova插件的概念。即由各个平台的开发者实现webView中无法实现的功能，并打包成插件供前端开发人员调用，这样来优化cordova app的体验问题。</p>
 
-<h2 id="section-1">二、文章安排</h2>
+<h2 id="二文章安排">二、文章安排</h2>
 <p>本系列文章主要围绕Cordova for iOS部分讲解，主要分为如下几个部分：</p>
 
 <p>1.环境搭建</p>
@@ -188,16 +188,16 @@
 
 <p>3.打包插件及JS脚本</p>
 
-<h2 id="section-2">三、环境搭建</h2>
+<h2 id="三环境搭建">三、环境搭建</h2>
 
-<h4 id="nodejs">1.检测是否安装了node.js</h4>
+<h4 id="1检测是否安装了nodejs">1.检测是否安装了node.js</h4>
 <p>打开终端输入<code>npm --version</code>，若无打印版本则需先安装<a href="https://nodejs.org/en/">node.js</a>
 <img src="/img/in-post/post-cordova1/1.png" alt="node.js" /></p>
 
-<h4 id="cordova-2">2.命令行安装cordova</h4>
+<h4 id="2命令行安装cordova">2.命令行安装cordova</h4>
 <p><code>npm install -g cordova</code></p>
 
-<h4 id="section-3">3.创建项目</h4>
+<h4 id="3创建项目">3.创建项目</h4>
 <p><code>cordova create testCordovaProject com.catchzeng.testCordova testCordova</code>
 <img src="/img/in-post/post-cordova1/2.png" alt="create" /></p>
 
@@ -209,7 +209,7 @@
 
 <p>testCordova:项目名称</p>
 
-<h4 id="section-4">4.添加平台</h4>
+<h4 id="4添加平台">4.添加平台</h4>
 <pre><code>cd testCordovaProject/
 sudo cordova platform add ios
 </code></pre>
@@ -221,7 +221,7 @@ sudo cordova platform add ios
 <p>iOS工程运行结果
 <img src="/img/in-post/post-cordova1/5.png" alt="result" /></p>
 
-<h4 id="cordova-3">5.Cordova开发体验</h4>
+<h4 id="5cordova开发体验">5.Cordova开发体验</h4>
 <p>修改Staging-&gt;www-&gt;index.html
 <img src="/img/in-post/post-cordova1/6.png" alt="result" /></p>
 
@@ -251,8 +251,8 @@ sudo cordova platform add ios
                     style="text-align: right"
                     data-thread-key="/2016/09/20/使用Cordova开发iOS App -- 环境搭建"
                     data-title="使用Cordova开发iOS App -- 环境搭建"
-                    data-url="http://catchzeng.com/2016/09/20/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"
-                    data-images="http://catchzeng.com/img/post-bg-2015.jpg"
+                    data-url="http://localhost:4000/2016/09/20/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"
+                    data-images="http://localhost:4000/img/post-bg-2015.jpg"
                     data-content="
 
 一、简介
@@ -293,7 +293,7 @@ Cordova大家可能比较陌生，但肯定听过 PhoneGap ，Cordova 就是 Pho
                     <div class="ds-thread"
                         data-thread-key="/2016/09/20/使用Cordova开发iOS App -- 环境搭建"
                         data-title="使用Cordova开发iOS App -- 环境搭建"
-                        data-url="http://catchzeng.com/2016/09/20/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" >
+                        data-url="http://localhost:4000/2016/09/20/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
@@ -317,7 +317,7 @@ Cordova大家可能比较陌生，但肯定听过 PhoneGap ，Cordova 就是 Pho
                     <div class="tags">
         				
                             
-                				<a href="/tags/#iOS" title="iOS" rel="38">
+                				<a href="/tags/#iOS" title="iOS" rel="39">
                                     iOS
                                 </a>
                             

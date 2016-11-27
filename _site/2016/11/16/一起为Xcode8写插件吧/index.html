@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <title>iOS开发见闻-第3期 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>一起为Xcode8写插件吧 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC3%E6%9C%9F/">
+    <link rel="canonical" href="http://localhost:4000/2016/11/16/%E4%B8%80%E8%B5%B7%E4%B8%BAXcode8%E5%86%99%E6%8F%92%E4%BB%B6%E5%90%A7/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -143,12 +143,12 @@
                         <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
                         
                     </div>
-                    <h1>iOS开发见闻-第3期</h1>
+                    <h1>一起为Xcode8写插件吧</h1>
                     
                     
-                    <h2 class="subheading">iOS开发见闻</h2>
+                    <h2 class="subheading">iOS开发</h2>
                     
-                    <span class="meta">Posted by CatchZeng on October 26, 2015</span>
+                    <span class="meta">Posted by CatchZeng on November 16, 2016</span>
                 </div>
             </div>
         </div>
@@ -168,34 +168,128 @@
 
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
-<h2 id="文章">文章</h2>
-<p>1.<a href="http://www.molotang.com/articles/1929.html">NSObject的load和initialize方法 </a> : 三石·道 写的写篇关于load、initialize的方法，与别人的不同之处在于道明了原理。非常喜欢他那句“源码面前没有秘密”。</p>
+<h2 id="一xcode-source-editor-extension-简介">一、Xcode Source Editor Extension 简介</h2>
+<p>在Xcode8的以前，开发者可以在Xccode运行时通过注入代码来实现插件的功能。插件可以在Alcatraz上面提交和分发。不过Xcode8禁止了该方式的插件安装，转而向开发者提供了Xcode Source Editor Extension（以下简称Extension）的方式来做插件。</p>
 
-<p>2.<a href="http://tech.meituan.com/talk-about-reactivecocoas-cold-signal-and-hot-signal-part-1.html">细说ReactiveCocoa的冷信号与热信号 </a> ：美团技术团队关于ReactiveCocoa信号的讲解，如果你喜欢用ReactiveCocoa，那么请不要错过。</p>
+<h4 id="extension特性安全性">Extension特性（安全性）</h4>
+<ul>
+  <li>支持上架到AppStore</li>
+  <li>每个Extension运行在独立的进程，如果它崩溃了，不会引起Xcode的崩溃，且会有错误提示</li>
+</ul>
 
-<p>3.<a href="https://github.com/nixzhu/dev-blog/blob/master/2015-10-08-navi.md">一种头像缓存策略</a> : 许多 App 都有用户系统，不论是自己实现还是使用第三方，大概都需要显示用户的头像。该篇文章讲述了nixzhu的策略，能帮助我们了解缓存相关的知识。</p>
+<h4 id="extension不足功能性">Extension不足（功能性）</h4>
+<ul>
+  <li>无UI交互</li>
+  <li>只能够在开发者调用相关命令的时候直接的修改代码，具体表现为
+<strong>获取正在编辑的文本</strong>
+<strong>获取选中的区域</strong>
+<strong>替换正在编辑的文本</strong>
+<strong>选中正在编辑的文本</strong>
+<strong>在Editor菜单中生成一个子菜单，用于调用插件</strong>
+<strong>绑定快捷键</strong></li>
+  <li>Extension不能在后台运行</li>
+</ul>
 
-<h2 id="工具">工具</h2>
-<p>1.<a href="https://github.com/gh-unit/gh-unit">gh-unit</a> ： 一款测试框架，方便且功能强大。
-<img src="https://camo.githubusercontent.com/5149ae6bcaf9128327ea378503f311ec53ba757e/68747470733a2f2f7261772e6769746875622e636f6d2f67682d756e69742f67682d756e69742f6d61737465722f446f63756d656e746174696f6e2f696d616765732f696f732e706e67" alt="这里写图片描述" />
-<img src="https://camo.githubusercontent.com/cb53e52b700bead7b5a06366c0a6cc5f52682264/68747470733a2f2f7261772e6769746875622e636f6d2f67682d756e69742f67682d756e69742f6d61737465722f446f63756d656e746174696f6e2f696d616765732f6d61636f737830312e706e67" alt="这里写图片描述" /></p>
+<p>虽然Extension有诸多不足，但是没有插件写代码是件痛苦的事情，所以在空闲的时候我也做了一些需要用到的Extension，帮助提高开发效率。</p>
 
-<p>2.<a href="https://github.com/dblock/fui">fui</a> : 还记得ctrl+shift+o吗？fui能帮我们找到没有用到的头文件，避免文件引用带来的问题。喜欢在Xcode直接用的朋友可以看<a href="https://github.com/jcavar/xcfui">这里</a>
-<img src="https://raw.githubusercontent.com/jcavar/xcfui/master/preview.png" alt="这里写图片描述" /></p>
+<ul>
+  <li>
+    <p>删除选中行的Xcode8插件：
+https://github.com/CatchZeng/DeleteLine
+<img src="https://github.com/CatchZeng/DeleteLine/raw/master/demo.gif" alt="删除选中行的Xcode8插件" /></p>
+  </li>
+  <li>
+    <p>快速导入头文件的Xcode8插件: 
+https://github.com/CatchZeng/ImportSourceEditor
+<img src="https://github.com/CatchZeng/ImportSourceEditor/raw/master/swiftDemo.gif" alt="Swift" />
+<img src="https://github.com/CatchZeng/ImportSourceEditor/raw/master/demo.gif" alt="OC" /></p>
+  </li>
+  <li>
+    <p>快速添加定义的#pragma mark 的Xcode8插件
+https://github.com/CatchZeng/PragmaMarkSourceEditor</p>
+  </li>
+</ul>
 
-<p>3.<a href="https://www.getpostman.com/">getpostman</a> : 一个测试RESTful服务的工具。可以利用Chrome插件的形式把各种模拟用户HTTP请求的数据发送到服务器，帮助app开发人员测试接口。
-<img src="http://images.cnitblog.com/i/277239/201407/242244568223578.gif" alt="这里写图片描述" /></p>
+<p><img src="https://github.com/CatchZeng/PragmaMarkSourceEditor/raw/master/demo.gif" alt="快速添加定义的#pragma mark 的Xcode8插件" /></p>
 
-<h2 id="开源">开源</h2>
-<p>1.<a href="https://github.com/TheAmazingAudioEngine/TheAmazingAudioEngine">TheAmazingAudioEngine</a> : 非常强大且使用简便的音频框架。
-<img src="http://theamazingaudioengine.com/images/index-background.jpg" alt="这里写图片描述" /></p>
+<h2 id="二xcode-source-editor-extension-实例">二、Xcode Source Editor Extension 实例</h2>
+<p>下面以删除选中行的Xcode8插件为例，详细介绍Extension的实现。</p>
+<h4 id="1创建mac工程">1.创建mac工程</h4>
+<p><img src="/img/in-post/post-plugin/1.png" alt="创建mac工程" /></p>
 
-<p>2.<a href="https://github.com/mwaterfall/MWPhotoBrowser">MWPhotoBrowser</a> ： 一个照片浏览器类似 iOS 自带的相册应用，可显示来自手机的图片或者是网络图片，可自动从网络下载图片并进行缓存。可对图片进行缩放等操作。
-<img src="https://camo.githubusercontent.com/2f47c5ac3865bf4b09d3c77e2d325d5d5abf09fe/68747470733a2f2f7261772e6769746875622e636f6d2f6d776174657266616c6c2f4d5750686f746f42726f777365722f6d61737465722f53637265656e73686f74732f4d5750686f746f42726f7773657231742e706e67" alt="这里写图片描述" /> <img src="https://camo.githubusercontent.com/194b07b3ed16c041c6f6f9ba2415da747e60d2ee/68747470733a2f2f7261772e6769746875622e636f6d2f6d776174657266616c6c2f4d5750686f746f42726f777365722f6d61737465722f53637265656e73686f74732f4d5750686f746f42726f7773657234742e706e67" alt="这里写图片描述" /> <img src="https://camo.githubusercontent.com/364e2c6420c8a1e862db9d0990d77e0d5e2a4f9e/68747470733a2f2f7261772e6769746875622e636f6d2f6d776174657266616c6c2f4d5750686f746f42726f777365722f6d61737465722f53637265656e73686f74732f4d5750686f746f42726f7773657233742e706e67" alt="这里写图片描述" /></p>
+<h4 id="2add-target">2.Add Target</h4>
+<p><img src="/img/in-post/post-plugin/2.png" alt="Add Target" /></p>
 
-<p>3.<a href="https://github.com/Flipboard/FLAnimatedImage">FLAnimatedImage</a> : 如果你想像使用png一样使用gif，FLAnimatedImage是个不错的选择。
-<img src="https://github.com/Flipboard/FLAnimatedImage/raw/master/images/flanimatedimage-demo-player.gif" alt="这里写图片描述" /></p>
+<p><img src="/img/in-post/post-plugin/3.png" alt="选择Xcode Source Editor Extension " /></p>
 
+<p><img src="/img/in-post/post-plugin/4.png" alt="输出信息" /></p>
+
+<h4 id="3工程结构">3.工程结构</h4>
+<p><img src="/img/in-post/post-plugin/5.png" alt="工程结构" /></p>
+
+<h4 id="4编写extension代码sourceeditorcommandm">4.编写Extension代码(SourceEditorCommand.m)</h4>
+
+<pre><code>- (void)performCommandWithInvocation:(XCSourceEditorCommandInvocation *)invocation completionHandler:(void (^)(NSError * _Nullable nilOrError))completionHandler
+{
+    //有选中了才删除
+    if (invocation.buffer.selections.count != 0) {
+        XCSourceTextRange* firstObject = invocation.buffer.selections.firstObject;
+        
+        //开始删除的位置
+        NSUInteger start = firstObject.start.line;
+        //删除的行数
+        NSUInteger len = firstObject.end.line - start +1;
+        //Index Set
+        NSIndexSet* set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(start,len)];
+        //移除指定代码
+        [invocation.buffer.lines removeObjectsAtIndexes:set];
+    }
+    completionHandler(nil);
+}
+@end
+</code></pre>
+
+<h4 id="5修改extension显示名称">5.修改Extension显示名称</h4>
+<p><img src="/img/in-post/post-plugin/6.png" alt="修改Extension显示名称" />
+<img src="/img/in-post/post-plugin/7.png" alt="修改Extension显示名称" /></p>
+
+<h4 id="6run-deleteplugin">6.Run DeletePlugin</h4>
+<p><img src="/img/in-post/post-plugin/8.png" alt="Run" />
+<img src="/img/in-post/post-plugin/9.png" alt="随意选择一个工程打开" /></p>
+
+<h4 id="7测试extension">7.测试Extension</h4>
+<p><img src="/img/in-post/post-plugin/10.png" alt="测试Extension" /></p>
+
+<h4 id="8绑定快捷键">8.绑定快捷键</h4>
+<p><img src="/img/in-post/post-plugin/11.png" alt="绑定快捷键" /></p>
+
+<p>下面解释一下Extension的Code部分</p>
+
+<ul>
+  <li>
+    <p>XCSourceEditorCommand 当插件触发后，在代理方法里面可拦截到消息（XCSourceEditorCommandInvocation）</p>
+  </li>
+  <li>
+    <p>XCSourceEditorCommandInvocation 存放着用来区分Extension的唯一标示（identifier） 和 数据（XCSourceTextBuffer）</p>
+  </li>
+</ul>
+
+<p>XCSourceTextBuffer主要有两个属性需要了解</p>
+<pre><code>//当前的文本
+@property (readonly, strong) NSMutableArray &lt;NSString *&gt; *lines;
+//选中的区域
+@property (readonly, strong) NSMutableArray &lt;XCSourceTextRange *&gt; *selections;
+</code></pre>
+<p>Delete Extension的流程如下：</p>
+
+<h6 id="1菜单或快捷键触发delete-extension">1.菜单或快捷键触发Delete Extension</h6>
+<h6 id="2xcsourceeditorcommand-拦截到消息">2.XCSourceEditorCommand 拦截到消息</h6>
+<h6 id="3从xcsourceeditorcommandinvocation-中拿到-xcsourcetextbuffer">3.从XCSourceEditorCommandInvocation 中拿到 XCSourceTextBuffer</h6>
+<h6 id="4在xcsourcetextbuffer中分析需要删除的行">4.在XCSourceTextBuffer中分析需要删除的行</h6>
+<h6 id="5删除选中行">5.删除选中行</h6>
+
+<h2 id="三总结">三、总结</h2>
+<p>最后，一起为Xcode8写插件吧…</p>
 
 
                 <hr>
@@ -205,14 +299,14 @@
                 </style>
                 <div class="ds-share"
                     style="text-align: right"
-                    data-thread-key="/2015/10/26/iOS开发见闻-第3期"
-                    data-title="iOS开发见闻-第3期"
-                    data-url="http://localhost:4000/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC3%E6%9C%9F/"
+                    data-thread-key="/2016/11/16/一起为Xcode8写插件吧"
+                    data-title="一起为Xcode8写插件吧"
+                    data-url="http://localhost:4000/2016/11/16/%E4%B8%80%E8%B5%B7%E4%B8%BAXcode8%E5%86%99%E6%8F%92%E4%BB%B6%E5%90%A7/"
                     data-images="http://localhost:4000/img/post-bg-2015.jpg"
                     data-content="
 
-文章
-1.NSObject的load和initialize方法  : 三石·道 写的写篇关于load、initialize的方法，与别人的不同之处在于... | CatchZeng的技术博客 | CatchZeng Blog " >
+一、Xcode Source Editor Extension 简介
+在Xcode8的以前，开发者可以在Xccode运行时通过注入代码来实现插件的功能... | CatchZeng的技术博客 | CatchZeng Blog " >
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
                         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -232,13 +326,9 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC2%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第2期">&larr; Previous Post</a>
+                        <a href="/2016/09/22/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E6%89%93%E5%8C%85%E6%8F%92%E4%BB%B6%E5%8F%8AJS%E8%84%9A%E6%9C%AC/" data-toggle="tooltip" data-placement="top" title="使用Cordova开发iOS App -- 打包插件及JS脚本">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2015/10/26/%E5%B1%8F%E5%B9%95%E9%80%82%E9%85%8D%E4%B9%8BSize-Classes/" data-toggle="tooltip" data-placement="top" title="屏幕适配之Size Classes">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
@@ -247,9 +337,9 @@
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/2015/10/26/iOS开发见闻-第3期"
-                        data-title="iOS开发见闻-第3期"
-                        data-url="http://localhost:4000/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC3%E6%9C%9F/" >
+                        data-thread-key="/2016/11/16/一起为Xcode8写插件吧"
+                        data-title="一起为Xcode8写插件吧"
+                        data-url="http://localhost:4000/2016/11/16/%E4%B8%80%E8%B5%B7%E4%B8%BAXcode8%E5%86%99%E6%8F%92%E4%BB%B6%E5%90%A7/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->

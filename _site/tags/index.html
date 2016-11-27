@@ -12,7 +12,7 @@
 
     <title>Tags - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/tags/">
+    <link rel="canonical" href="http://localhost:4000/tags/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -171,6 +171,31 @@
                 post-container
             ">
     			
+<div class="post-preview">
+    <a href="/2016/11/16/%E4%B8%80%E8%B5%B7%E4%B8%BAXcode8%E5%86%99%E6%8F%92%E4%BB%B6%E5%90%A7/">
+        <h2 class="post-title">
+            一起为Xcode8写插件吧
+        </h2>
+        
+        <h3 class="post-subtitle">
+            iOS开发
+        </h3>
+        
+        <div class="post-content-preview">
+            
+
+一、Xcode Source Editor Extension 简介
+在Xcode8的以前，开发者可以在Xccode运行时通过注入代码来实现插件的功能。插件可以在Alcatraz上面提交和分发。不过Xcode8禁止了该方式的插件安装，转而向开发者提供了Xcode Source Editor Extension（以下简称Extension）的方式来做插件。
+
+Extension特性（安全性...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by CatchZeng on November 16, 2016
+    </p>
+</div>
+<hr>
+
 <div class="post-preview">
     <a href="/2016/09/22/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E6%89%93%E5%8C%85%E6%8F%92%E4%BB%B6%E5%8F%8AJS%E8%84%9A%E6%9C%AC/">
         <h2 class="post-title">
@@ -395,14 +420,15 @@ Bezier curve(贝塞尔曲线)是应用于二维图形应用程序的数学曲线
 
 一、RSA简介
 在介绍RSA之前，先介绍下对称、非对称加密。
-#### 对称加密：
+对称加密：
 A选择某一种加密规则，对信息进行加密；
 B使用同一种规则，对信息进行解密。
 由于加密和解密使用同样规则（密钥），这被称为”对称加密算法”。
-#### 非对称加密：
+非对称加密：
 B生成两把密钥（公钥和私钥）。公钥是公开的，任何人都可以获得，私钥则是保密的。
 A获取B的公钥，然后用它对信息加密。
-B得到加密后的信息，用私...
+B得到加密后的信息，用私钥解密。
+公钥加密的...
         </div>
     </a>
     <p class="post-meta">
@@ -441,29 +467,6 @@ AES算法较为复杂这里不再赘...
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-Base64/">
-        <h2 class="post-title">
-            iOS安全之路－－Base64
-        </h2>
-        
-        <h3 class="post-subtitle">
-            iOS安全之路
-        </h3>
-        
-        <div class="post-content-preview">
-            
-
-一、Base64简介
-Base64是网络上最常见的用于传输8Bit字节代码的编码方式之一。Base64编码可用于在HTTP环境下传递较长的标识信息。例如，在Java Persistence系统Hibernate中，就采用了Base64来将一个较长的唯一标识符（一般为128-bit的UUID）编码为一个字符串，用作HTTP表单和HTTP GET URL中的参数。在其他应用程序中，也常常需要...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by CatchZeng on May 11, 2016
-    </p>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -494,7 +497,7 @@ Base64是网络上最常见的用于传输8Bit字节代码的编码方式之一�
                     <div class="tags">
                         
                             
-                                <a href="/tags/#iOS" title="iOS" rel="38">
+                                <a href="/tags/#iOS" title="iOS" rel="39">
                                     iOS
                                 </a>
                             
@@ -566,7 +569,7 @@ Base64是网络上最常见的用于传输8Bit字节代码的编码方式之一�
             <!-- 标签云 -->
 			<div id='tag_cloud' class="tags">
 				
-				<a href="#iOS" title="iOS" rel="38">iOS</a>
+				<a href="#iOS" title="iOS" rel="39">iOS</a>
 				
 				<a href="#Java Web" title="Java Web" rel="3">Java Web</a>
 				
@@ -578,6 +581,25 @@ Base64是网络上最常见的用于传输8Bit字节代码的编码方式之一�
 			  	<span class="fa fa-tag listing-seperator" id="iOS">
                     <span class="tag-text">iOS</span>
                 </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-11-16">2016-11-16</time>
+				  <a href="/2016/11/16/%E4%B8%80%E8%B5%B7%E4%B8%BAXcode8%E5%86%99%E6%8F%92%E4%BB%B6%E5%90%A7/" title="一起为Xcode8写插件吧">一起为Xcode8写插件吧</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/11/16/%E4%B8%80%E8%B5%B7%E4%B8%BAXcode8%E5%86%99%E6%8F%92%E4%BB%B6%E5%90%A7/">
+				        <h2 class="post-title">
+                            一起为Xcode8写插件吧
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            iOS开发
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-11-16</p> -->
+				</div>
+				<hr>
 				
 				  <!-- <li class="listing-item">
 				  <time datetime="2016-09-22">2016-09-22</time>

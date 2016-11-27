@@ -12,7 +12,7 @@
 
     <title>搭建一个轻量级的Java Web框架--使用IntelliJ IDEA 搭建Java Web 项目 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/2016/05/05/%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84Java-Web%E6%A1%86%E6%9E%B6-%E4%BD%BF%E7%94%A8IntelliJ-IDEA-%E6%90%AD%E5%BB%BAJava-Web-%E9%A1%B9%E7%9B%AE/">
+    <link rel="canonical" href="http://localhost:4000/2016/05/05/%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84Java-Web%E6%A1%86%E6%9E%B6-%E4%BD%BF%E7%94%A8IntelliJ-IDEA-%E6%90%AD%E5%BB%BAJava-Web-%E9%A1%B9%E7%9B%AE/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -168,7 +168,7 @@
 
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
-<h2 id="java-web">搭建Java Web项目</h2>
+<h2 id="搭建java-web项目">搭建Java Web项目</h2>
 
 <p>1.新建maven项目，create from archetype，选择maven-archetype-webapp
 <img src="http://upload-images.jianshu.io/upload_images/943491-06088fc954b13f8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Idea" /></p>
@@ -178,10 +178,9 @@
 
 <p>3.Maven
 <img src="http://upload-images.jianshu.io/upload_images/943491-d4949b78d0dbb6ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Maven" />
-在这里若遇到maven生成骨架的时候将会非常慢，可以在Properties中添加一个参数archetypeCatalog=internal（我的工程生成很快故没有加该参数）。
-<code>
-archetypeCatalog表示插件使用的archetype元数据，默认为remote即中央仓库，由于中央仓库的archetype太多了，所以导致很慢，指定internal来表示仅使用内部元数据。
-</code></p>
+在这里若遇到maven生成骨架的时候将会非常慢，可以在Properties中添加一个参数archetypeCatalog=internal（我的工程生成很快故没有加该参数）。</p>
+<pre><code>archetypeCatalog表示插件使用的archetype元数据，默认为remote即中央仓库，由于中央仓库的archetype太多了，所以导致很慢，指定internal来表示仅使用内部元数据。
+</code></pre>
 
 <p>4.Project name &amp; Location 
 <img src="http://upload-images.jianshu.io/upload_images/943491-079b382f96a1c7e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Project name &amp; Location" /></p>
@@ -231,7 +230,7 @@ archetypeCatalog表示插件使用的archetype元数据，默认为remote即中�
 <p>14.再次Run，输入http://localhost:8080/catchjava/hello 得到正确结果。[HelloServlet中 @WebServlet(“/hello”)的作用就在于此]
 <img src="http://upload-images.jianshu.io/upload_images/943491-bac9d43f3c714275.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Run" /></p>
 
-<h2 id="section">后续</h2>
+<h2 id="后续">后续</h2>
 <p>本期介绍了如果使用IntelliJ IDEA搭建一个Java Web项目。后续的文章将在这一篇的基础上一步一步搭建一个轻量级的Java Web框架，有兴趣的朋友咱们下期见。</p>
 
 
@@ -244,8 +243,8 @@ archetypeCatalog表示插件使用的archetype元数据，默认为remote即中�
                     style="text-align: right"
                     data-thread-key="/2016/05/05/搭建一个轻量级的Java Web框架--使用IntelliJ IDEA 搭建Java Web 项目"
                     data-title="搭建一个轻量级的Java Web框架--使用IntelliJ IDEA 搭建Java Web 项目"
-                    data-url="http://catchzeng.com/2016/05/05/%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84Java-Web%E6%A1%86%E6%9E%B6-%E4%BD%BF%E7%94%A8IntelliJ-IDEA-%E6%90%AD%E5%BB%BAJava-Web-%E9%A1%B9%E7%9B%AE/"
-                    data-images="http://catchzeng.com/img/post-bg-2015.jpg"
+                    data-url="http://localhost:4000/2016/05/05/%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84Java-Web%E6%A1%86%E6%9E%B6-%E4%BD%BF%E7%94%A8IntelliJ-IDEA-%E6%90%AD%E5%BB%BAJava-Web-%E9%A1%B9%E7%9B%AE/"
+                    data-images="http://localhost:4000/img/post-bg-2015.jpg"
                     data-content="
 
 搭建Java Web项目
@@ -290,7 +289,7 @@ archetypeCatalog表示插件使用的archetype元数据，默认为remote即中�
                     <div class="ds-thread"
                         data-thread-key="/2016/05/05/搭建一个轻量级的Java Web框架--使用IntelliJ IDEA 搭建Java Web 项目"
                         data-title="搭建一个轻量级的Java Web框架--使用IntelliJ IDEA 搭建Java Web 项目"
-                        data-url="http://catchzeng.com/2016/05/05/%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84Java-Web%E6%A1%86%E6%9E%B6-%E4%BD%BF%E7%94%A8IntelliJ-IDEA-%E6%90%AD%E5%BB%BAJava-Web-%E9%A1%B9%E7%9B%AE/" >
+                        data-url="http://localhost:4000/2016/05/05/%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84Java-Web%E6%A1%86%E6%9E%B6-%E4%BD%BF%E7%94%A8IntelliJ-IDEA-%E6%90%AD%E5%BB%BAJava-Web-%E9%A1%B9%E7%9B%AE/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
@@ -314,7 +313,7 @@ archetypeCatalog表示插件使用的archetype元数据，默认为remote即中�
                     <div class="tags">
         				
                             
-                				<a href="/tags/#iOS" title="iOS" rel="38">
+                				<a href="/tags/#iOS" title="iOS" rel="39">
                                     iOS
                                 </a>
                             

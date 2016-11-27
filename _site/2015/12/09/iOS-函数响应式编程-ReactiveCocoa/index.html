@@ -12,7 +12,7 @@
 
     <title>iOS 函数响应式编程 （ReactiveCocoa） - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/2015/12/09/iOS-%E5%87%BD%E6%95%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B-ReactiveCocoa/">
+    <link rel="canonical" href="http://localhost:4000/2015/12/09/iOS-%E5%87%BD%E6%95%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B-ReactiveCocoa/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -168,7 +168,7 @@
 
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
-<h2 id="section">前言</h2>
+<h2 id="前言">前言</h2>
 <p>近来，Q群的几个朋友谈起如何使用ReactiveCocoa（以下简称RAC）开发的问题。大家觉得RAC很好，但不知如何运用它。在此整理一些对RAC的看法，希望对学习RAC的朋友有所帮助。本篇是前篇，主要涉及以下内容。</p>
 
 <ul>
@@ -177,7 +177,7 @@
   <li>编程思想的变化</li>
 </ul>
 
-<h2 id="section-1">现有的编程问题</h2>
+<h2 id="现有的编程问题">现有的编程问题</h2>
 <ol>
   <li>
     <p>状态量问题（类似Cache问题）
@@ -195,7 +195,7 @@ iOS 开发中有着各种消息传递机制，包括 KVO、block、Notification�
   </li>
 </ol>
 
-<h2 id="section-2">为何出现了这些问题</h2>
+<h2 id="为何出现了这些问题">为何出现了这些问题</h2>
 <p><img src="http://leanote.com/api/file/getImage?fileId=56678bc5ab6441601e001182" alt="1" /></p>
 
 <p><img src="http://leanote.com/api/file/getImage?fileId=56678bd3ab6441616d00114d" alt="2" /></p>
@@ -212,11 +212,11 @@ iOS 开发中有着各种消息传递机制，包括 KVO、block、Notification�
 
 <p>既然命令式编程不能满足我们的需求，那便寻求解决之法。于是我们想到了Functional Reactive Programming。</p>
 
-<h2 id="section-3">编程思想的变化</h2>
+<h2 id="编程思想的变化">编程思想的变化</h2>
 <p>最近关于是否使用RAC的讨论非常多。相当一部分的原因是RAC的学习成本高在团队协作中需要每个人都学会使用。使用了一段时间后，个人觉得RAC学习成本高的原因是编程思想上的改变。
 RAC运用的响应式编程（Functional Reactive Programming,以下简称FRP）与传统的命令式编程思想差异较大。下面我们先来了解一下RAC使用的FRP思想。</p>
 
-<h2 id="rac">RAC中的函数式思想</h2>
+<h2 id="rac中的函数式思想">RAC中的函数式思想</h2>
 <ol>
   <li>高阶函数：函数作为参数来回传递。在oc中，block是被广泛使用的参数传递，它实际上是匿名函数。
 例:
@@ -232,14 +232,14 @@ RAC运用的响应式编程（Functional Reactive Programming,以下简称FRP）
 RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的时候，断点是不触发的），这也是惰性求值思想的应用。</li>
 </ol>
 
-<h2 id="rac-1">RAC中的响应式思想</h2>
+<h2 id="rac中的响应式思想">RAC中的响应式思想</h2>
 <p>响应式编程是一种和事件流有关的编程模式，关注导致状态值改变的行为事件，一系列事件组成了事件流。一系列事件是导致属性值发生变化的原因。FRP非常类似于设计模式里的<strong><em>观察者模式</em></strong>。
 例:
 <img src="http://leanote.com/api/file/getImage?fileId=56679a9cab6441601e0013c7" alt="RAC中的响应式思想" />
 在传统命令式的编程中可解读成：a是 b + c 表达式的值。
 而在响应式的编程中应解读成：建立了一个<strong><em>动态的数据流关系</em></strong>（当c或者b的值发生变化时，a的值自动发生变化）。</p>
 
-<h2 id="section-4">小结</h2>
+<h2 id="小结">小结</h2>
 <p>本篇概述了RAC与传统编程方式的区别，下一篇开始，我们将利用RAC来开发一个完整的应用，以此来边掌握RAC的知识。这期就到这了，下期见。</p>
 
 
@@ -252,8 +252,8 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
                     style="text-align: right"
                     data-thread-key="/2015/12/09/iOS 函数响应式编程 （ReactiveCocoa）"
                     data-title="iOS 函数响应式编程 （ReactiveCocoa）"
-                    data-url="http://catchzeng.com/2015/12/09/iOS-%E5%87%BD%E6%95%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B-ReactiveCocoa/"
-                    data-images="http://catchzeng.com/img/post-bg-2015.jpg"
+                    data-url="http://localhost:4000/2015/12/09/iOS-%E5%87%BD%E6%95%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B-ReactiveCocoa/"
+                    data-images="http://localhost:4000/img/post-bg-2015.jpg"
                     data-content="
 
 前言
@@ -294,7 +294,7 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
                     <div class="ds-thread"
                         data-thread-key="/2015/12/09/iOS 函数响应式编程 （ReactiveCocoa）"
                         data-title="iOS 函数响应式编程 （ReactiveCocoa）"
-                        data-url="http://catchzeng.com/2015/12/09/iOS-%E5%87%BD%E6%95%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B-ReactiveCocoa/" >
+                        data-url="http://localhost:4000/2015/12/09/iOS-%E5%87%BD%E6%95%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B-ReactiveCocoa/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
@@ -318,7 +318,7 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
                     <div class="tags">
         				
                             
-                				<a href="/tags/#iOS" title="iOS" rel="38">
+                				<a href="/tags/#iOS" title="iOS" rel="39">
                                     iOS
                                 </a>
                             
