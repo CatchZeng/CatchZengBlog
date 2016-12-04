@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="keyword"  content="">
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>iOS安全之路－－RSA - CatchZeng的技术博客 | CatchZeng Blog</title>
 
@@ -221,14 +221,16 @@ B得到加密后的信息，用私钥解密。
 
 <h6 id="2计算p和q的乘积n">2.计算p和q的乘积n。</h6>
 <p>A把61和53相乘。</p>
-<pre><code>n = 61×53 = 3233
+<div class="highlighter-rouge"><pre class="highlight"><code>n = 61×53 = 3233
 </code></pre>
+</div>
 <p>n的长度就是密钥长度。3233写成二进制是110010100001，一共有12位，所以这个密钥就是12位。（实际应用中，RSA密钥一般是1024位，重要场合则为2048位）</p>
 
 <h6 id="3计算n的欧拉函数φn">3.计算n的欧拉函数φ(n)。</h6>
 <p>根据公式：</p>
-<pre><code>　　φ(n) = (p-1)(q-1)
+<div class="highlighter-rouge"><pre class="highlight"><code>　　φ(n) = (p-1)(q-1)
 </code></pre>
+</div>
 <p>A算出φ(3233)等于60×52，即3120。</p>
 
 <h6 id="4随机选择一个整数e条件是1-e--φn且e与φn-互质">4.随机选择一个整数e，条件是1&lt; e &lt; φ(n)，且e与φ(n) 互质。</h6>
@@ -236,17 +238,21 @@ B得到加密后的信息，用私钥解密。
 
 <h6 id="5计算e对于φn的模反元素d">5.计算e对于φ(n)的模反元素d。</h6>
 <p>所谓”模反元素”就是指有一个整数d，可以使得ed被φ(n)除的余数为1。</p>
-<pre><code>　ed ≡ 1 (mod φ(n))
+<div class="highlighter-rouge"><pre class="highlight"><code>　ed ≡ 1 (mod φ(n))
 </code></pre>
+</div>
 <p>这个式子等价于</p>
-<pre><code>　　ed - 1 = kφ(n)
+<div class="highlighter-rouge"><pre class="highlight"><code>　　ed - 1 = kφ(n)
 </code></pre>
+</div>
 <p>于是，找到模反元素d，实质上就是对下面这个二元一次方程求解。</p>
-<pre><code>　　ex + φ(n)y = 1
+<div class="highlighter-rouge"><pre class="highlight"><code>　　ex + φ(n)y = 1
 </code></pre>
+</div>
 <p>已知 e=17, φ(n)=3120，</p>
-<pre><code>　　17x + 3120y = 1
+<div class="highlighter-rouge"><pre class="highlight"><code>　　17x + 3120y = 1
 </code></pre>
+</div>
 <p>这个方程可以用”扩展欧几里得算法”求解，此处省略具体过程。A算出一组整数解为 (x,y)=(2753,-15)，即 d=2753。
 至此所有计算完成。</p>
 
@@ -256,392 +262,393 @@ B得到加密后的信息，用私钥解密。
 
 <h2 id="三算法实现">三、算法实现</h2>
 
-<pre><code>@implementation CATSecurity
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@implementation</span> <span class="nc">CATSecurity</span>
 
-#pragma mark -- RSA
+<span class="cp">#pragma mark -- RSA
 #pragma mark -- public methods
+</span>
+<span class="k">+</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nf">rsaEncryptString</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">str</span> <span class="nf">publicKey</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">pubKey</span><span class="p">{</span>
+    <span class="n">NSData</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">rsaEncryptData</span><span class="p">:[</span><span class="n">str</span> <span class="nf">dataUsingEncoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">]</span> <span class="nf">publicKey</span><span class="p">:</span><span class="n">pubKey</span><span class="p">];</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="n">base64_encode_data</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
 
-+ (NSString *)rsaEncryptString:(NSString *)str publicKey:(NSString *)pubKey{
-    NSData *data = [self rsaEncryptData:[str dataUsingEncoding:NSUTF8StringEncoding] publicKey:pubKey];
-    NSString *ret = base64_encode_data(data);
-    return ret;
-}
+<span class="k">+</span> <span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nf">rsaEncryptData</span><span class="p">:(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nv">data</span> <span class="nf">publicKey</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">pubKey</span><span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">data</span> <span class="o">||</span> <span class="o">!</span><span class="n">pubKey</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">SecKeyRef</span> <span class="n">keyRef</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">_addPublicKey</span><span class="p">:</span><span class="n">pubKey</span><span class="p">];</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">keyRef</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">self</span> <span class="nf">_encryptData</span><span class="p">:</span><span class="n">data</span> <span class="nf">withKeyRef</span><span class="p">:</span><span class="n">keyRef</span><span class="p">];</span>
+<span class="p">}</span>
 
-+ (NSData *)rsaEncryptData:(NSData *)data publicKey:(NSString *)pubKey{
-    if(!data || !pubKey){
-        return nil;
-    }
-    SecKeyRef keyRef = [self _addPublicKey:pubKey];
-    if(!keyRef){
-        return nil;
-    }
-    return [self _encryptData:data withKeyRef:keyRef];
-}
+<span class="k">+</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nf">rsaDecryptString</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">str</span> <span class="nf">publicKey</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">pubKey</span><span class="p">{</span>
+    <span class="n">NSData</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSData</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithBase64EncodedString</span><span class="p">:</span><span class="n">str</span> <span class="nf">options</span><span class="p">:</span><span class="n">NSDataBase64DecodingIgnoreUnknownCharacters</span><span class="p">];</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">rsaDecryptData</span><span class="p">:</span><span class="n">data</span> <span class="nf">publicKey</span><span class="p">:</span><span class="n">pubKey</span><span class="p">];</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSString</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithData</span><span class="p">:</span><span class="n">data</span> <span class="nf">encoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
+    <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
 
-+ (NSString *)rsaDecryptString:(NSString *)str publicKey:(NSString *)pubKey{
-    NSData *data = [[NSData alloc] initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
-    data = [self rsaDecryptData:data publicKey:pubKey];
-    NSString *ret = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    return ret;
-}
+<span class="k">+</span> <span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nf">rsaDecryptData</span><span class="p">:(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nv">data</span> <span class="nf">publicKey</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">pubKey</span><span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">data</span> <span class="o">||</span> <span class="o">!</span><span class="n">pubKey</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">SecKeyRef</span> <span class="n">keyRef</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">_addPublicKey</span><span class="p">:</span><span class="n">pubKey</span><span class="p">];</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">keyRef</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">self</span> <span class="nf">_decryptData</span><span class="p">:</span><span class="n">data</span> <span class="nf">withKeyRef</span><span class="p">:</span><span class="n">keyRef</span><span class="p">];</span>
+<span class="p">}</span>
 
-+ (NSData *)rsaDecryptData:(NSData *)data publicKey:(NSString *)pubKey{
-    if(!data || !pubKey){
-        return nil;
-    }
-    SecKeyRef keyRef = [self _addPublicKey:pubKey];
-    if(!keyRef){
-        return nil;
-    }
-    return [self _decryptData:data withKeyRef:keyRef];
-}
+<span class="k">+</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nf">rsaDecryptString</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">str</span> <span class="nf">privateKey</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">privKey</span><span class="p">{</span>
+    <span class="n">NSData</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSData</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithBase64EncodedString</span><span class="p">:</span><span class="n">str</span> <span class="nf">options</span><span class="p">:</span><span class="n">NSDataBase64DecodingIgnoreUnknownCharacters</span><span class="p">];</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">rsaDecryptData</span><span class="p">:</span><span class="n">data</span> <span class="nf">privateKey</span><span class="p">:</span><span class="n">privKey</span><span class="p">];</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSString</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithData</span><span class="p">:</span><span class="n">data</span> <span class="nf">encoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
+    <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
 
-+ (NSString *)rsaDecryptString:(NSString *)str privateKey:(NSString *)privKey{
-    NSData *data = [[NSData alloc] initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
-    data = [self rsaDecryptData:data privateKey:privKey];
-    NSString *ret = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    return ret;
-}
+<span class="k">+</span> <span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nf">rsaDecryptData</span><span class="p">:(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nv">data</span> <span class="nf">privateKey</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">privKey</span><span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">data</span> <span class="o">||</span> <span class="o">!</span><span class="n">privKey</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">SecKeyRef</span> <span class="n">keyRef</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">_addPrivateKey</span><span class="p">:</span><span class="n">privKey</span><span class="p">];</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">keyRef</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">self</span> <span class="nf">_decryptData</span><span class="p">:</span><span class="n">data</span> <span class="nf">withKeyRef</span><span class="p">:</span><span class="n">keyRef</span><span class="p">];</span>
+<span class="p">}</span>
 
-+ (NSData *)rsaDecryptData:(NSData *)data privateKey:(NSString *)privKey{
-    if(!data || !privKey){
-        return nil;
-    }
-    SecKeyRef keyRef = [self _addPrivateKey:privKey];
-    if(!keyRef){
-        return nil;
-    }
-    return [self _decryptData:data withKeyRef:keyRef];
-}
-
-#pragma mark -- RSA
+<span class="cp">#pragma mark -- RSA
 #pragma mark -- private methods
+</span>
+<span class="k">static</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">base64_encode_data</span><span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="n">data</span><span class="p">){</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span> <span class="nf">base64EncodedDataWithOptions</span><span class="p">:</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSString</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithData</span><span class="p">:</span><span class="n">data</span> <span class="nf">encoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
+    <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
 
-static NSString *base64_encode_data(NSData *data){
-    data = [data base64EncodedDataWithOptions:0];
-    NSString *ret = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    return ret;
-}
+<span class="k">static</span> <span class="n">NSData</span> <span class="o">*</span><span class="n">base64_decode</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="n">str</span><span class="p">){</span>
+    <span class="n">NSData</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSData</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithBase64EncodedString</span><span class="p">:</span><span class="n">str</span> <span class="nf">options</span><span class="p">:</span><span class="n">NSDataBase64DecodingIgnoreUnknownCharacters</span><span class="p">];</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">;</span>
+<span class="p">}</span>
 
-static NSData *base64_decode(NSString *str){
-    NSData *data = [[NSData alloc] initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
-    return data;
-}
+<span class="o">+</span> <span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="n">_stripPublicKeyHeader</span><span class="o">:</span><span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="n">d_key</span><span class="p">{</span>
+    <span class="c1">// Skip ASN.1 public key header
+</span>    <span class="k">if</span> <span class="p">(</span><span class="n">d_key</span> <span class="o">==</span> <span class="nb">nil</span><span class="p">)</span> <span class="k">return</span><span class="p">(</span><span class="nb">nil</span><span class="p">);</span>
+    
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">len</span> <span class="o">=</span> <span class="p">[</span><span class="n">d_key</span> <span class="nf">length</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">len</span><span class="p">)</span> <span class="k">return</span><span class="p">(</span><span class="nb">nil</span><span class="p">);</span>
+    
+    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">c_key</span> <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)[</span><span class="n">d_key</span> <span class="nf">bytes</span><span class="p">];</span>
+    <span class="kt">unsigned</span> <span class="kt">int</span>  <span class="n">idx</span>	 <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="n">c_key</span><span class="p">[</span><span class="n">idx</span><span class="o">++</span><span class="p">]</span> <span class="o">!=</span> <span class="mh">0x30</span><span class="p">)</span> <span class="k">return</span><span class="p">(</span><span class="nb">nil</span><span class="p">);</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="n">c_key</span><span class="p">[</span><span class="nf">idx</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mh">0x80</span><span class="p">)</span> <span class="n">idx</span> <span class="o">+=</span> <span class="n">c_key</span><span class="p">[</span><span class="nf">idx</span><span class="p">]</span> <span class="o">-</span> <span class="mh">0x80</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">else</span> <span class="n">idx</span><span class="o">++</span><span class="p">;</span>
+    
+    <span class="c1">// PKCS #1 rsaEncryption szOID_RSA_RSA
+</span>    <span class="k">static</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">seqiod</span><span class="p">[]</span> <span class="o">=</span>
+    <span class="p">{</span> <span class="mh">0x30</span><span class="p">,</span>   <span class="mh">0x0d</span><span class="p">,</span> <span class="mh">0x06</span><span class="p">,</span> <span class="mh">0x09</span><span class="p">,</span> <span class="mh">0x2a</span><span class="p">,</span> <span class="mh">0x86</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x86</span><span class="p">,</span> <span class="mh">0xf7</span><span class="p">,</span> <span class="mh">0x0d</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span>
+        <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x00</span> <span class="p">};</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">memcmp</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c_key</span><span class="p">[</span><span class="nf">idx</span><span class="p">],</span> <span class="n">seqiod</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span> <span class="k">return</span><span class="p">(</span><span class="nb">nil</span><span class="p">);</span>
+    
+    <span class="n">idx</span> <span class="o">+=</span> <span class="mi">15</span><span class="p">;</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="n">c_key</span><span class="p">[</span><span class="n">idx</span><span class="o">++</span><span class="p">]</span> <span class="o">!=</span> <span class="mh">0x03</span><span class="p">)</span> <span class="k">return</span><span class="p">(</span><span class="nb">nil</span><span class="p">);</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="n">c_key</span><span class="p">[</span><span class="nf">idx</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mh">0x80</span><span class="p">)</span> <span class="n">idx</span> <span class="o">+=</span> <span class="n">c_key</span><span class="p">[</span><span class="nf">idx</span><span class="p">]</span> <span class="o">-</span> <span class="mh">0x80</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">else</span> <span class="n">idx</span><span class="o">++</span><span class="p">;</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="n">c_key</span><span class="p">[</span><span class="n">idx</span><span class="o">++</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">'\0'</span><span class="p">)</span> <span class="k">return</span><span class="p">(</span><span class="nb">nil</span><span class="p">);</span>
+    
+    <span class="c1">// Now make a new NSData from this buffer
+</span>    <span class="k">return</span><span class="p">([</span><span class="n">NSData</span> <span class="nf">dataWithBytes</span><span class="p">:</span><span class="o">&amp;</span><span class="n">c_key</span><span class="p">[</span><span class="nf">idx</span><span class="p">]</span> <span class="nf">length</span><span class="p">:</span><span class="n">len</span> <span class="o">-</span> <span class="n">idx</span><span class="p">]);</span>
+<span class="p">}</span>
 
-+ (NSData *)_stripPublicKeyHeader:(NSData *)d_key{
-    // Skip ASN.1 public key header
-    if (d_key == nil) return(nil);
+<span class="c1">//credit: http://hg.mozilla.org/services/fx-home/file/tip/Sources/NetworkAndStorage/CryptoUtils.m#l1036
+</span><span class="o">+</span> <span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="n">_stripPrivateKeyHeader</span><span class="o">:</span><span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="n">d_key</span><span class="p">{</span>
+    <span class="c1">// Skip ASN.1 private key header
+</span>    <span class="k">if</span> <span class="p">(</span><span class="n">d_key</span> <span class="o">==</span> <span class="nb">nil</span><span class="p">)</span> <span class="k">return</span><span class="p">(</span><span class="nb">nil</span><span class="p">);</span>
     
-    unsigned long len = [d_key length];
-    if (!len) return(nil);
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">len</span> <span class="o">=</span> <span class="p">[</span><span class="n">d_key</span> <span class="nf">length</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">len</span><span class="p">)</span> <span class="k">return</span><span class="p">(</span><span class="nb">nil</span><span class="p">);</span>
     
-    unsigned char *c_key = (unsigned char *)[d_key bytes];
-    unsigned int  idx	 = 0;
+    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">c_key</span> <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)[</span><span class="n">d_key</span> <span class="nf">bytes</span><span class="p">];</span>
+    <span class="kt">unsigned</span> <span class="kt">int</span>  <span class="n">idx</span>	 <span class="o">=</span> <span class="mi">22</span><span class="p">;</span> <span class="c1">//magic byte at offset 22
+</span>    
+    <span class="k">if</span> <span class="p">(</span><span class="mh">0x04</span> <span class="o">!=</span> <span class="n">c_key</span><span class="p">[</span><span class="n">idx</span><span class="o">++</span><span class="p">])</span> <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
     
-    if (c_key[idx++] != 0x30) return(nil);
+    <span class="c1">//calculate length of the key
+</span>    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">c_len</span> <span class="o">=</span> <span class="n">c_key</span><span class="p">[</span><span class="n">idx</span><span class="o">++</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">det</span> <span class="o">=</span> <span class="n">c_len</span> <span class="o">&amp;</span> <span class="mh">0x80</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">det</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">c_len</span> <span class="o">=</span> <span class="n">c_len</span> <span class="o">&amp;</span> <span class="mh">0x7f</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">byteCount</span> <span class="o">=</span> <span class="n">c_len</span> <span class="o">&amp;</span> <span class="mh">0x7f</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">byteCount</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="n">len</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">//rsa length field longer than buffer
+</span>            <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">accum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">c_key</span><span class="p">[</span><span class="nf">idx</span><span class="p">];</span>
+        <span class="n">idx</span> <span class="o">+=</span> <span class="n">byteCount</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">byteCount</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">accum</span> <span class="o">=</span> <span class="p">(</span><span class="n">accum</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+            <span class="n">ptr</span><span class="o">++</span><span class="p">;</span>
+            <span class="n">byteCount</span><span class="o">--</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">c_len</span> <span class="o">=</span> <span class="n">accum</span><span class="p">;</span>
+    <span class="p">}</span>
     
-    if (c_key[idx] &gt; 0x80) idx += c_key[idx] - 0x80 + 1;
-    else idx++;
-    
-    // PKCS #1 rsaEncryption szOID_RSA_RSA
-    static unsigned char seqiod[] =
-    { 0x30,   0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01,
-        0x01, 0x05, 0x00 };
-    if (memcmp(&amp;c_key[idx], seqiod, 15)) return(nil);
-    
-    idx += 15;
-    
-    if (c_key[idx++] != 0x03) return(nil);
-    
-    if (c_key[idx] &gt; 0x80) idx += c_key[idx] - 0x80 + 1;
-    else idx++;
-    
-    if (c_key[idx++] != '\0') return(nil);
-    
-    // Now make a new NSData from this buffer
-    return([NSData dataWithBytes:&amp;c_key[idx] length:len - idx]);
-}
+    <span class="c1">// Now make a new NSData from this buffer
+</span>    <span class="k">return</span> <span class="p">[</span><span class="n">d_key</span> <span class="nf">subdataWithRange</span><span class="p">:</span><span class="n">NSMakeRange</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">c_len</span><span class="p">)];</span>
+<span class="p">}</span>
 
-//credit: http://hg.mozilla.org/services/fx-home/file/tip/Sources/NetworkAndStorage/CryptoUtils.m#l1036
-+ (NSData *)_stripPrivateKeyHeader:(NSData *)d_key{
-    // Skip ASN.1 private key header
-    if (d_key == nil) return(nil);
+<span class="o">+</span> <span class="p">(</span><span class="n">SecKeyRef</span><span class="p">)</span><span class="n">_addPublicKey</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">key</span><span class="p">{</span>
+    <span class="n">NSRange</span> <span class="n">spos</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="nf">rangeOfString</span><span class="p">:</span><span class="s">@"-----BEGIN PUBLIC KEY-----"</span><span class="p">];</span>
+    <span class="n">NSRange</span> <span class="n">epos</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="nf">rangeOfString</span><span class="p">:</span><span class="s">@"-----END PUBLIC KEY-----"</span><span class="p">];</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">spos</span><span class="p">.</span><span class="n">location</span> <span class="o">!=</span> <span class="n">NSNotFound</span> <span class="o">&amp;&amp;</span> <span class="n">epos</span><span class="p">.</span><span class="n">location</span> <span class="o">!=</span> <span class="n">NSNotFound</span><span class="p">){</span>
+        <span class="n">NSUInteger</span> <span class="n">s</span> <span class="o">=</span> <span class="n">spos</span><span class="p">.</span><span class="n">location</span> <span class="o">+</span> <span class="n">spos</span><span class="p">.</span><span class="n">length</span><span class="p">;</span>
+        <span class="n">NSUInteger</span> <span class="n">e</span> <span class="o">=</span> <span class="n">epos</span><span class="p">.</span><span class="n">location</span><span class="p">;</span>
+        <span class="n">NSRange</span> <span class="n">range</span> <span class="o">=</span> <span class="n">NSMakeRange</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="o">-</span><span class="n">s</span><span class="p">);</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="nf">substringWithRange</span><span class="p">:</span><span class="n">range</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="nf">stringByReplacingOccurrencesOfString</span><span class="p">:</span><span class="s">@"</span><span class="se">\r</span><span class="s">"</span> <span class="nf">withString</span><span class="p">:</span><span class="s">@""</span><span class="p">];</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="nf">stringByReplacingOccurrencesOfString</span><span class="p">:</span><span class="s">@"</span><span class="se">\n</span><span class="s">"</span> <span class="nf">withString</span><span class="p">:</span><span class="s">@""</span><span class="p">];</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="nf">stringByReplacingOccurrencesOfString</span><span class="p">:</span><span class="s">@"</span><span class="se">\t</span><span class="s">"</span> <span class="nf">withString</span><span class="p">:</span><span class="s">@""</span><span class="p">];</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="nf">stringByReplacingOccurrencesOfString</span><span class="p">:</span><span class="s">@" "</span>  <span class="nf">withString</span><span class="p">:</span><span class="s">@""</span><span class="p">];</span>
     
-    unsigned long len = [d_key length];
-    if (!len) return(nil);
+    <span class="c1">// This will be base64 encoded, decode it.
+</span>    <span class="n">NSData</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="n">base64_decode</span><span class="p">(</span><span class="n">key</span><span class="p">);</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">_stripPublicKeyHeader</span><span class="p">:</span><span class="n">data</span><span class="p">];</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">data</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="p">}</span>
     
-    unsigned char *c_key = (unsigned char *)[d_key bytes];
-    unsigned int  idx	 = 22; //magic byte at offset 22
+    <span class="c1">//a tag to read/write keychain storage
+</span>    <span class="n">NSString</span> <span class="o">*</span><span class="n">tag</span> <span class="o">=</span> <span class="s">@"RSAUtil_PubKey"</span><span class="p">;</span>
+    <span class="n">NSData</span> <span class="o">*</span><span class="n">d_tag</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSData</span> <span class="nf">dataWithBytes</span><span class="p">:[</span><span class="n">tag</span> <span class="nf">UTF8String</span><span class="p">]</span> <span class="nf">length</span><span class="p">:[</span><span class="n">tag</span> <span class="nf">length</span><span class="p">]];</span>
     
-    if (0x04 != c_key[idx++]) return nil;
+    <span class="c1">// Delete any old lingering key with the same tag
+</span>    <span class="n">NSMutableDictionary</span> <span class="o">*</span><span class="n">publicKey</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSMutableDictionary</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">publicKey</span> <span class="nf">setObject</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span> <span class="n">kSecClassKey</span> <span class="nf">forKey</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span><span class="n">kSecClass</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">publicKey</span> <span class="nf">setObject</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span> <span class="n">kSecAttrKeyTypeRSA</span> <span class="nf">forKey</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span><span class="n">kSecAttrKeyType</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">publicKey</span> <span class="nf">setObject</span><span class="p">:</span><span class="n">d_tag</span> <span class="nf">forKey</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span><span class="n">kSecAttrApplicationTag</span><span class="p">];</span>
+    <span class="n">SecItemDelete</span><span class="p">((</span><span class="n">__bridge</span> <span class="n">CFDictionaryRef</span><span class="p">)</span><span class="n">publicKey</span><span class="p">);</span>
     
-    //calculate length of the key
-    unsigned int c_len = c_key[idx++];
-    int det = c_len &amp; 0x80;
-    if (!det) {
-        c_len = c_len &amp; 0x7f;
-    } else {
-        int byteCount = c_len &amp; 0x7f;
-        if (byteCount + idx &gt; len) {
-            //rsa length field longer than buffer
-            return nil;
-        }
-        unsigned int accum = 0;
-        unsigned char *ptr = &amp;c_key[idx];
-        idx += byteCount;
-        while (byteCount) {
-            accum = (accum &lt;&lt; 8) + *ptr;
-            ptr++;
-            byteCount--;
-        }
-        c_len = accum;
-    }
+    <span class="c1">// Add persistent version of the key to system keychain
+</span>    <span class="p">[</span><span class="n">publicKey</span> <span class="nf">setObject</span><span class="p">:</span><span class="n">data</span> <span class="nf">forKey</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span><span class="n">kSecValueData</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">publicKey</span> <span class="nf">setObject</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span> <span class="n">kSecAttrKeyClassPublic</span> <span class="nf">forKey</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span>
+     <span class="n">kSecAttrKeyClass</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">publicKey</span> <span class="nf">setObject</span><span class="p">:[</span><span class="n">NSNumber</span> <span class="nf">numberWithBool</span><span class="p">:</span><span class="nb">YES</span><span class="p">]</span> <span class="nf">forKey</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span>
+     <span class="n">kSecReturnPersistentRef</span><span class="p">];</span>
     
-    // Now make a new NSData from this buffer
-    return [d_key subdataWithRange:NSMakeRange(idx, c_len)];
-}
+    <span class="n">CFTypeRef</span> <span class="n">persistKey</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="n">OSStatus</span> <span class="n">status</span> <span class="o">=</span> <span class="n">SecItemAdd</span><span class="p">((</span><span class="n">__bridge</span> <span class="n">CFDictionaryRef</span><span class="p">)</span><span class="n">publicKey</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">persistKey</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">persistKey</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">){</span>
+        <span class="n">CFRelease</span><span class="p">(</span><span class="n">persistKey</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">status</span> <span class="o">!=</span> <span class="n">noErr</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">status</span> <span class="o">!=</span> <span class="n">errSecDuplicateItem</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="p">[</span><span class="n">publicKey</span> <span class="nf">removeObjectForKey</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span><span class="n">kSecValueData</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">publicKey</span> <span class="nf">removeObjectForKey</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span><span class="n">kSecReturnPersistentRef</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">publicKey</span> <span class="nf">setObject</span><span class="p">:[</span><span class="n">NSNumber</span> <span class="nf">numberWithBool</span><span class="p">:</span><span class="nb">YES</span><span class="p">]</span> <span class="nf">forKey</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span><span class="n">kSecReturnRef</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">publicKey</span> <span class="nf">setObject</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span> <span class="n">kSecAttrKeyTypeRSA</span> <span class="nf">forKey</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span><span class="n">kSecAttrKeyType</span><span class="p">];</span>
+    
+    <span class="c1">// Now fetch the SecKeyRef version of the key
+</span>    <span class="n">SecKeyRef</span> <span class="n">keyRef</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">SecItemCopyMatching</span><span class="p">((</span><span class="n">__bridge</span> <span class="n">CFDictionaryRef</span><span class="p">)</span><span class="n">publicKey</span><span class="p">,</span> <span class="p">(</span><span class="n">CFTypeRef</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">keyRef</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">status</span> <span class="o">!=</span> <span class="n">noErr</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">keyRef</span><span class="p">;</span>
+<span class="p">}</span>
 
-+ (SecKeyRef)_addPublicKey:(NSString *)key{
-    NSRange spos = [key rangeOfString:@"-----BEGIN PUBLIC KEY-----"];
-    NSRange epos = [key rangeOfString:@"-----END PUBLIC KEY-----"];
-    if(spos.location != NSNotFound &amp;&amp; epos.location != NSNotFound){
-        NSUInteger s = spos.location + spos.length;
-        NSUInteger e = epos.location;
-        NSRange range = NSMakeRange(s, e-s);
-        key = [key substringWithRange:range];
-    }
-    key = [key stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-    key = [key stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    key = [key stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-    key = [key stringByReplacingOccurrencesOfString:@" "  withString:@""];
+<span class="o">+</span> <span class="p">(</span><span class="n">SecKeyRef</span><span class="p">)</span><span class="n">_addPrivateKey</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">key</span><span class="p">{</span>
+    <span class="n">NSRange</span> <span class="n">spos</span><span class="p">;</span>
+    <span class="n">NSRange</span> <span class="n">epos</span><span class="p">;</span>
+    <span class="n">spos</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="nf">rangeOfString</span><span class="p">:</span><span class="s">@"-----BEGIN RSA PRIVATE KEY-----"</span><span class="p">];</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">spos</span><span class="p">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+        <span class="n">epos</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="nf">rangeOfString</span><span class="p">:</span><span class="s">@"-----END RSA PRIVATE KEY-----"</span><span class="p">];</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="n">spos</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="nf">rangeOfString</span><span class="p">:</span><span class="s">@"-----BEGIN PRIVATE KEY-----"</span><span class="p">];</span>
+        <span class="n">epos</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="nf">rangeOfString</span><span class="p">:</span><span class="s">@"-----END PRIVATE KEY-----"</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">spos</span><span class="p">.</span><span class="n">location</span> <span class="o">!=</span> <span class="n">NSNotFound</span> <span class="o">&amp;&amp;</span> <span class="n">epos</span><span class="p">.</span><span class="n">location</span> <span class="o">!=</span> <span class="n">NSNotFound</span><span class="p">){</span>
+        <span class="n">NSUInteger</span> <span class="n">s</span> <span class="o">=</span> <span class="n">spos</span><span class="p">.</span><span class="n">location</span> <span class="o">+</span> <span class="n">spos</span><span class="p">.</span><span class="n">length</span><span class="p">;</span>
+        <span class="n">NSUInteger</span> <span class="n">e</span> <span class="o">=</span> <span class="n">epos</span><span class="p">.</span><span class="n">location</span><span class="p">;</span>
+        <span class="n">NSRange</span> <span class="n">range</span> <span class="o">=</span> <span class="n">NSMakeRange</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="o">-</span><span class="n">s</span><span class="p">);</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="nf">substringWithRange</span><span class="p">:</span><span class="n">range</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="nf">stringByReplacingOccurrencesOfString</span><span class="p">:</span><span class="s">@"</span><span class="se">\r</span><span class="s">"</span> <span class="nf">withString</span><span class="p">:</span><span class="s">@""</span><span class="p">];</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="nf">stringByReplacingOccurrencesOfString</span><span class="p">:</span><span class="s">@"</span><span class="se">\n</span><span class="s">"</span> <span class="nf">withString</span><span class="p">:</span><span class="s">@""</span><span class="p">];</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="nf">stringByReplacingOccurrencesOfString</span><span class="p">:</span><span class="s">@"</span><span class="se">\t</span><span class="s">"</span> <span class="nf">withString</span><span class="p">:</span><span class="s">@""</span><span class="p">];</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="nf">stringByReplacingOccurrencesOfString</span><span class="p">:</span><span class="s">@" "</span>  <span class="nf">withString</span><span class="p">:</span><span class="s">@""</span><span class="p">];</span>
     
-    // This will be base64 encoded, decode it.
-    NSData *data = base64_decode(key);
-    data = [self _stripPublicKeyHeader:data];
-    if(!data){
-        return nil;
-    }
+    <span class="c1">// This will be base64 encoded, decode it.
+</span>    <span class="n">NSData</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="n">base64_decode</span><span class="p">(</span><span class="n">key</span><span class="p">);</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">_stripPrivateKeyHeader</span><span class="p">:</span><span class="n">data</span><span class="p">];</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">data</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="p">}</span>
     
-    //a tag to read/write keychain storage
-    NSString *tag = @"RSAUtil_PubKey";
-    NSData *d_tag = [NSData dataWithBytes:[tag UTF8String] length:[tag length]];
+    <span class="c1">//a tag to read/write keychain storage
+</span>    <span class="n">NSString</span> <span class="o">*</span><span class="n">tag</span> <span class="o">=</span> <span class="s">@"RSAUtil_PrivKey"</span><span class="p">;</span>
+    <span class="n">NSData</span> <span class="o">*</span><span class="n">d_tag</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSData</span> <span class="nf">dataWithBytes</span><span class="p">:[</span><span class="n">tag</span> <span class="nf">UTF8String</span><span class="p">]</span> <span class="nf">length</span><span class="p">:[</span><span class="n">tag</span> <span class="nf">length</span><span class="p">]];</span>
     
-    // Delete any old lingering key with the same tag
-    NSMutableDictionary *publicKey = [[NSMutableDictionary alloc] init];
-    [publicKey setObject:(__bridge id) kSecClassKey forKey:(__bridge id)kSecClass];
-    [publicKey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
-    [publicKey setObject:d_tag forKey:(__bridge id)kSecAttrApplicationTag];
-    SecItemDelete((__bridge CFDictionaryRef)publicKey);
+    <span class="c1">// Delete any old lingering key with the same tag
+</span>    <span class="n">NSMutableDictionary</span> <span class="o">*</span><span class="n">privateKey</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSMutableDictionary</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">privateKey</span> <span class="nf">setObject</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span> <span class="n">kSecClassKey</span> <span class="nf">forKey</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span><span class="n">kSecClass</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">privateKey</span> <span class="nf">setObject</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span> <span class="n">kSecAttrKeyTypeRSA</span> <span class="nf">forKey</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span><span class="n">kSecAttrKeyType</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">privateKey</span> <span class="nf">setObject</span><span class="p">:</span><span class="n">d_tag</span> <span class="nf">forKey</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span><span class="n">kSecAttrApplicationTag</span><span class="p">];</span>
+    <span class="n">SecItemDelete</span><span class="p">((</span><span class="n">__bridge</span> <span class="n">CFDictionaryRef</span><span class="p">)</span><span class="n">privateKey</span><span class="p">);</span>
     
-    // Add persistent version of the key to system keychain
-    [publicKey setObject:data forKey:(__bridge id)kSecValueData];
-    [publicKey setObject:(__bridge id) kSecAttrKeyClassPublic forKey:(__bridge id)
-     kSecAttrKeyClass];
-    [publicKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)
-     kSecReturnPersistentRef];
+    <span class="c1">// Add persistent version of the key to system keychain
+</span>    <span class="p">[</span><span class="n">privateKey</span> <span class="nf">setObject</span><span class="p">:</span><span class="n">data</span> <span class="nf">forKey</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span><span class="n">kSecValueData</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">privateKey</span> <span class="nf">setObject</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span> <span class="n">kSecAttrKeyClassPrivate</span> <span class="nf">forKey</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span>
+     <span class="n">kSecAttrKeyClass</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">privateKey</span> <span class="nf">setObject</span><span class="p">:[</span><span class="n">NSNumber</span> <span class="nf">numberWithBool</span><span class="p">:</span><span class="nb">YES</span><span class="p">]</span> <span class="nf">forKey</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span>
+     <span class="n">kSecReturnPersistentRef</span><span class="p">];</span>
     
-    CFTypeRef persistKey = nil;
-    OSStatus status = SecItemAdd((__bridge CFDictionaryRef)publicKey, &amp;persistKey);
-    if (persistKey != nil){
-        CFRelease(persistKey);
-    }
-    if ((status != noErr) &amp;&amp; (status != errSecDuplicateItem)) {
-        return nil;
-    }
+    <span class="n">CFTypeRef</span> <span class="n">persistKey</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="n">OSStatus</span> <span class="n">status</span> <span class="o">=</span> <span class="n">SecItemAdd</span><span class="p">((</span><span class="n">__bridge</span> <span class="n">CFDictionaryRef</span><span class="p">)</span><span class="n">privateKey</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">persistKey</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">persistKey</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">){</span>
+        <span class="n">CFRelease</span><span class="p">(</span><span class="n">persistKey</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">status</span> <span class="o">!=</span> <span class="n">noErr</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">status</span> <span class="o">!=</span> <span class="n">errSecDuplicateItem</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="p">}</span>
     
-    [publicKey removeObjectForKey:(__bridge id)kSecValueData];
-    [publicKey removeObjectForKey:(__bridge id)kSecReturnPersistentRef];
-    [publicKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnRef];
-    [publicKey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
+    <span class="p">[</span><span class="n">privateKey</span> <span class="nf">removeObjectForKey</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span><span class="n">kSecValueData</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">privateKey</span> <span class="nf">removeObjectForKey</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span><span class="n">kSecReturnPersistentRef</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">privateKey</span> <span class="nf">setObject</span><span class="p">:[</span><span class="n">NSNumber</span> <span class="nf">numberWithBool</span><span class="p">:</span><span class="nb">YES</span><span class="p">]</span> <span class="nf">forKey</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span><span class="n">kSecReturnRef</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">privateKey</span> <span class="nf">setObject</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span> <span class="n">kSecAttrKeyTypeRSA</span> <span class="nf">forKey</span><span class="p">:(</span><span class="n">__bridge</span> <span class="n">id</span><span class="p">)</span><span class="n">kSecAttrKeyType</span><span class="p">];</span>
     
-    // Now fetch the SecKeyRef version of the key
-    SecKeyRef keyRef = nil;
-    status = SecItemCopyMatching((__bridge CFDictionaryRef)publicKey, (CFTypeRef *)&amp;keyRef);
-    if(status != noErr){
-        return nil;
-    }
-    return keyRef;
-}
+    <span class="c1">// Now fetch the SecKeyRef version of the key
+</span>    <span class="n">SecKeyRef</span> <span class="n">keyRef</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">SecItemCopyMatching</span><span class="p">((</span><span class="n">__bridge</span> <span class="n">CFDictionaryRef</span><span class="p">)</span><span class="n">privateKey</span><span class="p">,</span> <span class="p">(</span><span class="n">CFTypeRef</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">keyRef</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">status</span> <span class="o">!=</span> <span class="n">noErr</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">keyRef</span><span class="p">;</span>
+<span class="p">}</span>
 
-+ (SecKeyRef)_addPrivateKey:(NSString *)key{
-    NSRange spos;
-    NSRange epos;
-    spos = [key rangeOfString:@"-----BEGIN RSA PRIVATE KEY-----"];
-    if(spos.length &gt; 0){
-        epos = [key rangeOfString:@"-----END RSA PRIVATE KEY-----"];
-    }else{
-        spos = [key rangeOfString:@"-----BEGIN PRIVATE KEY-----"];
-        epos = [key rangeOfString:@"-----END PRIVATE KEY-----"];
-    }
-    if(spos.location != NSNotFound &amp;&amp; epos.location != NSNotFound){
-        NSUInteger s = spos.location + spos.length;
-        NSUInteger e = epos.location;
-        NSRange range = NSMakeRange(s, e-s);
-        key = [key substringWithRange:range];
-    }
-    key = [key stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-    key = [key stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    key = [key stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-    key = [key stringByReplacingOccurrencesOfString:@" "  withString:@""];
+<span class="o">+</span> <span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="n">_encryptData</span><span class="o">:</span><span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="n">data</span> <span class="n">withKeyRef</span><span class="o">:</span><span class="p">(</span><span class="n">SecKeyRef</span><span class="p">)</span> <span class="n">keyRef</span><span class="p">{</span>
+    <span class="k">const</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">srcbuf</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)[</span><span class="n">data</span> <span class="nf">bytes</span><span class="p">];</span>
+    <span class="kt">size_t</span> <span class="n">srclen</span> <span class="o">=</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="n">data</span><span class="p">.</span><span class="n">length</span><span class="p">;</span>
     
-    // This will be base64 encoded, decode it.
-    NSData *data = base64_decode(key);
-    data = [self _stripPrivateKeyHeader:data];
-    if(!data){
-        return nil;
-    }
+    <span class="kt">size_t</span> <span class="n">block_size</span> <span class="o">=</span> <span class="n">SecKeyGetBlockSize</span><span class="p">(</span><span class="n">keyRef</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">uint8_t</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="o">*</span><span class="n">outbuf</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">block_size</span><span class="p">);</span>
+    <span class="kt">size_t</span> <span class="n">src_block_size</span> <span class="o">=</span> <span class="n">block_size</span> <span class="o">-</span> <span class="mi">11</span><span class="p">;</span>
     
-    //a tag to read/write keychain storage
-    NSString *tag = @"RSAUtil_PrivKey";
-    NSData *d_tag = [NSData dataWithBytes:[tag UTF8String] length:[tag length]];
-    
-    // Delete any old lingering key with the same tag
-    NSMutableDictionary *privateKey = [[NSMutableDictionary alloc] init];
-    [privateKey setObject:(__bridge id) kSecClassKey forKey:(__bridge id)kSecClass];
-    [privateKey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
-    [privateKey setObject:d_tag forKey:(__bridge id)kSecAttrApplicationTag];
-    SecItemDelete((__bridge CFDictionaryRef)privateKey);
-    
-    // Add persistent version of the key to system keychain
-    [privateKey setObject:data forKey:(__bridge id)kSecValueData];
-    [privateKey setObject:(__bridge id) kSecAttrKeyClassPrivate forKey:(__bridge id)
-     kSecAttrKeyClass];
-    [privateKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)
-     kSecReturnPersistentRef];
-    
-    CFTypeRef persistKey = nil;
-    OSStatus status = SecItemAdd((__bridge CFDictionaryRef)privateKey, &amp;persistKey);
-    if (persistKey != nil){
-        CFRelease(persistKey);
-    }
-    if ((status != noErr) &amp;&amp; (status != errSecDuplicateItem)) {
-        return nil;
-    }
-    
-    [privateKey removeObjectForKey:(__bridge id)kSecValueData];
-    [privateKey removeObjectForKey:(__bridge id)kSecReturnPersistentRef];
-    [privateKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnRef];
-    [privateKey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
-    
-    // Now fetch the SecKeyRef version of the key
-    SecKeyRef keyRef = nil;
-    status = SecItemCopyMatching((__bridge CFDictionaryRef)privateKey, (CFTypeRef *)&amp;keyRef);
-    if(status != noErr){
-        return nil;
-    }
-    return keyRef;
-}
-
-+ (NSData *)_encryptData:(NSData *)data withKeyRef:(SecKeyRef) keyRef{
-    const uint8_t *srcbuf = (const uint8_t *)[data bytes];
-    size_t srclen = (size_t)data.length;
-    
-    size_t block_size = SecKeyGetBlockSize(keyRef) * sizeof(uint8_t);
-    void *outbuf = malloc(block_size);
-    size_t src_block_size = block_size - 11;
-    
-    NSMutableData *ret = [[NSMutableData alloc] init];
-    for(int idx=0; idx&lt;srclen; idx+=src_block_size){
-        //NSLog(@"%d/%d block_size: %d", idx, (int)srclen, (int)block_size);
-        size_t data_len = srclen - idx;
-        if(data_len &gt; src_block_size){
-            data_len = src_block_size;
-        }
+    <span class="n">NSMutableData</span> <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSMutableData</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">idx</span><span class="o">&lt;</span><span class="n">srclen</span><span class="p">;</span> <span class="n">idx</span><span class="o">+=</span><span class="n">src_block_size</span><span class="p">){</span>
+        <span class="c1">//NSLog(@"%d/%d block_size: %d", idx, (int)srclen, (int)block_size);
+</span>        <span class="kt">size_t</span> <span class="n">data_len</span> <span class="o">=</span> <span class="n">srclen</span> <span class="o">-</span> <span class="n">idx</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">data_len</span> <span class="o">&gt;</span> <span class="n">src_block_size</span><span class="p">){</span>
+            <span class="n">data_len</span> <span class="o">=</span> <span class="n">src_block_size</span><span class="p">;</span>
+        <span class="p">}</span>
         
-        size_t outlen = block_size;
-        OSStatus status = noErr;
-        status = SecKeyEncrypt(keyRef,
-                               kSecPaddingPKCS1,
-                               srcbuf + idx,
-                               data_len,
-                               outbuf,
-                               &amp;outlen
-                               );
-        if (status != 0) {
-            NSLog(@"SecKeyEncrypt fail. Error Code: %d", status);
-            ret = nil;
-            break;
-        }else{
-            [ret appendBytes:outbuf length:outlen];
-        }
-    }
+        <span class="kt">size_t</span> <span class="n">outlen</span> <span class="o">=</span> <span class="n">block_size</span><span class="p">;</span>
+        <span class="n">OSStatus</span> <span class="n">status</span> <span class="o">=</span> <span class="n">noErr</span><span class="p">;</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="n">SecKeyEncrypt</span><span class="p">(</span><span class="n">keyRef</span><span class="p">,</span>
+                               <span class="n">kSecPaddingPKCS1</span><span class="p">,</span>
+                               <span class="n">srcbuf</span> <span class="o">+</span> <span class="n">idx</span><span class="p">,</span>
+                               <span class="n">data_len</span><span class="p">,</span>
+                               <span class="n">outbuf</span><span class="p">,</span>
+                               <span class="o">&amp;</span><span class="n">outlen</span>
+                               <span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">NSLog</span><span class="p">(</span><span class="s">@"SecKeyEncrypt fail. Error Code: %d"</span><span class="p">,</span> <span class="n">status</span><span class="p">);</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="p">[</span><span class="n">ret</span> <span class="nf">appendBytes</span><span class="p">:</span><span class="n">outbuf</span> <span class="nf">length</span><span class="p">:</span><span class="n">outlen</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
     
-    free(outbuf);
-    CFRelease(keyRef);
-    return ret;
-}
+    <span class="n">free</span><span class="p">(</span><span class="n">outbuf</span><span class="p">);</span>
+    <span class="n">CFRelease</span><span class="p">(</span><span class="n">keyRef</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
 
-+ (NSString *)_encryptString:(NSString *)str privateKey:(NSString *)privKey{
-    NSData *data = [self encryptData:[str dataUsingEncoding:NSUTF8StringEncoding] privateKey:privKey];
-    NSString *ret = base64_encode_data(data);
-    return ret;
-}
+<span class="o">+</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">_encryptString</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">str</span> <span class="n">privateKey</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">privKey</span><span class="p">{</span>
+    <span class="n">NSData</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">encryptData</span><span class="p">:[</span><span class="n">str</span> <span class="nf">dataUsingEncoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">]</span> <span class="nf">privateKey</span><span class="p">:</span><span class="n">privKey</span><span class="p">];</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="n">base64_encode_data</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
 
-+ (NSData *)encryptData:(NSData *)data privateKey:(NSString *)privKey{
-    if(!data || !privKey){
-        return nil;
-    }
-    SecKeyRef keyRef = [self _addPrivateKey:privKey];
-    if(!keyRef){
-        return nil;
-    }
-    return [self _encryptData:data withKeyRef:keyRef];
-}
+<span class="o">+</span> <span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="n">encryptData</span><span class="o">:</span><span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="n">data</span> <span class="n">privateKey</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">privKey</span><span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">data</span> <span class="o">||</span> <span class="o">!</span><span class="n">privKey</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">SecKeyRef</span> <span class="n">keyRef</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">_addPrivateKey</span><span class="p">:</span><span class="n">privKey</span><span class="p">];</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">keyRef</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">self</span> <span class="nf">_encryptData</span><span class="p">:</span><span class="n">data</span> <span class="nf">withKeyRef</span><span class="p">:</span><span class="n">keyRef</span><span class="p">];</span>
+<span class="p">}</span>
 
-+ (NSData *)_decryptData:(NSData *)data withKeyRef:(SecKeyRef) keyRef{
-    const uint8_t *srcbuf = (const uint8_t *)[data bytes];
-    size_t srclen = (size_t)data.length;
+<span class="o">+</span> <span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="n">_decryptData</span><span class="o">:</span><span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="n">data</span> <span class="n">withKeyRef</span><span class="o">:</span><span class="p">(</span><span class="n">SecKeyRef</span><span class="p">)</span> <span class="n">keyRef</span><span class="p">{</span>
+    <span class="k">const</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">srcbuf</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)[</span><span class="n">data</span> <span class="nf">bytes</span><span class="p">];</span>
+    <span class="kt">size_t</span> <span class="n">srclen</span> <span class="o">=</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="n">data</span><span class="p">.</span><span class="n">length</span><span class="p">;</span>
     
-    size_t block_size = SecKeyGetBlockSize(keyRef) * sizeof(uint8_t);
-    UInt8 *outbuf = malloc(block_size);
-    size_t src_block_size = block_size;
+    <span class="kt">size_t</span> <span class="n">block_size</span> <span class="o">=</span> <span class="n">SecKeyGetBlockSize</span><span class="p">(</span><span class="n">keyRef</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">uint8_t</span><span class="p">);</span>
+    <span class="n">UInt8</span> <span class="o">*</span><span class="n">outbuf</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">block_size</span><span class="p">);</span>
+    <span class="kt">size_t</span> <span class="n">src_block_size</span> <span class="o">=</span> <span class="n">block_size</span><span class="p">;</span>
     
-    NSMutableData *ret = [[NSMutableData alloc] init];
-    for(int idx=0; idx&lt;srclen; idx+=src_block_size){
-        //NSLog(@"%d/%d block_size: %d", idx, (int)srclen, (int)block_size);
-        size_t data_len = srclen - idx;
-        if(data_len &gt; src_block_size){
-            data_len = src_block_size;
-        }
+    <span class="n">NSMutableData</span> <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSMutableData</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">idx</span><span class="o">&lt;</span><span class="n">srclen</span><span class="p">;</span> <span class="n">idx</span><span class="o">+=</span><span class="n">src_block_size</span><span class="p">){</span>
+        <span class="c1">//NSLog(@"%d/%d block_size: %d", idx, (int)srclen, (int)block_size);
+</span>        <span class="kt">size_t</span> <span class="n">data_len</span> <span class="o">=</span> <span class="n">srclen</span> <span class="o">-</span> <span class="n">idx</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">data_len</span> <span class="o">&gt;</span> <span class="n">src_block_size</span><span class="p">){</span>
+            <span class="n">data_len</span> <span class="o">=</span> <span class="n">src_block_size</span><span class="p">;</span>
+        <span class="p">}</span>
         
-        size_t outlen = block_size;
-        OSStatus status = noErr;
-        status = SecKeyDecrypt(keyRef,
-                               kSecPaddingNone,
-                               srcbuf + idx,
-                               data_len,
-                               outbuf,
-                               &amp;outlen
-                               );
-        if (status != 0) {
-            NSLog(@"SecKeyEncrypt fail. Error Code: %d", status);
-            ret = nil;
-            break;
-        }else{
-            //the actual decrypted data is in the middle, locate it!
-            int idxFirstZero = -1;
-            int idxNextZero = (int)outlen;
-            for ( int i = 0; i &lt; outlen; i++ ) {
-                if ( outbuf[i] == 0 ) {
-                    if ( idxFirstZero &lt; 0 ) {
-                        idxFirstZero = i;
-                    } else {
-                        idxNextZero = i;
-                        break;
-                    }
-                }
-            }
+        <span class="kt">size_t</span> <span class="n">outlen</span> <span class="o">=</span> <span class="n">block_size</span><span class="p">;</span>
+        <span class="n">OSStatus</span> <span class="n">status</span> <span class="o">=</span> <span class="n">noErr</span><span class="p">;</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="n">SecKeyDecrypt</span><span class="p">(</span><span class="n">keyRef</span><span class="p">,</span>
+                               <span class="n">kSecPaddingNone</span><span class="p">,</span>
+                               <span class="n">srcbuf</span> <span class="o">+</span> <span class="n">idx</span><span class="p">,</span>
+                               <span class="n">data_len</span><span class="p">,</span>
+                               <span class="n">outbuf</span><span class="p">,</span>
+                               <span class="o">&amp;</span><span class="n">outlen</span>
+                               <span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">NSLog</span><span class="p">(</span><span class="s">@"SecKeyEncrypt fail. Error Code: %d"</span><span class="p">,</span> <span class="n">status</span><span class="p">);</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="c1">//the actual decrypted data is in the middle, locate it!
+</span>            <span class="kt">int</span> <span class="n">idxFirstZero</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="n">idxNextZero</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">outlen</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">outlen</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="n">outbuf</span><span class="p">[</span><span class="nf">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">)</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span> <span class="n">idxFirstZero</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">)</span> <span class="p">{</span>
+                        <span class="n">idxFirstZero</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                        <span class="n">idxNextZero</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+                        <span class="k">break</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
             
-            [ret appendBytes:&amp;outbuf[idxFirstZero+1] length:idxNextZero-idxFirstZero-1];
-        }
-    }
+            <span class="p">[</span><span class="n">ret</span> <span class="nf">appendBytes</span><span class="p">:</span><span class="o">&amp;</span><span class="n">outbuf</span><span class="p">[</span><span class="n">idxFirstZero</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="nf">length</span><span class="p">:</span><span class="n">idxNextZero</span><span class="o">-</span><span class="n">idxFirstZero</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
     
-    free(outbuf);
-    CFRelease(keyRef);
-    return ret;
-}
-@end
+    <span class="n">free</span><span class="p">(</span><span class="n">outbuf</span><span class="p">);</span>
+    <span class="n">CFRelease</span><span class="p">(</span><span class="n">keyRef</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">@end</span>
 </code></pre>
+</div>
 <p>最后附上<a href="https://github.com/CatchZeng/CATSecurity">工程地址</a>。</p>
 
 
@@ -823,7 +830,7 @@ B使用同一种规则，对信息进行解密。
                 <ul class="list-inline text-center">
                     
                     
-                    
+
                     <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
                     
                     
@@ -836,8 +843,8 @@ B使用同一种规则，对信息进行解密。
                         </a>
                     </li>
                     
-                    
-                    
+
+
                     
                     
                     <li>
@@ -875,77 +882,92 @@ B使用同一种规则，对信息进行解密。
 <!-- async load function -->
 <script>
     function async(u, c) {
-        var d = document, t = 'script',
-        o = d.createElement(t),
-        s = d.getElementsByTagName(t)[0];
-        o.src = u;
-        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-        s.parentNode.insertBefore(o, s);
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
     }
 </script>
 
-<!-- Highlight.js -->
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
 <script>
-    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
-          hljs.initHighlightingOnLoad();
-          })
-          // only load tagcloud.js in tag.html
-          if($('#tag_cloud').length !== 0){
-              async("/js/jquery.tagcloud.js",function(){
-                    $.fn.tagcloud.defaults = {
-                    //size: {start: 1, end: 1, unit: 'em'},
-                    color: {start: '#bbbbee', end: '#0085a1'},
-                    };
-                    $('#tag_cloud a').tagcloud();
-                    })
-          }
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
 </script>
-<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
-    
-    <!--fastClick.js -->
-    <script>
-        async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
-              var $nav = document.querySelector("nav");
-              if($nav) FastClick.attach($nav);
-              })
-        </script>
-    
-    
-    <!-- Google Analytics -->
-    
-    <script>
-        // dynamic User by Hux
-        var _gaId = 'UA-49627206-1';
-        var _gaDomain = 'catchzeng.com';
-        
-        // Originial
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-         
-         ga('create', _gaId, _gaDomain);
-         ga('send', 'pageview');
-        </script>
-    
-    
-    
-    <!-- Baidu Tongji -->
-    
-    <script>
-        // dynamic User by Hux
-        var _baId = 'ede41d96392251499c57ebaa6d256c8a';
-        
-        // Originial
-        var _hmt = _hmt || [];
-        (function() {
-         var hm = document.createElement("script");
-         hm.src = "//hm.baidu.com/hm.js?" + _baId;
-         var s = document.getElementsByTagName("script")[0];
-         s.parentNode.insertBefore(hm, s);
-         })();
-        </script>
-    
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'catchzeng.com';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'ede41d96392251499c57ebaa6d256c8a';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
 
 
 

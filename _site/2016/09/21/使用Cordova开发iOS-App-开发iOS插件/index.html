@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="keyword"  content="">
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>使用Cordova开发iOS App -- 开发iOS插件 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
@@ -178,7 +178,7 @@
 <p>创建类TestPlugin继承于CDVPlugin
 <img src="/img/in-post/post-cordova2/2.png" alt="Plugins" /></p>
 
-<p>注意：创建类后会报头文件<code>#import &lt;Cordova/Cordova.h&gt;</code>找不到的问题，替换成<code> #import &lt;Cordova/CDVPlugin.h&gt;</code>即可。</p>
+<p>注意：创建类后会报头文件<code class="highlighter-rouge">#import &lt;Cordova/Cordova.h&gt;</code>找不到的问题，替换成<code class="highlighter-rouge"> #import &lt;Cordova/CDVPlugin.h&gt;</code>即可。</p>
 
 <h3 id="二实现插件代码">二、实现插件代码</h3>
 
@@ -186,29 +186,30 @@
 
 <p><img src="/img/in-post/post-cordova2/3.gif" alt="Plugins" /></p>
 
-<pre><code>
-@implementation TestPlugin
+<div class="highlighter-rouge"><pre class="highlight"><code>
+<span class="k">@implementation</span> <span class="nc">TestPlugin</span>
 
--(void)testWithTitle:(CDVInvokedUrlCommand *)command{
-    if (command.arguments.count&gt;0) {
-        //customize argument
-        NSString* title = command.arguments[0];
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">testWithTitle</span><span class="p">:(</span><span class="n">CDVInvokedUrlCommand</span> <span class="o">*</span><span class="p">)</span><span class="nv">command</span><span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">command</span><span class="p">.</span><span class="n">arguments</span><span class="p">.</span><span class="n">count</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//customize argument
+</span>        <span class="n">NSString</span><span class="o">*</span> <span class="n">title</span> <span class="o">=</span> <span class="n">command</span><span class="p">.</span><span class="n">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
         
-        TestViewController* testViewCtrl = [[TestViewController alloc]init];
-        [self.viewController presentViewController:testViewCtrl animated:YES completion:^{
-            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"我是OC回传的参数!"];
-            testViewCtrl.labTitle.text = title;
-            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-        }];
-    }else{
-        //callback
-        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"没有参数"];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }
-}
+        <span class="n">TestViewController</span><span class="o">*</span> <span class="n">testViewCtrl</span> <span class="o">=</span> <span class="p">[[</span><span class="n">TestViewController</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">init</span><span class="p">];</span>
+        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">viewController</span> <span class="nf">presentViewController</span><span class="p">:</span><span class="n">testViewCtrl</span> <span class="nf">animated</span><span class="p">:</span><span class="nb">YES</span> <span class="n">completion</span><span class="o">:^</span><span class="p">{</span>
+            <span class="n">CDVPluginResult</span><span class="o">*</span> <span class="n">pluginResult</span> <span class="o">=</span> <span class="p">[</span><span class="n">CDVPluginResult</span> <span class="nf">resultWithStatus</span><span class="p">:</span><span class="n">CDVCommandStatus_OK</span> <span class="nf">messageAsString</span><span class="p">:</span><span class="s">@"我是OC回传的参数!"</span><span class="p">];</span>
+            <span class="n">testViewCtrl</span><span class="p">.</span><span class="n">labTitle</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">title</span><span class="p">;</span>
+            <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">commandDelegate</span> <span class="nf">sendPluginResult</span><span class="p">:</span><span class="n">pluginResult</span> <span class="nf">callbackId</span><span class="p">:</span><span class="n">command</span><span class="p">.</span><span class="n">callbackId</span><span class="p">];</span>
+        <span class="p">}];</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="c1">//callback
+</span>        <span class="n">CDVPluginResult</span><span class="o">*</span> <span class="n">pluginResult</span> <span class="o">=</span> <span class="p">[</span><span class="n">CDVPluginResult</span> <span class="nf">resultWithStatus</span><span class="p">:</span><span class="n">CDVCommandStatus_ERROR</span> <span class="nf">messageAsString</span><span class="p">:</span><span class="s">@"没有参数"</span><span class="p">];</span>
+        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">commandDelegate</span> <span class="nf">sendPluginResult</span><span class="p">:</span><span class="n">pluginResult</span> <span class="nf">callbackId</span><span class="p">:</span><span class="n">command</span><span class="p">.</span><span class="n">callbackId</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-@end
+<span class="k">@end</span>
 </code></pre>
+</div>
 <p>说明：</p>
 
 <p>command.arguments：JS传递过来的参数列表，可自行协定参数的格式</p>
@@ -220,38 +221,40 @@
 <h3 id="三测试插件">三、测试插件</h3>
 <p>在config.xml文件中加入以下代码让JS能够调用我们的OC类,需要注意的是需要配置Staging下的config.xml,而不是外部的</p>
 
-<pre><code>&lt;feature name="ocTestPlugin"&gt;
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;feature name="ocTestPlugin"&gt;
   &lt;param name="ios-package" value="TestPlugin" /&gt;
 &lt;/feature&gt;
 </code></pre>
+</div>
 <p>修改index.html</p>
 
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-    &lt;head&gt;
-        &lt;title&gt;testPlugin&lt;/title&gt;
-        &lt;meta http-equiv="Content-type" content="text/html; charset=utf-8"&gt;
-            &lt;script type="text/javascript" charset="utf-8" src="cordova.js"&gt;&lt;/script&gt;
-            &lt;script type="text/javascript" charset="utf-8"&gt;
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>testPlugin<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"Content-type"</span> <span class="na">content=</span><span class="s">"text/html; charset=utf-8"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">charset=</span><span class="s">"utf-8"</span> <span class="na">src=</span><span class="s">"cordova.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+            <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
                 
-            function testPlugin() {
-                cordova.exec(testSuccess,testFailed,"ocTestPlugin","testWithTitle",["我是JS传的参数！"]);
-            }
-            function testSuccess(msg) {
-                alert(msg);
-            }
-            function testFailed(msg) {
-                alert('failed: ' + msg);
-            }
-            &lt;/script&gt;
-            &lt;/head&gt;
+            <span class="kd">function</span> <span class="nx">testPlugin</span><span class="p">()</span> <span class="p">{</span>
+                <span class="nx">cordova</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">testSuccess</span><span class="p">,</span><span class="nx">testFailed</span><span class="p">,</span><span class="s2">"ocTestPlugin"</span><span class="p">,</span><span class="s2">"testWithTitle"</span><span class="p">,[</span><span class="s2">"我是JS传的参数！"</span><span class="p">]);</span>
+            <span class="p">}</span>
+            <span class="kd">function</span> <span class="nx">testSuccess</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">alert</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="kd">function</span> <span class="nx">testFailed</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">alert</span><span class="p">(</span><span class="s1">'failed: '</span> <span class="o">+</span> <span class="nx">msg</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="nt">&lt;/script&gt;</span>
+            <span class="nt">&lt;/head&gt;</span>
     
-    &lt;body style="padding-top:100px"&gt;
-        &lt;button style="font-size:17px;" onclick="testPlugin();"&gt;测试iOS插件&lt;/button&gt;
-        &lt;br&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
+    <span class="nt">&lt;body</span> <span class="na">style=</span><span class="s">"padding-top:100px"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">style=</span><span class="s">"font-size:17px;"</span> <span class="na">onclick=</span><span class="s">"testPlugin();"</span><span class="nt">&gt;</span>测试iOS插件<span class="nt">&lt;/button&gt;</span>
+        <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
 </code></pre>
+</div>
 <p>最后附上工程的结构图</p>
 
 <p><img src="/img/in-post/post-cordova2/4.png" alt="Plugins" /></p>
@@ -436,7 +439,7 @@
                 <ul class="list-inline text-center">
                     
                     
-                    
+
                     <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
                     
                     
@@ -449,8 +452,8 @@
                         </a>
                     </li>
                     
-                    
-                    
+
+
                     
                     
                     <li>
@@ -488,77 +491,92 @@
 <!-- async load function -->
 <script>
     function async(u, c) {
-        var d = document, t = 'script',
-        o = d.createElement(t),
-        s = d.getElementsByTagName(t)[0];
-        o.src = u;
-        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-        s.parentNode.insertBefore(o, s);
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
     }
 </script>
 
-<!-- Highlight.js -->
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
 <script>
-    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
-          hljs.initHighlightingOnLoad();
-          })
-          // only load tagcloud.js in tag.html
-          if($('#tag_cloud').length !== 0){
-              async("/js/jquery.tagcloud.js",function(){
-                    $.fn.tagcloud.defaults = {
-                    //size: {start: 1, end: 1, unit: 'em'},
-                    color: {start: '#bbbbee', end: '#0085a1'},
-                    };
-                    $('#tag_cloud a').tagcloud();
-                    })
-          }
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
 </script>
-<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
-    
-    <!--fastClick.js -->
-    <script>
-        async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
-              var $nav = document.querySelector("nav");
-              if($nav) FastClick.attach($nav);
-              })
-        </script>
-    
-    
-    <!-- Google Analytics -->
-    
-    <script>
-        // dynamic User by Hux
-        var _gaId = 'UA-49627206-1';
-        var _gaDomain = 'catchzeng.com';
-        
-        // Originial
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-         
-         ga('create', _gaId, _gaDomain);
-         ga('send', 'pageview');
-        </script>
-    
-    
-    
-    <!-- Baidu Tongji -->
-    
-    <script>
-        // dynamic User by Hux
-        var _baId = 'ede41d96392251499c57ebaa6d256c8a';
-        
-        // Originial
-        var _hmt = _hmt || [];
-        (function() {
-         var hm = document.createElement("script");
-         hm.src = "//hm.baidu.com/hm.js?" + _baId;
-         var s = document.getElementsByTagName("script")[0];
-         s.parentNode.insertBefore(hm, s);
-         })();
-        </script>
-    
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'catchzeng.com';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'ede41d96392251499c57ebaa6d256c8a';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
 
 
 

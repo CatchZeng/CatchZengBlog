@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="keyword"  content="">
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>Tags - CatchZeng的技术博客 | CatchZeng Blog</title>
 
@@ -141,431 +141,6 @@
 <div class="container">
 	<div class="row">
 		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			<!-- <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>CatchZeng Blog</h1>
-                    <!--<hr class="small">-->
-                    <span class="subheading">记录开发的所见所闻</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<!-- Main Content -->
-<div class="container">
-	<div class="row">
-        
-
-<!-- USE SIDEBAR -->
-    <!-- Post Container -->
-    		<div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-    			
-<div class="post-preview">
-    <a href="/2016/11/16/%E4%B8%80%E8%B5%B7%E4%B8%BAXcode8%E5%86%99%E6%8F%92%E4%BB%B6%E5%90%A7/">
-        <h2 class="post-title">
-            一起为Xcode8写插件吧
-        </h2>
-        
-        <h3 class="post-subtitle">
-            iOS开发
-        </h3>
-        
-        <div class="post-content-preview">
-            
-
-一、Xcode Source Editor Extension 简介
-在Xcode8的以前，开发者可以在Xccode运行时通过注入代码来实现插件的功能。插件可以在Alcatraz上面提交和分发。不过Xcode8禁止了该方式的插件安装，转而向开发者提供了Xcode Source Editor Extension（以下简称Extension）的方式来做插件。
-
-Extension特性（安全性...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by CatchZeng on November 16, 2016
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2016/09/22/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E6%89%93%E5%8C%85%E6%8F%92%E4%BB%B6%E5%8F%8AJS%E8%84%9A%E6%9C%AC/">
-        <h2 class="post-title">
-            使用Cordova开发iOS App -- 打包插件及JS脚本
-        </h2>
-        
-        <h3 class="post-subtitle">
-            iOS开发
-        </h3>
-        
-        <div class="post-content-preview">
-            
-
-在上一篇–开发iOS插件中我们开发了一个插件，本篇将讲解如何将插件打包。
-
-一、创建插件包
-首先在桌面上创建一个文件夹com.catchzeng.testplugin(遵守命名规范),并创建子文件夹及子文件如下图,将插件的代码复制到ios文件夹下。
-
-
-
-
-
-二、编写JS代码
-编写testPlugin.js，向外部暴露testModel的testPlugin方法，这便是前端人员需要调用的...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by CatchZeng on September 22, 2016
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2016/09/21/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E5%BC%80%E5%8F%91iOS%E6%8F%92%E4%BB%B6/">
-        <h2 class="post-title">
-            使用Cordova开发iOS App -- 开发iOS插件
-        </h2>
-        
-        <h3 class="post-subtitle">
-            iOS开发
-        </h3>
-        
-        <div class="post-content-preview">
-            
-
-本篇在上一篇–Cordova的环境搭建基础上以一个例子讲解如何为Cordova开发iOS插件。
-
-一、创建插件文件
-
-在Plugins文件夹下创建插件文件夹命名为com.catchzeng.testplugin
-
-
-创建类TestPlugin继承于CDVPlugin
-
-
-注意：创建类后会报头文件#import &lt;Cordova/Cordova.h&gt;找不到的问题，替换成 #im...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by CatchZeng on September 21, 2016
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2016/09/20/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-        <h2 class="post-title">
-            使用Cordova开发iOS App -- 环境搭建
-        </h2>
-        
-        <h3 class="post-subtitle">
-            iOS开发
-        </h3>
-        
-        <div class="post-content-preview">
-            
-
-一、简介
-Cordova大家可能比较陌生，但肯定听过 PhoneGap ，Cordova 就是 PhoneGap 被 Adobe 收购后所改的名字。它是一个可以让 JS 与原生代码互相通信的一个库，并且提供了一系列的插件类（如 JS 直接操作本地数据库的插件类）。
-
-Cordova优缺点
-优点: 降低开发成本一次开发多平台套用，版本更新容易可动态更新。
-
-缺点: cordova其实就是在...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by CatchZeng on September 20, 2016
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2016/08/18/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC20%E6%9C%9F/">
-        <h2 class="post-title">
-            iOS开发见闻-第20期
-        </h2>
-        
-        <h3 class="post-subtitle">
-            iOS开发见闻
-        </h3>
-        
-        <div class="post-content-preview">
-            
-
-欢迎加QQ群讨论：157672725
-
-文章
-
-1.做一个 App 前需要考虑的几件事 : 想必许多做App的朋友都不知道做App前应该要考虑什么事情，看看limboy是如何考虑的吧。
-
-2.iOS 动态更新方案对比:JSPatch vs React Native : React Native想必是今年iOS界最火的词语之一了，它与JSPatch的VS结果如何呢？我们先听bang哥如何说...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by CatchZeng on August 18, 2016
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2016/07/12/iOS%E5%8A%A8%E7%94%BB-%E8%BF%9B%E9%98%B6-%E4%B8%80/">
-        <h2 class="post-title">
-            iOS动画－－进阶（一）
-        </h2>
-        
-        <h3 class="post-subtitle">
-            iOS动画
-        </h3>
-        
-        <div class="post-content-preview">
-            
-
-前言
-优秀的动画来源于设计，优秀的设计来源于灵感和动效的积累。我们不是设计师，但可以积累动画的基础。在动画的进阶部分，我们先积累一些与动画相关的知识。
-
-
-  贝塞尔曲线
-  CAShapeLayer、CAReplicatorLayer
-
-
-
-
-贝塞尔曲线
-Bezier curve(贝塞尔曲线)是应用于二维图形应用程序的数学曲线.主要有起始点、终止点（也称锚点）、控制点这几个概念。通过调...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by CatchZeng on July 12, 2016
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2016/06/16/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC19%E6%9C%9F/">
-        <h2 class="post-title">
-            iOS开发见闻-第19期
-        </h2>
-        
-        <h3 class="post-subtitle">
-            iOS开发见闻
-        </h3>
-        
-        <div class="post-content-preview">
-            
-
-欢迎加QQ群讨论：157672725
-
-文章
-
-1.让你的微信不再被人撤回消息 :喜欢逆向工程的朋友可以看看。
-
-2.微信读书 iOS 性能优化总结 : 微信读书1.3.0版本发布后，关于性能问题的用户反馈逐渐增多，为此，团队开始做一些针对性的性能问题优化。从发现问题、解决问题和预防问题三个方面进行总结。
-
-3.如何写好一个UITableView ：UITableView是iOS开发最常...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by CatchZeng on June 16, 2016
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2016/05/27/iOS-Localizable.strings%E4%B8%8EExcel%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7/">
-        <h2 class="post-title">
-            iOS Localizable.strings与Excel互相转换工具
-        </h2>
-        
-        <h3 class="post-subtitle">
-            iOS开源之路
-        </h3>
-        
-        <div class="post-content-preview">
-            
-
-前言
-相信做过多国化的朋友们一定为Localizable.strings的翻译工作而烦恼。先是写出需要用到的多国化字符串，然后交由翻译人员翻译成各国语言，最后再把翻译后的文档整理写入Localizable.strings。这个工作无聊、反复、繁琐，所以写了个Localizable.strings与Excel互相转换的工具，来提高效率。
-
-效果
-1.Localizable.strings转...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by CatchZeng on May 27, 2016
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-RSA/">
-        <h2 class="post-title">
-            iOS安全之路－－RSA
-        </h2>
-        
-        <h3 class="post-subtitle">
-            iOS安全之路
-        </h3>
-        
-        <div class="post-content-preview">
-            
-
-一、RSA简介
-在介绍RSA之前，先介绍下对称、非对称加密。
-对称加密：
-A选择某一种加密规则，对信息进行加密；
-B使用同一种规则，对信息进行解密。
-由于加密和解密使用同样规则（密钥），这被称为”对称加密算法”。
-非对称加密：
-B生成两把密钥（公钥和私钥）。公钥是公开的，任何人都可以获得，私钥则是保密的。
-A获取B的公钥，然后用它对信息加密。
-B得到加密后的信息，用私钥解密。
-公钥加密的...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by CatchZeng on May 11, 2016
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2016/05/11/iOS%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B7%AF-AES/">
-        <h2 class="post-title">
-            iOS安全之路－－AES
-        </h2>
-        
-        <h3 class="post-subtitle">
-            iOS安全之路
-        </h3>
-        
-        <div class="post-content-preview">
-            
-
-一、AES简介
-高级加密标准（英语：Advanced Encryption Standard，缩写：AES），在密码学中又称Rijndael加密法。AES是一个对称分组密码算法，旨在取代DES成为广泛使用的标准。根据使用的密码长度，AES最常见的有3种方案，用以适应不同的场景要求，分别是AES-128、AES-192和AES-256。
-
-二、算法描述
-
-
-
-
-AES算法较为复杂这里不再赘...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by CatchZeng on May 11, 2016
-    </p>
-</div>
-<hr>
-
-
-<!-- Pager -->
-
-<ul class="pager">
-    
-    
-    <li class="next">
-        <a href="/page2">Older Posts &rarr;</a>
-    </li>
-    
-</ul>
-
-
-    		</div>
-    <!-- Sidebar Container -->
-            <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
-                <!-- Featured Tags -->
-                
-                <section>
-                    <hr class="hidden-sm hidden-xs">
-                    <h5><a href="">FEATURED TAGS</a></h5>
-                    <div class="tags">
-                        
-                            
-                                <a href="/tags/#iOS" title="iOS" rel="39">
-                                    iOS
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#Java Web" title="Java Web" rel="3">
-                                    Java Web
-                                </a>
-                            
-                        
-                    </div>
-                </section>
-                
-
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="">ABOUT ME</a></h5>
-                    <div class="short-about">
-                        
-                            <img src="/img/avatar-hux.jpg" />
-                        
-                        
-                            <p>记录开发的所见所闻</p>
-                        
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            
-                            
-                            
-                            <li>
-                                <a target="_blank" href="http://weibo.com/u/2167807070">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            
-                            
-                            
-                            <li>
-                                <a target="_blank" href="https://github.com/catchzeng">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            
-                        </ul>
-                    </div>
-                </section>
-                <!-- Friends Blog -->
-                
-                <hr>
-                <h5>FRIENDS</h5>
-                <ul class="list-inline">
-                    
-                        <li><a href="http://catchzeng.com">CatchZeng Blog</a></li>
-                    
-                </ul>
-                
-    		</div>
-        
-	</div>
-</div>
- -->
             <!-- 标签云 -->
 			<div id='tag_cloud' class="tags">
 				
@@ -1403,7 +978,7 @@ AES算法较为复杂这里不再赘...
                 <ul class="list-inline text-center">
                     
                     
-                    
+
                     <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
                     
                     
@@ -1416,8 +991,8 @@ AES算法较为复杂这里不再赘...
                         </a>
                     </li>
                     
-                    
-                    
+
+
                     
                     
                     <li>
@@ -1455,77 +1030,92 @@ AES算法较为复杂这里不再赘...
 <!-- async load function -->
 <script>
     function async(u, c) {
-        var d = document, t = 'script',
-        o = d.createElement(t),
-        s = d.getElementsByTagName(t)[0];
-        o.src = u;
-        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-        s.parentNode.insertBefore(o, s);
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
     }
 </script>
 
-<!-- Highlight.js -->
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
 <script>
-    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
-          hljs.initHighlightingOnLoad();
-          })
-          // only load tagcloud.js in tag.html
-          if($('#tag_cloud').length !== 0){
-              async("/js/jquery.tagcloud.js",function(){
-                    $.fn.tagcloud.defaults = {
-                    //size: {start: 1, end: 1, unit: 'em'},
-                    color: {start: '#bbbbee', end: '#0085a1'},
-                    };
-                    $('#tag_cloud a').tagcloud();
-                    })
-          }
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
 </script>
-<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
-    
-    <!--fastClick.js -->
-    <script>
-        async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
-              var $nav = document.querySelector("nav");
-              if($nav) FastClick.attach($nav);
-              })
-        </script>
-    
-    
-    <!-- Google Analytics -->
-    
-    <script>
-        // dynamic User by Hux
-        var _gaId = 'UA-49627206-1';
-        var _gaDomain = 'catchzeng.com';
-        
-        // Originial
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-         
-         ga('create', _gaId, _gaDomain);
-         ga('send', 'pageview');
-        </script>
-    
-    
-    
-    <!-- Baidu Tongji -->
-    
-    <script>
-        // dynamic User by Hux
-        var _baId = 'ede41d96392251499c57ebaa6d256c8a';
-        
-        // Originial
-        var _hmt = _hmt || [];
-        (function() {
-         var hm = document.createElement("script");
-         hm.src = "//hm.baidu.com/hm.js?" + _baId;
-         var s = document.getElementsByTagName("script")[0];
-         s.parentNode.insertBefore(hm, s);
-         })();
-        </script>
-    
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'catchzeng.com';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'ede41d96392251499c57ebaa6d256c8a';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
 
 
 

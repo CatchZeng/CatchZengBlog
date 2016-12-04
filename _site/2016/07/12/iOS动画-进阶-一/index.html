@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="keyword"  content="">
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>iOS动画－－进阶（一） - CatchZeng的技术博客 | CatchZeng Blog</title>
 
@@ -234,16 +234,17 @@ CAShapeLayer需通过CGPath 来定义想要绘制的形状，因此常与UIBezie
 <p>两个环的实现依赖于以上所讲的贝塞尔曲线和CAShapeLayer。
 首先，使用贝塞尔曲线描绘底色环的路径</p>
 
-<pre><code>UIBezierPath *path=[UIBezierPath bezierPathWithArcCenter:CGPointMake(50,50) 
+<div class="highlighter-rouge"><pre class="highlight"><code>UIBezierPath *path=[UIBezierPath bezierPathWithArcCenter:CGPointMake(50,50) 
                                                   radius:25 
                                                   startAngle:CATDegreesToRadians(_startAngle)                              
                                                   endAngle:CATDegreesToRadians(_endAngle) 
                                                   clockwise:YES];
 </code></pre>
+</div>
 
 <p>然后将其赋予CAShapeLayer的path属性，最后将其加入self.layer显示</p>
 
-<pre><code>    _trackLayer=[CAShapeLayer layer];
+<div class="highlighter-rouge"><pre class="highlight"><code>    _trackLayer=[CAShapeLayer layer];
     _trackLayer.frame=self.bounds;
     _trackLayer.fillColor = [UIColor clearColor].CGColor;
     _trackLayer.strokeColor = _curveBgColor.CGColor;
@@ -251,16 +252,18 @@ CAShapeLayer需通过CGPath 来定义想要绘制的形状，因此常与UIBezie
     _trackLayer.path=path.CGPath;
     [self.layer addSublayer:_trackLayer];
 </code></pre>
+</div>
 
 <p>进度环的实现与底色环相近，并结合CATransaction实现动画</p>
 
-<pre><code>    [CATransaction begin];
+<div class="highlighter-rouge"><pre class="highlight"><code>    [CATransaction begin];
     [CATransaction setDisableActions:!animated];
     [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
     [CATransaction setAnimationDuration:1];
     _progressLayer.strokeEnd=progress;
     [CATransaction commit];
 </code></pre>
+</div>
 
 <p>具体实现见工程:<a href="https://github.com/CatchZeng/CATCurveProgressView">CATCurveProgressView</a></p>
 
@@ -272,24 +275,26 @@ CAShapeLayer需通过CGPath 来定义想要绘制的形状，因此常与UIBezie
 
 <p>雷达图的实现分为三个步骤，首先利用CAShapeLayer创建脉冲层（pulseLayer，就是一个圈圈…）</p>
 
-<pre><code>  _pulseLayer = [CAShapeLayer layer];
+<div class="highlighter-rouge"><pre class="highlight"><code>  _pulseLayer = [CAShapeLayer layer];
   _pulseLayer.frame = self.layer.bounds;
   _pulseLayer.path = [UIBezierPath bezierPathWithOvalInRect:_pulseLayer.bounds].CGPath;
   _pulseLayer.fillColor = [UIColor blueColor].CGColor;
 </code></pre>
+</div>
 
 <p>然后使用CAReplicatorLayer复制多个脉冲层</p>
 
-<pre><code>  _replicatorLayer = [CAReplicatorLayer layer];
+<div class="highlighter-rouge"><pre class="highlight"><code>  _replicatorLayer = [CAReplicatorLayer layer];
   _replicatorLayer.frame = self.bounds;
   _replicatorLayer.instanceCount = 6;
   _replicatorLayer.instanceDelay = 1.5;
   [_replicatorLayer addSublayer:self.pulseLayer];
 </code></pre>
+</div>
 
 <p>最后加上透明度与大小的动画，来实现雷达的效果</p>
 
-<pre><code>CABasicAnimation *scaleAnima = [CABasicAnimation animationWithKeyPath:@"transform"];
+<div class="highlighter-rouge"><pre class="highlight"><code>CABasicAnimation *scaleAnima = [CABasicAnimation animationWithKeyPath:@"transform"];
 scaleAnima.fromValue = [NSValue valueWithCATransform3D:CATransform3DScale(CATransform3DIdentity, 0.0, 0.0, 0.0)];
 scaleAnima.toValue = [NSValue valueWithCATransform3D:CATransform3DScale(CATransform3DIdentity, 1.0, 1.0, 0.0)];
        
@@ -305,6 +310,7 @@ _animaGroup.repeatCount = HUGE;
 
 [self.pulseLayer addAnimation:self.animaGroup forKey:@"groupAnimation"];
 </code></pre>
+</div>
 
 <p>具体实现见工程:<a href="https://github.com/CatchZeng/CATRadarView">CATRadarView</a></p>
 
@@ -485,7 +491,7 @@ _animaGroup.repeatCount = HUGE;
                 <ul class="list-inline text-center">
                     
                     
-                    
+
                     <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
                     
                     
@@ -498,8 +504,8 @@ _animaGroup.repeatCount = HUGE;
                         </a>
                     </li>
                     
-                    
-                    
+
+
                     
                     
                     <li>
@@ -537,77 +543,92 @@ _animaGroup.repeatCount = HUGE;
 <!-- async load function -->
 <script>
     function async(u, c) {
-        var d = document, t = 'script',
-        o = d.createElement(t),
-        s = d.getElementsByTagName(t)[0];
-        o.src = u;
-        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-        s.parentNode.insertBefore(o, s);
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
     }
 </script>
 
-<!-- Highlight.js -->
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
 <script>
-    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
-          hljs.initHighlightingOnLoad();
-          })
-          // only load tagcloud.js in tag.html
-          if($('#tag_cloud').length !== 0){
-              async("/js/jquery.tagcloud.js",function(){
-                    $.fn.tagcloud.defaults = {
-                    //size: {start: 1, end: 1, unit: 'em'},
-                    color: {start: '#bbbbee', end: '#0085a1'},
-                    };
-                    $('#tag_cloud a').tagcloud();
-                    })
-          }
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
 </script>
-<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
-    
-    <!--fastClick.js -->
-    <script>
-        async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
-              var $nav = document.querySelector("nav");
-              if($nav) FastClick.attach($nav);
-              })
-        </script>
-    
-    
-    <!-- Google Analytics -->
-    
-    <script>
-        // dynamic User by Hux
-        var _gaId = 'UA-49627206-1';
-        var _gaDomain = 'catchzeng.com';
-        
-        // Originial
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-         
-         ga('create', _gaId, _gaDomain);
-         ga('send', 'pageview');
-        </script>
-    
-    
-    
-    <!-- Baidu Tongji -->
-    
-    <script>
-        // dynamic User by Hux
-        var _baId = 'ede41d96392251499c57ebaa6d256c8a';
-        
-        // Originial
-        var _hmt = _hmt || [];
-        (function() {
-         var hm = document.createElement("script");
-         hm.src = "//hm.baidu.com/hm.js?" + _baId;
-         var s = document.getElementsByTagName("script")[0];
-         s.parentNode.insertBefore(hm, s);
-         })();
-        </script>
-    
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'catchzeng.com';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'ede41d96392251499c57ebaa6d256c8a';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
 
 
 

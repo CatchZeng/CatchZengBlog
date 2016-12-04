@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="keyword"  content="">
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>iOS安全之路－－MD5 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
@@ -282,63 +282,64 @@ D = D + DD</p>
 <p>A，B，C，D连续存放，共16个字节，128位。按十六进制依次输出这个16个字节。</p>
 
 <h2 id="三算法实现">三、算法实现</h2>
-<pre><code>@implementation CATSecurity
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@implementation</span> <span class="nc">CATSecurity</span>
 
-#pragma mark --
+<span class="cp">#pragma mark --
 #pragma mark -- MD5
-
-/**
+</span>
+<span class="cm">/**
  *  get data's md5 string
  *
  *  @param data source data
  *
  *  @return md5 string
- */
-+(NSString *)md5StringWithData:(NSData *)data{
-    unsigned char result[CC_MD5_DIGEST_LENGTH];
-    CC_MD5(data.bytes, (CC_LONG)data.length, result);
-    return [NSString stringWithFormat:
-            @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-            result[0], result[1], result[2], result[3],
-            result[4], result[5], result[6], result[7],
-            result[8], result[9], result[10], result[11],
-            result[12], result[13], result[14], result[15]
-            ];
-}
+ */</span>
+<span class="k">+</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nf">md5StringWithData</span><span class="p">:(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nv">data</span><span class="p">{</span>
+    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">result</span><span class="p">[</span><span class="nf">CC_MD5_DIGEST_LENGTH</span><span class="p">];</span>
+    <span class="n">CC_MD5</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">bytes</span><span class="p">,</span> <span class="p">(</span><span class="n">CC_LONG</span><span class="p">)</span><span class="n">data</span><span class="p">.</span><span class="n">length</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span>
+            <span class="s">@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x"</span><span class="p">,</span>
+            <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+            <span class="n">result</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span>
+            <span class="n">result</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span>
+            <span class="n">result</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">13</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span>
+            <span class="p">];</span>
+<span class="p">}</span>
 
-/**
+<span class="cm">/**
  *  get data's md5 data
  *
  *  @param data source data
  *
  *  @return md5 data
- */
-+(NSData *)md5DataWithData:(NSData *)data{
-    unsigned char result[CC_MD5_DIGEST_LENGTH];
-    CC_MD5(data.bytes, (CC_LONG)data.length, result);
-    return [NSData dataWithBytes:result length:CC_MD5_DIGEST_LENGTH];
-}
+ */</span>
+<span class="k">+</span><span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nf">md5DataWithData</span><span class="p">:(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nv">data</span><span class="p">{</span>
+    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">result</span><span class="p">[</span><span class="nf">CC_MD5_DIGEST_LENGTH</span><span class="p">];</span>
+    <span class="n">CC_MD5</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">bytes</span><span class="p">,</span> <span class="p">(</span><span class="n">CC_LONG</span><span class="p">)</span><span class="n">data</span><span class="p">.</span><span class="n">length</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">NSData</span> <span class="nf">dataWithBytes</span><span class="p">:</span><span class="n">result</span> <span class="nf">length</span><span class="p">:</span><span class="n">CC_MD5_DIGEST_LENGTH</span><span class="p">];</span>
+<span class="p">}</span>
 
-/**
+<span class="cm">/**
  *  get string's md5 string
  *
  *  @param str source string
  *
  *  @return md5 string
- */
-+(NSString *)md5StringWithString:(NSString *)str{
-    NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
-    return [self md5StringWithData:data];
-}
+ */</span>
+<span class="k">+</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nf">md5StringWithString</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">str</span><span class="p">{</span>
+    <span class="n">NSData</span><span class="o">*</span> <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">str</span> <span class="nf">dataUsingEncoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">self</span> <span class="nf">md5StringWithData</span><span class="p">:</span><span class="n">data</span><span class="p">];</span>
+<span class="p">}</span>
 
-@end
+<span class="k">@end</span>
 
 </code></pre>
+</div>
 
 <h2 id="四算法优化">四、算法优化</h2>
 
 <h3 id="加盐md5盐的复杂度决定了增加的破解难度">加盐MD5（盐的复杂度决定了增加的破解难度）</h3>
-<pre><code>/**
+<div class="highlighter-rouge"><pre class="highlight"><code>/**
  *  get string's md5 string
  *
  *  @param str source string
@@ -352,10 +353,11 @@ D = D + DD</p>
 }
 
 </code></pre>
+</div>
 
 <h3 id="二次md5容易被找到规律而破解">二次MD5（容易被找到规律而破解）</h3>
 
-<pre><code>/**
+<div class="highlighter-rouge"><pre class="highlight"><code>/**
  *  get string's multiple md5 string
  *
  *  @param str source string
@@ -368,9 +370,10 @@ D = D + DD</p>
     return strTmp;
 }
 </code></pre>
+</div>
 
 <h3 id="md5后乱序破解难度较大">MD5后乱序（破解难度较大）</h3>
-<pre><code>/**
+<div class="highlighter-rouge"><pre class="highlight"><code>/**
  *  get string's disorder md5 string
  *
  *  @param str source string
@@ -385,6 +388,7 @@ D = D + DD</p>
     return ss;
 }
 </code></pre>
+</div>
 <p>最后附上<a href="https://github.com/CatchZeng/CATSecurity">工程地址</a>。</p>
 
 
@@ -562,7 +566,7 @@ MD5的全称是Message-Digest Algorithm 5（信息-摘要算法）。其作用�
                 <ul class="list-inline text-center">
                     
                     
-                    
+
                     <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
                     
                     
@@ -575,8 +579,8 @@ MD5的全称是Message-Digest Algorithm 5（信息-摘要算法）。其作用�
                         </a>
                     </li>
                     
-                    
-                    
+
+
                     
                     
                     <li>
@@ -614,77 +618,92 @@ MD5的全称是Message-Digest Algorithm 5（信息-摘要算法）。其作用�
 <!-- async load function -->
 <script>
     function async(u, c) {
-        var d = document, t = 'script',
-        o = d.createElement(t),
-        s = d.getElementsByTagName(t)[0];
-        o.src = u;
-        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-        s.parentNode.insertBefore(o, s);
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
     }
 </script>
 
-<!-- Highlight.js -->
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
 <script>
-    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
-          hljs.initHighlightingOnLoad();
-          })
-          // only load tagcloud.js in tag.html
-          if($('#tag_cloud').length !== 0){
-              async("/js/jquery.tagcloud.js",function(){
-                    $.fn.tagcloud.defaults = {
-                    //size: {start: 1, end: 1, unit: 'em'},
-                    color: {start: '#bbbbee', end: '#0085a1'},
-                    };
-                    $('#tag_cloud a').tagcloud();
-                    })
-          }
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
 </script>
-<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
-    
-    <!--fastClick.js -->
-    <script>
-        async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
-              var $nav = document.querySelector("nav");
-              if($nav) FastClick.attach($nav);
-              })
-        </script>
-    
-    
-    <!-- Google Analytics -->
-    
-    <script>
-        // dynamic User by Hux
-        var _gaId = 'UA-49627206-1';
-        var _gaDomain = 'catchzeng.com';
-        
-        // Originial
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-         
-         ga('create', _gaId, _gaDomain);
-         ga('send', 'pageview');
-        </script>
-    
-    
-    
-    <!-- Baidu Tongji -->
-    
-    <script>
-        // dynamic User by Hux
-        var _baId = 'ede41d96392251499c57ebaa6d256c8a';
-        
-        // Originial
-        var _hmt = _hmt || [];
-        (function() {
-         var hm = document.createElement("script");
-         hm.src = "//hm.baidu.com/hm.js?" + _baId;
-         var s = document.getElementsByTagName("script")[0];
-         s.parentNode.insertBefore(hm, s);
-         })();
-        </script>
-    
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'catchzeng.com';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'ede41d96392251499c57ebaa6d256c8a';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
 
 
 

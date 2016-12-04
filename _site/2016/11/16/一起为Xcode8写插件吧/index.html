@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="keyword"  content="">
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>一起为Xcode8写插件吧 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
@@ -229,25 +229,26 @@ https://github.com/CatchZeng/PragmaMarkSourceEditor</p>
 
 <h4 id="4编写extension代码sourceeditorcommandm">4.编写Extension代码(SourceEditorCommand.m)</h4>
 
-<pre><code>- (void)performCommandWithInvocation:(XCSourceEditorCommandInvocation *)invocation completionHandler:(void (^)(NSError * _Nullable nilOrError))completionHandler
-{
-    //有选中了才删除
-    if (invocation.buffer.selections.count != 0) {
-        XCSourceTextRange* firstObject = invocation.buffer.selections.firstObject;
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">performCommandWithInvocation</span><span class="p">:(</span><span class="n">XCSourceEditorCommandInvocation</span> <span class="o">*</span><span class="p">)</span><span class="nv">invocation</span> <span class="nf">completionHandler</span><span class="p">:(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">NSError</span> <span class="o">*</span> <span class="n">_Nullable</span> <span class="n">nilOrError</span><span class="p">))</span><span class="nv">completionHandler</span>
+<span class="p">{</span>
+    <span class="c1">//有选中了才删除
+</span>    <span class="k">if</span> <span class="p">(</span><span class="n">invocation</span><span class="p">.</span><span class="n">buffer</span><span class="p">.</span><span class="n">selections</span><span class="p">.</span><span class="n">count</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">XCSourceTextRange</span><span class="o">*</span> <span class="n">firstObject</span> <span class="o">=</span> <span class="n">invocation</span><span class="p">.</span><span class="n">buffer</span><span class="p">.</span><span class="n">selections</span><span class="p">.</span><span class="n">firstObject</span><span class="p">;</span>
         
-        //开始删除的位置
-        NSUInteger start = firstObject.start.line;
-        //删除的行数
-        NSUInteger len = firstObject.end.line - start +1;
-        //Index Set
-        NSIndexSet* set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(start,len)];
-        //移除指定代码
-        [invocation.buffer.lines removeObjectsAtIndexes:set];
-    }
-    completionHandler(nil);
-}
-@end
+        <span class="c1">//开始删除的位置
+</span>        <span class="n">NSUInteger</span> <span class="n">start</span> <span class="o">=</span> <span class="n">firstObject</span><span class="p">.</span><span class="n">start</span><span class="p">.</span><span class="n">line</span><span class="p">;</span>
+        <span class="c1">//删除的行数
+</span>        <span class="n">NSUInteger</span> <span class="n">len</span> <span class="o">=</span> <span class="n">firstObject</span><span class="p">.</span><span class="n">end</span><span class="p">.</span><span class="n">line</span> <span class="o">-</span> <span class="n">start</span> <span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+        <span class="c1">//Index Set
+</span>        <span class="n">NSIndexSet</span><span class="o">*</span> <span class="n">set</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSIndexSet</span> <span class="nf">indexSetWithIndexesInRange</span><span class="p">:</span><span class="n">NSMakeRange</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">len</span><span class="p">)];</span>
+        <span class="c1">//移除指定代码
+</span>        <span class="p">[</span><span class="n">invocation</span><span class="p">.</span><span class="n">buffer</span><span class="p">.</span><span class="n">lines</span> <span class="nf">removeObjectsAtIndexes</span><span class="p">:</span><span class="n">set</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">completionHandler</span><span class="p">(</span><span class="nb">nil</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">@end</span>
 </code></pre>
+</div>
 
 <h4 id="5修改extension显示名称">5.修改Extension显示名称</h4>
 <p><img src="/img/in-post/post-plugin/6.png" alt="修改Extension显示名称" />
@@ -275,11 +276,12 @@ https://github.com/CatchZeng/PragmaMarkSourceEditor</p>
 </ul>
 
 <p>XCSourceTextBuffer主要有两个属性需要了解</p>
-<pre><code>//当前的文本
-@property (readonly, strong) NSMutableArray &lt;NSString *&gt; *lines;
-//选中的区域
-@property (readonly, strong) NSMutableArray &lt;XCSourceTextRange *&gt; *selections;
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">//当前的文本
+</span><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">strong</span><span class="p">)</span> <span class="n">NSMutableArray</span> <span class="o">&lt;</span><span class="n">NSString</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">lines</span><span class="p">;</span>
+<span class="c1">//选中的区域
+</span><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">strong</span><span class="p">)</span> <span class="n">NSMutableArray</span> <span class="o">&lt;</span><span class="n">XCSourceTextRange</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">selections</span><span class="p">;</span>
 </code></pre>
+</div>
 <p>Delete Extension的流程如下：</p>
 
 <h6 id="1菜单或快捷键触发delete-extension">1.菜单或快捷键触发Delete Extension</h6>
@@ -462,7 +464,7 @@ https://github.com/CatchZeng/PragmaMarkSourceEditor</p>
                 <ul class="list-inline text-center">
                     
                     
-                    
+
                     <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
                     
                     
@@ -475,8 +477,8 @@ https://github.com/CatchZeng/PragmaMarkSourceEditor</p>
                         </a>
                     </li>
                     
-                    
-                    
+
+
                     
                     
                     <li>
@@ -514,77 +516,92 @@ https://github.com/CatchZeng/PragmaMarkSourceEditor</p>
 <!-- async load function -->
 <script>
     function async(u, c) {
-        var d = document, t = 'script',
-        o = d.createElement(t),
-        s = d.getElementsByTagName(t)[0];
-        o.src = u;
-        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-        s.parentNode.insertBefore(o, s);
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
     }
 </script>
 
-<!-- Highlight.js -->
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
 <script>
-    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
-          hljs.initHighlightingOnLoad();
-          })
-          // only load tagcloud.js in tag.html
-          if($('#tag_cloud').length !== 0){
-              async("/js/jquery.tagcloud.js",function(){
-                    $.fn.tagcloud.defaults = {
-                    //size: {start: 1, end: 1, unit: 'em'},
-                    color: {start: '#bbbbee', end: '#0085a1'},
-                    };
-                    $('#tag_cloud a').tagcloud();
-                    })
-          }
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
 </script>
-<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
-    
-    <!--fastClick.js -->
-    <script>
-        async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
-              var $nav = document.querySelector("nav");
-              if($nav) FastClick.attach($nav);
-              })
-        </script>
-    
-    
-    <!-- Google Analytics -->
-    
-    <script>
-        // dynamic User by Hux
-        var _gaId = 'UA-49627206-1';
-        var _gaDomain = 'catchzeng.com';
-        
-        // Originial
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-         
-         ga('create', _gaId, _gaDomain);
-         ga('send', 'pageview');
-        </script>
-    
-    
-    
-    <!-- Baidu Tongji -->
-    
-    <script>
-        // dynamic User by Hux
-        var _baId = 'ede41d96392251499c57ebaa6d256c8a';
-        
-        // Originial
-        var _hmt = _hmt || [];
-        (function() {
-         var hm = document.createElement("script");
-         hm.src = "//hm.baidu.com/hm.js?" + _baId;
-         var s = document.getElementsByTagName("script")[0];
-         s.parentNode.insertBefore(hm, s);
-         })();
-        </script>
-    
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'catchzeng.com';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'ede41d96392251499c57ebaa6d256c8a';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
 
 
 
