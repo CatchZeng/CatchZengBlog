@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>iOS开发见闻-第17期 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>iOS聊聊设计模式原则（一） -- 单一职责原则 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/2016/04/21/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC17%E6%9C%9F/">
+    <link rel="canonical" href="http://localhost:4000/2017/02/19/iOS%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%80-%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -143,12 +143,12 @@
                         <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
                         
                     </div>
-                    <h1>iOS开发见闻-第17期</h1>
+                    <h1>iOS聊聊设计模式原则（一） -- 单一职责原则</h1>
                     
                     
-                    <h2 class="subheading">iOS开发见闻</h2>
+                    <h2 class="subheading">iOS开发</h2>
                     
-                    <span class="meta">Posted by CatchZeng on April 21, 2016</span>
+                    <span class="meta">Posted by CatchZeng on February 19, 2017</span>
                 </div>
             </div>
         </div>
@@ -168,47 +168,126 @@
 
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
-<h2 id="文章">文章</h2>
-<p>1.<a href="http://ifujun.com/yi-wen-zai-iosshang-zi-dong-jian-ce-nei-cun-xie-lu/?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io">在iOS上自动检测内存泄露</a> : Facebook一口气发布了三个利器FBRetainCycleDetector、FBAllocationTracker、FBMemoryProfiler。该篇文章的难得之处在于侧面上反应了Facebook面对问题的思考角度、深度，值得我们借鉴。</p>
+<h1 id="单一职责原则srpsingle-responsibility-principle">单一职责原则（SRP：Single responsibility principle）</h1>
 
-<p>2.<a href="http://www.jackpu.com/react-nativezui-jia-xue-xi-mo-ban-f8-appkai-yuan-liao/?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io">React Native最佳学习模版- F8 App开源了</a> ：如果说最近iOS界什么名词最火，我会说的React Native。该篇文章带来了最佳学习模版-F8 App，在研究React Native的朋友别错过。</p>
+<h2 id="定义">定义</h2>
+<p>一个类应该只有一个发生变化的原因，即一个类只负责一项职责。
+如果一个类有多个职责，这些职责就耦合在了一起。当一个职责发生变化时，可能会影响其它的职责。另外，多个职责耦合在一起会影响复用性。
+此原则的核心是解耦和增强内聚性。</p>
 
-<p>3.<a href="http://www.jianshu.com/p/d684693f1d77">高速公路换轮胎——为遗留系统替换数据库</a> : 作者由几个月的重构项目经历，讲述了如何一步步替换数据库的过程。文章思路清晰，从背景、系统面貌到方案选型、技术实现，是篇值得称赞的文章。</p>
+<h2 id="由来">由来</h2>
+<p>类A负责两个职责：职责P1，职责P2。当由于职责P1需求发生改变而需要修改类A时，有可能会导致原本运行正常的职责P2功能发生故障。</p>
 
-<p>4.<a href="http://mp.weixin.qq.com/s?__biz=MzA3ODg4MDk0Ng==&amp;mid=403474677&amp;idx=1&amp;sn=5163adb2d80aa5b4f0099f79e6d783e1&amp;scene=2&amp;srcid=0410nXOlaNgnthsBuLXyP7yA#wechat_redirect">网易漫画Swift混编实践</a> ：时至今日，工程是否要换成Swift写仍是讨论的热题。如果你想换不妨先看看网易怎么做的，至少能少踩坑。</p>
+<h2 id="解决方案">解决方案</h2>
+<p>遵循SRP。分别建立两个类A1、A2，使A1完成职责P1，A2完成职责P2。这样，当修改类A1时，不会影响到职责A2；同理，当修改A2时，也不会影响到职责P1。</p>
 
-<h2 id="工具">工具</h2>
-<p>1.<a href="https://github.com/bang590/JSPatchX">JSPatchX</a> ：JSPatch XCode 代码自动补全插件。
-<img src="https://camo.githubusercontent.com/ad17370a5e5ecf1e5196146405f57126eb649390/68747470733a2f2f7261772e6769746875622e636f6d2f62616e673539302f4a535061746368582f6d61737465722f5265736f757263652f53637265656e73686f742e676966" alt="JSPatchX" /></p>
+<h2 id="优点">优点</h2>
+<p>降低类的复杂度，一个类只负责一项职责，其逻辑肯定要比负责多项职责简单的多。
+提高类的可读性，提高系统的可维护性。
+变更引起的风险降低，变更是必然的，如果SRP遵守的好，当修改一个功能时，可以显著降低对其他功能的影响。</p>
 
-<p>2.<a href="https://github.com/wzqcongcong/AtAutoCompletion">AtAutoCompletion</a> : 一款@的自动补全插件。
-<img src="https://github.com/wzqcongcong/AtAutoCompletion/raw/master/screenshot/screenshot.png" alt="AtAutoCompletion" /></p>
+<h2 id="eg">e.g.</h2>
+<p>iOS开发中，SRP最好的反例的应该就是 <a href="http://khanlou.com/2015/12/massive-view-controller/?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io">Massive View Controller</a>。比如随便写一个简单的应用程序，一般都会生成一个ViewController类，于是我们将各种各样的代码，算法、网络请求、数据库访问等等都放在这个类里面，这就意味着，无论任何需求变化，都要来修改ViewController这个类，这其实是很糟糕的，维护麻烦、复用不可能、缺乏灵活性等。关于这点网上也有很多解决方法：<a href="https://toutiao.io/posts/xxr604/preview">8 种模式帮你告别 Massive View Controller</a>，但无论什么方法，都是在提倡优化职责划分，也就是SRP的思想。</p>
 
-<p>3.<a href="https://github.com/tyeen/BlockJump">BlockJump</a> : 让你在类文件中快速跳转的插件。
-<img src="https://camo.githubusercontent.com/bcf2547bd90504fcfe4f4cecd3bc8a6f31161e55/68747470733a2f2f7261772e6769746875622e636f6d2f747965656e2f426c6f636b4a756d702f6d61737465722f73637265656e5f7265636f72642e676966" alt="BlockJump" /></p>
+<p>曾几何时我们很自然地将Model传给Cell，然后让Cell解析Model去渲染视图，并且感觉没有什么不妥，美其曰“Cell的封装”。代码如下：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>TestCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TestCell"];
+if (!cell) {
+        cell = (TestCell *)[[[NSBundle mainBundle] loadNibNamed:@"TestCell" owner:self options:nil] lastObject];
+}
+TestModel *model = self.dataList[indexPath.row];
+[cell configWithModel:model];
+</code></pre>
+</div>
+<p>殊不知这已经违背了SRP，Cell的职责是描述与渲染自身,解析Model这个职责不属于Cell，并且在Cell中引入Model会增加不必要的依赖，Cell需要根据Model的改变而做出相应的修改，不利于Cell的复用。做过Android开发的同学知道，其实如何让Model的数据呈现在Cell上是<a href="http://blog.csdn.net/fznpcy/article/details/8658155/">Adapter</a>需要做的事情。</p>
 
-<h2 id="开源">开源</h2>
-<p>1.<a href="https://github.com/yeziahehe/YFStartView">YFStartView</a> : 在启动图都是一个PNG的年代下，有强迫症的我已经受不了，换个设计吧。
-<img src="https://camo.githubusercontent.com/170b43643d7208c9f7a4ad584bfda8b8f97057d8/687474703a2f2f37786b7674352e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f6769746875622f5946537461727456696577627574746f6d2e676966" alt="YFStartView" />
-<img src="https://camo.githubusercontent.com/95b7b10a0a40166ae26e8ee7bb7902fdfe0e09f3/687474703a2f2f37786b7674352e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f6769746875622f594653746172745669657763656e7465722e676966" alt="YFStartView" /></p>
+<h2 id="一些看法">一些看法</h2>
+<p>用一个场景来描绘下。
+用一个类描述程序员写代码</p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@implementation</span> <span class="nc">Programmer</span>
+<span class="k">-</span><span class="p">(</span><span class="n">Void</span><span class="p">)</span> <span class="nf">program</span><span class="p">:(</span><span class="n">NSString</span><span class="o">*</span> <span class="n">name</span><span class="p">){</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@写OC代码"</span><span class="p">,</span><span class="n">name</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">@end</span>
 
-<p>2.<a href="https://github.com/renzifeng/ZFPlayer">ZFPlayer</a> : 基于AVPlayer，支持横屏、竖屏（全屏播放还可锁定屏幕方向），上下滑动调节音量、屏幕亮度，左右滑动调节播放进度。
-<img src="https://github.com/renzifeng/ZFPlayer/raw/master/screen.gif" alt="ZFPlayer" />
-<img src="https://github.com/renzifeng/ZFPlayer/raw/master/volume.png" alt="ZFPlayer" />
-<img src="https://github.com/renzifeng/ZFPlayer/raw/master/brightness.png" alt="ZFPlayer" /></p>
+<span class="c1">//Client
+</span><span class="n">Programmer</span><span class="o">*</span> <span class="n">programmer</span> <span class="o">=</span> <span class="p">[[</span><span class="n">Programmer</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">init</span><span class="p">];</span>
+<span class="p">[</span><span class="n">programmer</span> <span class="nf">program</span><span class="p">:</span><span class="s">@"iOS工程师"</span><span class="p">];</span>
 
-<p>3.<a href="https://github.com/daltoniam/DCAnimationKit">DCAnimationKit</a> : 各种动态效果于一身，喜欢动画的朋友可以Star一下。
-<img src="https://camo.githubusercontent.com/a5974a8a57c442d5b6c23d01ed3e94dfd1c4ac37/68747470733a2f2f7261772e6769746875622e636f6d2f64616c746f6e69616d2f4443416e696d6174696f6e4b69742f6d61737465722f676966732f746164612e676966" alt="DCAnimationKit" /> 
-<img src="https://camo.githubusercontent.com/4eb7f20fcae456c8f28ad1b9ffb015ff7242b3b0/68747470733a2f2f7261772e6769746875622e636f6d2f64616c746f6e69616d2f4443416e696d6174696f6e4b69742f6d61737465722f676966732f70756c73652e676966" alt="DCAnimationKit" /> 
-<img src="https://camo.githubusercontent.com/0a27424f1d55f93ba399adfc3877a5b19efa59c1/68747470733a2f2f7261772e6769746875622e636f6d2f64616c746f6e69616d2f4443416e696d6174696f6e4b69742f6d61737465722f676966732f7368616b652e676966" alt="DCAnimationKit" /></p>
+<span class="c1">//Result
+</span><span class="err">“</span><span class="n">iOS</span><span class="err">工程师写</span><span class="n">OC</span><span class="err">代码”</span>
+</code></pre>
+</div>
+<p>殊不知，iOS只是代码界的一部分</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>[programmer program:@"前端工程师"];
 
-<p>4.<a href="https://github.com/delba/TextAttributes">TextAttributes</a> : 一款使得attributed strings更易拼接的库,而且支持动态更新。
-<img src="https://raw.githubusercontent.com/delba/TextAttributes/assets/demo.gif" alt="TextAttributes" /></p>
+//Result
+“前端工程师写OC代码”
+</code></pre>
+</div>
+<p>发现不对劲了，这个时候想到了SRP，要不这样改改</p>
 
-<p>5.<a href="https://github.com/CatchZeng/CATLog">CATLog</a> : 利用Xcodecolors &amp; KZLinkedConsole两个插件实现的一款日志工具，支持分级别、log文件、记录Crash信息、分级颜色显示、点击Log信息跳转到类文件等特性,欢迎Star、Fork、Issue。
-<img src="https://github.com/CatchZeng/CATLog/raw/master/color.jpg" alt="CATLog" />
-<img src="https://github.com/krzysztofzablocki/KZLinkedConsole/raw/master/logs.gif?raw=true" alt="CATLog" /></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@implementation</span> <span class="nc">IOSProgrammer</span>
+<span class="k">-</span><span class="p">(</span><span class="n">Void</span><span class="p">)</span> <span class="nf">program</span><span class="p">:(</span><span class="n">NSString</span><span class="o">*</span> <span class="n">name</span><span class="p">){</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@写OC代码"</span><span class="p">,</span><span class="n">name</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">@end</span>
 
+<span class="k">@implementation</span> <span class="nc">WebProgrammer</span>
+<span class="k">-</span><span class="p">(</span><span class="n">Void</span><span class="p">)</span> <span class="nf">program</span><span class="p">:(</span><span class="n">NSString</span><span class="o">*</span> <span class="n">name</span><span class="p">){</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@写JS代码"</span><span class="p">,</span><span class="n">name</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">@end</span>
+
+<span class="c1">//Client
+</span><span class="n">IOSProgrammer</span><span class="o">*</span> <span class="n">iOSprogrammer</span> <span class="o">=</span> <span class="p">[[</span><span class="n">IOSProgrammer</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">init</span><span class="p">];</span>
+<span class="p">[</span><span class="n">iOSprogrammer</span> <span class="nf">program</span><span class="p">:</span><span class="s">@"iOS工程师"</span><span class="p">];</span>
+<span class="n">WebProgrammer</span><span class="o">*</span> <span class="n">webProgrammer</span> <span class="o">=</span> <span class="p">[[</span><span class="n">WebProgrammer</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">init</span><span class="p">];</span>
+<span class="p">[</span><span class="n">webProgrammer</span> <span class="nf">program</span><span class="p">:</span><span class="s">@"前端工程师"</span><span class="p">];</span>
+
+<span class="c1">//Result
+</span><span class="err">“</span><span class="n">iOS</span><span class="err">工程师写</span><span class="n">OC</span><span class="err">代码”</span>
+<span class="err">“前端工程师写</span><span class="n">JS</span><span class="err">代码”</span>
+</code></pre>
+</div>
+<p>我们会发现如果这样修改花销是很大的，除了将原来的类分解之外，还需要修改客户端。而直接修改类Programmer来达成目的虽然违背了SRP但花销却小的多，代码如下：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@implementation</span> <span class="nc">Programmer</span>
+<span class="k">-</span><span class="p">(</span><span class="n">Void</span><span class="p">)</span> <span class="nf">program</span><span class="p">:(</span><span class="n">NSString</span><span class="o">*</span> <span class="n">name</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">([</span><span class="n">name</span> <span class="nf">isEqualToString</span><span class="p">:</span><span class="s">@"iOS工程师"</span><span class="p">]){</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@写OC代码"</span><span class="p">,</span><span class="n">name</span><span class="p">);</span>
+    <span class="p">}</span><span class="k">else</span>  <span class="k">if</span><span class="p">([</span><span class="n">name</span> <span class="nf">isEqualToString</span><span class="p">:</span><span class="s">@"前端工程师"</span><span class="p">]){</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@写JS代码"</span><span class="p">,</span><span class="n">name</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">@end</span>
+</code></pre>
+</div>
+<p>可以看到，这种修改方式要简单的多。但是却存在着隐患：有一天需要后台程序员写PHP，则又需要修改Programmer类的program方法，而对原有代码的修改会对调用iOS工程师、前端工程师带来风险。这种修改方式直接在<strong><em>代码级别上</em></strong>违背了SRP，虽然修改起来最简单，但隐患却是最大。
+那么还有别的方式吗？答案是肯定的，代码如下：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@implementation</span> <span class="nc">Programmer</span>
+<span class="k">-</span><span class="p">(</span><span class="n">Void</span><span class="p">)</span> <span class="nf">program</span><span class="p">:(</span><span class="n">NSString</span><span class="o">*</span> <span class="n">name</span><span class="p">){</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@写OC代码"</span><span class="p">,</span><span class="n">name</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="o">-</span><span class="p">(</span><span class="n">Void</span><span class="p">)</span> <span class="n">program2</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span><span class="o">*</span> <span class="n">name</span><span class="p">){</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@写JS代码"</span><span class="p">,</span><span class="n">name</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">@end</span>
+
+<span class="c1">//Client
+</span><span class="n">Programmer</span><span class="o">*</span> <span class="n">programmer</span> <span class="o">=</span> <span class="p">[[</span><span class="n">Programmer</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">init</span><span class="p">];</span>
+<span class="p">[</span><span class="n">programmer</span> <span class="nf">program</span><span class="p">:</span><span class="s">@"iOS工程师"</span><span class="p">];</span>
+<span class="n">Programmer</span><span class="o">*</span> <span class="n">programmer2</span> <span class="o">=</span> <span class="p">[[</span><span class="n">Programmer</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">init</span><span class="p">];</span>
+<span class="p">[</span><span class="n">programmer2</span> <span class="nf">program2</span><span class="p">:</span><span class="s">@"前端工程师"</span><span class="p">];</span>
+
+<span class="c1">//Result
+</span><span class="err">“</span><span class="n">iOS</span><span class="err">工程师写</span><span class="n">OC</span><span class="err">代码”</span>
+<span class="err">“前端工程师写</span><span class="n">JS</span><span class="err">代码”</span>
+</code></pre>
+</div>
+<p>这种在类中新加一个方法的修改方式，虽然也违背了SRP，但在方法级别上却是符合SRP的，因为它并没有动原来方法的代码。
+这三种方式各有优缺点，在开发中，需要根据实际情况来确定。需要注意的是：只有逻辑足够简单，才可以在<strong><em>代码级别上</em></strong>违反SRP；只有类中方法数量足够少，才可以在<strong><em>方法级别上</em></strong>违反SRP；</p>
+
+<p>很多人对SRP不屑一顾，因为它太简单了。但即便是经验丰富的程序员写出的程序，也会有违背这一原则的代码存在。其原因是因为有职责扩散。所谓职责扩散，就是因为某种原因，职责P被分化为粒度更细的职责P1和P2。需要注意的是：在职责扩散到我们无法控制的程度之前，要立刻对代码进行重构。</p>
 
 
                 <hr>
@@ -218,14 +297,16 @@
                 </style>
                 <div class="ds-share"
                     style="text-align: right"
-                    data-thread-key="/2016/04/21/iOS开发见闻-第17期"
-                    data-title="iOS开发见闻-第17期"
-                    data-url="http://localhost:4000/2016/04/21/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC17%E6%9C%9F/"
+                    data-thread-key="/2017/02/19/iOS聊聊设计模式原则（一） -- 单一职责原则"
+                    data-title="iOS聊聊设计模式原则（一） -- 单一职责原则"
+                    data-url="http://localhost:4000/2017/02/19/iOS%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%80-%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99/"
                     data-images="http://localhost:4000/img/post-bg-2015.jpg"
                     data-content="
 
-文章
-1.在iOS上自动检测内存泄露 : Facebook一口气发布了三个利器FBRetainCycleDetector、FBAllocationTr... | CatchZeng的技术博客 | CatchZeng Blog " >
+单一职责原则（SRP：Single responsibility principle）
+
+定义
+一个类应该只有一个发生变化的原因，即一个类只负责一项职... | CatchZeng的技术博客 | CatchZeng Blog " >
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
                         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -245,12 +326,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2016/03/22/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC16%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第16期">&larr; Previous Post</a>
+                        <a href="/2017/02/10/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90-%E7%90%86%E8%AE%BA%E7%AF%87/" data-toggle="tooltip" data-placement="top" title="持续集成 -- 理论篇">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2016/05/03/iOS%E5%BC%80%E6%BA%90Log%E5%B7%A5%E5%85%B7CATLog/" data-toggle="tooltip" data-placement="top" title="iOS开源Log工具CATLog">Next Post &rarr;</a>
+                        <a href="/2017/03/14/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC21%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第21期">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -260,9 +341,9 @@
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/2016/04/21/iOS开发见闻-第17期"
-                        data-title="iOS开发见闻-第17期"
-                        data-url="http://localhost:4000/2016/04/21/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC17%E6%9C%9F/" >
+                        data-thread-key="/2017/02/19/iOS聊聊设计模式原则（一） -- 单一职责原则"
+                        data-title="iOS聊聊设计模式原则（一） -- 单一职责原则"
+                        data-url="http://localhost:4000/2017/02/19/iOS%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%80-%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->

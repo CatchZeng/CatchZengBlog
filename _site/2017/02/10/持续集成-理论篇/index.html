@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>iOS开发见闻-第17期 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>持续集成 -- 理论篇 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/2016/04/21/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC17%E6%9C%9F/">
+    <link rel="canonical" href="http://localhost:4000/2017/02/10/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90-%E7%90%86%E8%AE%BA%E7%AF%87/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -143,12 +143,12 @@
                         <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
                         
                     </div>
-                    <h1>iOS开发见闻-第17期</h1>
+                    <h1>持续集成 -- 理论篇</h1>
                     
                     
-                    <h2 class="subheading">iOS开发见闻</h2>
+                    <h2 class="subheading">iOS开发</h2>
                     
-                    <span class="meta">Posted by CatchZeng on April 21, 2016</span>
+                    <span class="meta">Posted by CatchZeng on February 10, 2017</span>
                 </div>
             </div>
         </div>
@@ -168,47 +168,129 @@
 
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
-<h2 id="文章">文章</h2>
-<p>1.<a href="http://ifujun.com/yi-wen-zai-iosshang-zi-dong-jian-ce-nei-cun-xie-lu/?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io">在iOS上自动检测内存泄露</a> : Facebook一口气发布了三个利器FBRetainCycleDetector、FBAllocationTracker、FBMemoryProfiler。该篇文章的难得之处在于侧面上反应了Facebook面对问题的思考角度、深度，值得我们借鉴。</p>
+<h2 id="一软件开发面临的问题">一、软件开发面临的问题</h2>
+<ul>
+  <li>确定软件需求</li>
+  <li>确定项目进度（可见性）</li>
+  <li>如何以最快速度将软件交付给用户？</li>
+  <li>如何让开发、测试、产品经理、运维人员高效工作？</li>
+</ul>
 
-<p>2.<a href="http://www.jackpu.com/react-nativezui-jia-xue-xi-mo-ban-f8-appkai-yuan-liao/?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io">React Native最佳学习模版- F8 App开源了</a> ：如果说最近iOS界什么名词最火，我会说的React Native。该篇文章带来了最佳学习模版-F8 App，在研究React Native的朋友别错过。</p>
+<p>软件需要满足于业务目的，质量不等于完美，“追求完美是把事情做好的大敌”。</p>
 
-<p>3.<a href="http://www.jianshu.com/p/d684693f1d77">高速公路换轮胎——为遗留系统替换数据库</a> : 作者由几个月的重构项目经历，讲述了如何一步步替换数据库的过程。文章思路清晰，从背景、系统面貌到方案选型、技术实现，是篇值得称赞的文章。</p>
+<h2 id="二持续集成">二、持续集成</h2>
+<p>持续集成是一种软件开发实践【<strong>不是工具</strong>】，即团队开发成员经常集成他们的工作，通常每个成员每天至少集成一次。每次集成都通过自动化的构建（包括编译，发布，自动化测试)来验证，从而尽快地发现集成错误。 — Martin Fowler</p>
 
-<p>4.<a href="http://mp.weixin.qq.com/s?__biz=MzA3ODg4MDk0Ng==&amp;mid=403474677&amp;idx=1&amp;sn=5163adb2d80aa5b4f0099f79e6d783e1&amp;scene=2&amp;srcid=0410nXOlaNgnthsBuLXyP7yA#wechat_redirect">网易漫画Swift混编实践</a> ：时至今日，工程是否要换成Swift写仍是讨论的热题。如果你想换不妨先看看网易怎么做的，至少能少踩坑。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-3070048477120ab3.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="持续集成" /></p>
 
-<h2 id="工具">工具</h2>
-<p>1.<a href="https://github.com/bang590/JSPatchX">JSPatchX</a> ：JSPatch XCode 代码自动补全插件。
-<img src="https://camo.githubusercontent.com/ad17370a5e5ecf1e5196146405f57126eb649390/68747470733a2f2f7261772e6769746875622e636f6d2f62616e673539302f4a535061746368582f6d61737465722f5265736f757263652f53637265656e73686f742e676966" alt="JSPatchX" /></p>
+<h2 id="三持续集成的价值">三、持续集成的价值</h2>
 
-<p>2.<a href="https://github.com/wzqcongcong/AtAutoCompletion">AtAutoCompletion</a> : 一款@的自动补全插件。
-<img src="https://github.com/wzqcongcong/AtAutoCompletion/raw/master/screenshot/screenshot.png" alt="AtAutoCompletion" /></p>
+<h4 id="1协作">1.协作</h4>
+<p>让开发的软件一直处于可工作状态</p>
 
-<p>3.<a href="https://github.com/tyeen/BlockJump">BlockJump</a> : 让你在类文件中快速跳转的插件。
-<img src="https://camo.githubusercontent.com/bcf2547bd90504fcfe4f4cecd3bc8a6f31161e55/68747470733a2f2f7261772e6769746875622e636f6d2f747965656e2f426c6f636b4a756d702f6d61737465722f73637265656e5f7265636f72642e676966" alt="BlockJump" /></p>
+<h4 id="2开发人员">2.开发人员</h4>
+<ul>
+  <li>尽快发现问题
+解决问题的关键是尽快发现问题
+减少引入缺陷与修复缺陷之间的时间</li>
+  <li>防止分支大幅偏离主干</li>
+  <li>
+    <p>减少重复过程&amp;人为错误：
+以自动化编译、发布、测试…，代替手工操作
+避免了一些人为的错误(build号忘加1、Debug开关忘关)</p>
+  </li>
+  <li>建立团队对开发产品的信心</li>
+</ul>
 
-<h2 id="开源">开源</h2>
-<p>1.<a href="https://github.com/yeziahehe/YFStartView">YFStartView</a> : 在启动图都是一个PNG的年代下，有强迫症的我已经受不了，换个设计吧。
-<img src="https://camo.githubusercontent.com/170b43643d7208c9f7a4ad584bfda8b8f97057d8/687474703a2f2f37786b7674352e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f6769746875622f5946537461727456696577627574746f6d2e676966" alt="YFStartView" />
-<img src="https://camo.githubusercontent.com/95b7b10a0a40166ae26e8ee7bb7902fdfe0e09f3/687474703a2f2f37786b7674352e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f6769746875622f594653746172745669657763656e7465722e676966" alt="YFStartView" /></p>
+<h4 id="3测试人员">3.测试人员</h4>
+<p>小步增量，易于发现问题，并快速反馈给开发人员</p>
 
-<p>2.<a href="https://github.com/renzifeng/ZFPlayer">ZFPlayer</a> : 基于AVPlayer，支持横屏、竖屏（全屏播放还可锁定屏幕方向），上下滑动调节音量、屏幕亮度，左右滑动调节播放进度。
-<img src="https://github.com/renzifeng/ZFPlayer/raw/master/screen.gif" alt="ZFPlayer" />
-<img src="https://github.com/renzifeng/ZFPlayer/raw/master/volume.png" alt="ZFPlayer" />
-<img src="https://github.com/renzifeng/ZFPlayer/raw/master/brightness.png" alt="ZFPlayer" /></p>
+<h3 id="四小结">四、小结</h3>
+<p>集成的目的其实是沟通：集成可以让开发者告诉其他人他们都改了什么东西，频繁的沟通可以让开发者更快地了解变化。</p>
 
-<p>3.<a href="https://github.com/daltoniam/DCAnimationKit">DCAnimationKit</a> : 各种动态效果于一身，喜欢动画的朋友可以Star一下。
-<img src="https://camo.githubusercontent.com/a5974a8a57c442d5b6c23d01ed3e94dfd1c4ac37/68747470733a2f2f7261772e6769746875622e636f6d2f64616c746f6e69616d2f4443416e696d6174696f6e4b69742f6d61737465722f676966732f746164612e676966" alt="DCAnimationKit" /> 
-<img src="https://camo.githubusercontent.com/4eb7f20fcae456c8f28ad1b9ffb015ff7242b3b0/68747470733a2f2f7261772e6769746875622e636f6d2f64616c746f6e69616d2f4443416e696d6174696f6e4b69742f6d61737465722f676966732f70756c73652e676966" alt="DCAnimationKit" /> 
-<img src="https://camo.githubusercontent.com/0a27424f1d55f93ba399adfc3877a5b19efa59c1/68747470733a2f2f7261772e6769746875622e636f6d2f64616c746f6e69616d2f4443416e696d6174696f6e4b69742f6d61737465722f676966732f7368616b652e676966" alt="DCAnimationKit" /></p>
+<h3 id="五持续集成的前提条件">五、持续集成的前提条件</h3>
+<h4 id="1团队共识">1.团队共识</h4>
+<p>持续集成不是工具，是一种实践，需要投入并遵守一些规则，才能提高质量</p>
 
-<p>4.<a href="https://github.com/delba/TextAttributes">TextAttributes</a> : 一款使得attributed strings更易拼接的库,而且支持动态更新。
-<img src="https://raw.githubusercontent.com/delba/TextAttributes/assets/demo.gif" alt="TextAttributes" /></p>
+<h4 id="2频繁提交">2.频繁提交</h4>
+<p>“如果你遇到一件很痛苦的事情，似乎比较好的建议就是更频繁地做这件事情”                                                                                                   <br />
+— Martin Fowler
+哲学：一件事情很难，又必须去做，不妨经常去做，每次做一点，分而治之，滴水穿石、跬步千里 —— 早集成、常集成
+解决问题的关键是尽早发现问题
+每过几个小时就提交一次，冲突也会在几个小时之内被发现
+两次提交之间只有几个小时的修改，产生这些问题只可能在很有限的几个地方
+提交的越多，需要查找冲突错误的地方就越少，改起来也越快
+用差异调试比较当前版本和之前没有 bug 的版本
+客观上会鼓励开发者将工作分解成以小时计的小块</p>
 
-<p>5.<a href="https://github.com/CatchZeng/CATLog">CATLog</a> : 利用Xcodecolors &amp; KZLinkedConsole两个插件实现的一款日志工具，支持分级别、log文件、记录Crash信息、分级颜色显示、点击Log信息跳转到类文件等特性,欢迎Star、Fork、Issue。
-<img src="https://github.com/CatchZeng/CATLog/raw/master/color.jpg" alt="CATLog" />
-<img src="https://github.com/krzysztofzablocki/KZLinkedConsole/raw/master/logs.gif?raw=true" alt="CATLog" /></p>
+<h4 id="3保证每次提交的质量">3.保证每次提交的质量</h4>
+<p>每次提交的版本都有可能产生一个可发布的版本
+每次提交的质量不好，不但会影响自己，而且会影响别人</p>
 
+<h4 id="4不单单源代码">4.不单单源代码</h4>
+<p>与项目相关的所有内容（代码、测试代码、数据库脚本、构建与部署脚本、 IDE配置文件，以及所有用于创建、安装、运行、测试应用程序的东西）
+关于这点，可以参考<a href="http://www.infoq.com/cn/news/2012/01/ci-everything-is-code">持续集成之“Everything is code”</a></p>
+
+<h4 id="5全面的自动化构建测试套件">5.全面的自动化构建、测试套件</h4>
+<ul>
+  <li>10分钟 build（快速的build）
+没有什么比缓慢的 build 更能危害持续集成活动
+一旦提交 build 成功，其他人就可以放心地基于这些代码工作了</li>
+  <li>在不同的情况中 build 不同的 target</li>
+  <li>每次代码提交后都会在持续集成服务器上触发一次构建
+构建不只是编译，可能包含编译、测试、审查和部署以及其他一些事情，将代码放在一起，并让其可以作为一个一致的单元运行的过程</li>
+  <li>自动化标准
+任何人都应该能从一个干净的计算机上 check out 源代码，然后敲入一条命令，就可以得到能在这台机器上运行的系统</li>
+</ul>
+
+<h4 id="6本地环境与持续集成环境测试环境生产环境一致">6.本地环境与持续集成环境、测试环境、生产环境一致</h4>
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-db7b14bb780014e1.gif?imageMogr2/auto-orient/strip" alt="deployment-plan.gif" />
+关于环境可参考：<a href="http://dltj.org/article/software-development-practice/">Traditional Development/Integration/Staging/Production Practice for Software Development</a></p>
+
+<h3 id="六必要的实践">六、必要的实践</h3>
+<h4 id="1最新的正确版本作为起点">1.“最新的正确版本”作为起点</h4>
+
+<h4 id="2时刻准备回滚到前一个版本">2.时刻准备回滚到前一个版本</h4>
+
+<h4 id="3修复破坏应用程序的任意修改是最高优先级的任务">3.修复破坏应用程序的任意修改是最高优先级的任务</h4>
+<p>10分钟修复不完，需要回滚&amp;在回滚之前要规定一个修复时间</p>
+
+<h4 id="4等提交测试通过后再继续工作">4.等提交测试通过后再继续工作</h4>
+<p>给自己喝一杯咖啡的时间
+等待集成返回结果后继续工作能减少错误，也能让别人在最新的正确版本作为起点</p>
+
+<h4 id="5提交前在本地运行所有的提交测试">5.提交前在本地运行所有的提交测试</h4>
+<p>现代CI服务器提供“预测试提交”、“个人构建”</p>
+
+<h4 id="6构建失败后不要提交新代码">6.构建失败后不要提交新代码</h4>
+
+<h4 id="7谁提交谁负责">7.谁提交，谁负责</h4>
+<p>监视 mainline 上的构建，失败时及时修复
+如果在下班前提交了代码，那在 mainline 构建成功之前就不能回家</p>
+
+<h4 id="8勿将失败的测试注释掉">8.勿将失败的测试注释掉</h4>
+<p>修改代码、修改测试、删除测试</p>
+
+<h4 id="9测试驱动开发">9.测试驱动开发</h4>
+
+<h3 id="七-持续集成实践步骤">七、 持续集成实践步骤</h3>
+
+<h4 id="1自动化构建">1.自动化构建</h4>
+
+<h4 id="2引入自动化测试">2.引入自动化测试</h4>
+<p>试着指出主要出错的地方，并要让自动化测试暴露这些错误</p>
+
+<h4 id="3试着加快build-的速度">3.试着加快build 的速度</h4>
+<p>10分钟build</p>
+
+<h4 id="4ci选型">4.CI选型</h4>
+<p><a href="https://github.com/ligurio/Continuous-Integration-services/blob/master/continuous-integration-services-list.md">https://github.com/ligurio/Continuous-Integration-services/blob/master/continuous-integration-services-list.md</a></p>
+
+<h4 id="5寻找老司机帮忙很重要">5.寻找老司机帮忙（很重要）</h4>
+<p>老司机理论+实践经验丰富</p>
+
+<h1 id="详见">详见</h1>
+<p><a href="https://github.com/CatchZeng/ContinuousIntegration">https://github.com/CatchZeng/ContinuousIntegration</a></p>
 
 
                 <hr>
@@ -218,14 +300,18 @@
                 </style>
                 <div class="ds-share"
                     style="text-align: right"
-                    data-thread-key="/2016/04/21/iOS开发见闻-第17期"
-                    data-title="iOS开发见闻-第17期"
-                    data-url="http://localhost:4000/2016/04/21/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC17%E6%9C%9F/"
+                    data-thread-key="/2017/02/10/持续集成 -- 理论篇"
+                    data-title="持续集成 -- 理论篇"
+                    data-url="http://localhost:4000/2017/02/10/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90-%E7%90%86%E8%AE%BA%E7%AF%87/"
                     data-images="http://localhost:4000/img/post-bg-2015.jpg"
                     data-content="
 
-文章
-1.在iOS上自动检测内存泄露 : Facebook一口气发布了三个利器FBRetainCycleDetector、FBAllocationTr... | CatchZeng的技术博客 | CatchZeng Blog " >
+一、软件开发面临的问题
+
+  确定软件需求
+  确定项目进度（可见性）
+  如何以最快速度将软件交付给用户？
+  如何让开发、测试、产品经理、运维人员... | CatchZeng的技术博客 | CatchZeng Blog " >
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
                         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -245,12 +331,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2016/03/22/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC16%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第16期">&larr; Previous Post</a>
+                        <a href="/2016/11/16/%E4%B8%80%E8%B5%B7%E4%B8%BAXcode8%E5%86%99%E6%8F%92%E4%BB%B6%E5%90%A7/" data-toggle="tooltip" data-placement="top" title="一起为Xcode8写插件吧">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2016/05/03/iOS%E5%BC%80%E6%BA%90Log%E5%B7%A5%E5%85%B7CATLog/" data-toggle="tooltip" data-placement="top" title="iOS开源Log工具CATLog">Next Post &rarr;</a>
+                        <a href="/2017/02/19/iOS%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%80-%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99/" data-toggle="tooltip" data-placement="top" title="iOS聊聊设计模式原则（一） -- 单一职责原则">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -260,9 +346,9 @@
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/2016/04/21/iOS开发见闻-第17期"
-                        data-title="iOS开发见闻-第17期"
-                        data-url="http://localhost:4000/2016/04/21/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC17%E6%9C%9F/" >
+                        data-thread-key="/2017/02/10/持续集成 -- 理论篇"
+                        data-title="持续集成 -- 理论篇"
+                        data-url="http://localhost:4000/2017/02/10/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90-%E7%90%86%E8%AE%BA%E7%AF%87/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
