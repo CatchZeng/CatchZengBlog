@@ -154,6 +154,35 @@
             ">
     			
 <div class="post-preview">
+    <a href="/2015/10/26/Mac-OS-X-10.11%E5%8D%87%E7%BA%A7%E5%B8%A6%E6%9D%A5%E7%9A%84-cocoapods%E9%97%AE%E9%A2%98/">
+        <h2 class="post-title">
+            Mac OS X 10.11升级带来的 cocoapods问题
+        </h2>
+        
+        <h3 class="post-subtitle">
+            cocoapods
+        </h3>
+        
+        <div class="post-content-preview">
+            
+
+前言
+昨天升级完Mac OS X 10.11，发现cocoapods不能用了。
+后面用以下命令解决了，在此记录希望能帮到需要的朋友。
+如在执行以下命令时出现问题，请看更新部分
+sudo chmod -R 755 /usr/local/bin
+sudo gem uninstall cocoapods
+sudo gem install -n /usr/local/bin cocoapods
+...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by CatchZeng on October 26, 2015
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2015/10/26/%E5%B1%8F%E5%B9%95%E9%80%82%E9%85%8D%E4%B9%8BSize-Classes/">
         <h2 class="post-title">
             屏幕适配之Size Classes
@@ -317,7 +346,7 @@ ERROR ITMS-90049: "This bundle is invalid. The bundle identifier contains disall
                     <div class="tags">
                         
                             
-                                <a href="/tags/#iOS" title="iOS" rel="42">
+                                <a href="/tags/#iOS" title="iOS" rel="43">
                                     iOS
                                 </a>
                             
