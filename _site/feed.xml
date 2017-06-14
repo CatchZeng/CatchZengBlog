@@ -5,9 +5,120 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 08 May 2017 17:37:17 +0800</pubDate>
-    <lastBuildDate>Mon, 08 May 2017 17:37:17 +0800</lastBuildDate>
+    <pubDate>Wed, 14 Jun 2017 09:07:49 +0800</pubDate>
+    <lastBuildDate>Wed, 14 Jun 2017 09:07:49 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>ARKit体验篇</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;ar简介&quot;&gt;AR简介&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;增强现实&lt;/strong&gt;（Augmented Reality，简称 AR），是一种实时地计算摄影机影像的位置及角度并加上相应&lt;a href=&quot;http://baike.baidu.com/item/%E5%9B%BE%E5%83%8F&quot;&gt;图像&lt;/a&gt;的技术，这种技术的目标是在屏幕上把虚拟世界套在现实世界并进行互动。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-5659bb5ec353b2a4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;AR&quot; /&gt;
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-84e13a4fe5722527.gif?&quot; alt=&quot;AR&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;iOS 11 引入了 ARKit，这是一个全新的框架，允许开发者轻松地为 iPhone 和 iPad 创建无与伦比的增强现实体验。通过将虚拟对象和虚拟信息同用户周围的环境相互融合，ARKit 使得应用跳出屏幕的限制，让它们能够以全新的方式与现实世界进行交互。&lt;/p&gt;
+
+&lt;h2 id=&quot;arkit的优势&quot;&gt;ARKit的优势&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;ARKit 大幅降低了开发者在 iOS 上进行 AR 应用开发的难度&lt;/li&gt;
+  &lt;li&gt;苹果设备的普及率，使得门槛低，无需其他设备便可体验&lt;/li&gt;
+  &lt;li&gt;开发人员可以用苹果的新机器学习框架&lt;a href=&quot;https://developer.apple.com/documentation/coreml&quot;&gt;CoreML&lt;/a&gt;来识别场景中的对象&lt;/li&gt;
+  &lt;li&gt;快速稳定的运动定位&lt;/li&gt;
+  &lt;li&gt;平面和边界的估计、光照估计、尺度估计&lt;/li&gt;
+  &lt;li&gt;对各个开发平台或引擎的支持（如：Unity3d）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;arkit体验&quot;&gt;ARKit体验&lt;/h2&gt;
+&lt;p&gt;废话不多说，先来体验下。当然是有要求的：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Xcode版本：Xcode9及以上&lt;/li&gt;
+  &lt;li&gt;iOS系统： iOS11及以上&lt;/li&gt;
+  &lt;li&gt;iOS设备：处理器A9及以上（6S机型及以上）&lt;/li&gt;
+  &lt;li&gt;MacOS系统：10.12.4及以上&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;1选择augemnted-reality-app&quot;&gt;1.选择Augemnted Reality App&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-96e6901c86f1dd41.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;1&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;2填写信息&quot;&gt;2.填写信息&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-daa483ec3e1f57d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;2&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;细心的朋友可以看到Content Technology
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-4b4a66fe2fc6b47a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Content Technology&quot; /&gt;
+&lt;a href=&quot;https://developer.apple.com/documentation/scenekit&quot;&gt;Scenekit&lt;/a&gt;：ARKit框架提供了两种AR技术，一种是基于3D场景(SceneKit)实现的增强现实
+&lt;a href=&quot;https://developer.apple.com/documentation/spriteKit&quot;&gt;SpriteKit&lt;/a&gt;：基于2D场景(SpriktKit)实现的增强现实
+&lt;a href=&quot;https://developer.apple.com/metal/&quot;&gt;Metal&lt;/a&gt;：Apple图形API
+Demo中使用3D来构建，所以选择Scenekit&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;3run&quot;&gt;3.Run&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-14612a5de2e955e6.gif?&quot; alt=&quot;效果&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;项目分析&quot;&gt;项目分析&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-d8ebceb7a8e3c15d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;项目结构&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//在界面上创建ARSCNView，用于展示AR
+@IBOutlet var sceneView: ARSCNView!
+
+override func viewDidLoad() {
+super.viewDidLoad()
+
+// 设置代理
+sceneView.delegate = self
+
+// 显示一些数据，如fps之类的
+sceneView.showsStatistics = true
+
+// 创建一个SCNScene，用于显示3d模型
+let scene = SCNScene(named: &quot;art.scnassets/ship.scn&quot;)!
+
+// 将加载了3d模型的SCNScene设置成ARSCNView的scene
+sceneView.scene = scene
+}
+
+override func viewWillAppear(_ animated: Bool) {
+super.viewWillAppear(animated)
+
+// 为ARSCNView设置一个会话配置类
+let configuration = ARWorldTrackingSessionConfiguration()
+
+// 开始session
+sceneView.session.run(configuration)
+}
+
+override func viewWillDisappear(_ animated: Bool) {
+super.viewWillDisappear(animated)
+
+// 暂停session
+sceneView.session.pause()
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;通过代码分析可以发现，在ARKit中主要有几个类&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://developer.apple.com/documentation/arkit/arscnview&quot;&gt;ARSCNView&lt;/a&gt;：一种显示AR体验的视图，它通过3D SceneKit内容增强了相机视图&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://developer.apple.com/documentation/arkit/ARWorldTrackingSessionConfiguration&quot;&gt;ARWorldTrackingSessionConfiguration&lt;/a&gt;: 会话配置类，在配置类对象里设置会话如何将真实的设备运动映射到3D场景的坐标系统里，这里默认是使用重力&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://developer.apple.com/documentation/scenekit/scnscene&quot;&gt;SCNScene&lt;/a&gt;: SceneKit 内容的容器. 你可以从3D建模工具生成的文件中加载一个场景，或者用代码创建一个 ，然后把它显示在视图上&lt;/p&gt;
+
+&lt;h2 id=&quot;体验感受&quot;&gt;体验感受&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;ARKit API够简单，效果够好。&lt;/li&gt;
+  &lt;li&gt;硬件、机器学习&lt;a href=&quot;https://developer.apple.com/documentation/coreml&quot;&gt;CoreML&lt;/a&gt;和ARkit带来的是满满的惊喜。相信ARKit在未来的时间将会在照片处理，视频，游戏等领域绽放光彩。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Tue, 13 Jun 2017 17:38:27 +0800</pubDate>
+        <link>http://localhost:4000/2017/06/13/ARKit%E4%BD%93%E9%AA%8C%E7%AF%87/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/06/13/ARKit%E4%BD%93%E9%AA%8C%E7%AF%87/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
     
       <item>
         <title>iOS聊聊设计模式原则（二） -- 接口隔离原则</title>
@@ -1143,167 +1254,6 @@ sudo cordova platform add ios
         <pubDate>Thu, 18 Aug 2016 17:38:27 +0800</pubDate>
         <link>http://localhost:4000/2016/08/18/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC20%E6%9C%9F/</link>
         <guid isPermaLink="true">http://localhost:4000/2016/08/18/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC20%E6%9C%9F/</guid>
-        
-        <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>iOS动画－－进阶（一）</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
-&lt;p&gt;优秀的动画来源于设计，优秀的设计来源于灵感和动效的积累。我们不是设计师，但可以积累动画的基础。在动画的进阶部分，我们先积累一些与动画相关的知识。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;贝塞尔曲线&lt;/li&gt;
-  &lt;li&gt;CAShapeLayer、CAReplicatorLayer&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;贝塞尔曲线&quot;&gt;贝塞尔曲线&lt;/h2&gt;
-&lt;p&gt;Bezier curve(贝塞尔曲线)是应用于二维图形应用程序的数学曲线.主要有起始点、终止点（也称锚点）、控制点这几个概念。通过调整控制点，贝塞尔曲线的形状会发生变化。&lt;/p&gt;
-
-&lt;h4 id=&quot;一阶贝塞尔曲线线段&quot;&gt;一阶贝塞尔曲线(线段)：&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;/img/in-post/post-animation/g1.png&quot; alt=&quot;一阶公式&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/in-post/post-animation/1.gif&quot; alt=&quot;一阶贝塞尔曲线&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;二阶贝塞尔曲线抛物线&quot;&gt;二阶贝塞尔曲线(抛物线)：&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;/img/in-post/post-animation/g2.png&quot; alt=&quot;二阶公式&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/in-post/post-animation/2.gif&quot; alt=&quot;二阶贝塞尔曲线&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;三阶贝塞尔曲线&quot;&gt;三阶贝塞尔曲线：&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;/img/in-post/post-animation/g3.png&quot; alt=&quot;三阶公式&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/in-post/post-animation/3.gif&quot; alt=&quot;三阶贝塞尔曲线&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;三阶以上的贝塞尔曲线在iOS开发中使用较少，这里不再赘述。在iOS中使用&lt;a href=&quot;http://www.jianshu.com/p/bbb2cc485a45&quot;&gt;UIBezierPath&lt;/a&gt;来实现贝塞尔曲线。
-贝塞尔曲线能描述动画的轨迹，但是UIBezierPath不具有显示的功能。所以下面我们还需要了解iOS负责View显示的CALayer。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;cashapelayer&quot;&gt;CAShapeLayer&lt;/h2&gt;
-&lt;p&gt;CAShapeLayer继承自CALayer，是一个通过矢量图形（ 非bitmap） 来绘制的图层类。&lt;/p&gt;
-
-&lt;p&gt;CALayer在被初始化时是需要给一个frame值的（一般等于view的bounds值），本身有形状的，且为矩形。
-CAShapeLayer需通过CGPath 来定义想要绘制的形状，因此常与UIBezierPath配合使用。&lt;/p&gt;
-
-&lt;p&gt;与使用 Core Graphics 直接向 CALayer 的内容中绘制一个路径（- drawLayer: inContext:)相比，使用 CAShapeLayer 有以下优点：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;渲染快：CAShapeLayer 使用了硬件加速，绘制图层较快。&lt;/li&gt;
-  &lt;li&gt;内存消耗少： CAShapeLayer 不需要创建寄宿图形（CALayer需要），内存消耗少。&lt;/li&gt;
-  &lt;li&gt;不会被图层边界剪裁掉： CAShapeLayer 可以在边界之外绘制，因此图层路径不会被剪裁掉.&lt;/li&gt;
-  &lt;li&gt;不会出现像素化：使用CAShapeLayer 做 3D 变换时，由于无寄宿图所以不会出现像素化问题。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;careplicatorlayer&quot;&gt;CAReplicatorLayer&lt;/h2&gt;
-&lt;p&gt;CAReplicatorLayer可以复制自己子层的layer,并且复制的出来的layer和原来的子layer拥有相同的动效。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;实践比理论更加易懂，下面就以例子来续动画的话题。&lt;/p&gt;
-
-&lt;h2 id=&quot;环形进度条&quot;&gt;环形进度条&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/CatchZeng/CATCurveProgressView/raw/master/images/1.gif&quot; alt=&quot;效果&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;进度条的构成为进度环和底色环。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/in-post/post-animation/4.png&quot; alt=&quot;进度条构成&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;两个环的实现依赖于以上所讲的贝塞尔曲线和CAShapeLayer。
-首先，使用贝塞尔曲线描绘底色环的路径&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;UIBezierPath *path=[UIBezierPath bezierPathWithArcCenter:CGPointMake(50,50) 
-                                                  radius:25 
-                                                  startAngle:CATDegreesToRadians(_startAngle)                              
-                                                  endAngle:CATDegreesToRadians(_endAngle) 
-                                                  clockwise:YES];
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;然后将其赋予CAShapeLayer的path属性，最后将其加入self.layer显示&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    _trackLayer=[CAShapeLayer layer];
-    _trackLayer.frame=self.bounds;
-    _trackLayer.fillColor = [UIColor clearColor].CGColor;
-    _trackLayer.strokeColor = _curveBgColor.CGColor;
-    _trackLayer.lineCap = kCALineCapRound;
-    _trackLayer.path=path.CGPath;
-    [self.layer addSublayer:_trackLayer];
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;进度环的实现与底色环相近，并结合CATransaction实现动画&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    [CATransaction begin];
-    [CATransaction setDisableActions:!animated];
-    [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
-    [CATransaction setAnimationDuration:1];
-    _progressLayer.strokeEnd=progress;
-    [CATransaction commit];
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;具体实现见工程:&lt;a href=&quot;https://github.com/CatchZeng/CATCurveProgressView&quot;&gt;CATCurveProgressView&lt;/a&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;雷达图咻一咻波纹&quot;&gt;雷达图（咻一咻、波纹）&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/CatchZeng/CATRadarView/blob/master/CATRadarView.gif?raw=true&quot; alt=&quot;效果&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;雷达图的实现分为三个步骤，首先利用CAShapeLayer创建脉冲层（pulseLayer，就是一个圈圈…）&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  _pulseLayer = [CAShapeLayer layer];
-  _pulseLayer.frame = self.layer.bounds;
-  _pulseLayer.path = [UIBezierPath bezierPathWithOvalInRect:_pulseLayer.bounds].CGPath;
-  _pulseLayer.fillColor = [UIColor blueColor].CGColor;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;然后使用CAReplicatorLayer复制多个脉冲层&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  _replicatorLayer = [CAReplicatorLayer layer];
-  _replicatorLayer.frame = self.bounds;
-  _replicatorLayer.instanceCount = 6;
-  _replicatorLayer.instanceDelay = 1.5;
-  [_replicatorLayer addSublayer:self.pulseLayer];
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;最后加上透明度与大小的动画，来实现雷达的效果&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;CABasicAnimation *scaleAnima = [CABasicAnimation animationWithKeyPath:@&quot;transform&quot;];
-scaleAnima.fromValue = [NSValue valueWithCATransform3D:CATransform3DScale(CATransform3DIdentity, 0.0, 0.0, 0.0)];
-scaleAnima.toValue = [NSValue valueWithCATransform3D:CATransform3DScale(CATransform3DIdentity, 1.0, 1.0, 0.0)];
-       
-_opacityAnima = [CABasicAnimation animationWithKeyPath:@&quot;opacity&quot;];
-_opacityAnima.fromValue = @(0.3);
-_opacityAnima.toValue = @(0.0);
-
-_animaGroup = [CAAnimationGroup animation];
-_animaGroup.animations = @[self.opacityAnima, scaleAnima];
-_animaGroup.duration = 9;
-_animaGroup.autoreverses = NO;
-_animaGroup.repeatCount = HUGE;
-
-[self.pulseLayer addAnimation:self.animaGroup forKey:@&quot;groupAnimation&quot;];
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;具体实现见工程:&lt;a href=&quot;https://github.com/CatchZeng/CATRadarView&quot;&gt;CATRadarView&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;进阶部分的首篇就先到这了，咱们下一篇见。&lt;/p&gt;
-</description>
-        <pubDate>Tue, 12 Jul 2016 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2016/07/12/iOS%E5%8A%A8%E7%94%BB-%E8%BF%9B%E9%98%B6-%E4%B8%80/</link>
-        <guid isPermaLink="true">http://localhost:4000/2016/07/12/iOS%E5%8A%A8%E7%94%BB-%E8%BF%9B%E9%98%B6-%E4%B8%80/</guid>
         
         <category>iOS</category>
         

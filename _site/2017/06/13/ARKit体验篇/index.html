@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>iOS开发见闻-第10期 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>ARKit体验篇 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/2015/12/08/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC10%E6%9C%9F/">
+    <link rel="canonical" href="http://localhost:4000/2017/06/13/ARKit%E4%BD%93%E9%AA%8C%E7%AF%87/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -143,12 +143,12 @@
                         <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
                         
                     </div>
-                    <h1>iOS开发见闻-第10期</h1>
+                    <h1>ARKit体验篇</h1>
                     
                     
-                    <h2 class="subheading">iOS开发见闻</h2>
+                    <h2 class="subheading">iOS开发</h2>
                     
-                    <span class="meta">Posted by CatchZeng on December 8, 2015</span>
+                    <span class="meta">Posted by CatchZeng on June 13, 2017</span>
                 </div>
             </div>
         </div>
@@ -168,39 +168,103 @@
 
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
-<h2 id="文章">文章</h2>
-<p>1.<a href="http://www.jianshu.com/p/b69d9b615ee5">Swift 官方 API 设计准则</a> :与<a href="http://www.jianshu.com/p/fce426e4f1c4">《Swift 3 API 设计准则》</a>的区别在于，那片文章只是一个概览说明，此文章是苹果官方发布的 API 设计准则，虽然还处于样稿阶段，但是有一定的参考价值。</p>
+<h2 id="ar简介">AR简介</h2>
+<p><strong>增强现实</strong>（Augmented Reality，简称 AR），是一种实时地计算摄影机影像的位置及角度并加上相应<a href="http://baike.baidu.com/item/%E5%9B%BE%E5%83%8F">图像</a>的技术，这种技术的目标是在屏幕上把虚拟世界套在现实世界并进行互动。</p>
 
-<p>2.<a href="http://blog.sunnyxx.com/2015/09/13/class-ivar-layout/">Objective-C Class Ivar Layout 探索 </a> ：刨根究底的sunnyxx这次又带给我们惊喜。（关于Class Ivar Layout可能比较少人接触，不过看完文章自然就懂了）</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-5659bb5ec353b2a4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="AR" />
+<img src="http://upload-images.jianshu.io/upload_images/943491-84e13a4fe5722527.gif?" alt="AR" /></p>
 
-<p>3.<a href="http://www.heyuan110.com/2015/06/16/IOS%E9%93%B6%E8%A1%8C%E5%8D%A1%E5%90%88%E6%B3%95%E6%80%A7%E6%A0%A1%E9%AA%8C/">IOS银行卡合法性校验 </a> : Luhn检验数字算法，也叫做模数10公式，是一种简单的算法，用于验证银行卡、信用卡号码的有效性的算法，喜欢研究算法的朋友不要错过。</p>
+<p>iOS 11 引入了 ARKit，这是一个全新的框架，允许开发者轻松地为 iPhone 和 iPad 创建无与伦比的增强现实体验。通过将虚拟对象和虚拟信息同用户周围的环境相互融合，ARKit 使得应用跳出屏幕的限制，让它们能够以全新的方式与现实世界进行交互。</p>
 
-<p>4.<a href="http://foggry.com/blog/2015/07/27/ru-he-shou-dong-jie-xi-crashlog/">手动解析CrashLog之—-方法篇</a> ：虽然目前已经有很多不错的第三方CrashLog搜集平台（如友盟、Crashlytics等），通常已经不需要我们手工处理CrashLog，但了解CrashLog的还原原理和方法还是有必要的。感兴趣的朋友可以继续研读<a href="http://foggry.com/blog/2015/08/10/ru-he-shou-dong-jie-xi-crashlogzhi-yuan-li-pian/">原理篇</a>。</p>
+<h2 id="arkit的优势">ARKit的优势</h2>
+<ul>
+  <li>ARKit 大幅降低了开发者在 iOS 上进行 AR 应用开发的难度</li>
+  <li>苹果设备的普及率，使得门槛低，无需其他设备便可体验</li>
+  <li>开发人员可以用苹果的新机器学习框架<a href="https://developer.apple.com/documentation/coreml">CoreML</a>来识别场景中的对象</li>
+  <li>快速稳定的运动定位</li>
+  <li>平面和边界的估计、光照估计、尺度估计</li>
+  <li>对各个开发平台或引擎的支持（如：Unity3d）</li>
+</ul>
 
-<h2 id="工具">工具</h2>
-<p>1.<a href="https://github.com/acoomans/ACCodeSnippetRepositoryPlugin">ACCodeSnippetRepositoryPlugin</a> ：一个Xcode代码段的管理插件，像管理Xcode的插件一样，在Xcode里管理代码段是不容易的。该插件用Git仓库来同步Xcode的代码片段。
-<img src="https://github.com/acoomans/ACCodeSnippetRepositoryPlugin/raw/master/Screenshots/screenshot02.png" alt="ACCodeSnippetReposito" /></p>
+<h2 id="arkit体验">ARKit体验</h2>
+<p>废话不多说，先来体验下。当然是有要求的：</p>
+<ul>
+  <li>Xcode版本：Xcode9及以上</li>
+  <li>iOS系统： iOS11及以上</li>
+  <li>iOS设备：处理器A9及以上（6S机型及以上）</li>
+  <li>MacOS系统：10.12.4及以上</li>
+</ul>
 
-<p>2.<a href="https://github.com/kimsungwhee/KSHObjcUML">KSHObjcUML</a> : Objective-C类引用关系图的Xcode插件。【这款插件在我重构代码的过程中帮了不少忙，推荐使用】
-<img src="https://github.com/kimsungwhee/KSHObjcUML/raw/master/KSHObjcUML.png" alt="KSHObjcUML" /></p>
+<h4 id="1选择augemnted-reality-app">1.选择Augemnted Reality App</h4>
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-96e6901c86f1dd41.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1" /></p>
 
-<p>3.<a href="https://github.com/ryanmeisters/Xcode-Plugin-Open-Sublime-Text">Open-Sublime-Text</a> : 相信大家对Sublime Text并不陌生，它的强大编辑工程确实称赞。这款插件能帮助我们将代码在Sublime Text打开并编辑。
-<img src="https://raw.githubusercontent.com/ryanmeisters/Xcode-Plugin-Open-Sublime-Text/master/Misc/OpenInSublimeText.gif" alt="Open-Sublime-Text" /></p>
+<h4 id="2填写信息">2.填写信息</h4>
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-daa483ec3e1f57d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2" /></p>
+<ul>
+  <li>细心的朋友可以看到Content Technology
+<img src="http://upload-images.jianshu.io/upload_images/943491-4b4a66fe2fc6b47a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Content Technology" />
+<a href="https://developer.apple.com/documentation/scenekit">Scenekit</a>：ARKit框架提供了两种AR技术，一种是基于3D场景(SceneKit)实现的增强现实
+<a href="https://developer.apple.com/documentation/spriteKit">SpriteKit</a>：基于2D场景(SpriktKit)实现的增强现实
+<a href="https://developer.apple.com/metal/">Metal</a>：Apple图形API
+Demo中使用3D来构建，所以选择Scenekit</li>
+</ul>
 
-<h2 id="开源">开源</h2>
-<p>1.<a href="https://github.com/gontovnik/DGElasticPullToRefresh">DGElasticPullToRefresh</a>：是一款带有弹性效果的 iOS 下拉刷新组件，效果很赞。
-<img src="https://raw.githubusercontent.com/gontovnik/DGElasticPullToRefresh/master/DGElasticPullToRefreshPreview1.gif" alt="DGElasticPullToRefresh" /><img src="https://raw.githubusercontent.com/gontovnik/DGElasticPullToRefresh/master/DGElasticPullToRefreshPreview2.gif" alt="DGElasticPullToRefresh" /></p>
+<h4 id="3run">3.Run</h4>
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-14612a5de2e955e6.gif?" alt="效果" /></p>
 
-<p>2.<a href="https://github.com/804145113/BaiDuMusic">BaiDuMusic</a> ：用swift写的一个简单的播放器(百度随心听)，可在线播放音乐电台，支持后台播放，封面信息，可显示歌手名，专辑名，当前播放时间等，项目用到了第三方开源框架，有OC的，也有纯swift的，可以当做学习swift的例子。
-<img src="https://camo.githubusercontent.com/ddeabadc1c4ee3bca1ad96589b7fac18ebc63654/687474703a2f2f6931322e74696574756b752e636f6d2f323231373834373463643437646133312e706e67" alt="BaiDuMusic" /> 
-<img src="https://camo.githubusercontent.com/1a18481c226e5ca01b6984346b57adc4e1ec3799/687474703a2f2f6931322e74696574756b752e636f6d2f346530323265313061653038353466352e706e67" alt="BaiDuMusic" /></p>
+<h2 id="项目分析">项目分析</h2>
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-d8ebceb7a8e3c15d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="项目结构" /></p>
 
-<p>3.<a href="https://github.com/TimOliver/TOCropViewController">TOCropViewController</a> :一个开源的 UIViewController 的子类，允许用户对 UIImage 的对象执行基本的操作，尤其是裁剪和一些基本的旋转。它在设计时考虑到了iOS8照片应用程序，正因为如此，它在表现方面不会让大多数用户感到陌生。<img src="https://github.com/TimOliver/TOCropViewController/raw/master/screenshot.jpg" alt="TOCropViewController" /></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>//在界面上创建ARSCNView，用于展示AR
+@IBOutlet var sceneView: ARSCNView!
 
-<p>4.<a href="https://github.com/bahlo/SwiftGif">SwiftGif</a> : Swift 对 UIImage 的扩展，实现了 Gif 动画图像的支持。
-<img src="https://github.com/bahlo/SwiftGif/raw/master/demo.gif" alt="SwiftGif" /></p>
+override func viewDidLoad() {
+super.viewDidLoad()
 
-<hr />
+// 设置代理
+sceneView.delegate = self
+
+// 显示一些数据，如fps之类的
+sceneView.showsStatistics = true
+
+// 创建一个SCNScene，用于显示3d模型
+let scene = SCNScene(named: "art.scnassets/ship.scn")!
+
+// 将加载了3d模型的SCNScene设置成ARSCNView的scene
+sceneView.scene = scene
+}
+
+override func viewWillAppear(_ animated: Bool) {
+super.viewWillAppear(animated)
+
+// 为ARSCNView设置一个会话配置类
+let configuration = ARWorldTrackingSessionConfiguration()
+
+// 开始session
+sceneView.session.run(configuration)
+}
+
+override func viewWillDisappear(_ animated: Bool) {
+super.viewWillDisappear(animated)
+
+// 暂停session
+sceneView.session.pause()
+}
+</code></pre>
+</div>
+<p>通过代码分析可以发现，在ARKit中主要有几个类</p>
+
+<p><a href="https://developer.apple.com/documentation/arkit/arscnview">ARSCNView</a>：一种显示AR体验的视图，它通过3D SceneKit内容增强了相机视图</p>
+
+<p><a href="https://developer.apple.com/documentation/arkit/ARWorldTrackingSessionConfiguration">ARWorldTrackingSessionConfiguration</a>: 会话配置类，在配置类对象里设置会话如何将真实的设备运动映射到3D场景的坐标系统里，这里默认是使用重力</p>
+
+<p><a href="https://developer.apple.com/documentation/scenekit/scnscene">SCNScene</a>: SceneKit 内容的容器. 你可以从3D建模工具生成的文件中加载一个场景，或者用代码创建一个 ，然后把它显示在视图上</p>
+
+<h2 id="体验感受">体验感受</h2>
+<ul>
+  <li>ARKit API够简单，效果够好。</li>
+  <li>硬件、机器学习<a href="https://developer.apple.com/documentation/coreml">CoreML</a>和ARkit带来的是满满的惊喜。相信ARKit在未来的时间将会在照片处理，视频，游戏等领域绽放光彩。</li>
+</ul>
 
 
                 <hr>
@@ -211,13 +275,9 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2015/11/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC9%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第9期">&larr; Previous Post</a>
+                        <a href="/2017/05/04/iOS%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%BA%8C-%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99/" data-toggle="tooltip" data-placement="top" title="iOS聊聊设计模式原则（二） -- 接口隔离原则">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2015/12/09/iOS-%E5%87%BD%E6%95%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B-ReactiveCocoa/" data-toggle="tooltip" data-placement="top" title="iOS 函数响应式编程 （ReactiveCocoa）">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
@@ -286,8 +346,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "catchzeng";
-    var disqus_identifier = "/2015/12/08/iOS开发见闻-第10期";
-    var disqus_url = "http://localhost:4000/2015/12/08/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC10%E6%9C%9F/";
+    var disqus_identifier = "/2017/06/13/ARKit体验篇";
+    var disqus_url = "http://localhost:4000/2017/06/13/ARKit%E4%BD%93%E9%AA%8C%E7%AF%87/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
