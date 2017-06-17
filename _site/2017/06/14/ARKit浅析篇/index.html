@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>使用Cordova开发iOS App -- 环境搭建 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>ARKit浅析篇 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/2016/09/20/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+    <link rel="canonical" href="http://localhost:4000/2017/06/14/ARKit%E6%B5%85%E6%9E%90%E7%AF%87/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -143,12 +143,12 @@
                         <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
                         
                     </div>
-                    <h1>使用Cordova开发iOS App -- 环境搭建</h1>
+                    <h1>ARKit浅析篇</h1>
                     
                     
                     <h2 class="subheading">iOS开发</h2>
                     
-                    <span class="meta">Posted by CatchZeng on September 20, 2016</span>
+                    <span class="meta">Posted by CatchZeng on June 14, 2017</span>
                 </div>
             </div>
         </div>
@@ -168,80 +168,58 @@
 
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
-<h2 id="一简介">一、简介</h2>
-<p><a href="http://cordova.apache.org/">Cordova</a>大家可能比较陌生，但肯定听过 PhoneGap ，Cordova 就是 PhoneGap 被 Adobe 收购后所改的名字。它是一个可以让 JS 与原生代码互相通信的一个库，并且提供了一系列的插件类（如 JS 直接操作本地数据库的插件类）。</p>
+<p>在上一篇<a href="http://catchzeng.com/2017/06/13/ARKit体验篇/">ARKit体验篇</a>中我们体验了ARKit，这一篇主要从类出发分析下ARKit的流程。</p>
 
-<h4 id="cordova优缺点">Cordova优缺点</h4>
-<p>优点: 降低开发成本一次开发多平台套用，版本更新容易可动态更新。</p>
-
-<p>缺点: cordova其实就是在原生app上加了一个webView,并提供一套JS与原生代码交互的类库。交互效果一般，且访问原生控件时受限,常常无法满足业务需求。</p>
-
-<h4 id="cordova插件">Cordova插件</h4>
-<p>为了解决Cordova的缺点，就出现了cordova插件的概念。即由各个平台的开发者实现webView中无法实现的功能，并打包成插件供前端开发人员调用，这样来优化cordova app的体验问题。</p>
-
-<h2 id="二文章安排">二、文章安排</h2>
-<p>本系列文章主要围绕Cordova for iOS部分讲解，主要分为如下几个部分：</p>
-
-<p>1.环境搭建</p>
-
-<p>2.开发iOS插件</p>
-
-<p>3.打包插件及JS脚本</p>
-
-<h2 id="三环境搭建">三、环境搭建</h2>
-
-<h4 id="1检测是否安装了nodejs">1.检测是否安装了node.js</h4>
-<p>打开终端输入<code class="highlighter-rouge">npm --version</code>，若无打印版本则需先安装<a href="https://nodejs.org/en/">node.js</a>
-<img src="/img/in-post/post-cordova1/1.png" alt="node.js" /></p>
-
-<h4 id="2命令行安装cordova">2.命令行安装cordova</h4>
-<p><code class="highlighter-rouge">npm install -g cordova</code></p>
-
-<h4 id="3创建项目">3.创建项目</h4>
-<p><code class="highlighter-rouge">cordova create testCordovaProject com.catchzeng.testCordova testCordova</code>
-<img src="/img/in-post/post-cordova1/2.png" alt="create" /></p>
-
-<p>参数说明：</p>
-
-<p>testCordovaProject: 项目文件夹名称</p>
-
-<p>com.catchzeng.testCordova: 项目的bundleID</p>
-
-<p>testCordova:项目名称</p>
-
-<h4 id="4添加平台">4.添加平台</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>cd testCordovaProject/
-sudo cordova platform add ios
+<h2 id="arkit浅析">ARKit浅析</h2>
+<p>我们知道，iOS的视图显示层级为UIWindow -》UIViewController -》UIView。UIView的作用是将视图显示在UIWindow中,AR呈现的东西也属于视图，所以我们可以大胆假设AR的呈现也是基于UIView的。由此假设，我们看下上一篇的Demo源码</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>  //在界面上创建ARSCNView，用于展示AR
+ @IBOutlet var sceneView: ARSCNView!
 </code></pre>
 </div>
-<p><img src="/img/in-post/post-cordova1/3.png" alt="add platform" /></p>
-
-<p>添加成功后可在项目的platforms文件夹中看到ios文件夹,进入后就可以看到ios工程了。
-<img src="/img/in-post/post-cordova1/4.png" alt="iOS project" /></p>
-
-<p>iOS工程运行结果
-<img src="/img/in-post/post-cordova1/5.png" alt="result" /></p>
-
-<h4 id="5cordova开发体验">5.Cordova开发体验</h4>
-<p>修改Staging-&gt;www-&gt;index.html
-<img src="/img/in-post/post-cordova1/6.png" alt="result" /></p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;div class="app"&gt;
-      &lt;h1&gt;Apache Cordova&lt;/h1&gt;
-      &lt;div id="deviceready" class="blink"&gt;
-          &lt;p class="event listening"&gt;Connecting to Device&lt;/p&gt;
-          &lt;p class="event received"&gt;Device is Ready&lt;/p&gt;
-          &lt;h1 align="center"&gt;
-                HI，iOSDeveloper.
-           &lt;/h1&gt;
-      &lt;/div&gt;
-&lt;/div&gt;
+<p>可以看到，AR由ARSCNView呈现出来，查看文档可以看到<a href="https://developer.apple.com/documentation/arkit/arscnview">ARSCNView</a>继承于<a href="https://developer.apple.com/documentation/scenekit/scnview">SCNView</a>。而SCNView则是<a href="https://developer.apple.com/documentation/scenekit">SceneKit</a>中一个继承于UIView的类。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>@available(iOS 11.0, *)
+open class ARSCNView : SCNView {
 </code></pre>
 </div>
-<p>再次运行项目，可以看到界面上显示了HI，iOSDeveloper.
-<img src="/img/in-post/post-cordova1/7.png" alt="result" /></p>
+<p><a href="https://developer.apple.com/documentation/scenekit/scnview">SCNView</a>负责显示一个3D场景，ARSCNView在SCNView的基础上，加入了<a href="https://developer.apple.com/documentation/arkit/arsession">ARSession</a>使得其可以用摄像头(<a href="https://developer.apple.com/documentation/arkit/arcamera">ARCamera</a>)捕捉到的现实世界图像构成3D场景，也就是AR。</p>
 
-<p>至此，环境搭建完毕。下一篇将讲解<a href="http://catchzeng.com/2016/09/21/使用Cordova开发iOS-App-开发iOS插件">为Cordova开发iOS插件</a>。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-ecf16187b749b8a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ARKit" /></p>
+
+<h2 id="arsession">ARSession</h2>
+<p>查看<a href="https://developer.apple.com/documentation/arkit/arsession">文档</a>，不难看出ARSession是沟通摄像头(ARCamera)和运动处理的桥梁。ARCamera负责捕捉摄像头画面，ARSession负责搭建3D场景。</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-90c48ba66b8751ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ARSession" /></p>
+
+<p>运行ARSession需要指定一个<a href="https://developer.apple.com/documentation/arkit/arsessionconfiguration">ARSessionConfiguration</a>来负责追踪相机在3D世界中的位置以及场景的捕捉（例如平面）。
+ARSessionConfiguration是一个父类，为了更好的看到增强现实的效果，苹果为我们提供了它的子类<a href="https://developer.apple.com/documentation/arkit/arworldtrackingsessionconfiguration">ARWorldTrackingSessionConfiguration</a>来便于使用。</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-0176e0636dd1fdf9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ARSessionConfiguration" /></p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-aa2f01e187dedee3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ARWorldTrackingSessionConfiguration" /></p>
+
+<p>细心的朋友可以看到文档中有个isSupported方法应该就是为什么ARKit要求A9芯片以上的原因了（猜的，不准勿喷），所以，<strong><em>使用ARKit时别忘了做这个判断</em></strong>。
+<img src="http://upload-images.jianshu.io/upload_images/943491-635dfadf320ca5fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="isSupported" /></p>
+
+<p>ARWorldTrackingSessionConfiguration计算出相机在3D世界中的位置<a href="https://developer.apple.com/documentation/arkit/ARFrame">ARFrame</a>后，将其交给ARSession去管理</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-9f5327bc022e762d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ARFrame" /></p>
+
+<p>我们理清了如何从相机捕捉图像到手机上显示3D场景，而虚拟的物体部分是由节点<a href="https://developer.apple.com/documentation/scenekit/scnnode">SCNNode</a>构成的（节点构成了场景SCNScene,无数个场景构成了3D世界)</p>
+
+<h2 id="arkit流程">ARKit流程</h2>
+<ul>
+  <li>ARSCNView加载SCNScene</li>
+  <li>SCNScene启动ARCamera捕捉图像</li>
+  <li>ARSCNView将SCNScene的数据交给Session</li>
+  <li>Session通过管理ARSessionConfiguration实现场景追踪并且返回一个ARFrame（添加3D物体模型的时候计算出3D物体模型相对于相机的真实的矩阵位置需要使用到）</li>
+  <li>往SCNScene中添加一个3D物体（SCNNode）</li>
+</ul>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-990530b6eba9202a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ARKit" /></p>
+
+<h2 id="总结">总结</h2>
+
+<p>本篇主要分析了ARKit的流程，让大家对ARKit的几个主要类以及职责先有一个初步了解。下一篇开始将以实例来一步步探索ARKit。</p>
 
 
                 <hr>
@@ -252,13 +230,9 @@ sudo cordova platform add ios
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2016/08/18/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC20%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第20期">&larr; Previous Post</a>
+                        <a href="/2017/06/13/ARKit%E4%BD%93%E9%AA%8C%E7%AF%87/" data-toggle="tooltip" data-placement="top" title="ARKit体验篇">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2016/09/21/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E5%BC%80%E5%8F%91iOS%E6%8F%92%E4%BB%B6/" data-toggle="tooltip" data-placement="top" title="使用Cordova开发iOS App -- 开发iOS插件">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
@@ -327,8 +301,8 @@ sudo cordova platform add ios
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "catchzeng";
-    var disqus_identifier = "/2016/09/20/使用Cordova开发iOS App -- 环境搭建";
-    var disqus_url = "http://localhost:4000/2016/09/20/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/";
+    var disqus_identifier = "/2017/06/14/ARKit浅析篇";
+    var disqus_url = "http://localhost:4000/2017/06/14/ARKit%E6%B5%85%E6%9E%90%E7%AF%87/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

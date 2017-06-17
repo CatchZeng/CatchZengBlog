@@ -5,9 +5,75 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 14 Jun 2017 09:07:49 +0800</pubDate>
-    <lastBuildDate>Wed, 14 Jun 2017 09:07:49 +0800</lastBuildDate>
+    <pubDate>Sat, 17 Jun 2017 12:57:37 +0800</pubDate>
+    <lastBuildDate>Sat, 17 Jun 2017 12:57:37 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>ARKit浅析篇</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;在上一篇&lt;a href=&quot;http://catchzeng.com/2017/06/13/ARKit体验篇/&quot;&gt;ARKit体验篇&lt;/a&gt;中我们体验了ARKit，这一篇主要从类出发分析下ARKit的流程。&lt;/p&gt;
+
+&lt;h2 id=&quot;arkit浅析&quot;&gt;ARKit浅析&lt;/h2&gt;
+&lt;p&gt;我们知道，iOS的视图显示层级为UIWindow -》UIViewController -》UIView。UIView的作用是将视图显示在UIWindow中,AR呈现的东西也属于视图，所以我们可以大胆假设AR的呈现也是基于UIView的。由此假设，我们看下上一篇的Demo源码&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  //在界面上创建ARSCNView，用于展示AR
+ @IBOutlet var sceneView: ARSCNView!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;可以看到，AR由ARSCNView呈现出来，查看文档可以看到&lt;a href=&quot;https://developer.apple.com/documentation/arkit/arscnview&quot;&gt;ARSCNView&lt;/a&gt;继承于&lt;a href=&quot;https://developer.apple.com/documentation/scenekit/scnview&quot;&gt;SCNView&lt;/a&gt;。而SCNView则是&lt;a href=&quot;https://developer.apple.com/documentation/scenekit&quot;&gt;SceneKit&lt;/a&gt;中一个继承于UIView的类。&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@available(iOS 11.0, *)
+open class ARSCNView : SCNView {
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://developer.apple.com/documentation/scenekit/scnview&quot;&gt;SCNView&lt;/a&gt;负责显示一个3D场景，ARSCNView在SCNView的基础上，加入了&lt;a href=&quot;https://developer.apple.com/documentation/arkit/arsession&quot;&gt;ARSession&lt;/a&gt;使得其可以用摄像头(&lt;a href=&quot;https://developer.apple.com/documentation/arkit/arcamera&quot;&gt;ARCamera&lt;/a&gt;)捕捉到的现实世界图像构成3D场景，也就是AR。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-ecf16187b749b8a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;ARKit&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;arsession&quot;&gt;ARSession&lt;/h2&gt;
+&lt;p&gt;查看&lt;a href=&quot;https://developer.apple.com/documentation/arkit/arsession&quot;&gt;文档&lt;/a&gt;，不难看出ARSession是沟通摄像头(ARCamera)和运动处理的桥梁。ARCamera负责捕捉摄像头画面，ARSession负责搭建3D场景。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-90c48ba66b8751ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;ARSession&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;运行ARSession需要指定一个&lt;a href=&quot;https://developer.apple.com/documentation/arkit/arsessionconfiguration&quot;&gt;ARSessionConfiguration&lt;/a&gt;来负责追踪相机在3D世界中的位置以及场景的捕捉（例如平面）。
+ARSessionConfiguration是一个父类，为了更好的看到增强现实的效果，苹果为我们提供了它的子类&lt;a href=&quot;https://developer.apple.com/documentation/arkit/arworldtrackingsessionconfiguration&quot;&gt;ARWorldTrackingSessionConfiguration&lt;/a&gt;来便于使用。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-0176e0636dd1fdf9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;ARSessionConfiguration&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-aa2f01e187dedee3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;ARWorldTrackingSessionConfiguration&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;细心的朋友可以看到文档中有个isSupported方法应该就是为什么ARKit要求A9芯片以上的原因了（猜的，不准勿喷），所以，&lt;strong&gt;&lt;em&gt;使用ARKit时别忘了做这个判断&lt;/em&gt;&lt;/strong&gt;。
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-635dfadf320ca5fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;isSupported&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;ARWorldTrackingSessionConfiguration计算出相机在3D世界中的位置&lt;a href=&quot;https://developer.apple.com/documentation/arkit/ARFrame&quot;&gt;ARFrame&lt;/a&gt;后，将其交给ARSession去管理&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-9f5327bc022e762d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;ARFrame&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;我们理清了如何从相机捕捉图像到手机上显示3D场景，而虚拟的物体部分是由节点&lt;a href=&quot;https://developer.apple.com/documentation/scenekit/scnnode&quot;&gt;SCNNode&lt;/a&gt;构成的（节点构成了场景SCNScene,无数个场景构成了3D世界)&lt;/p&gt;
+
+&lt;h2 id=&quot;arkit流程&quot;&gt;ARKit流程&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;ARSCNView加载SCNScene&lt;/li&gt;
+  &lt;li&gt;SCNScene启动ARCamera捕捉图像&lt;/li&gt;
+  &lt;li&gt;ARSCNView将SCNScene的数据交给Session&lt;/li&gt;
+  &lt;li&gt;Session通过管理ARSessionConfiguration实现场景追踪并且返回一个ARFrame（添加3D物体模型的时候计算出3D物体模型相对于相机的真实的矩阵位置需要使用到）&lt;/li&gt;
+  &lt;li&gt;往SCNScene中添加一个3D物体（SCNNode）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-990530b6eba9202a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;ARKit&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;总结&quot;&gt;总结&lt;/h2&gt;
+
+&lt;p&gt;本篇主要分析了ARKit的流程，让大家对ARKit的几个主要类以及职责先有一个初步了解。下一篇开始将以实例来一步步探索ARKit。&lt;/p&gt;
+</description>
+        <pubDate>Wed, 14 Jun 2017 17:38:27 +0800</pubDate>
+        <link>http://localhost:4000/2017/06/14/ARKit%E6%B5%85%E6%9E%90%E7%AF%87/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/06/14/ARKit%E6%B5%85%E6%9E%90%E7%AF%87/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
     
       <item>
         <title>ARKit体验篇</title>
@@ -1193,67 +1259,6 @@ sudo cordova platform add ios
         <pubDate>Tue, 20 Sep 2016 17:38:27 +0800</pubDate>
         <link>http://localhost:4000/2016/09/20/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
         <guid isPermaLink="true">http://localhost:4000/2016/09/20/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
-        
-        <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>iOS开发见闻-第20期</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;欢迎加QQ群讨论：157672725&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;文章&quot;&gt;文章&lt;/h2&gt;
-
-&lt;p&gt;1.&lt;a href=&quot;http://limboy.me/tech/2016/07/06/starting-an-app.html&quot;&gt;做一个 App 前需要考虑的几件事&lt;/a&gt; : 想必许多做App的朋友都不知道做App前应该要考虑什么事情，看看limboy是如何考虑的吧。&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;http://blog.cnbang.net/tech/3237/&quot;&gt;iOS 动态更新方案对比:JSPatch vs React Native&lt;/a&gt; : React Native想必是今年iOS界最火的词语之一了，它与JSPatch的VS结果如何呢？我们先听bang哥如何说的吧。&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;http://tutuge.me/2016/06/19/translation-why-objcmsgsend-must-be-written-in-assembly/&quot;&gt;为什么objc_msgSend必须用汇编实现&lt;/a&gt; ：总是看到有人说用汇编实现objc_msgSend是为了速度快，当然这个不可否认。但是难道没有别的原因？&lt;/p&gt;
-
-&lt;p&gt;4.&lt;a href=&quot;http://yulingtianxia.com/blog/2016/07/18/TBActionSheet/&quot;&gt;自制一款强大的 ActionSheet&lt;/a&gt; : 本文的精华不在于自制库的使用，而是作者在制库过程中的思考细节，有助于想造库的朋友。
-&lt;img src=&quot;/img/in-post/post-20/20-1.jpg&quot; alt=&quot;ActionSheet&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;5.&lt;a href=&quot;http://ios.jobbole.com/87918/&quot;&gt;如何制作一个类似Uber的溅落式启动屏 &lt;/a&gt; ：虽Uber中国已被滴滴收购,但那溅落式启动屏还是陪伴我们许多岁月而成为经典，想实现它的话可以看此文章。
-&lt;img src=&quot;/img/in-post/post-20/20-2.gif&quot; alt=&quot;如何制作一个类似Uber的溅落式启动屏&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;工具&quot;&gt;工具&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;http://apistore.baidu.com&quot;&gt;apistore&lt;/a&gt;：提供了一些常用的API，包括生活常用、图像识别、应用开发等。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/in-post/post-20/20-3.png&quot; alt=&quot;apistore&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/Automattic/simplenote-macos/blob/develop/readme.md&quot;&gt;simplenote&lt;/a&gt; : 一款帮你mac 下的开源笔记工具。
-&lt;img src=&quot;https://camo.githubusercontent.com/d4dc8cbda69b96796f502be9468db54f20af5835/68747470733a2f2f73696d706c656e6f7465626c6f672e66696c65732e776f726470726573732e636f6d2f323031352f30362f6461726b2d7468656d652d6d61632e706e67&quot; alt=&quot;simpleno&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;http://bughd.com&quot;&gt;bughd&lt;/a&gt; : 一款实时监控APP的崩溃分析工具。
-&lt;img src=&quot;/img/in-post/post-20/20-4.png&quot; alt=&quot;bughd&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;4.&lt;a href=&quot;https://www.decosoftware.com/download&quot;&gt;deco&lt;/a&gt;: 一款优秀的React Naive IDE。
-&lt;img src=&quot;/img/in-post/post-20/20-5.png&quot; alt=&quot;deco&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;开源&quot;&gt;开源&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;https://github.com/mihaelamj/mmjiostemplates&quot;&gt;mmjiostemplates&lt;/a&gt; : iOS项目模板工具，看作者的项目模板分层清晰、复用率高值得学习。
-&lt;img src=&quot;https://camo.githubusercontent.com/9c58667fd018b5559cc1d78dcd92d7e9ade1ba28/68747470733a2f2f7261772e6769746875622e636f6d2f6d696861656c616d6a2f6d6d6a696f7374656d706c617465732f6d61737465722f496d616765732f54656d706c617465732e706e67&quot; alt=&quot;mmjiostemplates&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/Roylee-ML/SwipeTableView&quot;&gt;SwipeTableView&lt;/a&gt; :— 类似半糖、美丽说主页与QQ音乐歌曲列表布局效果，实现不同菜单的左右滑动切换，同时支持类似tableview的顶部工具栏悬停（既可以左右滑动，又可以上下滑动）。兼容下拉刷新，自定义 collectionview实现自适应 contentSize 还可实现瀑布流功能。
-&lt;img src=&quot;https://github.com/Roylee-ML/SwipeTableView/raw/master/ScreenShots/screenshot1.gif&quot; alt=&quot;SwipeTableView&quot; /&gt;
-&lt;img src=&quot;https://github.com/Roylee-ML/SwipeTableView/raw/master/ScreenShots/screenshot2.gif&quot; alt=&quot;SwipeTableView&quot; /&gt;
-&lt;img src=&quot;https://github.com/Roylee-ML/SwipeTableView/raw/master/ScreenShots/screenshot3.gif&quot; alt=&quot;SwipeTableView&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;https://github.com/3tinkers/TKImageView&quot;&gt;TKImageView&lt;/a&gt; : 帮助你轻易实现图片裁剪功能。
-&lt;img src=&quot;https://github.com/3tinkers/TKImageView/raw/master/TKImageViewDemo/resources/sample1.gif&quot; alt=&quot;TKImageView&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;4.&lt;a href=&quot;https://github.com/WelkinXie/WXWaveView&quot;&gt;WXWaveView&lt;/a&gt; :添加丝滑的水波纹到View中。
-&lt;img src=&quot;https://camo.githubusercontent.com/2c5b76e5a5afc3f54a0161f11899dd5e1a290c85/687474703a2f2f37786e6571642e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f776176652e676966&quot; alt=&quot;WXWaveView&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;5.&lt;a href=&quot;https://github.com/jobandtalent/AnimatedTextInput&quot;&gt;AnimatedTextInput&lt;/a&gt;: 一款开源的动态文字输入控件。
-&lt;img src=&quot;https://github.com/jobandtalent/AnimatedTextInput/raw/master/Assets/general.gif&quot; alt=&quot;AnimatedTextInput&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Thu, 18 Aug 2016 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2016/08/18/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC20%E6%9C%9F/</link>
-        <guid isPermaLink="true">http://localhost:4000/2016/08/18/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC20%E6%9C%9F/</guid>
         
         <category>iOS</category>
         
