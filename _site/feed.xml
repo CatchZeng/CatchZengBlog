@@ -5,9 +5,66 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 17 Jun 2017 12:57:37 +0800</pubDate>
-    <lastBuildDate>Sat, 17 Jun 2017 12:57:37 +0800</lastBuildDate>
+    <pubDate>Fri, 21 Jul 2017 09:34:32 +0800</pubDate>
+    <lastBuildDate>Fri, 21 Jul 2017 09:34:32 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>iOS开发见闻-第22期</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;欢迎加QQ群讨论：157672725&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;文章&quot;&gt;文章&lt;/h2&gt;
+
+&lt;p&gt;1.&lt;a href=&quot;http://www.infoq.com/cn/articles/ios-arch-based-on-reswift-and-app-coordinator?utm_source=articles_about_mobile&amp;amp;utm_medium=link&amp;amp;utm_campaign=mobile&quot;&gt;基于ReSwift和App Coordinator的iOS架构&lt;/a&gt; : 本篇文章从架构漫谈到开发复杂度问题再到路由设计再到状态管理，讲述了如何使用ReSwift和App Coordinator来架构工程。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-22b6a9a5f8a39094.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;基于ReSwift和App Coordinator的iOS架构&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://onevcat.com/2017/07/state-based-viewcontroller/&quot;&gt;单向数据流动的函数式 View Controller&lt;/a&gt; : 喵神对单向数据流动的见解，与上篇文章中的ReSwift思想类似，但喵神以一种由浅入深的方式讲述，更易理解。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://onevcat.com/assets/images/2017/view-controller-states.svg&quot; alt=&quot;单向数据流动的函数式 View Controller&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;http://www.infoq.com/cn/articles/getting-started-with-tensorflow-on-ios?utm_source=articles_about_mobile&amp;amp;utm_medium=link&amp;amp;utm_campaign=mobile&quot;&gt;深度学习指南：在iOS平台上使用TensorFlow&lt;/a&gt; ：随着CoreML的推广，机器学习已经开始在iOS中尝试，我们可以利用TensorFlow训练自己的机器学习模型。对机器学习感兴趣的朋友可以看看。
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-1b804dc0fa8a439b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;TensorFlow&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;http://limboy.me/tech/2017/06/22/the-right-way-to-ios-architecture.html&quot;&gt;The Right Way to Architect iOS App with Swift&lt;/a&gt; : 来自limboy的架构相关文章。
+&lt;img src=&quot;http://ww1.sinaimg.cn/large/afe37136gy1fgtcxzpz4yj218m0mw0vs.jpg&quot; alt=&quot;The Right Way to Architect iOS App with Swift&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;工具&quot;&gt;工具&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://pmd.github.io&quot;&gt;PMD&lt;/a&gt;：代码分析工具，支持检测swift的重复代码。
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-10a78fa32e147c61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;PMD&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/realm/SwiftLint&quot;&gt;SwiftLint&lt;/a&gt; :  是一个用于强制检查 Swift 代码风格和规定的一个工具，基本上以 &lt;a href=&quot;https://github.com/github/swift-style-guide&quot;&gt;GitHub’s Swift 代码风格指南&lt;/a&gt;为基础。带有自动更正、推荐语法等特性，值得推荐。
+&lt;img src=&quot;https://github.com/realm/SwiftLint/raw/master/assets/screenshot.png&quot; alt=&quot;SwiftLint&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://itunes.apple.com/us/app/quiver-programmers-notebook/id866773894?mt=12&quot;&gt;Quiver&lt;/a&gt; : Quiver 是一款为程序员专门设计的笔记软件，兼顾文本（代码）编辑与管理工作，可谓是“一车多用”， 支持纯文本、全语法 Markdown、LaTeX（MathJax）、Flowchart 以及数十种编程语言的嵌入显示（自动高亮）。设立了 Inbox + Favorites + Recents + Trash 的 Library 库架构，搭配 Tag 系统方便用户调用各种笔记，另外用户可像 Ulysses（新建组）那样创建属于不同环境的 Notebook（分组），支持全文搜索笔记和全屏演示功能，方便会议交流使用。
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-56dd51293e05f3bc.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Quiver&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;开源&quot;&gt;开源&lt;/h2&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://github.com/olucurious/awesome-arkit&quot;&gt;awesome-arkit&lt;/a&gt; : 整理了ARKit的项目与资源，研究ARKit的不要错过。
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-31e115c8b3b57a36.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;awesome-arkit&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.&lt;a href=&quot;https://github.com/duzexu/ARuler&quot;&gt;ARuler&lt;/a&gt; : 使用ARkit来量距离，作者的想法也是屌屌的。
+&lt;img src=&quot;https://github.com/duzexu/ARuler/raw/master/Design/logo.png&quot; alt=&quot;ARuler&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;a href=&quot;https://github.com/raulriera/Cacher&quot;&gt;Cacher&lt;/a&gt; : 一款简单的Cache实现。
+&lt;img src=&quot;https://github.com/raulriera/Cacher/raw/master/Resources/Icon.png&quot; alt=&quot;Cacher&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;4.&lt;a href=&quot;https://github.com/fahidattique55/FAPanels&quot;&gt;FAPanels&lt;/a&gt; : 直接看效果吧。
+&lt;img src=&quot;https://camo.githubusercontent.com/ed45512fcdaee74a65976a07b7498de10300b7a9/687474703a2f2f692e696d6775722e636f6d2f5a4e31336561662e676966&quot; alt=&quot;FAPanels&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;5.&lt;a href=&quot;https://github.com/Moya/Moya&quot;&gt;Moya&lt;/a&gt; : Swift写的网络抽象层，设计得很不错。
+&lt;img src=&quot;https://github.com/Moya/Moya/raw/master/web/diagram.png&quot; alt=&quot;Moya&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 20 Jul 2017 17:38:27 +0800</pubDate>
+        <link>http://localhost:4000/2017/07/20/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC22%E6%9C%9F/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/07/20/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC22%E6%9C%9F/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
     
       <item>
         <title>ARKit浅析篇</title>
@@ -1171,94 +1228,6 @@ module.exports = testModel;
         <pubDate>Wed, 21 Sep 2016 17:38:27 +0800</pubDate>
         <link>http://localhost:4000/2016/09/21/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E5%BC%80%E5%8F%91iOS%E6%8F%92%E4%BB%B6/</link>
         <guid isPermaLink="true">http://localhost:4000/2016/09/21/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E5%BC%80%E5%8F%91iOS%E6%8F%92%E4%BB%B6/</guid>
-        
-        <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>使用Cordova开发iOS App -- 环境搭建</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;一简介&quot;&gt;一、简介&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;http://cordova.apache.org/&quot;&gt;Cordova&lt;/a&gt;大家可能比较陌生，但肯定听过 PhoneGap ，Cordova 就是 PhoneGap 被 Adobe 收购后所改的名字。它是一个可以让 JS 与原生代码互相通信的一个库，并且提供了一系列的插件类（如 JS 直接操作本地数据库的插件类）。&lt;/p&gt;
-
-&lt;h4 id=&quot;cordova优缺点&quot;&gt;Cordova优缺点&lt;/h4&gt;
-&lt;p&gt;优点: 降低开发成本一次开发多平台套用，版本更新容易可动态更新。&lt;/p&gt;
-
-&lt;p&gt;缺点: cordova其实就是在原生app上加了一个webView,并提供一套JS与原生代码交互的类库。交互效果一般，且访问原生控件时受限,常常无法满足业务需求。&lt;/p&gt;
-
-&lt;h4 id=&quot;cordova插件&quot;&gt;Cordova插件&lt;/h4&gt;
-&lt;p&gt;为了解决Cordova的缺点，就出现了cordova插件的概念。即由各个平台的开发者实现webView中无法实现的功能，并打包成插件供前端开发人员调用，这样来优化cordova app的体验问题。&lt;/p&gt;
-
-&lt;h2 id=&quot;二文章安排&quot;&gt;二、文章安排&lt;/h2&gt;
-&lt;p&gt;本系列文章主要围绕Cordova for iOS部分讲解，主要分为如下几个部分：&lt;/p&gt;
-
-&lt;p&gt;1.环境搭建&lt;/p&gt;
-
-&lt;p&gt;2.开发iOS插件&lt;/p&gt;
-
-&lt;p&gt;3.打包插件及JS脚本&lt;/p&gt;
-
-&lt;h2 id=&quot;三环境搭建&quot;&gt;三、环境搭建&lt;/h2&gt;
-
-&lt;h4 id=&quot;1检测是否安装了nodejs&quot;&gt;1.检测是否安装了node.js&lt;/h4&gt;
-&lt;p&gt;打开终端输入&lt;code class=&quot;highlighter-rouge&quot;&gt;npm --version&lt;/code&gt;，若无打印版本则需先安装&lt;a href=&quot;https://nodejs.org/en/&quot;&gt;node.js&lt;/a&gt;
-&lt;img src=&quot;/img/in-post/post-cordova1/1.png&quot; alt=&quot;node.js&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;2命令行安装cordova&quot;&gt;2.命令行安装cordova&lt;/h4&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;npm install -g cordova&lt;/code&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;3创建项目&quot;&gt;3.创建项目&lt;/h4&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cordova create testCordovaProject com.catchzeng.testCordova testCordova&lt;/code&gt;
-&lt;img src=&quot;/img/in-post/post-cordova1/2.png&quot; alt=&quot;create&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;参数说明：&lt;/p&gt;
-
-&lt;p&gt;testCordovaProject: 项目文件夹名称&lt;/p&gt;
-
-&lt;p&gt;com.catchzeng.testCordova: 项目的bundleID&lt;/p&gt;
-
-&lt;p&gt;testCordova:项目名称&lt;/p&gt;
-
-&lt;h4 id=&quot;4添加平台&quot;&gt;4.添加平台&lt;/h4&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd testCordovaProject/
-sudo cordova platform add ios
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/img/in-post/post-cordova1/3.png&quot; alt=&quot;add platform&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;添加成功后可在项目的platforms文件夹中看到ios文件夹,进入后就可以看到ios工程了。
-&lt;img src=&quot;/img/in-post/post-cordova1/4.png&quot; alt=&quot;iOS project&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;iOS工程运行结果
-&lt;img src=&quot;/img/in-post/post-cordova1/5.png&quot; alt=&quot;result&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;5cordova开发体验&quot;&gt;5.Cordova开发体验&lt;/h4&gt;
-&lt;p&gt;修改Staging-&amp;gt;www-&amp;gt;index.html
-&lt;img src=&quot;/img/in-post/post-cordova1/6.png&quot; alt=&quot;result&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;div class=&quot;app&quot;&amp;gt;
-      &amp;lt;h1&amp;gt;Apache Cordova&amp;lt;/h1&amp;gt;
-      &amp;lt;div id=&quot;deviceready&quot; class=&quot;blink&quot;&amp;gt;
-          &amp;lt;p class=&quot;event listening&quot;&amp;gt;Connecting to Device&amp;lt;/p&amp;gt;
-          &amp;lt;p class=&quot;event received&quot;&amp;gt;Device is Ready&amp;lt;/p&amp;gt;
-          &amp;lt;h1 align=&quot;center&quot;&amp;gt;
-                HI，iOSDeveloper.
-           &amp;lt;/h1&amp;gt;
-      &amp;lt;/div&amp;gt;
-&amp;lt;/div&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;再次运行项目，可以看到界面上显示了HI，iOSDeveloper.
-&lt;img src=&quot;/img/in-post/post-cordova1/7.png&quot; alt=&quot;result&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;至此，环境搭建完毕。下一篇将讲解&lt;a href=&quot;http://catchzeng.com/2016/09/21/使用Cordova开发iOS-App-开发iOS插件&quot;&gt;为Cordova开发iOS插件&lt;/a&gt;。&lt;/p&gt;
-</description>
-        <pubDate>Tue, 20 Sep 2016 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2016/09/20/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
-        <guid isPermaLink="true">http://localhost:4000/2016/09/20/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
         
         <category>iOS</category>
         
