@@ -1,0 +1,332 @@
+---
+layout:     post
+title:      "Clean Code 告诉你什么是好代码"
+subtitle:   "iOS开发"
+date:       2017-09-29 08:38:27
+author:     "CatchZeng"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - iOS
+---
+<span id="busuanzi_container_page_pv"></span>
+
+**欢迎加QQ群讨论：157672725**
+
+## 前言
+最近在团队推行Code Review，遇到一个头痛的问题。当向伙伴的代码提一个comment时，他们不解为什么需要这样改。细细想来，是他们不知道何为好代码，也不知道自己的代码有哪些 **"坏味道"**。因此，分享了几期Clean Code，团队受益良多，故成此文。
+
+## Clean Code
+由于Clean Code篇幅较长，故先安排如下我认为较为重要的几点：
+* 命名
+* 函数（方法）
+* 注释
+* 对象、数据结构
+* 类
+
+## 命名
+命名有许多规则，但总结起来就是 **“有意义”** 才是硬道理。
+
+#### 名副其实
+```
+Int d；//逝去的时间
+```
+这句代码的问题在于d没有表达好逝去的时间这个概念，故需要注释。请记住**“名副其实就不需要注释”**
+```
+Int elapsedTime;
+```
+再来看个例子
+![](http://upload-images.jianshu.io/upload_images/943491-84ec0aa383220ddd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+谁都很难猜出其意义，看看小优化后的结果
+![](http://upload-images.jianshu.io/upload_images/943491-d49086e45373066b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+基本看清了意义，这就是命名的重要性。细心的朋友还会发现这段代码的一些瑕疵 ：这里的4是什么鬼？习惯性我们管它叫**“魔法数字”**
+![](http://upload-images.jianshu.io/upload_images/943491-c6050e2641251ccd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+还是觉得有点问题，再优化
+![](http://upload-images.jianshu.io/upload_images/943491-b064c4481f973106.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+对比下最早的代码，相信你会有感觉了。
+
+#### 避免误导
+生活中的场景也常出现在Code中，看下图，你的Code是否也出现这样的尴尬呢？那就Make it clean
+![](http://upload-images.jianshu.io/upload_images/943491-5f157c1bfc0ec8bd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](http://upload-images.jianshu.io/upload_images/943491-79d103ddf5765538.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+是否傻傻分不清了呢？ 再来个
+```
+accountList
+```
+我知道你想说，这有什么问题。是的，如果你不是做Java开发，不会知道链表叫List，所以如果你不是用链表存储account，请不要用其修饰，或许这个时候你使用acountGroup会更好些。
+**该点需要在具体开发环境下因地制宜**
+
+#### 有意义的区分
+```
+Product
+ProductInfo
+ProductData
+```
+可以想象下，当一个项目中同时出现以上三个类的时候，你是如何区分开的，反正我是没有这个能力。类似的还有
+```
+game
+theGame
+```
+```
+name
+nameString
+```
+分享时，伙伴说nameString有什么问题。我反问说难道你的名字会是Float型的？你懂了吧。
+
+#### 前缀
+```
+m_desc
+```
+有人提出加m前缀表示该变量为私有变量。
+我想说：你的变量很多？需要区分私有的还是公有的？如果你的变量很多，那就要想想是不是没设计好类，没有遵循**单一职责原则**，另外私有和公有变量编译器会帮忙高亮显示区分的，不需要自己来区分(若某些编译器无此特性，怪编译器去)。
+
+#### 命名惯性
+命名需要**注重词性**
+类名：名词 or 名词短语
+方法名:  动词 or 动词短语
+
+#### 每个概念对应一个词
+在一个模块中不要使用两个相似的概念来表达不同的操作。我在一份代码中看到过一个类中同时出现以下三个词打头的方法
+```
+fetch
+get
+retrieve
+```
+请问那个才是真的获取值的方法？我实在分不清。
+
+#### 使用领域名称
+使用领域命名能让伙伴更明白你的程序结构（关于**领域**这个概念，不熟悉的可以看下一本书叫 **《领域驱动设计》**,俗称DDD）
+举个例子，比如你使用访问者模式来构建用户系统，那么
+```
+AccountVisitor
+```
+就显得明确、易懂
+
+#### 抵制缩写诱惑
+缩写需要注意，适当的缩写是可以的，但是要保证缩写后的词语仍然能表达其本意。举个有意思的例子
+```
+ABCDEFG
+```
+这也是个缩写，但是乍看这个真不知道是什么的缩写，直接公布答案吧
+
+![](http://upload-images.jianshu.io/upload_images/943491-824add860b52f5a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+#### 小结
+命名是永恒的难题，我提几个建议吧
+* 多看开源代码，积累好的用词
+* 不懂的词就查下词典，好过你自己想的
+* 做个自己的开源项目，让别人给你建议
+* 做好积累、再积累、还是积累
+
+![一些借鉴词](http://upload-images.jianshu.io/upload_images/943491-5a060e2dfc2b0a89.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+## 函数（方法）
+函数的第一条规则是要短小，第二条规则还是要短小。
+
+#### 短小
+那到底多短合适呢？历史上出现过几个标准
+* 一屏
+* 100行
+* 50行
+* 20行
+有人问我为什么会差这么多，我的回答是：以前的屏幕分辨率那么低，一屏也就20-50行之间吧，所以以前一屏的说法也是合理的。
+对于行数，行业没有一个固定的标准。我所知道的Oracle建议是50行，Bob大叔的建议是20行。
+
+代码短小，好处自然很多。
+* 单元测试覆盖率高
+* 每个函数一目了然，只做一件事
+* 有利于函数中的代码都在同一个抽象层级
+
+#### 只做一件事
+**函数应该做一件事。做好这件事。只做一件事。**
+那么如何判断只做一件事？
+![](http://upload-images.jianshu.io/upload_images/943491-dcdab641d4e1302f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+请问这个函数做了几件事？伙伴的答案是
+```
+1.判断是否为测试页面
+2.加入测试数据
+3.渲染页面
+```
+你的答案是多少呢？其实答案是只做了一件事，主要是没有看清
+**一件事 OR 一件事的多个步骤**，关于这点，大家要好好体会。
+
+另外一个判断是否只做一件事的好方法： **是否能再次分离出新函数** 
+
+#### 同一个抽象层级
+关于层级，比较难讲明，直接看例子吧
+![](http://upload-images.jianshu.io/upload_images/943491-1855a83626453299.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+再看一个版本
+![](http://upload-images.jianshu.io/upload_images/943491-534558d3ed66a43c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+你会发现看第二个版本的代码，明显舒服很多。因为第二的版本的三句代码都在同一个层级。而第一个版本的代码中的第一句是设置roundView的某个属性，但是最后一句却是在设置bubbleView，层级不同（roundView与bubbleView才是同层级）
+
+#### 使用描述性名称
+如果长一点的名称可以更加清晰，不要犹豫，用清晰的吧（注意是要有意义的）
+```
+calculate
+calculatePrice
+```
+相比起来calculatePrice就好很多。
+再来看个例子
+```
+addComment
+addCommentAndReturnCount
+```
+你不是说长一点更清晰吗，那addCommentAndReturnCount很好吧。
+关于这点大家要注意，如果你**需要用and、or之类的介词来修辞函数时，要考虑下你是否违背了单一职责原则**
+
+#### 参数个数
+0个最好，
+1个次之，
+2个还行，
+3个以上不是太好了。
+参数与函数名位于不同的抽象层级，它要求你必须了解目前并不特别重要的细节。
+解决办法有许多，比如某些场景可使用[DTO](http://blog.csdn.net/u014618469/article/details/51112357)
+
+#### 嵌套层次、分支过多
+
+![](http://upload-images.jianshu.io/upload_images/943491-e3e65b2257fbd001.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+嵌套、分支过多会让代码变得很难理解，解决的办法有如下：
+* 卫语句
+* do-while,引入break
+* if-else if-then
+* 提取函数
+* 以子类取代类型代码
+* 以多态取代条件式
+* ...
+具体可根据项目特点选用
+
+
+#### 分割指令与查询
+
+![](http://upload-images.jianshu.io/upload_images/943491-d0b8c4a080ee6096.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+set这个函数很不明确的是到底是设置成功了返回true，还是名字存在返回true，但真正的问题在于，它是个指令但是掺杂了查询的功能。
+![](http://upload-images.jianshu.io/upload_images/943491-530ed1a5b0be6092.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+将查询和命令分离后，代码便清晰很多了。
+
+#### 小结
+如何写出好的函数
+* 先写对的，再写好的
+* 对 =》 单元测试 =》识别坏味道 =》重构
+
+## 注释
+“别给糟糕的代码加注释 — 重新写吧。” –Brian & P.J.
+“注释总是一种失败” –Bob
+
+#### 用代码来阐述
+
+![](http://upload-images.jianshu.io/upload_images/943491-7ded99f349de2d7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](http://upload-images.jianshu.io/upload_images/943491-c078b0c47617e0c9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+感受两段代码会发现**代码即注释**的美
+
+#### 坏注释
+先来看看什么是坏的注释
+
+![](http://upload-images.jianshu.io/upload_images/943491-1f4c7f7885168329.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+###### 喃喃自语
+![](http://upload-images.jianshu.io/upload_images/943491-33d7fada2eecf05f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+这注释绝对是给自己看的
+
+###### 多余的注释
+![](http://upload-images.jianshu.io/upload_images/943491-5b6e1b6c11fa5dcc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+解释跟没解释一样，不如代码来的简单明了
+
+###### 误导性的注释
+![](http://upload-images.jianshu.io/upload_images/943491-8420be9ee7452dc0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+你在误导吧
+
+###### 循规式注释
+![](http://upload-images.jianshu.io/upload_images/943491-9abd556dce08133e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+这个一定要注意，循环式的注释完全多余（除了做sdk、开源）
+
+###### 括号后的注释 
+![](http://upload-images.jianshu.io/upload_images/943491-2baf32c06cca4c83.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+如果括号后需要注释，只表明你这段代码太长了，需要做的不是加注释，而是将它变短。
+
+###### 归属于署名
+![](http://upload-images.jianshu.io/upload_images/943491-c32581aef1508e65.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+Git、SVN知道是你提交的，不用这样刷存在感
+
+###### 注释掉代码
+![](http://upload-images.jianshu.io/upload_images/943491-80c04ff8663dc87d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+注释掉的代码，只会让修改你代码的人蒙圈，如果你觉得这段代码有可能以后会用，也不用担心，Git、SVN会帮你找回来
+
+###### 信息过多
+![](http://upload-images.jianshu.io/upload_images/943491-78b971fc580ba07b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+面向对象讲究，暴露操作，隐藏实现，如果你还要注释这些信息，表示你没有封装好。这些信息，可考虑放个链接或者其他的简短提示，太长的注释，别人懒得读、也难读懂
+![](http://upload-images.jianshu.io/upload_images/943491-9975e7daf6d46fa5.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+#### 好注释
+看了那么多坏注释，来看看什么是好的注释
+
+###### 法律信息 
+![](http://upload-images.jianshu.io/upload_images/943491-f6c465ce5b02c212.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+###### 提供信息
+![](http://upload-images.jianshu.io/upload_images/943491-1e88b64df4b3545a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+###### 对意图的注释
+![](http://upload-images.jianshu.io/upload_images/943491-3514ef2a1f11e5ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+###### 阐释
+![](http://upload-images.jianshu.io/upload_images/943491-e27063498e5fa921.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+###### 警示
+![](http://upload-images.jianshu.io/upload_images/943491-9c37a2b13b274296.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+###### TODO注释
+![](http://upload-images.jianshu.io/upload_images/943491-8a3c0463568c7c91.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+###### 放大
+![](http://upload-images.jianshu.io/upload_images/943491-8942084ca561d0ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+## 对象、数据结构
+
+#### 数据抽象
+![](http://upload-images.jianshu.io/upload_images/943491-da5ce334a6178165.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](http://upload-images.jianshu.io/upload_images/943491-760ec2a370cb8a69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+将变量设置为私有(Private)，主要是不想让其他人依赖这些变量。所以，不要随便给变量添加赋值方法和取值方法(set/get方法)，这样其实是把私有变量公之于众。
+隐藏变量和实现，并不是在变量与外界之间放一个函数层那么简单。隐藏关乎抽象。
+类并不简单地用赋值方法和取值方法将其变量推向外间，而是暴露抽象接口，以便用户**无需了解数据的实现而能操作数据本体。**
+要以什么方式呈现对象所包含的数据，需要做严肃的思考。随便加赋值方法和取值方法，是最坏的选择。
+
+#### 数据、对象的反对称性
+![](http://upload-images.jianshu.io/upload_images/943491-f628b8cefc80ecd5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](http://upload-images.jianshu.io/upload_images/943491-8cf0f6f09ad2b332.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+前者是一种过程式代码，后者是面向对象式代码。我们会发现假如要添加一个新形状的话，后者绝对是不错的选择，因为以上代码都不需要修改，只需写一个新形状类，这符合“开放--封闭”原则。然而假如添加一个计算周长的功能的话那就杯具了，因为这样子每个形状类都得改动。但是假如是用过程式代码的话只需要添加一个新函数。
+
+**过程式代码（使用数据结构的代码）便于在不改动既有数据结构的前提下添加新函数。
+面向对象代码便于在不改动既有函数的前提下添加新类。
+一切都是对象只是一个传说**
+
+## 类
+![](http://upload-images.jianshu.io/upload_images/943491-fd96714e9529ec6c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+#### 组织
+* 公共静态变量
+* 私有静态变量
+* 私有实体变量
+* 公共函数
+* 私有函数
+自顶向下原则
+**这里为什么没有写公有实体变量是因为，其不建议出现在代码中。**
+
+#### 短小
+函数的短小标准是行数，那类是什么呢？答案是**职责**
+类需要遵循[单一职责原则](http://catchzeng.com/2017/02/19/iOS聊聊设计模式原则-一-单一职责原则/)
+
+#### 内聚
+![](http://upload-images.jianshu.io/upload_images/943491-57db1505a58e54fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+如以上代码，内聚性高，除了size方法外，其他方法都使用了两个实例变量。
+内聚：**模块内部各个元素彼此结合的紧密程度（类中方法和变量间的结合程度）**
+**保持内聚会得到许多短小的类
+当一个类丧失内聚性时我们应当拆分它**
+
+
+## 总结
+Clean Code能帮助团队构建代码质量体系，有助于开发的各个环节（静态分析、持续集成、Code Review...）。当然，对个人的能力提高也很有好处，建议大家都应该熟悉。等团队Code Review一段时间后，有其他收获的话，再给大家分享。
+**预祝大家国庆节快乐！**
