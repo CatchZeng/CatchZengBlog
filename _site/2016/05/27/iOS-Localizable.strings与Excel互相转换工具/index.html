@@ -171,23 +171,79 @@
 <h2 id="前言">前言</h2>
 <p>相信做过多国化的朋友们一定为Localizable.strings的翻译工作而烦恼。先是写出需要用到的多国化字符串，然后交由翻译人员翻译成各国语言，最后再把翻译后的文档整理写入Localizable.strings。这个工作无聊、反复、繁琐，所以写了个<a href="https://github.com/CatchZeng/Localizable.strings2Excel">Localizable.strings与Excel互相转换的工具</a>，来提高效率。</p>
 
-<h2 id="效果">效果</h2>
-<p>1.Localizable.strings转换成Excel
-<img src="https://github.com/CatchZeng/Localizable.strings2Excel/raw/master/imgs/stoe.jpg" alt="Localizable.strings转换成Excel" /></p>
+<h2 id="localizablestrings2excel">Localizable.strings2Excel</h2>
+<p>iOS本地化文件（Localizable.strings）与Excel互相转换 &amp; Localizable.strings 转换成android的strings.xml文件的Python脚本工具</p>
 
-<p>2.Excel转换成Localizable.strings
-<img src="https://github.com/CatchZeng/Localizable.strings2Excel/raw/master/imgs/etos.jpg" alt="Excel转换成Localizable.strings" /></p>
+<h4 id="将ios多个国家的localizablestrings转换成excel">将iOS多个国家的Localizable.strings转换成excel</h4>
+<p><img src="https://github.com/CatchZeng/Localizable.strings2Excel/blob/master/imgs/stoe.jpg?raw=true" alt="strings to excel" /></p>
+
+<h4 id="将android多个国家的stringsxml转换成excel">将Android多个国家的strings.xml转换成excel</h4>
+<p><img src="https://github.com/CatchZeng/Localizable.strings2Excel/blob/master/imgs/atox.jpg?raw=true" alt="strings to excel" /></p>
+
+<h4 id="将excel转换成ios多个国家的localizablestrings以及android的stringsxml">将excel转换成iOS多个国家的Localizable.strings以及Android的strings.xml</h4>
+<p><img src="https://github.com/CatchZeng/Localizable.strings2Excel/blob/master/imgs/etos.jpg?raw=true" alt="excel to strings" /></p>
+
+<h4 id="将单个ios的localizablestrings转换成android的stringsxml">将单个iOS的Localizable.strings转换成Android的strings.xml</h4>
+<p><img src="https://github.com/CatchZeng/Localizable.strings2Excel/blob/master/imgs/stox.jpg?raw=true" alt="strings to android xml" /></p>
+
+<h2 id="changelog">ChangeLog</h2>
+
+<h4 id="v050">V0.5.0</h4>
+
+<p>1.支持将Android多个国家的strings.xml转换成excel</p>
+
+<h4 id="v040">V0.4.0</h4>
+
+<p>1.支持多种语言一起转换</p>
+
+<h4 id="v030">V0.3.0</h4>
+
+<p>1.支持Localizable.strings转换成android的strings.xml.</p>
+
+<h4 id="v020">V0.2.0</h4>
+
+<p>1.Fix bugs.</p>
+
+<p>2.增加 -h(帮助命令)</p>
+
+<p>3.增加 -t(目标文件地址)、-f(源文件地址)的命令参数</p>
+
+<h4 id="v010">V0.1.0</h4>
+
+<p>加入工程</p>
 
 <h2 id="使用方法">使用方法</h2>
-<p>1.切换到pyexcelerator-0.6.4.1目录,执行<code class="highlighter-rouge">sudo python setup.py install</code> 安装pyexcelerator组件。
-<img src="https://github.com/CatchZeng/Localizable.strings2Excel/raw/master/imgs/installpy.jpg" alt="安装pyexcelerator" /></p>
 
-<p>2.执行 <code class="highlighter-rouge">python Localizable.py</code>命令把Localizable.strings转换成Localizable.xls,然后交由翻译人员进行翻译。</p>
+<h3 id="1安装pyexcelerator组件">1.安装pyexcelerator组件</h3>
 
-<p>3.将翻译后的Localizable.xls文件重命名为LocalizableBack.xls，然后执行<code class="highlighter-rouge">python LocalizableBack.py</code>把LocalizableBack.xls转换成LocalizableBack.strings，最后将LocalizableBack.strings重命名为Localizable.strings即可放入工程使用。</p>
+<p>切换到pyexcelerator-0.6.4.1目录,执行sudo python setup.py install 安装</p>
+
+<p><img src="https://github.com/CatchZeng/Localizable.strings2Excel/blob/master/imgs/installpy.jpg?raw=true" alt="安装pyexcelerator" /></p>
+
+<h3 id="2安装xld组件">2.安装xld组件</h3>
+
+<p>切换到xlrd-1.0.0目录,执行sudo python setup.py install 安装</p>
+
+<h3 id="3使用脚本">3.使用脚本</h3>
+
+<p>python Localizable.py -f xxx/xxx -t xxx/xxx.xls :将多个国家的iOS Localizable.strings文件一起转换成xls文件</p>
+
+<p><img src="https://github.com/CatchZeng/Localizable.strings2Excel/blob/master/imgs/stoeu.jpg?raw=true" alt="stoeu" /></p>
+
+<p>python LocalizableStringsXml.py -f xxx/xxx -t xxx/xxx.xls :将多个国家的Android  strings.xml文件一起转换成xls文件</p>
+
+<p><img src="https://github.com/CatchZeng/Localizable.strings2Excel/blob/master/imgs/xmltoe.jpg?raw=true" alt="xmltoe" /></p>
+
+<p>python LocalizableBack.py -f xxx/xxx.xls -t xxx/xxx  :将xls文件转换成多个国家Localizable.strings文件 &amp; Android 多个国家的strings.xml文件</p>
+
+<p><img src="https://github.com/CatchZeng/Localizable.strings2Excel/blob/master/imgs/etosu.jpg?raw=true" alt="etosu" /></p>
+
+<p>python LocalizableToStringXml.py -f xxx/xxx.strings -t xxx/xxx.xml : 将单个Localizable.strings转换成strings.xml文件</p>
+
+<p><img src="https://github.com/CatchZeng/Localizable.strings2Excel/blob/master/imgs/stoau.jpg?raw=true" alt="stoau" /></p>
 
 <h2 id="最后">最后</h2>
-<p>附上链接<a href="https://github.com/CatchZeng/Localizable.strings2Excel">https://github.com/CatchZeng/Localizable.strings2Excel</a> 欢迎star、fork、issue。
+<p>附上链接https://github.com/CatchZeng/Localizable.strings2Excel 欢迎star、fork、issue。
 有问题可以到群里讨论 QQ群：157672725</p>
 
 
