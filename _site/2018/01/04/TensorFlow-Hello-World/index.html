@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>iOS开发见闻-第14期 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>TensorFlow--Hello World - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/2016/02/23/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC14%E6%9C%9F/">
+    <link rel="canonical" href="http://localhost:4000/2018/01/04/TensorFlow-Hello-World/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -140,15 +140,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
+                        <a class="tag" href="/tags/#TensorFlow" title="TensorFlow">TensorFlow</a>
                         
                     </div>
-                    <h1>iOS开发见闻-第14期</h1>
+                    <h1>TensorFlow--Hello World</h1>
                     
                     
-                    <h2 class="subheading">iOS开发见闻</h2>
+                    <h2 class="subheading">TensorFlow</h2>
                     
-                    <span class="meta">Posted by CatchZeng on February 23, 2016</span>
+                    <span class="meta">Posted by CatchZeng on January 4, 2018</span>
                 </div>
             </div>
         </div>
@@ -168,43 +168,65 @@
 
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
-<h2 id="文章">文章</h2>
-<p>1.<a href="http://onevcat.com/2016/02/swift-performance/">Swift 性能探索和优化分析</a> : 喵神的swift，不解释直接看。</p>
+<p><strong>欢迎加QQ群讨论：157672725</strong></p>
 
-<p>2.<a href="http://jiangliancheng.gitcafe.io/2016/01/23/%E5%B0%8F%E7%AC%A8%E7%8B%BC%E6%BC%AB%E8%B0%88%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%9AGCD-queue/">小笨狼漫谈多线程：GCD(一)</a> ：很细致的一篇文章，使用了大量图片、gif等来方便读者理解多线程的问题。</p>
+<h2 id="简介">简介</h2>
 
-<p>3.<a href="http://blog.cnbluebox.com/blog/2015/11/28/module-and-decoupling/">模块化与解耦</a> : 本文主要讲述了在iOS开发过程中，模块化工程架构的一种组织方式。文章末尾的两个例子代码质量很高，能培养我们的模块化思想。</p>
+<p><a href="http://www.tensorflow.org">TensorFlow™</a> 是一个采用<strong>数据流图（data flow graphs）</strong>，用于数值计算的开源软件库。<strong>节点（Nodes）</strong>在图中表示<strong>数学操作</strong>，图中的<strong>线（edges）</strong>则表示在节点间相互联系的<strong>多维数据数组</strong>，即<strong>张量（tensor）</strong>。它灵活的架构让你可以在多种平台上展开计算，例如台式计算机中的一个或多个CPU（或GPU），服务器，移动设备等等。TensorFlow 最初由Google大脑小组（隶属于Google机器智能研究机构）的研究员和工程师们开发出来，用于机器学习和深度神经网络方面的研究，但这个系统的通用性使其也可广泛用于其他计算领域。</p>
 
-<p>4.<a href="http://ios.jobbole.com/83968/">UIDynamics, UIKit 或 OpenGL? 3 种 iOS 动画实现分析</a> ：你有没想过，乔治·卢卡斯的太空史诗歌剧，其实，可以在 iOS 上实现？在银河系中黑暗与光明双方之间的永恒战役中，我们得到启发，并创建具有星球大战人物特色的梦幻般的 UI 动画。看效果图后，你还不想看？
-<img src="http://ww1.sinaimg.cn/large/80215f6cgw1f0gq67gifdg20m80gob2e.gif" alt="UIDynamics" /></p>
+<h2 id="概念介绍数据流图节点线张量">概念介绍（数据流图、节点、线、张量）</h2>
 
-<h2 id="工具">工具</h2>
-<p>1.<a href="https://github.com/neonichu/BBUDebuggerTuckAway">BBUDebuggerTuckAway</a> ：一个可在编辑代码时自动隐藏debugger的Xcode插件。
-<img src="https://github.com/neonichu/BBUDebuggerTuckAway/raw/master/plugin.gif" alt="BBUDebuggerTuckAway" /></p>
+<p><strong>数据流图</strong>用<strong>节点</strong>和<strong>线</strong>的有向图来描述数学计算。<strong>节点</strong> 一般用来表示施加的<strong>数学操作</strong>，但也可以表示数据<strong>输入（feed in）的起点/输出（push out）的终点</strong>，或者是<strong>读取/写入持久变量（persistent variable）的终点</strong>。<strong>线</strong>表示<strong>节点</strong>之间的输入/输出关系。这些数据<strong>线</strong>可以输运“size可动态调整”的多维数据数组，即<strong>张量</strong>（tensor）。张量从图中流过的直观图像是这个工具取名为“Tensorflow”的原因。一旦输入端的所有张量准备好，节点将被分配到各种计算设备完成异步并行地执行运算。</p>
 
-<p>2.<a href="https://github.com/tyeen/BlockJump">BlockJump</a> : 一款快速在代码中跳转的插件。
-<img src="https://camo.githubusercontent.com/bcf2547bd90504fcfe4f4cecd3bc8a6f31161e55/68747470733a2f2f7261772e6769746875622e636f6d2f747965656e2f426c6f636b4a756d702f6d61737465722f73637265656e5f7265636f72642e676966" alt="BlockJump" /></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-55c623beb0c057ae.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="数据流图" /></p>
 
-<p>3.<a href="https://github.com/mshibanami/DefaultMarginDisabler">DefaultMarginDisabler</a> : 相信用xib、storyboard做自动布局的朋友都会讨厌一个打钩，看效果吧。
-<img src="https://github.com/mshibanami/DefaultMarginDisabler/raw/master/screenshot.png" alt="DefaultMarginDisabler" /></p>
+<h2 id="hello-world">Hello World</h2>
+<p>学习新语言时，我们通常都会写一个Hello World，来熟悉开发环境的搭建。TensorFlow也不例外。接下来，我将带大家一步步搭建TensorFlow的环境，向世界问好！</p>
 
-<p>4.<a href="https://github.com/Forkong/FKConsole">FKConsole</a>: 开发中经常要在log输出信息，但是中文却没法直接显示，这给调试带来许多麻烦，FKConsole这个插件让调试不再只是英文的世界。
-<img src="https://raw.githubusercontent.com/Forkong/FKConsole/master/Screenshots/demo.gif" alt="FKConsole" /></p>
+<h3 id="1安装anaconda后面说明为何选择anaconda">1.安装Anaconda[后面说明为何选择Anaconda]</h3>
+<p>前往<a href="https://www.anaconda.com/download/#macos">Anaconda</a>下载安装包（这里以Mac系统为例，选择Python3.6version）
+<img src="http://upload-images.jianshu.io/upload_images/943491-b3e0cc827478d1cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Anaconda" /></p>
 
-<h2 id="开源">开源</h2>
-<p>1.<a href="https://github.com/chiahsien/CHTCollectionViewWaterfallLayout">CHTCollectionViewWaterfallLayout</a> : CHTCollectionViewWaterfallLayout是UICollectionViewLayout的一个子类，尽可能地模仿了UICollectionViewFlowLayout的用法，灵感来源于Pinterest，同时还兼容PSTCollectionView。
-<img src="https://cloud.githubusercontent.com/assets/474/3419095/25b4de9e-fe56-11e3-9b98-690319d736ce.png" alt="CHTCollectionViewWaterfallLayout" /></p>
+<h4 id="2启动anaconda选择环境点击创建选择环境选项这里以python-v35为例">2.启动Anaconda，选择环境点击创建，选择环境选项（这里以Python V3.5为例）</h4>
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-e5abcd2b36fb1edd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Anaconda" /></p>
 
-<p>2.<a href="https://github.com/zoonooz/ZFDragableModalTransition">ZFDragableModalTransition</a> : 自定义动画展示模态视图控制器，可从左边、右边或者底部推出模态视图。
-<img src="https://raw.githubusercontent.com/zoonooz/ZFDragableModalTransition/master/Screenshot/ss.gif" alt="ZFDragableModalTransition" /></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-9e283e4c85ff495a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建环境" /></p>
 
-<p>3.<a href="https://github.com/12207480/TYSlidePageScrollView">TYSlidePageScrollView</a> : 带header,footer,滑动菜单的，分页上下左右滑动的视图控制器。
-<img src="https://github.com/12207480/TYSlidePageScrollView/raw/master/screenshot/slidePageViewDemo.gif" alt="TYSlidePageScrollView" /></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-89380eb14ba6c11f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="环境选项" /></p>
 
-<p>4.<a href="https://github.com/MHaroonBaig/MotionKit">MotionKit</a> : 只需要两行或者很少的几行代码就可以从加速度传感器、陀螺仪和磁力传感器获取数据。</p>
+<h4 id="3安装tensorflow包">3.安装TensorFlow包</h4>
 
-<p>5.<a href="https://github.com/eonist/Element">Element</a> : 一套mac的UI库，喜欢mac开发的朋友不要错过。
-<img src="https://camo.githubusercontent.com/4c5e3d4eadddfdd2b185d10c62dcbd6ba92df40d/68747470733a2f2f646c2e64726f70626f7875736572636f6e74656e742e636f6d2f752f323535393437362f7468655f69636f6e5f6261725f616e696d5f7832702e676966" alt="Element" /><img src="https://camo.githubusercontent.com/61e68ade94b04596ba041691d096dc9dcb08e742/68747470733a2f2f646c2e64726f70626f7875736572636f6e74656e742e636f6d2f752f323535393437362f726164696f62756c6c6574735f63726f705f6c6f772e676966" alt="Element" /></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-0f7a50b0c22ba245.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="选择All" /></p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-d963ab9ed5345a26.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="搜索TensorFlow并勾选" /></p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-cfe1cdc8c164b85c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Apply" /></p>
+
+<h4 id="4运行环境">4.运行环境</h4>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-cf80b1798d03c5ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Run" /></p>
+
+<h4 id="5编写hello-world">5.编写Hello World</h4>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="kn">as</span> <span class="nn">tf</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">hello</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="s">'Hello, TensorFlow!'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">hello</span><span class="p">))</span>
+</code></pre>
+</div>
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-bf318f56b181702d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Hello World" /></p>
+
+<p>自此TensorFlow的环境已搭建完成！</p>
+
+<h2 id="为何选择anaconda">为何选择Anaconda？</h2>
+
+<p>Python易用，但用好却不易，其中比较头疼的就是包管理和Python不同版本的问题，特别是当你使用Windows的时候。为了解决这些问题，就有了不少发行版的Python，比如WinPython、Anaconda等，这些发行版将python和许多常用的package打包，方便Pythoners直接使用。个人尝试了很多类似的发行版，因为Anaconda强大而方便的包管理与环境管理的功能，最终选择了它。</p>
+
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://www.tensorflow.org/install/">https://www.tensorflow.org/install/</a></p>
+
+<p><a href="https://www.anaconda.com">https://www.anaconda.com</a></p>
+
+<p><a href="http://python.jobbole.com/86236/">http://python.jobbole.com/86236/</a></p>
 
 
                 <hr>
@@ -215,13 +237,9 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2016/01/30/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC13%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第13期">&larr; Previous Post</a>
+                        <a href="/2017/09/29/Clean-Code-%E5%91%8A%E8%AF%89%E4%BD%A0%E4%BB%80%E4%B9%88%E6%98%AF%E5%A5%BD%E4%BB%A3%E7%A0%81/" data-toggle="tooltip" data-placement="top" title="Clean Code 告诉你什么是好代码">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2016/03/08/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC15%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第15期">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
@@ -292,8 +310,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "catchzeng";
-    var disqus_identifier = "/2016/02/23/iOS开发见闻-第14期";
-    var disqus_url = "http://localhost:4000/2016/02/23/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC14%E6%9C%9F/";
+    var disqus_identifier = "/2018/01/04/TensorFlow--Hello World";
+    var disqus_url = "http://localhost:4000/2018/01/04/TensorFlow-Hello-World/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

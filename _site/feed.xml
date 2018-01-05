@@ -5,9 +5,82 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 31 Oct 2017 15:15:18 +0800</pubDate>
-    <lastBuildDate>Tue, 31 Oct 2017 15:15:18 +0800</lastBuildDate>
+    <pubDate>Fri, 05 Jan 2018 11:47:43 +0800</pubDate>
+    <lastBuildDate>Fri, 05 Jan 2018 11:47:43 +0800</lastBuildDate>
     <generator>Jekyll v3.4.2</generator>
+    
+      <item>
+        <title>TensorFlow--Hello World</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;欢迎加QQ群讨论：157672725&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;简介&quot;&gt;简介&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.tensorflow.org&quot;&gt;TensorFlow™&lt;/a&gt; 是一个采用&lt;strong&gt;数据流图（data flow graphs）&lt;/strong&gt;，用于数值计算的开源软件库。&lt;strong&gt;节点（Nodes）&lt;/strong&gt;在图中表示&lt;strong&gt;数学操作&lt;/strong&gt;，图中的&lt;strong&gt;线（edges）&lt;/strong&gt;则表示在节点间相互联系的&lt;strong&gt;多维数据数组&lt;/strong&gt;，即&lt;strong&gt;张量（tensor）&lt;/strong&gt;。它灵活的架构让你可以在多种平台上展开计算，例如台式计算机中的一个或多个CPU（或GPU），服务器，移动设备等等。TensorFlow 最初由Google大脑小组（隶属于Google机器智能研究机构）的研究员和工程师们开发出来，用于机器学习和深度神经网络方面的研究，但这个系统的通用性使其也可广泛用于其他计算领域。&lt;/p&gt;
+
+&lt;h2 id=&quot;概念介绍数据流图节点线张量&quot;&gt;概念介绍（数据流图、节点、线、张量）&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;数据流图&lt;/strong&gt;用&lt;strong&gt;节点&lt;/strong&gt;和&lt;strong&gt;线&lt;/strong&gt;的有向图来描述数学计算。&lt;strong&gt;节点&lt;/strong&gt; 一般用来表示施加的&lt;strong&gt;数学操作&lt;/strong&gt;，但也可以表示数据&lt;strong&gt;输入（feed in）的起点/输出（push out）的终点&lt;/strong&gt;，或者是&lt;strong&gt;读取/写入持久变量（persistent variable）的终点&lt;/strong&gt;。&lt;strong&gt;线&lt;/strong&gt;表示&lt;strong&gt;节点&lt;/strong&gt;之间的输入/输出关系。这些数据&lt;strong&gt;线&lt;/strong&gt;可以输运“size可动态调整”的多维数据数组，即&lt;strong&gt;张量&lt;/strong&gt;（tensor）。张量从图中流过的直观图像是这个工具取名为“Tensorflow”的原因。一旦输入端的所有张量准备好，节点将被分配到各种计算设备完成异步并行地执行运算。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-55c623beb0c057ae.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;数据流图&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;hello-world&quot;&gt;Hello World&lt;/h2&gt;
+&lt;p&gt;学习新语言时，我们通常都会写一个Hello World，来熟悉开发环境的搭建。TensorFlow也不例外。接下来，我将带大家一步步搭建TensorFlow的环境，向世界问好！&lt;/p&gt;
+
+&lt;h3 id=&quot;1安装anaconda后面说明为何选择anaconda&quot;&gt;1.安装Anaconda[后面说明为何选择Anaconda]&lt;/h3&gt;
+&lt;p&gt;前往&lt;a href=&quot;https://www.anaconda.com/download/#macos&quot;&gt;Anaconda&lt;/a&gt;下载安装包（这里以Mac系统为例，选择Python3.6version）
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-b3e0cc827478d1cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Anaconda&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;2启动anaconda选择环境点击创建选择环境选项这里以python-v35为例&quot;&gt;2.启动Anaconda，选择环境点击创建，选择环境选项（这里以Python V3.5为例）&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-e5abcd2b36fb1edd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Anaconda&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-9e283e4c85ff495a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;创建环境&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-89380eb14ba6c11f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;环境选项&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;3安装tensorflow包&quot;&gt;3.安装TensorFlow包&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-0f7a50b0c22ba245.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;选择All&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-d963ab9ed5345a26.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;搜索TensorFlow并勾选&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-cfe1cdc8c164b85c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Apply&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;4运行环境&quot;&gt;4.运行环境&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-cf80b1798d03c5ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Run&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;5编写hello-world&quot;&gt;5.编写Hello World&lt;/h4&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tensorflow&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tf&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;constant&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Hello, TensorFlow!'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sess&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-bf318f56b181702d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Hello World&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;自此TensorFlow的环境已搭建完成！&lt;/p&gt;
+
+&lt;h2 id=&quot;为何选择anaconda&quot;&gt;为何选择Anaconda？&lt;/h2&gt;
+
+&lt;p&gt;Python易用，但用好却不易，其中比较头疼的就是包管理和Python不同版本的问题，特别是当你使用Windows的时候。为了解决这些问题，就有了不少发行版的Python，比如WinPython、Anaconda等，这些发行版将python和许多常用的package打包，方便Pythoners直接使用。个人尝试了很多类似的发行版，因为Anaconda强大而方便的包管理与环境管理的功能，最终选择了它。&lt;/p&gt;
+
+&lt;h2 id=&quot;参考链接&quot;&gt;参考链接&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.tensorflow.org/install/&quot;&gt;https://www.tensorflow.org/install/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.anaconda.com&quot;&gt;https://www.anaconda.com&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://python.jobbole.com/86236/&quot;&gt;http://python.jobbole.com/86236/&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 04 Jan 2018 16:38:27 +0800</pubDate>
+        <link>http://localhost:4000/2018/01/04/TensorFlow-Hello-World/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/01/04/TensorFlow-Hello-World/</guid>
+        
+        <category>TensorFlow</category>
+        
+        
+      </item>
     
       <item>
         <title>Clean Code 告诉你什么是好代码</title>
@@ -1319,154 +1392,6 @@ https://github.com/CatchZeng/PragmaMarkSourceEditor&lt;/p&gt;
         <pubDate>Wed, 16 Nov 2016 17:38:27 +0800</pubDate>
         <link>http://localhost:4000/2016/11/16/%E4%B8%80%E8%B5%B7%E4%B8%BAXcode8%E5%86%99%E6%8F%92%E4%BB%B6%E5%90%A7/</link>
         <guid isPermaLink="true">http://localhost:4000/2016/11/16/%E4%B8%80%E8%B5%B7%E4%B8%BAXcode8%E5%86%99%E6%8F%92%E4%BB%B6%E5%90%A7/</guid>
-        
-        <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>使用Cordova开发iOS App -- 打包插件及JS脚本</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;在&lt;a href=&quot;http://catchzeng.com/2016/09/21/使用Cordova开发iOS-App-开发iOS插件/&quot;&gt;上一篇–开发iOS插件&lt;/a&gt;中我们开发了一个插件，本篇将讲解如何将插件打包。&lt;/p&gt;
-
-&lt;h3 id=&quot;一创建插件包&quot;&gt;一、创建插件包&lt;/h3&gt;
-&lt;p&gt;首先在桌面上创建一个文件夹com.catchzeng.testplugin(遵守命名规范),并创建子文件夹及子文件如下图,将插件的代码复制到ios文件夹下。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/in-post/post-cordova3/1.png&quot; alt=&quot;Plugins&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/in-post/post-cordova3/2.png&quot; alt=&quot;Plugins&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;二编写js代码&quot;&gt;二、编写JS代码&lt;/h3&gt;
-&lt;p&gt;编写testPlugin.js，向外部暴露testModel的testPlugin方法，这便是前端人员需要调用的接口。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var exec = require(&quot;cordova/exec&quot;);
-
-function TestModel() {};
-
-TestModel.prototype.testPlugin = function (success,fail,option) {
-     exec(success, fail, 'testPlugin', 'testWithTitle', option);
-};
-
-var testModel = new TestModel();
-module.exports = testModel;
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;三配置pluginxml文件&quot;&gt;三、配置plugin.xml文件&lt;/h3&gt;
-&lt;p&gt;配置plugin.xml 就是为了告诉cordova我们的文件路径在哪,我们的oc类名是什么,oc对象名是什么,js类名及js对象名是什么等信息。这样cordova在安装插件时,才能找到正确的插件文件。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;plugin&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://phonegap.com/ns/plugins/1.0&quot;&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;com.catchzeng.testplugin&quot;&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;version=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1.0.0&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;engines&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;engine&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;cordova&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;version=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&amp;gt;=3.3.0&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/engines&amp;gt;&lt;/span&gt;
-    
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;name&amp;gt;&lt;/span&gt;testPlugin&lt;span class=&quot;nt&quot;&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;description&amp;gt;&lt;/span&gt;测试插件&lt;span class=&quot;nt&quot;&gt;&amp;lt;/description&amp;gt;&lt;/span&gt;
-    
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;js-module&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;www/testPlugin.js&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;testModel&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;clobbers&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;target=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;testModel&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/js-module&amp;gt;&lt;/span&gt;
-    
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;platform&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ios&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;source-file&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;src/ios/TestPlugin.m&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;header-file&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;src/ios/TestPlugin.h&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;source-file&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;src/ios/TestViewController.m&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;header-file&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;src/ios/TestViewController.h&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;resource-file&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;src/ios/TestViewController.xib&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;resource-file&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;src/ios/test.png&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-        
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;config-file&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;target=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;config.xml&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;parent=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/widget&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-            
-            &lt;span class=&quot;nt&quot;&gt;&amp;lt;feature&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;testPlugin&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-                &lt;span class=&quot;nt&quot;&gt;&amp;lt;param&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ios-package&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;TestPlugin&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span class=&quot;nt&quot;&gt;&amp;lt;/feature&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/config-file&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/platform&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;参数说明：&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;id=&quot;com.catchzeng.testplugin&quot;&lt;/code&gt; ：插件id必须与文件夹名称相同&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;js-module src=&quot;www/testPlugin.js&quot; name=&quot;testModel&quot;&amp;gt;&lt;/code&gt;：此处配置js所在目录和调用的类（testModel）&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;source-file&amp;gt;&lt;/code&gt;：标示插件所需的oc .m文件&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;header-file&amp;gt;&lt;/code&gt;：标示插件所需的oc .h文件&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-&amp;lt;resource-file&amp;gt;```：标示插件所需资源文件（图片、xib资源等）&quot;&gt;
-```&amp;lt;feature name=&quot;testPlugin&quot;&amp;gt;&amp;lt;param name=&quot;ios-package&quot; value=&quot;TestPlugin&quot; /&amp;gt;```：指明插件映射至ios的类名，此处的testPlugin便是对应到testPlugin.js ```  exec(success, fail, 'testPlugin', 'testWithTitle', option);``` 中的testPlugin。
-
-### 四、测试插件
-
-新建一个Cordova项目，并添加iOS平台作为测试项目。
-
-![Plugins](/img/in-post/post-cordova3/3.png)
-
-添加插件到测试项目
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;cordova plugin add  xxxxxx&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-![Plugins](/img/in-post/post-cordova3/4.png)
-
-修改工程项目的index.html
-
-![Plugins](/img/in-post/post-cordova3/5.png)
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/p&gt;
-&lt;html&gt;
-    &lt;head&gt;
-        &lt;title&gt;TestPlugin&lt;/title&gt;
-        &lt;meta http-equiv=&quot;Content-type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
-            &lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot; src=&quot;cordova.js&quot;&gt;&lt;/script&gt;
-            &lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;
-
-            function testPlugin() {
-                testModel.testPlugin(alertSuccess,alertFail,[&quot;我是JS传来的参数！&quot;]);
-            }
-
-            function alertSuccess(msg) {
-                alert(msg);
-            }
-
-            function alertFail(msg) {
-                alert('调用OC失败: ' + msg);
-            }
-            &lt;/script&gt;
-    &lt;/head&gt;
-
-    &lt;body style=&quot;padding-top:50px&quot;&gt;
-        &lt;button style=&quot;font-size:17px;&quot; onclick=&quot;testPlugin();&quot;&gt;调用iOS插件&lt;/button&gt; &lt;br /&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-重新build iOS项目
-&lt;/code&gt; cordova build ios ```&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/in-post/post-cordova3/6.png&quot; alt=&quot;Plugins&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;此时打开iOS工程后，运行程序便能得到看到插件的效果。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/in-post/post-cordova3/7.gif&quot; alt=&quot;Plugins&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;将插件文件上传到git后，前端人员也可以使用git的方式安装我们编写的插件&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt; cordova plugin add  https://github.com/CatchZeng/com.catchzeng.testplugin&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;最后附上Demo地址：&lt;a href=&quot;https://github.com/CatchZeng/com.catchzeng.testplugin&quot;&gt;https://github.com/CatchZeng/com.catchzeng.testplugin&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Thu, 22 Sep 2016 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2016/09/22/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E6%89%93%E5%8C%85%E6%8F%92%E4%BB%B6%E5%8F%8AJS%E8%84%9A%E6%9C%AC/</link>
-        <guid isPermaLink="true">http://localhost:4000/2016/09/22/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E6%89%93%E5%8C%85%E6%8F%92%E4%BB%B6%E5%8F%8AJS%E8%84%9A%E6%9C%AC/</guid>
         
         <category>iOS</category>
         
