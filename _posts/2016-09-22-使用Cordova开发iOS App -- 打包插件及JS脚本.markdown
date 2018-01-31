@@ -4,7 +4,7 @@ title:      "使用Cordova开发iOS App -- 打包插件及JS脚本"
 subtitle:   "iOS开发"
 date:       2016-09-22 09:38:27 
 author:     "CatchZeng"
-header-img: "img/post-bg-2015.jpg"
+header-img: "img/post-bg-ios.jpg"
 tags:
     - iOS
 ---

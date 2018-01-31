@@ -4,7 +4,7 @@ title:      "IntelliJ IDEA Spring MVC环境搭建"
 subtitle:   "IntelliJ IDEA"
 date:       2015-11-15 15:24:14
 author:     "CatchZeng"
-header-img: "img/post-bg-2015.jpg"
+header-img: "img/post-bg-ios.jpg"
 tags:
     - Java Web
 ---

@@ -5,9 +5,9 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 26 Jan 2018 12:28:16 +0800</pubDate>
-    <lastBuildDate>Fri, 26 Jan 2018 12:28:16 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.2</generator>
+    <pubDate>Wed, 31 Jan 2018 16:44:15 +0800</pubDate>
+    <lastBuildDate>Wed, 31 Jan 2018 16:44:15 +0800</lastBuildDate>
+    <generator>Jekyll v3.6.2</generator>
     
       <item>
         <title>iOS 自定义弹出视图的正确姿势</title>
@@ -1452,7 +1452,7 @@ TestModel *model = self.dataList[indexPath.row];
         <link>http://localhost:4000/2017/02/10/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90-%E7%90%86%E8%AE%BA%E7%AF%87/</link>
         <guid isPermaLink="true">http://localhost:4000/2017/02/10/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90-%E7%90%86%E8%AE%BA%E7%AF%87/</guid>
         
-        <category>iOS</category>
+        <category>持续集成</category>
         
         
       </item>

@@ -4,7 +4,7 @@ title:      "屏幕适配之Size Classes"
 subtitle:   "frame -> autoreszing -> autolayout -> Size Classes"
 date:       2015-10-25 22:16:06
 author:     "CatchZeng"
-header-img: "img/post-bg-2015.jpg"
+header-img: "img/post-bg-ios.jpg"
 tags:
     - iOS
 ---

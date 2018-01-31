@@ -4,7 +4,7 @@ title:      "Mac OS X 10.11升级带来的 cocoapods问题"
 subtitle:   "cocoapods"
 date:       2015-10-25 22:20:49
 author:     "CatchZeng"
-header-img: "img/post-bg-2015.jpg"
+header-img: "img/post-bg-ios.jpg"
 tags:
     - iOS
 ---

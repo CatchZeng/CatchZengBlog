@@ -4,7 +4,7 @@ title:      "为AppDelegate瘦身"
 subtitle:   "runtime&load"
 date:       2015-10-25 22:24:19
 author:     "CatchZeng"
-header-img: "img/post-bg-2015.jpg"
+header-img: "img/post-bg-ios.jpg"
 tags:
     - iOS
 ---

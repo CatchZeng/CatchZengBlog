@@ -4,7 +4,7 @@ title:      "iOS用被误解的MVC重构代码"
 subtitle:   "iOS开发"
 date:       2016-01-26 09:38:27 
 author:     "CatchZeng"
-header-img: "img/post-bg-2015.jpg"
+header-img: "img/post-bg-ios.jpg"
 tags:
     - iOS
 ---

@@ -4,7 +4,7 @@ title:      "TensorFlow--Hello World"
 subtitle:   "TensorFlow"
 date:       2018-01-04 08:38:27
 author:     "CatchZeng"
-header-img: "img/post-bg-2015.jpg"
+header-img: "img/post-bg-tensorflow.jpg"
 tags:
     - TensorFlow
 ---

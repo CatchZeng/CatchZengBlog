@@ -4,7 +4,7 @@ title:      "Clean Code 告诉你什么是好代码"
 subtitle:   "iOS开发"
 date:       2017-09-29 08:38:27
 author:     "CatchZeng"
-header-img: "img/post-bg-2015.jpg"
+header-img: "img/post-bg-ios.jpg"
 tags:
     - iOS
 ---

@@ -4,7 +4,7 @@ title:      "AppStore上架问题ERROR ITMS-90049"
 subtitle:   "ERROR ITMS-90049"
 date:       2015-10-25 21:43:50
 author:     "CatchZeng"
-header-img: "img/post-bg-2015.jpg"
+header-img: "img/post-bg-ios.jpg"
 tags:
     - iOS
 ---

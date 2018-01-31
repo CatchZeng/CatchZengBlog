@@ -4,7 +4,7 @@ title:      "iOS 函数响应式编程 （ReactiveCocoa）"
 subtitle:   "ReactiveCocoa"
 date:       2015-12-09 10:38:31
 author:     "CatchZeng"
-header-img: "img/post-bg-2015.jpg"
+header-img: "img/post-bg-ios.jpg"
 tags:
     - iOS
 ---

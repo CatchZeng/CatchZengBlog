@@ -4,7 +4,7 @@ title:      "Mac下Maven环境搭建"
 subtitle:   "Maven"
 date:       2015-10-25 22:21:36 
 author:     "CatchZeng"
-header-img: "img/post-bg-2015.jpg"
+header-img: "img/post-bg-ios.jpg"
 tags:
     - Java Web
 ---

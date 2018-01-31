@@ -168,10 +168,10 @@
 <!-- Chinese Version -->
 <div class="zh">
     <blockquote>
-        一枚喜欢设计的程序员，喜欢iOS的细腻、Android的明亮、Java的优雅。
+        一枚喜欢设计的程序员，iOS、Android、Node、Python、OpenCV、TensorFlow。
         充满灵感的海边，是我梦想的栖息地。
     </blockquote>
-    Hey，我是曾海涵，iOS&Android程序员；目前就职于北京一家创业公司，负责移动端的开发。
+    Hey，我是曾海涵，目前就职于Makeblock，负责移动端的开发。
     <br>平时喜欢在博客记录学习与工作中的所见所闻。
 
 </div>
@@ -179,15 +179,15 @@
 <!-- English Version -->
 <div class="en">
     <blockquote>
-        iOS&Android programmer.
+        iOS、Android、Node、Python、OpenCV、TensorFlow Programmer.
     </blockquote>
 
     <p>
-    Hey, I am Haihan Zeng, iOS&Android programmer; currently working in Beijing, a Venture Company, is responsible for the development and management of mobile terminal.
+    Hey, I am Haihan Zeng, working in Makeblock, is responsible for the development and management of mobile terminal.
     </p>
 
     <p>
-     I like to write blog posts on what one sees and hears.IOS development knowledge is continuing to update...
+     I like to write blog posts on what one sees and hears.
     </p>
 
 </div>
@@ -255,7 +255,7 @@
                     <div class="tags">
                         
                             
-                                <a href="/tags/#iOS" title="iOS" rel="48">
+                                <a href="/tags/#iOS" title="iOS" rel="47">
                                     iOS
                                 </a>
                             
@@ -266,6 +266,16 @@
                                 </a>
                             
                         
+                            
+                                <a href="/tags/#持续集成" title="持续集成" rel="1">
+                                    持续集成
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#TensorFlow" title="TensorFlow" rel="1">
+                                    TensorFlow
+                                </a>
                             
                         
                     </div>
@@ -284,6 +294,15 @@
                         
                         <!-- SNS Link -->
                         <ul class="list-inline">
+                            
+                            <li>
+                                <a href="/feed.xml">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
                             
                             
                             
@@ -334,11 +353,18 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <ul class="list-inline text-center">
                     
-                    
+                    <li>
+                        <a href=" /feed.xml ">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                     
 
                     <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
-                    
-                    
+                     
                     <li>
                         <a target="_blank" href="http://weibo.com/u/2167807070">
                             <span class="fa-stack fa-lg">
@@ -347,11 +373,7 @@
                             </span>
                         </a>
                     </li>
-                    
-
-
-                    
-                    
+                      
                     <li>
                         <a target="_blank" href="https://github.com/catchzeng">
                             <span class="fa-stack fa-lg">
@@ -363,11 +385,12 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                Copyright &copy; CatchZeng Blog 2018
-                <br>
-                <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-                <span id="busuanzi_container_site_uv">您是第<span id="busuanzi_value_site_uv"></span>位访客</span>
-                <span id="busuanzi_container_site_uv"></span>
+                    Copyright &copy; CatchZeng Blog 2018
+                    <br>
+                    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+                    <span id="busuanzi_container_site_uv">您是第
+                        <span id="busuanzi_value_site_uv"></span>位访客</span>
+                    <span id="busuanzi_container_site_uv"></span>
                 </p>
             </div>
         </div>
@@ -375,24 +398,24 @@
 </footer>
 
 <!-- jQuery -->
-<script src="/js/jquery.min.js "></script>
+<script src=" /js/jquery.min.js "></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="/js/bootstrap.min.js "></script>
+<script src=" /js/bootstrap.min.js "></script>
 
 <!-- Custom Theme JavaScript -->
-<script src="/js/hux-blog.min.js "></script>
+<script src=" /js/hux-blog.min.js "></script>
 
 
 <!-- async load function -->
 <script>
     function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
     }
 </script>
 
@@ -418,11 +441,11 @@
 <!-- jquery.tagcloud.js -->
 <script>
     // only load tagcloud.js in tag.html
-    if($('#tag_cloud').length !== 0){
-        async("/js/jquery.tagcloud.js",function(){
+    if ($('#tag_cloud').length !== 0) {
+        async("/js/jquery.tagcloud.js", function () {
             $.fn.tagcloud.defaults = {
                 //size: {start: 1, end: 1, unit: 'em'},
-                color: {start: '#bbbbee', end: '#0085a1'},
+                color: { start: '#bbbbee', end: '#0085a1' },
             };
             $('#tag_cloud a').tagcloud();
         })
@@ -431,29 +454,14 @@
 
 <!--fastClick.js -->
 <script>
-    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function () {
         var $nav = document.querySelector("nav");
-        if($nav) FastClick.attach($nav);
+        if ($nav) FastClick.attach($nav);
     })
 </script>
 
 
 <!-- Google Analytics -->
-
-<script>
-    // dynamic User by Hux
-    var _gaId = 'UA-49627206-1';
-    var _gaDomain = 'catchzeng.com';
-
-    // Originial
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', _gaId, _gaDomain);
-    ga('send', 'pageview');
-</script>
 
 
 
@@ -465,15 +473,13 @@
 
     // Originial
     var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?" + _baId;
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?" + _baId;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
     })();
-</script>
-
-
+</script> 
 
 
 <!-- Image to hack wechat -->

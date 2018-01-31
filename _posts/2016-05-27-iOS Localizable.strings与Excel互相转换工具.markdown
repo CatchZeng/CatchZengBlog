@@ -4,7 +4,7 @@ title:      "iOS Localizable.strings与Excel互相转换工具"
 subtitle:   "iOS开源之路"
 date:       2016-05-27 11:40:27 
 author:     "CatchZeng"
-header-img: "img/post-bg-2015.jpg"
+header-img: "img/post-bg-ios.jpg"
 tags:
     - iOS
 ---
