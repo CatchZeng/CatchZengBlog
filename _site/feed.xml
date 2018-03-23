@@ -5,9 +5,340 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 31 Jan 2018 17:45:12 +0800</pubDate>
-    <lastBuildDate>Wed, 31 Jan 2018 17:45:12 +0800</lastBuildDate>
+    <pubDate>Fri, 23 Mar 2018 18:30:45 +0800</pubDate>
+    <lastBuildDate>Fri, 23 Mar 2018 18:30:45 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>iOS进阶 -- 程序启动那些事</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;欢迎加QQ群讨论：157672725&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
+&lt;p&gt;iOS开发中，main函数是我们认为的入口，但其实从程序启动到main方法被调用之间，还发生了许多事情。比如runtime的初始化、动态库的加载链接等。想要真正了解程序启动，需要了解程序的内部结构。因此，本章将从分析程序（.ipa）的结构开始，到main函数被调用分析程序的启动。&lt;/p&gt;
+
+&lt;h2 id=&quot;程序ipa结构&quot;&gt;程序（.ipa）结构&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-6002dd38843cbb6d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;ipa&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;iTunesArtwork: 高分别率图标，通常为JPG图像文件&lt;/p&gt;
+
+&lt;p&gt;iTunesMetadata.plist：属性列表文件&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;App(Mach-O)：App的可执行文件&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;可执行文件mach-o&quot;&gt;可执行文件（Mach-O）&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://baike.baidu.com/item/进程/382503?fr=aladdin&quot;&gt;进程&lt;/a&gt;是特殊文件在内存中加载得到的结果。这种文件必须使用操作系统能够理解的&lt;strong&gt;格式&lt;/strong&gt;，这样操作系统才能解析、建立依赖、初始化并开始执行。这种特殊文件就是可执行文件。
+在UNIX中，我们可以使用chmod+x将文件&lt;strong&gt;标记&lt;/strong&gt;为可执行文件，但不能保证该文件可以执行，因为&lt;strong&gt;标记&lt;/strong&gt;只是告诉操作系统内核将文件读入内存，然后寻找一个头签名，这个头签名通常称为&lt;strong&gt;“魔数”&lt;/strong&gt;。当文件读入时，通过&lt;strong&gt;“魔数”&lt;/strong&gt;可帮助判断文件的二进制格式，如果是被支持的二进制格式，才会调用加载器函数。每个平台都有自己的可执行文件格式，Mach-O则是 OS X 与 iOS 系统上的可执行文件格式。
+下面我们以QQ为例，借助&lt;a href=&quot;https://sourceforge.net/projects/machoview/&quot;&gt;MachOView&lt;/a&gt;来分析Mach-O文件。&lt;/p&gt;
+
+&lt;h4 id=&quot;魔数&quot;&gt;魔数&lt;/h4&gt;
+
+&lt;p&gt;在OS X上，可执行文件的标识有这样几个魔数：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;cafebabe&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;feedface&lt;/li&gt;
+  &lt;li&gt;feadfacf&lt;/li&gt;
+  &lt;li&gt;…
+&lt;strong&gt;cafebabe&lt;/strong&gt;就是跨处理器架构的通用格式，feedface和feedfacf则分别是某一处理器架构下的Mach-O格式。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-cf41e5f001397df6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;QQ Mach-O&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Mach-O 32位魔数是 &lt;strong&gt;0xfeedface&lt;/strong&gt;
+Mach-O 64位魔数是 &lt;strong&gt;0xfeedfacf&lt;/strong&gt;
+QQ支持ARM32&amp;amp;64所以可以看到两个Mach Header
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-f4d3150431b73b05.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Mach-O 32&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-65536991181a8896.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Mach-O 64&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;mach-o格式&quot;&gt;Mach-O格式&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-9f02e0e795e5d9b0.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Match-O&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Header：CPU类型和子类型、文件类型、加载命令的条数和大小、动态连接器标志等&lt;/li&gt;
+  &lt;li&gt;LoadCommands：加载命令。比如文件的段与进程地址映射、 调用&lt;strong&gt;dyld&lt;/strong&gt;、开启Mach线程等&lt;/li&gt;
+  &lt;li&gt;Data：数据&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;加载过程&quot;&gt;加载过程&lt;/h4&gt;
+&lt;p&gt;系统加载可执行文件后，通过&lt;strong&gt;Fat Header&lt;/strong&gt;，找到对应平台的地址，
+然后根据相应的&lt;strong&gt;Header&lt;/strong&gt;，获取LoadCommands的信息，并加载。
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-77bfea43f634188f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;FatHeader&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-4a8a93b9fc805843.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Header&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;查看Load Commands可知，系统通过&lt;strong&gt;LC_SEGEMNT&lt;/strong&gt;命令将可执行文件段映射到进程地址空间后通过&lt;strong&gt;LC_LOAD_DYLINKER&lt;/strong&gt;调用&lt;strong&gt;dyld&lt;/strong&gt;(通常在/usr/lib/dyld)，当dyld的工作完成之后由&lt;strong&gt;LC_MAIN&lt;/strong&gt;（旧版本中的&lt;strong&gt;LC_UNIXTHREAD&lt;/strong&gt;）命令负责设置主线程的入口地址和栈大小。
+&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-b80cc628b36b5ebc.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Commands&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-5d4b3d6b03f02621.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Load dyld command&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;dyld-the-dynamic-link-editor&quot;&gt;dyld (the dynamic link editor)&lt;/h4&gt;
+&lt;p&gt;在讲解dyld之前我们先来看一下Load Commands中的&lt;strong&gt;LC_SYMTAB&lt;/strong&gt;、&lt;strong&gt;LC_DYSYMTAB&lt;/strong&gt;以及&lt;strong&gt;LC_LOAD_DYLB&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-3269c2d0f922bfef.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;SYMTAB&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-2e429f9560f217b4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;libSystem&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-205f4fe756f3b000.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;QQMainProject&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;我们可以看到Mach-O镜像中有很多&lt;strong&gt;“空洞”&lt;/strong&gt;，即由&lt;strong&gt;LC_SYMTAB&lt;/strong&gt;命令提供的符号表和&lt;strong&gt;LC_LOAD_DYLB&lt;/strong&gt;加载的额外动态库，这些空洞需要在程序启动的时填补。这项工作就需要dyld来完成，这个过程有时候也称为&lt;strong&gt;符号绑定&lt;/strong&gt;(binding)。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注&lt;/strong&gt;：细心的朋友可以看到在加载libSystem的时候使用的地址是/usr/lib/而QQMainProject的地址是@rpath/。在iOS系统中，几乎所有的程序都会用到动态库，而动态库在加载的时候都需要用dyld进行链接。很多系统库几乎都是每个程序都要用到的，与其在每个程序运行的时候一个一个将这些动态库都加载进来，还不如先把它们打包好，一次加载进来来的快。这就是&lt;a href=&quot;https://www.cnblogs.com/maizi008/p/5086103.html&quot;&gt;dyld的共享库缓存&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;dyld是&lt;a href=&quot;https://github.com/opensource-apple/dyld&quot;&gt;开源&lt;/a&gt;的，下面我们就从代码的角度分析dyld。&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;uintptr_t&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;_main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;macho_header&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mainExecutableMH&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;uintptr_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mainExecutableSlide&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;argc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;envp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;apple&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt; 
+		&lt;span class=&quot;kt&quot;&gt;uintptr_t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;startGlue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//...
+&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;// 1.instantiate ImageLoader for main executable
+&lt;/span&gt;       &lt;span class=&quot;n&quot;&gt;sMainExecutable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;instantiateFromLoadedImage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mainExecutableMH&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mainExecutableSlide&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sExecPath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// 2.load any inserted libraries
+&lt;/span&gt;       &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sEnv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DYLD_INSERT_LIBRARIES&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sEnv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DYLD_INSERT_LIBRARIES&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+            &lt;span class=&quot;n&quot;&gt;loadInsertedDylib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+       &lt;span class=&quot;c1&quot;&gt;//3.link main executable
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sMainExecutable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sEnv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DYLD_BIND_AT_LAUNCH&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ImageLoader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RPathChain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+       &lt;span class=&quot;c1&quot;&gt;//4. link any inserted libraries
+&lt;/span&gt;       &lt;span class=&quot;c1&quot;&gt;// do this after linking main executable so that any dylibs pulled in by inserted 
+&lt;/span&gt;       &lt;span class=&quot;c1&quot;&gt;// dylibs (e.g. libSystem) will not be in front of dylibs the program uses
+&lt;/span&gt;       &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sInsertedDylibCount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sInsertedDylibCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;ImageLoader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;image&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sAllImages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sEnv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DYLD_BIND_AT_LAUNCH&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ImageLoader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RPathChain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+       &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//5. run all initializers
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;initializeMainExecutable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; 
+        &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;1-instantiatefromloadedimage&quot;&gt;1. instantiateFromLoadedImage&lt;/h4&gt;
+&lt;p&gt;dyld通过&lt;strong&gt;instantiateFromLoadedImage&lt;/strong&gt;方法初始化&lt;strong&gt;ImageLoader&lt;/strong&gt;并将我们&lt;strong&gt;可执行文件&lt;/strong&gt;加载进内存,生成对应的image（镜像）。每个Mach-O 文件都会对应一个ImageLoader实例。ImageLoader是一个抽象类，每一种具体的Mach-O 文件都会继承 ImageLoader。在加载时会根据Mach-O的格式不同选择生成不用的实例(如：&lt;strong&gt;ImageLoaderMachOClassic&lt;/strong&gt;、&lt;strong&gt;ImageLoaderMachOCompressed&lt;/strong&gt;)。而&lt;strong&gt;sMainExecutable&lt;/strong&gt;对应可执行文件，里面包含了我们项目中&lt;strong&gt;所有新建的类&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//
+// ImageLoader is an abstract base class.  To support loading a particular executable
+// file format, you make a concrete subclass of ImageLoader.
+//
+// For each executable file (dynamic shared object) in use, an ImageLoader is instantiated.
+//
+// The ImageLoader base class does the work of linking together images, but it knows nothing
+// about any particular file format.
+//
+//
+class ImageLoader {
+public:
+
+	typedef uint32_t DefinitionFlags;
+	static const DefinitionFlags kNoDefinitionOptions = 0;
+	static const DefinitionFlags kWeakDefinition = 1;
+	
+	typedef uint32_t ReferenceFlags;
+	static const ReferenceFlags kNoReferenceOptions = 0;
+	static const ReferenceFlags kWeakReference = 1;
+	static const ReferenceFlags kTentativeDefinition = 2;
+	
+	enum PrebindMode { kUseAllPrebinding, kUseSplitSegPrebinding, kUseAllButAppPredbinding, kUseNoPrebinding };
+	enum BindingOptions { kBindingNone, kBindingLazyPointers, kBindingNeverSetLazyPointers };
+	enum SharedRegionMode { kUseSharedRegion, kUsePrivateSharedRegion, kDontUseSharedRegion, kSharedRegionIsSharedCache };
+	
+	struct Symbol;  // abstact symbol
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-df21867ba98b660f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;ImageLoader&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;2-loadinserteddylib&quot;&gt;2. loadInsertedDylib&lt;/h4&gt;
+&lt;p&gt;dyld通过&lt;strong&gt;loadInsertedDylib&lt;/strong&gt;方法将插入的lib加载进内存,生成对应的image。&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;static void loadInsertedDylib(const char* path)
+{
+	ImageLoader* image = NULL;
+	try {
+		LoadContext context;
+		context.useSearchPaths		= false;
+		context.useFallbackPaths	= false;
+		context.useLdLibraryPath	= false;
+		context.implicitRPath		= false;
+		context.matchByInstallName	= false;
+		context.dontLoad			= false;
+		context.mustBeBundle		= false;
+		context.mustBeDylib			= true;
+		context.canBePIE			= false;
+		context.origin				= NULL;	// can't use @loader_path with DYLD_INSERT_LIBRARIES
+		context.rpath				= NULL;
+		image = load(path, context);
+	}
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;3-link-smainexecutable&quot;&gt;3. link sMainExecutable&lt;/h4&gt;
+&lt;p&gt;链接instantiateFromLoadedImage生成的Images。&lt;/p&gt;
+
+&lt;h4 id=&quot;4-link-image&quot;&gt;4. link image&lt;/h4&gt;
+&lt;p&gt;链接loadInsertedDylib生成的Images。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Link&lt;/strong&gt;操作其实是调用Imageloader的Link方法，负责对image进行load(加载)、UpdateDepth（更新深度）、rebase(基地址复位)、bind(外部符号绑定)等。&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;void link(ImageLoader* image, bool forceLazysBound, bool neverUnload, const ImageLoader::RPathChain&amp;amp; loaderRPaths)
+{        
+    ...
+	// process images
+	try {
+		image-&amp;gt;link(gLinkContext, forceLazysBound, false, neverUnload, loaderRPaths);
+	}
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;void ImageLoader::link(const LinkContext&amp;amp; context, bool forceLazysBound, bool preflightOnly, bool neverUnload, const RPathChain&amp;amp; loaderRPaths)
+{
+    ...
+	this-&amp;gt;recursiveLoadLibraries(context, preflightOnly, loaderRPaths);
+    ...
+	this-&amp;gt;recursiveUpdateDepth(context.imageCount());
+    ...	
+ 	this-&amp;gt;recursiveRebase(context);
+    ...	
+ 	this-&amp;gt;recursiveBind(context, forceLazysBound, neverUnload);
+    ...
+	this-&amp;gt;recursiveGetDOFSections(context, dofs);
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;recursiveloadlibraries&quot;&gt;recursiveLoadLibraries&lt;/h5&gt;
+&lt;p&gt;递归加载依赖的动态链接库。
+可以使用&lt;strong&gt;otool -L 二进制文件路径&lt;/strong&gt;来列出程序的动态链接库。&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cenghaihandeMacBook-Pro:QQ.app catchzeng$ otool -L QQ
+QQ (architecture armv7):
+	@rpath/TlibDy.framework/TlibDy (compatibility version 1.0.0, current version 1.0.0)
+	@rpath/QQMainProject.framework/QQMainProject (compatibility version 1.0.0, current version 1.0.0)
+	@rpath/GroupCommon.framework/GroupCommon (compatibility version 1.0.0, current version 1.0.0)
+	/System/Library/Frameworks/Foundation.framework/Foundation (compatibility version 300.0.0, current version 1444.12.0)
+	/usr/lib/libz.1.dylib (compatibility version 1.0.0, current version 1.2.11)
+	/System/Library/Frameworks/UIKit.framework/UIKit (compatibility version 1.0.0, current version 
+	/System/Library/Frameworks/CFNetwork.framework/CFNetwork (compatibility version 1.0.0, current version 887.0.0)
+	/usr/lib/libicucore.A.dylib (compatibility version 1.0.0, current version 59.1.0)
+	/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)
+	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1252.0.0)
+    ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;UIKit 、Foundation、CFNetwork 等框架相信大家已经很熟悉了。而其中的libobjc.A.dylib 包含 runtime，libSystem.B.dylib 则包含像 libdispatch、libsystem_c 等系统级别的库，二者都是被默认添加到程序中的。由于动态链接库本身还可能依赖其他动态链接库，所以整个加载过程是递归进行的，以下几个操作同理都是&lt;strong&gt;递归&lt;/strong&gt;的。&lt;/p&gt;
+
+&lt;h5 id=&quot;recursiverebase&quot;&gt;recursiveRebase&lt;/h5&gt;
+&lt;p&gt;在以前，程序每次加载其在内存中的堆栈&lt;strong&gt;基地址&lt;/strong&gt;都是一样的，这意味着你的方法，变量等地址每次都一样的，这使得程序很不安全，后面就出现&lt;a href=&quot;https://baike.baidu.com/item/aslr/5779647?fr=aladdin&quot;&gt;ASLR（Address space layout randomization）&lt;/a&gt;，程序每次启动后地址都会随机变化，这样程序里所有的代码地址都是错的，需要重新对代码地址进行计算修复才能正常访问，这个操作就是Rebase。&lt;/p&gt;
+
+&lt;h5 id=&quot;recursivebind&quot;&gt;recursiveBind&lt;/h5&gt;
+&lt;p&gt;由于符号在不同的库里面，所以需要符号绑定（Bind）这个过程。
+举个简单的例子，代码里面调用了 NSClassFromString. 但是NSClassFromString的代码和符号都是在 Foundation.framework 这个动态库里面。还没绑定之前就“不认识”NSClassFromString，所以需要Bind。&lt;/p&gt;
+
+&lt;h4 id=&quot;5-initializemainexecutable&quot;&gt;5. initializeMainExecutable&lt;/h4&gt;
+&lt;p&gt;调用所有image的Initalizer方法进行初始化。
+这里可以利用环境变量&lt;strong&gt;DYLD_PRINT_INITIALIZERS=1&lt;/strong&gt;来打印出程序的各种依赖库的initializer方法：
+&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-a932419f6b8d3e9b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;DYLD_PRINT_INITIALIZERS&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;dyld: calling initializer function 0x103c5f9fe in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/lib/libSystem.dylib
+dyld: calling -init function 0x10278a3c6 in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/lib/libBacktraceRecording.dylib
+dyld: calling initializer function 0x1068e4d91 in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/lib/libc++.1.dylib
+dyld: calling -init function 0x107ba0f80 in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation
+dyld: calling initializer function 0x107d002c0 in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation
+dyld: calling initializer function 0x10a4ac8c0 in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/lib/libnetwork.dylib
+dyld: calling initializer function 0x10753973e in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/CFNetwork.framework/CFNetwork
+dyld: calling initializer function 0x107456500 in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/CFNetwork.framework/CFNetwork
+dyld: calling initializer function 0x107456529 in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/CFNetwork.framework/CFNetwork
+dyld: calling initializer function 0x10745653d in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/CFNetwork.framework/CFNetwork
+dyld: calling initializer function 0x107456551 in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/CFNetwork.framework/CFNetwork
+dyld: calling initializer function 0x1076189b3 in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/CFNetwork.framework/CFNetwork
+dyld: calling initializer function 0x102f3b5e1 in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/Foundation.framework/Foundation
+dyld: calling -init function 0x1027c11c3 in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/lib/libMainThreadChecker.dylib
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;这里最开始调用的libSystem.dylib的initializer比较特殊，因为runtime初始化就在这一阶段。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/*
+ * libsyscall_initializer() initializes all of libSystem.dylib &amp;lt;rdar://problem/4892197&amp;gt;
+ */
+static __attribute__((constructor)) 
+void libSystem_initializer(int argc, const char* argv[], const char* envp[], const char* apple[], const struct ProgramVars* vars)
+{
+	_libkernel_functions_t libkernel_funcs = {
+		.get_reply_port = _mig_get_reply_port,
+		.set_reply_port = _mig_set_reply_port,
+		.get_errno = __error,
+		.set_errno = cthread_set_errno_self,
+		.dlsym = dlsym,
+	};
+
+	_libkernel_init(libkernel_funcs);
+
+	bootstrap_init();
+	mach_init();
+	pthread_init();
+	__libc_init(vars, libSystem_atfork_prepare, libSystem_atfork_parent, libSystem_atfork_child, apple);
+	__keymgr_initializer();
+	_dyld_initializer();
+//！！！就是这里了
+	libdispatch_init();
+	_libxpc_initializer();
+
+	__stack_logging_early_finished();
+
+	/* &amp;lt;rdar://problem/11588042&amp;gt;
+	 * C99 standard has the following in section 7.5(3):
+	 * &quot;The value of errno is zero at program startup, but is never set
+	 * to zero by any library function.&quot;
+	 */
+	errno = 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;libdispatch_init初始化会调用runtime的_objc_init初始化方法，这里我们利用符号断点调试可以看到程序的调用栈，也能验证以上的过程。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-f47c66ed03d820d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;符号断点&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-9d60295df1cf5405.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;调用栈&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;main&quot;&gt;Main&lt;/h2&gt;
+&lt;p&gt;当所有的依赖库库的lnitializer都调用完后，dyld的main函数会返回程序的main函数地址，main函数被调用。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;int main(int argc, char * argv[]) {
+    @autoreleasepool {
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://developer.apple.com/documentation/uikit/1622933-uiapplicationmain?language=occ&quot;&gt;UIApplicationMain&lt;/a&gt;，它主要是创建了一个application对象和设置事件循环（autoreleasepool）。至此程序便开始运行。&lt;/p&gt;
+
+&lt;h2 id=&quot;总结&quot;&gt;总结&lt;/h2&gt;
+&lt;p&gt;本章从ipa文件-》Mach-O-》dyld-》Main简单讲解了程序启动的一些事情，但并不代表着启动的全部，有兴趣的朋友可以继续往深挖。本章是iOS进阶的第一篇，后续会持续更新。如果大家有感兴趣的主题，也可以到Q群里联系我。&lt;/p&gt;
+</description>
+        <pubDate>Fri, 23 Mar 2018 16:38:27 +0800</pubDate>
+        <link>http://localhost:4000/2018/03/23/iOS%E8%BF%9B%E9%98%B6-%E7%A8%8B%E5%BA%8F%E5%90%AF%E5%8A%A8%E9%82%A3%E4%BA%9B%E4%BA%8B/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/03/23/iOS%E8%BF%9B%E9%98%B6-%E7%A8%8B%E5%BA%8F%E5%90%AF%E5%8A%A8%E9%82%A3%E4%BA%9B%E4%BA%8B/</guid>
+        
+        <category>iOS</category>
+        
+        
+      </item>
     
       <item>
         <title>iOS 自定义弹出视图的正确姿势</title>
@@ -1316,143 +1647,6 @@ TestModel *model = self.dataList[indexPath.row];
         <guid isPermaLink="true">http://localhost:4000/2017/02/19/iOS%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%80-%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99/</guid>
         
         <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>持续集成 -- 理论篇</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;一软件开发面临的问题&quot;&gt;一、软件开发面临的问题&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;确定软件需求&lt;/li&gt;
-  &lt;li&gt;确定项目进度（可见性）&lt;/li&gt;
-  &lt;li&gt;如何以最快速度将软件交付给用户？&lt;/li&gt;
-  &lt;li&gt;如何让开发、测试、产品经理、运维人员高效工作？&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;软件需要满足于业务目的，质量不等于完美，“追求完美是把事情做好的大敌”。&lt;/p&gt;
-
-&lt;h2 id=&quot;二持续集成&quot;&gt;二、持续集成&lt;/h2&gt;
-&lt;p&gt;持续集成是一种软件开发实践【&lt;strong&gt;不是工具&lt;/strong&gt;】，即团队开发成员经常集成他们的工作，通常每个成员每天至少集成一次。每次集成都通过自动化的构建（包括编译，发布，自动化测试)来验证，从而尽快地发现集成错误。 — Martin Fowler&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-3070048477120ab3.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;持续集成&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;三持续集成的价值&quot;&gt;三、持续集成的价值&lt;/h2&gt;
-
-&lt;h4 id=&quot;1协作&quot;&gt;1.协作&lt;/h4&gt;
-&lt;p&gt;让开发的软件一直处于可工作状态&lt;/p&gt;
-
-&lt;h4 id=&quot;2开发人员&quot;&gt;2.开发人员&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;尽快发现问题
-解决问题的关键是尽快发现问题
-减少引入缺陷与修复缺陷之间的时间&lt;/li&gt;
-  &lt;li&gt;防止分支大幅偏离主干&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;减少重复过程&amp;amp;人为错误：
-以自动化编译、发布、测试…，代替手工操作
-避免了一些人为的错误(build号忘加1、Debug开关忘关)&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;建立团队对开发产品的信心&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;3测试人员&quot;&gt;3.测试人员&lt;/h4&gt;
-&lt;p&gt;小步增量，易于发现问题，并快速反馈给开发人员&lt;/p&gt;
-
-&lt;h3 id=&quot;四小结&quot;&gt;四、小结&lt;/h3&gt;
-&lt;p&gt;集成的目的其实是沟通：集成可以让开发者告诉其他人他们都改了什么东西，频繁的沟通可以让开发者更快地了解变化。&lt;/p&gt;
-
-&lt;h3 id=&quot;五持续集成的前提条件&quot;&gt;五、持续集成的前提条件&lt;/h3&gt;
-&lt;h4 id=&quot;1团队共识&quot;&gt;1.团队共识&lt;/h4&gt;
-&lt;p&gt;持续集成不是工具，是一种实践，需要投入并遵守一些规则，才能提高质量&lt;/p&gt;
-
-&lt;h4 id=&quot;2频繁提交&quot;&gt;2.频繁提交&lt;/h4&gt;
-&lt;p&gt;“如果你遇到一件很痛苦的事情，似乎比较好的建议就是更频繁地做这件事情”                                                                                                   &lt;br /&gt;
-— Martin Fowler
-哲学：一件事情很难，又必须去做，不妨经常去做，每次做一点，分而治之，滴水穿石、跬步千里 —— 早集成、常集成
-解决问题的关键是尽早发现问题
-每过几个小时就提交一次，冲突也会在几个小时之内被发现
-两次提交之间只有几个小时的修改，产生这些问题只可能在很有限的几个地方
-提交的越多，需要查找冲突错误的地方就越少，改起来也越快
-用差异调试比较当前版本和之前没有 bug 的版本
-客观上会鼓励开发者将工作分解成以小时计的小块&lt;/p&gt;
-
-&lt;h4 id=&quot;3保证每次提交的质量&quot;&gt;3.保证每次提交的质量&lt;/h4&gt;
-&lt;p&gt;每次提交的版本都有可能产生一个可发布的版本
-每次提交的质量不好，不但会影响自己，而且会影响别人&lt;/p&gt;
-
-&lt;h4 id=&quot;4不单单源代码&quot;&gt;4.不单单源代码&lt;/h4&gt;
-&lt;p&gt;与项目相关的所有内容（代码、测试代码、数据库脚本、构建与部署脚本、 IDE配置文件，以及所有用于创建、安装、运行、测试应用程序的东西）
-关于这点，可以参考&lt;a href=&quot;http://www.infoq.com/cn/news/2012/01/ci-everything-is-code&quot;&gt;持续集成之“Everything is code”&lt;/a&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;5全面的自动化构建测试套件&quot;&gt;5.全面的自动化构建、测试套件&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;10分钟 build（快速的build）
-没有什么比缓慢的 build 更能危害持续集成活动
-一旦提交 build 成功，其他人就可以放心地基于这些代码工作了&lt;/li&gt;
-  &lt;li&gt;在不同的情况中 build 不同的 target&lt;/li&gt;
-  &lt;li&gt;每次代码提交后都会在持续集成服务器上触发一次构建
-构建不只是编译，可能包含编译、测试、审查和部署以及其他一些事情，将代码放在一起，并让其可以作为一个一致的单元运行的过程&lt;/li&gt;
-  &lt;li&gt;自动化标准
-任何人都应该能从一个干净的计算机上 check out 源代码，然后敲入一条命令，就可以得到能在这台机器上运行的系统&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;6本地环境与持续集成环境测试环境生产环境一致&quot;&gt;6.本地环境与持续集成环境、测试环境、生产环境一致&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-db7b14bb780014e1.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;deployment-plan.gif&quot; /&gt;
-关于环境可参考：&lt;a href=&quot;http://dltj.org/article/software-development-practice/&quot;&gt;Traditional Development/Integration/Staging/Production Practice for Software Development&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;六必要的实践&quot;&gt;六、必要的实践&lt;/h3&gt;
-&lt;h4 id=&quot;1最新的正确版本作为起点&quot;&gt;1.“最新的正确版本”作为起点&lt;/h4&gt;
-
-&lt;h4 id=&quot;2时刻准备回滚到前一个版本&quot;&gt;2.时刻准备回滚到前一个版本&lt;/h4&gt;
-
-&lt;h4 id=&quot;3修复破坏应用程序的任意修改是最高优先级的任务&quot;&gt;3.修复破坏应用程序的任意修改是最高优先级的任务&lt;/h4&gt;
-&lt;p&gt;10分钟修复不完，需要回滚&amp;amp;在回滚之前要规定一个修复时间&lt;/p&gt;
-
-&lt;h4 id=&quot;4等提交测试通过后再继续工作&quot;&gt;4.等提交测试通过后再继续工作&lt;/h4&gt;
-&lt;p&gt;给自己喝一杯咖啡的时间
-等待集成返回结果后继续工作能减少错误，也能让别人在最新的正确版本作为起点&lt;/p&gt;
-
-&lt;h4 id=&quot;5提交前在本地运行所有的提交测试&quot;&gt;5.提交前在本地运行所有的提交测试&lt;/h4&gt;
-&lt;p&gt;现代CI服务器提供“预测试提交”、“个人构建”&lt;/p&gt;
-
-&lt;h4 id=&quot;6构建失败后不要提交新代码&quot;&gt;6.构建失败后不要提交新代码&lt;/h4&gt;
-
-&lt;h4 id=&quot;7谁提交谁负责&quot;&gt;7.谁提交，谁负责&lt;/h4&gt;
-&lt;p&gt;监视 mainline 上的构建，失败时及时修复
-如果在下班前提交了代码，那在 mainline 构建成功之前就不能回家&lt;/p&gt;
-
-&lt;h4 id=&quot;8勿将失败的测试注释掉&quot;&gt;8.勿将失败的测试注释掉&lt;/h4&gt;
-&lt;p&gt;修改代码、修改测试、删除测试&lt;/p&gt;
-
-&lt;h4 id=&quot;9测试驱动开发&quot;&gt;9.测试驱动开发&lt;/h4&gt;
-
-&lt;h3 id=&quot;七-持续集成实践步骤&quot;&gt;七、 持续集成实践步骤&lt;/h3&gt;
-
-&lt;h4 id=&quot;1自动化构建&quot;&gt;1.自动化构建&lt;/h4&gt;
-
-&lt;h4 id=&quot;2引入自动化测试&quot;&gt;2.引入自动化测试&lt;/h4&gt;
-&lt;p&gt;试着指出主要出错的地方，并要让自动化测试暴露这些错误&lt;/p&gt;
-
-&lt;h4 id=&quot;3试着加快build-的速度&quot;&gt;3.试着加快build 的速度&lt;/h4&gt;
-&lt;p&gt;10分钟build&lt;/p&gt;
-
-&lt;h4 id=&quot;4ci选型&quot;&gt;4.CI选型&lt;/h4&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/ligurio/Continuous-Integration-services/blob/master/continuous-integration-services-list.md&quot;&gt;https://github.com/ligurio/Continuous-Integration-services/blob/master/continuous-integration-services-list.md&lt;/a&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;5寻找老司机帮忙很重要&quot;&gt;5.寻找老司机帮忙（很重要）&lt;/h4&gt;
-&lt;p&gt;老司机理论+实践经验丰富&lt;/p&gt;
-
-&lt;h1 id=&quot;详见&quot;&gt;详见&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/CatchZeng/ContinuousIntegration&quot;&gt;https://github.com/CatchZeng/ContinuousIntegration&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 10 Feb 2017 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2017/02/10/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90-%E7%90%86%E8%AE%BA%E7%AF%87/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/02/10/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90-%E7%90%86%E8%AE%BA%E7%AF%87/</guid>
-        
-        <category>持续集成</category>
         
         
       </item>
