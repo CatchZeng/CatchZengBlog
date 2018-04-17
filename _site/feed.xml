@@ -5,9 +5,393 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 23 Mar 2018 18:30:45 +0800</pubDate>
-    <lastBuildDate>Fri, 23 Mar 2018 18:30:45 +0800</lastBuildDate>
+    <pubDate>Tue, 17 Apr 2018 21:17:23 +0800</pubDate>
+    <lastBuildDate>Tue, 17 Apr 2018 21:17:23 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>教你开源一个优雅的npm包</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;一注册npm账号&quot;&gt;一、注册npm账号&lt;/h2&gt;
+&lt;p&gt;前往&lt;a href=&quot;https://www.npmjs.com&quot;&gt;https://www.npmjs.com&lt;/a&gt;注册一个账号。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-839cdd17a84e490f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;npmjs&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;二制作npm包&quot;&gt;二、制作npm包&lt;/h2&gt;
+
+&lt;h5 id=&quot;1建立一个仓库这里以cat-jsutils为例&quot;&gt;1.建立一个仓库，这里以cat-jsutils为例&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-9f41ef6e9827f5ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;cat-jsutils&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;这里需要注意下名称&lt;/strong&gt;，因为如果被占用，无法使用npm install直接安装。
+判断是否被占用，可使用npm search xxx来判断&lt;/p&gt;
+
+&lt;p&gt;未占用&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cenghaihandeMacBook-Pro:cat-jsutils catchzeng$ npm search cat-jsutils
+No matches found for &quot;cat-jsutils&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;已占用&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cenghaihandeMacBook-Pro:cat-jsutils catchzeng$ npm search jsutils
+NAME                      | DESCRIPTION          | AUTHOR          | DATE       | VERSION  | KEYWORDS
+jsutils                   | Utilities for…       | =sethyuan       | 2016-04-25 | 0.6.1    | util js javascript node.js node nodejs utils u
+fwsp-jsutils              | JavaScript Utils -…  | =emadum =cjus   | 2017-04-04 | 1.0.10   | flywheelsports javascript utils
+@mreck/jsutils            | JavaScript…          | =mreck          | 2018-04-14 | 2.0.0    |
+sbiger-jsutil             | Javascript common…   | =sbiger         | 2016-12-26 | 1.3.32   | javscript utilities ES6 ES5 js util
+m-jsutils                 | js utils             | =limi58         | 2017-07-23 | 1.0.1    | utils
+jsutilities               | Javascript common…   | =jcde           | 2016-07-08 | 1.0.6    |
+jsutils2                  | &quot;Various utility…    | =milesman34     | 2017-11-22 | 2.0.0    |
+org.mineot.jsutil         | Javascript Util…     | =mineot         | 2018-01-26 | 0.0.5    | javascript js jsutil util i18next translation
+h-jsutils                 | javascript utils     | =haven09        | 2018-01-11 | 1.0.0    | js javascript utils
+jsutility                 | A collection of…     | =deepaksibar    | 2016-08-27 | 0.0.0    | css
+jsutil                    | A utilities package… | =gm12306        | 2013-03-20 | 0.1.3    | util mixin extend
+@ikyhdst/jsutils          | Utility files for…   | =ikyhdst        | 2018-01-17 | 0.0.1    |
+rb-jsutils                |                      | =dhanna         | 2016-06-29 | 0.9.0    |
+@moodxd/jsutil-openable   | JavaScript Utility…  | =moodxd         | 2017-03-08 | 1.0.3    |
+@moodxd/jsutil-stickable  | JavaScript Utility…  | =moodxd         | 2017-03-08 | 1.0.3    |
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;2clone仓库到本地--cd到cat-jsutils执行npm-init&quot;&gt;2.Clone仓库到本地 &amp;amp; cd到cat-jsutils，执行npm init&lt;/h5&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cenghaihandeMacBook-Pro:Github catchzeng$ cd cat-jsutils/
+cenghaihandeMacBook-Pro:cat-jsutils catchzeng$ npm init
+This utility will walk you through creating a package.json file.
+It only covers the most common items, and tries to guess sensible defaults.
+
+See `npm help json` for definitive documentation on these fields
+and exactly what they do.
+
+Use `npm install &amp;lt;pkg&amp;gt;` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+Press ^C at any time to quit.
+package name: (cat-jsutils)
+version: (1.0.0)
+description: js utils
+entry point: (index.js)
+test command:
+git repository: (https://github.com/CatchZeng/cat-jsutils)
+keywords: util utils js javascript node utility utilities
+author: CatchZeng
+license: (ISC) MIT
+About to write to /Users/catchzeng/Documents/Code/Github/cat-jsutils/package.json:
+
+{
+  &quot;name&quot;: &quot;cat-jsutils&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;js utils&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;amp;&amp;amp; exit 1&quot;
+  },
+  &quot;repository&quot;: {
+    &quot;type&quot;: &quot;git&quot;,
+    &quot;url&quot;: &quot;git+https://github.com/CatchZeng/cat-jsutils.git&quot;
+  },
+  &quot;keywords&quot;: [
+    &quot;util&quot;,
+    &quot;utils&quot;,
+    &quot;js&quot;,
+    &quot;javascript&quot;,
+    &quot;node&quot;,
+    &quot;utility&quot;,
+    &quot;utilities&quot;
+  ],
+  &quot;author&quot;: &quot;CatchZeng&quot;,
+  &quot;license&quot;: &quot;MIT&quot;,
+  &quot;bugs&quot;: {
+    &quot;url&quot;: &quot;https://github.com/CatchZeng/cat-jsutils/issues&quot;
+  },
+  &quot;homepage&quot;: &quot;https://github.com/CatchZeng/cat-jsutils#readme&quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;3新建indexjs根据上一步的entry-point-indexjs指定组织代码结构这里以cat-jsutils为例&quot;&gt;3.新建index.js【根据上一步的entry point: (index.js)指定】，组织代码结构，这里以cat-jsutils为例&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-62d8a951fab55e27.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;屏幕快照 2018-04-17 下午6.13.24.png&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//number.js
+
+function isNum(value) {
+    return (typeof value === 'number') &amp;amp;&amp;amp; !isNaN(parseFloat(value)) &amp;amp;&amp;amp; isFinite(value); 
+}
+
+module.exports = {
+    isNum,
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//string.js
+
+function isString(value) {
+	return typeof value === 'string' || value instanceof String;
+}
+...
+...
+module.exports = {
+	isString,
+	contains,
+	containsAny,
+	containsAll,
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//index.js
+var utils = {};
+
+utils.string = require('./src/string');
+utils.number = require('./src/number');
+
+module.exports = utils;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;4在packagejson中指定版本号并提交代码到github上&quot;&gt;4.在package.json中指定版本号，并提交代码到github上&lt;/h5&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;cat-jsutils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.0.1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;js utils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;main&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;index.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;三发布npm包&quot;&gt;三、发布npm包&lt;/h2&gt;
+
+&lt;p&gt;到项目跟目录下，执行publish命令&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cenghaihandeMacBook-Pro:cat-jsutils catchzeng$ npm publish
++ cat-jsutils@1.0.1
+cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;发布成功后就可以在&lt;a href=&quot;https://www.npmjs.com&quot;&gt;https://www.npmjs.com&lt;/a&gt;上看到自己的项目&lt;/p&gt;
+
+&lt;h2 id=&quot;四更新版本&quot;&gt;四、更新版本&lt;/h2&gt;
+
+&lt;p&gt;更新package.json中的版本号，并提交代码到github上，重新publish npm包即可&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;cat-jsutils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.0.2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;js utils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;main&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;index.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cenghaihandeMacBook-Pro:cat-jsutils catchzeng$ npm publish
++ cat-jsutils@1.0.2
+cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;五变优雅&quot;&gt;五、变优雅&lt;/h2&gt;
+&lt;p&gt;何为优雅，先看下&lt;a href=&quot;https://github.com/expressjs/express&quot;&gt;express&lt;/a&gt;这个仓库比我们自己的仓库优雅在哪里&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-8120f72e0a61b2fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;express&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;1logo&quot;&gt;1.Logo&lt;/h2&gt;
+&lt;p&gt;这么吗，我不是设计师，有美感的朋友自己设计一个吧，这里我随便做一个了。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-b0f66c092e953a2e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;logo&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2npm-version-badge&quot;&gt;2.npm version badge&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-3c47ea1f40e8cba8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;npm&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;增加这个其实只要在README中增加&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[![NPM version](https://img.shields.io/npm/v/仓库名.svg)](https://www.npmjs.com/package/仓库名)
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;以cat-jsutils为例子&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[![NPM version](https://img.shields.io/npm/v/cat-jsutils.svg)](https://www.npmjs.com/package/cat-jsutils)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;3ci状态&quot;&gt;3.CI状态&lt;/h2&gt;
+
+&lt;p&gt;关于持续集成理论部分，可以看之前的文章&lt;a href=&quot;http://catchzeng.com/2017/02/10/持续集成-理论篇/&quot;&gt;持续集成 – 理论篇&lt;/a&gt;。一般开源项目会选用&lt;a href=&quot;https://travis-ci.org/expressjs/express&quot;&gt;travis-ci&lt;/a&gt;。
+&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-63489fca5a178c46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;CI&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用github账号登录travis-ci，然后打开需要持续集成的项目
+&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-897d8acf28fd845b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;travis-ci&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在项目中增加.travis.yml文件，用于配置持续集成的构建步骤。这里以cat-jsutils为例，里面只执行了单元测试&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;language: node_js
+node_js:
+- stable
+script: npm run test
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;：cat-jsutils的测试使用的是mocha+chai+istanbul，详见package.json&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;cat-jsutils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.0.1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;js utils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;main&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;index.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mocha&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;coverage&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;istanbul cover _mocha -- -R spec --timeout 5000 --recursive&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;coverage:check&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;istanbul check-coverage&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;repository&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;git&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;git+https://github.com/CatchZeng/cat-jsutils.git&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;keywords&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;util&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;utils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;javascript&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;node&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;utility&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;utilities&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;author&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;CatchZeng&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;license&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;MIT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;bugs&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://github.com/CatchZeng/cat-jsutils/issues&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;homepage&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://github.com/CatchZeng/cat-jsutils#readme&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;devDependencies&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;chai&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;^4.1.2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;istanbul&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;^0.4.5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;mocha&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;^5.1.0&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;提交.travis.yml后变会触发构建，可以到&lt;a href=&quot;https://travis-ci.org&quot;&gt;travis-ci&lt;/a&gt;查看构建过程。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-897d8acf28fd845b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;travis-ci&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-085417e661c59bf3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;屏幕快照 2018-04-17 下午8.12.34.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;点击构建成功的图标就会弹出地址
+&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-1354adebff4f109e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;屏幕快照 2018-04-17 下午8.15.35.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;将该地址放到README上即可。以cat-jsutils为例子&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[![travis ci](https://api.travis-ci.org/CatchZeng/cat-jsutils.svg?branch=master)](https://travis-ci.org/CatchZeng/cat-jsutils)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;4测试覆盖率&quot;&gt;4.测试覆盖率&lt;/h2&gt;
+
+&lt;p&gt;显示测试覆盖率，我们需要借助&lt;a href=&quot;https://coveralls.io&quot;&gt;coveralls&lt;/a&gt;。
+同样的使用github账户登录coveralls，然后开启对应的项目
+&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-31e1ae29fd50d358.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;coveralls&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;点击details，查看repo_token并复制，后面会使用到。
+&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-7afdde72068ba510.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;屏幕快照 2018-04-17 下午8.23.38.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;安装coveralls&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm i coveralls -D
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;安装travis&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem install travis
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;执行encrypt，COVERALLS_TOKEN就是刚才复制的repo_token&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;travis encrypt COVERALLS_TOKEN=JGOXXXXXXXXXXXXXqKVJ --add
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;执行之后会发现.travis.yml下多出env，这个环境变量能帮助我们将测试覆盖率安全上传到coveralls&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;env:
+  global:
+  - secure: nHaHZZDNmW3Fx3YPvBEc2E0a0kjsVhKUssi4GpWYcFDiJe6ufHAVjukHnV4RQOlSgRgp1q+5v9KJFeQbkcR9vSNQhtkjzHW//AbNGIOCZFyvmb3j/FH1hFxGqK129IC9tDHn1JeRSr5qSKK+TFTwINWQHCGAdA32PY+swuNT30UGrhBHtw3UaN8Hgu9xRH8g8UpqAMcGyX0rCnYCzPD2gYBEOo3zqEQvNvttu2YeSxvBXpU8doJuZLu7yvrRhvD3DGg3r/BWX7UDZtX16gZCdw3N9EnMWqgdaos7blE3eSKeHj89OHhiXeRSqHN7RKyUAp9dDmW1M63onsNvEpoho4ULCVTiVvX+Y25c+gZML3boeBlm3KOdwYKOCKhQLj/DIY5ojQd33jFBdBoouWW5ZG2cpfg8iq/Jyg2OoJFvJRjG04/T85a+l89wMnZKMDDl8zRgsnDhZho69EQmTz9WeBCvL2Bg87+n2Mg909InEw1D1PskGPkyD02zR7newOU+gJM2zK3pUYxt6O4EHUukoYL9XS14ogYIsrYFWqls0BHnTQXWKf+DQckL+H4+nZxdEPF6fEaebI8jgH9pgQiCHqMAKaQNsLApZRQ58DXLv78nZ/Sd/e/WmEgPfXZcrhTiLC8/yistVy3N5EKYHCjg6sB5RMO4BRNAsq0rnR3v1rA=
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;加入cover脚本&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;cover&quot;: &quot;istanbul cover --report lcov node_modules/mocha/bin/_mocha -- -R spec test/*.js&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;看下最后的.travis.yml文件和 package.json&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;language: node_js
+node_js:
+- stable
+script: npm run test
+after_script: npm run cover &amp;amp;&amp;amp; cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js
+env:
+  global:
+  - secure: nHaHZZDNmW3Fx3YPvBEc2E0a0kjsVhKUssi4GpWYcFDiJe6ufHAVjukHnV4RQOlSgRgp1q+5v9KJFeQbkcR9vSNQhtkjzHW//AbNGIOCZFyvmb3j/FH1hFxGqK129IC9tDHn1JeRSr5qSKK+TFTwINWQHCGAdA32PY+swuNT30UGrhBHtw3UaN8Hgu9xRH8g8UpqAMcGyX0rCnYCzPD2gYBEOo3zqEQvNvttu2YeSxvBXpU8doJuZLu7yvrRhvD3DGg3r/BWX7UDZtX16gZCdw3N9EnMWqgdaos7blE3eSKeHj89OHhiXeRSqHN7RKyUAp9dDmW1M63onsNvEpoho4ULCVTiVvX+Y25c+gZML3boeBlm3KOdwYKOCKhQLj/DIY5ojQd33jFBdBoouWW5ZG2cpfg8iq/Jyg2OoJFvJRjG04/T85a+l89wMnZKMDDl8zRgsnDhZho69EQmTz9WeBCvL2Bg87+n2Mg909InEw1D1PskGPkyD02zR7newOU+gJM2zK3pUYxt6O4EHUukoYL9XS14ogYIsrYFWqls0BHnTQXWKf+DQckL+H4+nZxdEPF6fEaebI8jgH9pgQiCHqMAKaQNsLApZRQ58DXLv78nZ/Sd/e/WmEgPfXZcrhTiLC8/yistVy3N5EKYHCjg6sB5RMO4BRNAsq0rnR3v1rA=
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;cat-jsutils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.0.1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;js utils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;main&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;index.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mocha&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;coverage&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;istanbul cover _mocha -- -R spec --timeout 5000 --recursive&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;coverage:check&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;istanbul check-coverage&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;cover&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;istanbul cover --report lcov node_modules/mocha/bin/_mocha -- -R spec test/*.js&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;repository&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;git&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;git+https://github.com/CatchZeng/cat-jsutils.git&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;keywords&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;util&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;utils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;javascript&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;node&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;utility&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;utilities&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;author&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;CatchZeng&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;license&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;MIT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;bugs&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://github.com/CatchZeng/cat-jsutils/issues&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;homepage&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://github.com/CatchZeng/cat-jsutils#readme&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;devDependencies&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;chai&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;^4.1.2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;coveralls&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;^3.0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;istanbul&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;^0.4.5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;mocha&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;^5.1.0&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;5小结&quot;&gt;5.小结&lt;/h2&gt;
+&lt;p&gt;至此，我们完成了提交代码-》travis-》mocah单元测试-》istanbul覆盖率-》coveralls-》github显示npm版本、ci、覆盖率状态。&lt;/p&gt;
+
+&lt;h2 id=&quot;6readme&quot;&gt;6.README&lt;/h2&gt;
+&lt;p&gt;完善的README会让开源变得更加优雅。
+加入Installation、Usgae、API等描述能帮助使用者更会上手，详细请参考&lt;a href=&quot;https://github.com/CatchZeng/cat-jsutils/edit/master/README.md&quot;&gt;README.md&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h2 id=&quot;六总结&quot;&gt;六、总结&lt;/h2&gt;
+&lt;p&gt;本文从npm包的制作、发布到优化，讲述了如何较好地开源npm包，当然还有需要不足。欢迎感兴趣的朋友一起讨论、优化。
+最后附上测试项目地址： http://github.com/CatchZeng/cat-jsutils&lt;/p&gt;
+</description>
+        <pubDate>Tue, 17 Apr 2018 16:38:27 +0800</pubDate>
+        <link>http://localhost:4000/2018/04/17/%E6%95%99%E4%BD%A0%E5%BC%80%E6%BA%90%E4%B8%80%E4%B8%AA%E4%BC%98%E9%9B%85%E7%9A%84npm%E5%8C%85/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/04/17/%E6%95%99%E4%BD%A0%E5%BC%80%E6%BA%90%E4%B8%80%E4%B8%AA%E4%BC%98%E9%9B%85%E7%9A%84npm%E5%8C%85/</guid>
+        
+        <category>JS</category>
+        
+        
+      </item>
     
       <item>
         <title>iOS进阶 -- 程序启动那些事</title>
@@ -1511,140 +1895,6 @@ sceneView.session.pause()
         <pubDate>Tue, 14 Mar 2017 17:38:27 +0800</pubDate>
         <link>http://localhost:4000/2017/03/14/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC21%E6%9C%9F/</link>
         <guid isPermaLink="true">http://localhost:4000/2017/03/14/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC21%E6%9C%9F/</guid>
-        
-        <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>iOS聊聊设计模式原则（一） -- 单一职责原则</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;单一职责原则srpsingle-responsibility-principle&quot;&gt;单一职责原则（SRP：Single responsibility principle）&lt;/h1&gt;
-
-&lt;h2 id=&quot;定义&quot;&gt;定义&lt;/h2&gt;
-&lt;p&gt;一个类应该只有一个发生变化的原因，即一个类只负责一项职责。
-如果一个类有多个职责，这些职责就耦合在了一起。当一个职责发生变化时，可能会影响其它的职责。另外，多个职责耦合在一起会影响复用性。
-此原则的核心是解耦和增强内聚性。&lt;/p&gt;
-
-&lt;h2 id=&quot;由来&quot;&gt;由来&lt;/h2&gt;
-&lt;p&gt;类A负责两个职责：职责P1，职责P2。当由于职责P1需求发生改变而需要修改类A时，有可能会导致原本运行正常的职责P2功能发生故障。&lt;/p&gt;
-
-&lt;h2 id=&quot;解决方案&quot;&gt;解决方案&lt;/h2&gt;
-&lt;p&gt;遵循SRP。分别建立两个类A1、A2，使A1完成职责P1，A2完成职责P2。这样，当修改类A1时，不会影响到职责A2；同理，当修改A2时，也不会影响到职责P1。&lt;/p&gt;
-
-&lt;h2 id=&quot;优点&quot;&gt;优点&lt;/h2&gt;
-&lt;p&gt;降低类的复杂度，一个类只负责一项职责，其逻辑肯定要比负责多项职责简单的多。
-提高类的可读性，提高系统的可维护性。
-变更引起的风险降低，变更是必然的，如果SRP遵守的好，当修改一个功能时，可以显著降低对其他功能的影响。&lt;/p&gt;
-
-&lt;h2 id=&quot;eg&quot;&gt;e.g.&lt;/h2&gt;
-&lt;p&gt;iOS开发中，SRP最好的反例的应该就是 &lt;a href=&quot;http://khanlou.com/2015/12/massive-view-controller/?hmsr=toutiao.io&amp;amp;utm_medium=toutiao.io&amp;amp;utm_source=toutiao.io&quot;&gt;Massive View Controller&lt;/a&gt;。比如随便写一个简单的应用程序，一般都会生成一个ViewController类，于是我们将各种各样的代码，算法、网络请求、数据库访问等等都放在这个类里面，这就意味着，无论任何需求变化，都要来修改ViewController这个类，这其实是很糟糕的，维护麻烦、复用不可能、缺乏灵活性等。关于这点网上也有很多解决方法：&lt;a href=&quot;https://toutiao.io/posts/xxr604/preview&quot;&gt;8 种模式帮你告别 Massive View Controller&lt;/a&gt;，但无论什么方法，都是在提倡优化职责划分，也就是SRP的思想。&lt;/p&gt;
-
-&lt;p&gt;曾几何时我们很自然地将Model传给Cell，然后让Cell解析Model去渲染视图，并且感觉没有什么不妥，美其曰“Cell的封装”。代码如下：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;TestCell *cell = [tableView dequeueReusableCellWithIdentifier:@&quot;TestCell&quot;];
-if (!cell) {
-        cell = (TestCell *)[[[NSBundle mainBundle] loadNibNamed:@&quot;TestCell&quot; owner:self options:nil] lastObject];
-}
-TestModel *model = self.dataList[indexPath.row];
-[cell configWithModel:model];
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;殊不知这已经违背了SRP，Cell的职责是描述与渲染自身,解析Model这个职责不属于Cell，并且在Cell中引入Model会增加不必要的依赖，Cell需要根据Model的改变而做出相应的修改，不利于Cell的复用。做过Android开发的同学知道，其实如何让Model的数据呈现在Cell上是&lt;a href=&quot;http://blog.csdn.net/fznpcy/article/details/8658155/&quot;&gt;Adapter&lt;/a&gt;需要做的事情。&lt;/p&gt;
-
-&lt;h2 id=&quot;一些看法&quot;&gt;一些看法&lt;/h2&gt;
-&lt;p&gt;用一个场景来描绘下。
-用一个类描述程序员写代码&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;@implementation&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Programmer&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;program&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;%@写OC代码&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;@end&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//Client
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Programmer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;programmer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Programmer&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;programmer&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;program&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;iOS工程师&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//Result
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iOS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;工程师写&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;OC&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;代码”&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;殊不知，iOS只是代码界的一部分&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[programmer program:@&quot;前端工程师&quot;];
-
-//Result
-“前端工程师写OC代码”
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;发现不对劲了，这个时候想到了SRP，要不这样改改&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;@implementation&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IOSProgrammer&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;program&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;%@写OC代码&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;@end&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;@implementation&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;WebProgrammer&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;program&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;%@写JS代码&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;@end&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//Client
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IOSProgrammer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;iOSprogrammer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IOSProgrammer&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iOSprogrammer&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;program&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;iOS工程师&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;WebProgrammer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;webProgrammer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;WebProgrammer&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;webProgrammer&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;program&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;前端工程师&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//Result
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iOS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;工程师写&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;OC&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;代码”&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;“前端工程师写&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;JS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;代码”&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;我们会发现如果这样修改花销是很大的，除了将原来的类分解之外，还需要修改客户端。而直接修改类Programmer来达成目的虽然违背了SRP但花销却小的多，代码如下：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;@implementation&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Programmer&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;program&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;isEqualToString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;iOS工程师&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]){&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;%@写OC代码&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;isEqualToString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;前端工程师&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]){&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;%@写JS代码&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;@end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;可以看到，这种修改方式要简单的多。但是却存在着隐患：有一天需要后台程序员写PHP，则又需要修改Programmer类的program方法，而对原有代码的修改会对调用iOS工程师、前端工程师带来风险。这种修改方式直接在&lt;strong&gt;&lt;em&gt;代码级别上&lt;/em&gt;&lt;/strong&gt;违背了SRP，虽然修改起来最简单，但隐患却是最大。
-那么还有别的方式吗？答案是肯定的，代码如下：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;@implementation&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Programmer&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;program&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;%@写OC代码&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;program2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;%@写JS代码&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;@end&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//Client
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Programmer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;programmer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Programmer&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;programmer&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;program&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;iOS工程师&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;Programmer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;programmer2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Programmer&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;programmer2&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;program2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;前端工程师&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//Result
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iOS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;工程师写&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;OC&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;代码”&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;“前端工程师写&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;JS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;代码”&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;这种在类中新加一个方法的修改方式，虽然也违背了SRP，但在方法级别上却是符合SRP的，因为它并没有动原来方法的代码。
-这三种方式各有优缺点，在开发中，需要根据实际情况来确定。需要注意的是：只有逻辑足够简单，才可以在&lt;strong&gt;&lt;em&gt;代码级别上&lt;/em&gt;&lt;/strong&gt;违反SRP；只有类中方法数量足够少，才可以在&lt;strong&gt;&lt;em&gt;方法级别上&lt;/em&gt;&lt;/strong&gt;违反SRP；&lt;/p&gt;
-
-&lt;p&gt;很多人对SRP不屑一顾，因为它太简单了。但即便是经验丰富的程序员写出的程序，也会有违背这一原则的代码存在。其原因是因为有职责扩散。所谓职责扩散，就是因为某种原因，职责P被分化为粒度更细的职责P1和P2。需要注意的是：在职责扩散到我们无法控制的程度之前，要立刻对代码进行重构。&lt;/p&gt;
-</description>
-        <pubDate>Sun, 19 Feb 2017 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2017/02/19/iOS%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%80-%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/02/19/iOS%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%80-%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99/</guid>
         
         <category>iOS</category>
         
