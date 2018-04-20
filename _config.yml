@@ -85,5 +85,9 @@ friends: [
     {
         title: "CatchZeng Blog",
         href: "http://catchzeng.com"
+    },
+    {
+        title: "callblueday's blog 关注硬件的软件工程师",
+        href: "http://callblueday.com"
     }
 ]
