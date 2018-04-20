@@ -5,12 +5,12 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 18 Apr 2018 13:58:12 +0800</pubDate>
-    <lastBuildDate>Wed, 18 Apr 2018 13:58:12 +0800</lastBuildDate>
+    <pubDate>Fri, 20 Apr 2018 10:27:22 +0800</pubDate>
+    <lastBuildDate>Fri, 20 Apr 2018 10:27:22 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
     
       <item>
-        <title>教你开源一个优雅的npm包</title>
+        <title>开源一个npm包</title>
         <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;一注册npm账号&quot;&gt;一、注册npm账号&lt;/h2&gt;
@@ -385,8 +385,8 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
 最后附上测试项目地址： &lt;a href=&quot;http://github.com/CatchZeng/cat-jsutils&quot;&gt;http://github.com/CatchZeng/cat-jsutils&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 17 Apr 2018 16:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2018/04/17/%E6%95%99%E4%BD%A0%E5%BC%80%E6%BA%90%E4%B8%80%E4%B8%AA%E4%BC%98%E9%9B%85%E7%9A%84npm%E5%8C%85/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/04/17/%E6%95%99%E4%BD%A0%E5%BC%80%E6%BA%90%E4%B8%80%E4%B8%AA%E4%BC%98%E9%9B%85%E7%9A%84npm%E5%8C%85/</guid>
+        <link>http://localhost:4000/2018/04/17/%E5%BC%80%E6%BA%90%E4%B8%80%E4%B8%AAnpm%E5%8C%85/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/04/17/%E5%BC%80%E6%BA%90%E4%B8%80%E4%B8%AAnpm%E5%8C%85/</guid>
         
         <category>JS</category>
         
