@@ -5,9 +5,170 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 20 Apr 2018 10:43:29 +0800</pubDate>
-    <lastBuildDate>Fri, 20 Apr 2018 10:43:29 +0800</lastBuildDate>
+    <pubDate>Wed, 23 May 2018 19:22:08 +0800</pubDate>
+    <lastBuildDate>Wed, 23 May 2018 19:22:08 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>团队需要一个私有npm</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;一前言&quot;&gt;一、前言&lt;/h2&gt;
+
+&lt;p&gt;随着Team人员越来越多，项目间的代码复用显得越来越重要。比如：常用的框架/库、工具方法等。另外团队内部的代码模块化，也需要有一个机制来管理。目前npm是前端代码的包管理(类似iOS 的cocoapods、android的gradle)首选。于是，我尝试使用私有npm搭建一套前端仓库，用以在公司内部托管公共代码以及将代码模块化。&lt;/p&gt;
+
+&lt;h2 id=&quot;二选型&quot;&gt;二、选型&lt;/h2&gt;
+
+&lt;h3 id=&quot;npm私有git仓库&quot;&gt;npm+私有git仓库&lt;/h3&gt;
+
+&lt;h5 id=&quot;制作使用&quot;&gt;制作&amp;amp;使用&lt;/h5&gt;
+
+&lt;p&gt;1.新建私有git仓库（如：https://gitlab.com/mygroup/myproject.git)，用group建立项目较方便代码的管理，也能作为npm的scope。&lt;/p&gt;
+
+&lt;p&gt;2.clone仓库&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://gitlab.com/mygroup/myproject.git
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;3.npm  init&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm init --scope=mygroup
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;4.push到仓库即可&lt;/p&gt;
+
+&lt;p&gt;5.安装&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;@mygroup/myproject&quot;: &quot;https://gitlab.com/mygroup/myproject.git&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;6.使用&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var myproject = require('@mygroup/myproject');
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;优缺点&quot;&gt;优缺点&lt;/h5&gt;
+
+&lt;p&gt;缺点：不能使用npm直接update&lt;/p&gt;
+
+&lt;p&gt;优点：简单直接&lt;/p&gt;
+
+&lt;h3 id=&quot;npmjs官方托管&quot;&gt;npmjs官方托管&lt;/h3&gt;
+
+&lt;h5 id=&quot;制作使用-1&quot;&gt;制作&amp;amp;使用&lt;/h5&gt;
+
+&lt;p&gt;参考官方教程&lt;a href=&quot;https://docs.npmjs.com/private-modules/intro&quot;&gt;https://docs.npmjs.com/private-modules/intro&lt;/a&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;优缺点-1&quot;&gt;优缺点&lt;/h5&gt;
+
+&lt;p&gt;缺点：需要支付每个月7刀； 不能使用npm直接update;&lt;/p&gt;
+
+&lt;p&gt;优点：简单直接；开源&amp;amp;闭源项目同一托管&lt;/p&gt;
+
+&lt;h3 id=&quot;使用verdaccio自己托管&quot;&gt;使用verdaccio自己托管&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-95672e464e73e902.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;verdaccio&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;制作使用-2&quot;&gt;制作&amp;amp;使用&lt;/h5&gt;
+
+&lt;p&gt;1.安装&lt;a href=&quot;https://www.verdaccio.org&quot;&gt;verdaccio&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm install --global verdaccio 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;2.启动服务&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;verdaccio
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;3.团队人员都绑定registry&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm set registry http://verdaccio托管的ip地址:4873
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;4.增加用户&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm adduser --registry http://verdaccio托管的ip地址:4873
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;5.发布私有库&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm publish --registry http://verdaccio托管的ip地址:4873
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;6.安装私有库&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm i 私有库名称
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;7.使用私有库&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var 私有库名称 = require('私有库名称');
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;优缺点-2&quot;&gt;优缺点&lt;/h5&gt;
+
+&lt;p&gt;优点：免费；本地速度快&amp;amp;带公有库缓存；支持yarn&lt;/p&gt;
+
+&lt;p&gt;缺点：需要自己托管维护&lt;/p&gt;
+
+&lt;h5 id=&quot;注为了切换源方便可以使用nrm&quot;&gt;注：为了切换源方便，可以使用nrm&lt;/h5&gt;
+
+&lt;p&gt;安装&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm install -g nrm
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;增加私有源&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nrm add 私有源名称 http://verdaccio托管的ip地址:4873
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;列出所有源（*表示现在正在使用的源）&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ nrm ls
+
+* npm ---- https://registry.npmjs.org/
+  cnpm --- http://r.cnpmjs.org/
+  eu ----- http://registry.npmjs.eu/
+  au ----- http://registry.npmjs.org.au/
+  sl ----- http://npm.strongloop.com/
+  nj ----- https://registry.nodejitsu.com/
+私有源名称  http://verdaccio托管的ip地址:4873
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;切换源&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ nrm use 自定义私有库名称
+   Registry has been set to: http://verdaccio托管的ip地址:4873
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;三总结&quot;&gt;三、总结&lt;/h2&gt;
+
+&lt;p&gt;基于上面选型中的分析，我最终选择了verdaccio。私有npm的作用，不单单是作为包管理器，更是项目模块化的一种“约束”。这样一来，你就不会往一个模块随意加入本该属于另外一个模块的代码，也就是会逼迫你去做解耦。另外有了私有npm，每个模块更“独立化”，能“专心”为其加入单元测试&amp;amp;持续集成等实践，使每个模块的质量能得到较好的保障，提高整体软件的质量。&lt;/p&gt;
+</description>
+        <pubDate>Tue, 22 May 2018 16:38:27 +0800</pubDate>
+        <link>http://localhost:4000/2018/05/22/%E5%9B%A2%E9%98%9F%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E7%A7%81%E6%9C%89npm/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/05/22/%E5%9B%A2%E9%98%9F%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E7%A7%81%E6%9C%89npm/</guid>
+        
+        <category>JS</category>
+        
+        
+      </item>
     
       <item>
         <title>开源一个npm包</title>
@@ -1840,61 +2001,6 @@ sceneView.session.pause()
         <pubDate>Thu, 04 May 2017 17:38:27 +0800</pubDate>
         <link>http://localhost:4000/2017/05/04/iOS%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%BA%8C-%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99/</link>
         <guid isPermaLink="true">http://localhost:4000/2017/05/04/iOS%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%BA%8C-%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99/</guid>
-        
-        <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>iOS开发见闻-第21期</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;欢迎加QQ群讨论：157672725&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;文章&quot;&gt;文章&lt;/h2&gt;
-
-&lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/69ce01e15042?from=jiantop.com&quot;&gt;iOS无埋点数据SDK实践之路&lt;/a&gt; : 本篇文章是基于 网易乐得无埋点数据SDK 总结而成。SDK 已经具备不需要代码埋点就能自动的、动态可配的、全面且正确 的收集用户在使用 App 时的所有事件数据。
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1446357-c10801dd65c3526d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;iOS无埋点数据SDK实践之路&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;http://www.cocoachina.com/ios/20161220/18400.html&quot;&gt;滴滴 iOS 动态化方案 DynamicCocoa 的诞生与起航&lt;/a&gt; : 滴滴出行客户端App架构团队在对ReactNative、Weex进行调研尝试后发现并不适用于滴滴现有业务，由此自研了iOS动态化方案——DynamicCocoa，在这篇文章中，作者详细分享了它的背景以及具体功能实现。&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;https://casatwy.com/communication_patterns.html&quot;&gt;对象间交互模式&lt;/a&gt; ：来之casa大神的好文章，不解释，看吧。&lt;/p&gt;
-
-&lt;p&gt;4.&lt;a href=&quot;http://blog.cnbang.net/tech/3386/&quot;&gt;iOS App 签名的原理&lt;/a&gt; : iOS 签名机制挺复杂，各种证书，Provisioning Profile，entitlements，CertificateSigningRequest，p12，AppID，概念一堆，也很容易出错，本文尝试从原理出发，一步步推出为什么会有这么多概念。&lt;/p&gt;
-
-&lt;h2 id=&quot;工具&quot;&gt;工具&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;http://www.mikecrm.com/?ref=form&quot;&gt;麦客CRM&lt;/a&gt;：一款在线表单制作工具，同时也是强大的客户信息处理和关系管理系统。它可以帮助你轻松完成信息收集与整理，实现客户挖掘与消息推送，并开展持续营销。
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-927fd66ec150eba6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;麦客CRM&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;http://www.bazhuayu.com&quot;&gt;八爪鱼采集器&lt;/a&gt; : 喜欢采集网页数据的朋友可以试试。
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-9ed85c888eb984d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;八爪鱼采集器&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;https://paw.cloud&quot;&gt;paw&lt;/a&gt; : Mac上先进的API工具。
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-1209f8c0c9019ed6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;paw&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;4.&lt;a href=&quot;https://mixpanel.com&quot;&gt;mixpanel&lt;/a&gt;:  mixpanel推出实时视觉化用户数据监测功能Streams帮助网站主监测用户在该网站的活动。
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-436c26a02a3ce863.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;mixpanel&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;5.&lt;a href=&quot;https://simpholders.com/&quot;&gt;simpholders&lt;/a&gt;：SimPholders 是一款Mac上实用的iPhone模拟器辅助开发工具，SimPholders可以帮助开发者快速访问iPhone模拟器应用，能够在菜单栏上快速的访问iPhone Simulator中的应用的文件夹，从而帮助我们进行应用或游戏的开发，还可以直接在模拟器中运行应用、删除缓存、删除应用等，能够节省开发者的很多时间!
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-ba831bccf281e41d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;simpholders&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;开源&quot;&gt;开源&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;https://github.com/audiokit/AudioKit&quot;&gt;AudioKit&lt;/a&gt; : 一个高级音频框架，由声学设计师、程序员和音乐家为 iOS 专门打造。在底层，AudioKit 混合了 Swift、O-C、C++ 和 C，负责和苹果的声频部件 API 打交道。所有神奇的（同时十分复杂的）技术都封装成为极其友好的 Swift API，你甚至可以直接在 Xcode 的 Playground 中使用它。
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-7d00f9cee4a88116.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;AudioKit&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/alibaba/BeeHive/blob/master/README-CN.md&quot;&gt;BeeHive&lt;/a&gt; : 用于iOS的App模块化编程的框架实现方案，吸收了Spring框架Service的理念来实现模块间的API耦合。
-&lt;img src=&quot;https://camo.githubusercontent.com/686d58ea786e73b5a7562267e25720c922605db6/687474703a2f2f67746d7330322e616c6963646e2e636f6d2f7470732f69322f54423164687946494658585858617661585858376a6a62534658582d3531352d3233332e6a70675f343030783430302e6a7067&quot; alt=&quot;BeeHive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;https://github.com/philackm/Scrollable-GraphView&quot;&gt;Scrollable-GraphView&lt;/a&gt; : 一款可滚动的图标，效果相当不错。
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-5cda4da48330e7de.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Scrollable-GraphView&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;4.&lt;a href=&quot;https://github.com/SwiftyBeaver/SwiftyBeaver&quot;&gt;SwiftyBeaver&lt;/a&gt; : Swift版的log框架，另外配有查看工具，点个赞。
-&lt;img src=&quot;https://cloud.githubusercontent.com/assets/564725/19889302/73b1ee84-a034-11e6-8753-2d060502397c.jpg&quot; alt=&quot;SwiftyBeaver&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Tue, 14 Mar 2017 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2017/03/14/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC21%E6%9C%9F/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/03/14/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC21%E6%9C%9F/</guid>
         
         <category>iOS</category>
         

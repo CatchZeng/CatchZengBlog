@@ -10,9 +10,9 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>使用Cordova开发iOS App -- 开发iOS插件 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>团队需要一个私有npm - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/2016/09/21/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E5%BC%80%E5%8F%91iOS%E6%8F%92%E4%BB%B6/">
+    <link rel="canonical" href="http://localhost:4000/2018/05/22/%E5%9B%A2%E9%98%9F%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E7%A7%81%E6%9C%89npm/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css ">
@@ -132,12 +132,12 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/post-bg-ios.jpg" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-js-version.jpg" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
-        background-image: url('/img/post-bg-ios.jpg')
+        background-image: url('/img/post-bg-js-version.jpg')
     }
 </style>
 <header class="intro-header" >
@@ -147,15 +147,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
+                        <a class="tag" href="/tags/#JS" title="JS">JS</a>
                         
                     </div>
-                    <h1>使用Cordova开发iOS App -- 开发iOS插件</h1>
+                    <h1>团队需要一个私有npm</h1>
                     
                     
-                    <h2 class="subheading">iOS开发</h2>
+                    <h2 class="subheading">JS</h2>
                     
-                    <span class="meta">Posted by CatchZeng on September 21, 2016</span>
+                    <span class="meta">Posted by CatchZeng on May 22, 2018</span>
                 </div>
             </div>
         </div>
@@ -175,98 +175,153 @@
 
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
-<p>本篇在<a href="http://catchzeng.com/2016/09/20/使用Cordova开发iOS-App-环境搭建/">上一篇–Cordova的环境搭建</a>基础上以一个例子讲解如何为Cordova开发iOS插件。</p>
+<h2 id="一前言">一、前言</h2>
 
-<h3 id="一创建插件文件">一、创建插件文件</h3>
+<p>随着Team人员越来越多，项目间的代码复用显得越来越重要。比如：常用的框架/库、工具方法等。另外团队内部的代码模块化，也需要有一个机制来管理。目前npm是前端代码的包管理(类似iOS 的cocoapods、android的gradle)首选。于是，我尝试使用私有npm搭建一套前端仓库，用以在公司内部托管公共代码以及将代码模块化。</p>
 
-<p>在Plugins文件夹下创建插件文件夹命名为com.catchzeng.testplugin
-<img src="/img/in-post/post-cordova2/1.png" alt="Plugins" /></p>
+<h2 id="二选型">二、选型</h2>
 
-<p>创建类TestPlugin继承于CDVPlugin
-<img src="/img/in-post/post-cordova2/2.png" alt="Plugins" /></p>
+<h3 id="npm私有git仓库">npm+私有git仓库</h3>
 
-<p>注意：创建类后会报头文件<code class="highlighter-rouge">#import &lt;Cordova/Cordova.h&gt;</code>找不到的问题，替换成<code class="highlighter-rouge"> #import &lt;Cordova/CDVPlugin.h&gt;</code>即可。</p>
+<h5 id="制作使用">制作&amp;使用</h5>
 
-<h3 id="二实现插件代码">二、实现插件代码</h3>
+<p>1.新建私有git仓库（如：https://gitlab.com/mygroup/myproject.git)，用group建立项目较方便代码的管理，也能作为npm的scope。</p>
 
-<p>该插件实现的功能是JS调用原生的代码弹出一个自定义视图控制器（附带参数），并在弹起后回传参数给JS。</p>
+<p>2.clone仓库</p>
 
-<p><img src="/img/in-post/post-cordova2/3.gif" alt="Plugins" /></p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>
-<span class="k">@implementation</span> <span class="nc">TestPlugin</span>
-
-<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">testWithTitle</span><span class="p">:(</span><span class="n">CDVInvokedUrlCommand</span> <span class="o">*</span><span class="p">)</span><span class="nv">command</span><span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">command</span><span class="p">.</span><span class="n">arguments</span><span class="p">.</span><span class="n">count</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">//customize argument
-</span>        <span class="n">NSString</span><span class="o">*</span> <span class="n">title</span> <span class="o">=</span> <span class="n">command</span><span class="p">.</span><span class="n">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-        
-        <span class="n">TestViewController</span><span class="o">*</span> <span class="n">testViewCtrl</span> <span class="o">=</span> <span class="p">[[</span><span class="n">TestViewController</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">init</span><span class="p">];</span>
-        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">viewController</span> <span class="nf">presentViewController</span><span class="p">:</span><span class="n">testViewCtrl</span> <span class="nf">animated</span><span class="p">:</span><span class="nb">YES</span> <span class="n">completion</span><span class="o">:^</span><span class="p">{</span>
-            <span class="n">CDVPluginResult</span><span class="o">*</span> <span class="n">pluginResult</span> <span class="o">=</span> <span class="p">[</span><span class="n">CDVPluginResult</span> <span class="nf">resultWithStatus</span><span class="p">:</span><span class="n">CDVCommandStatus_OK</span> <span class="nf">messageAsString</span><span class="p">:</span><span class="s">@"我是OC回传的参数!"</span><span class="p">];</span>
-            <span class="n">testViewCtrl</span><span class="p">.</span><span class="n">labTitle</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">title</span><span class="p">;</span>
-            <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">commandDelegate</span> <span class="nf">sendPluginResult</span><span class="p">:</span><span class="n">pluginResult</span> <span class="nf">callbackId</span><span class="p">:</span><span class="n">command</span><span class="p">.</span><span class="n">callbackId</span><span class="p">];</span>
-        <span class="p">}];</span>
-    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-        <span class="c1">//callback
-</span>        <span class="n">CDVPluginResult</span><span class="o">*</span> <span class="n">pluginResult</span> <span class="o">=</span> <span class="p">[</span><span class="n">CDVPluginResult</span> <span class="nf">resultWithStatus</span><span class="p">:</span><span class="n">CDVCommandStatus_ERROR</span> <span class="nf">messageAsString</span><span class="p">:</span><span class="s">@"没有参数"</span><span class="p">];</span>
-        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">commandDelegate</span> <span class="nf">sendPluginResult</span><span class="p">:</span><span class="n">pluginResult</span> <span class="nf">callbackId</span><span class="p">:</span><span class="n">command</span><span class="p">.</span><span class="n">callbackId</span><span class="p">];</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">@end</span>
+<div class="highlighter-rouge"><pre class="highlight"><code>git clone https://gitlab.com/mygroup/myproject.git
 </code></pre>
 </div>
-<p>说明：</p>
 
-<p>command.arguments：JS传递过来的参数列表，可自行协定参数的格式</p>
+<p>3.npm  init</p>
 
-<p>CDVPluginResult：插件结果回调类，用于描述结果的状态和回传数据给JS</p>
-
-<p>command.callbackId：对应回调JS时，指定发送的函数id</p>
-
-<h3 id="三测试插件">三、测试插件</h3>
-<p>在config.xml文件中加入以下代码让JS能够调用我们的OC类,需要注意的是需要配置Staging下的config.xml,而不是外部的</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;feature name="ocTestPlugin"&gt;
-  &lt;param name="ios-package" value="TestPlugin" /&gt;
-&lt;/feature&gt;
+<div class="highlighter-rouge"><pre class="highlight"><code>npm init --scope=mygroup
 </code></pre>
 </div>
-<p>修改index.html</p>
+<p>4.push到仓库即可</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="nt">&lt;html&gt;</span>
-    <span class="nt">&lt;head&gt;</span>
-        <span class="nt">&lt;title&gt;</span>testPlugin<span class="nt">&lt;/title&gt;</span>
-        <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"Content-type"</span> <span class="na">content=</span><span class="s">"text/html; charset=utf-8"</span><span class="nt">&gt;</span>
-            <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">charset=</span><span class="s">"utf-8"</span> <span class="na">src=</span><span class="s">"cordova.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-            <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
-                
-            <span class="kd">function</span> <span class="nx">testPlugin</span><span class="p">()</span> <span class="p">{</span>
-                <span class="nx">cordova</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">testSuccess</span><span class="p">,</span><span class="nx">testFailed</span><span class="p">,</span><span class="s2">"ocTestPlugin"</span><span class="p">,</span><span class="s2">"testWithTitle"</span><span class="p">,[</span><span class="s2">"我是JS传的参数！"</span><span class="p">]);</span>
-            <span class="p">}</span>
-            <span class="kd">function</span> <span class="nx">testSuccess</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
-                <span class="nx">alert</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
-            <span class="p">}</span>
-            <span class="kd">function</span> <span class="nx">testFailed</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
-                <span class="nx">alert</span><span class="p">(</span><span class="s1">'failed: '</span> <span class="o">+</span> <span class="nx">msg</span><span class="p">);</span>
-            <span class="p">}</span>
-            <span class="nt">&lt;/script&gt;</span>
-            <span class="nt">&lt;/head&gt;</span>
-    
-    <span class="nt">&lt;body</span> <span class="na">style=</span><span class="s">"padding-top:100px"</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;button</span> <span class="na">style=</span><span class="s">"font-size:17px;"</span> <span class="na">onclick=</span><span class="s">"testPlugin();"</span><span class="nt">&gt;</span>测试iOS插件<span class="nt">&lt;/button&gt;</span>
-        <span class="nt">&lt;br&gt;</span>
-    <span class="nt">&lt;/body&gt;</span>
-<span class="nt">&lt;/html&gt;</span>
+<p>5.安装</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>"@mygroup/myproject": "https://gitlab.com/mygroup/myproject.git"
 </code></pre>
 </div>
-<p>最后附上工程的结构图</p>
 
-<p><img src="/img/in-post/post-cordova2/4.png" alt="Plugins" /></p>
+<p>6.使用</p>
 
-<p>开发iOS插件部分就先讲到这里，<a href="http://www.catchzeng.com/2016/09/22/使用Cordova开发iOS-App-打包插件及JS脚本/">下一篇</a>将讲解如何将本篇的插件打包供前端人员使用。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>var myproject = require('@mygroup/myproject');
+</code></pre>
+</div>
+
+<h5 id="优缺点">优缺点</h5>
+
+<p>缺点：不能使用npm直接update</p>
+
+<p>优点：简单直接</p>
+
+<h3 id="npmjs官方托管">npmjs官方托管</h3>
+
+<h5 id="制作使用-1">制作&amp;使用</h5>
+
+<p>参考官方教程<a href="https://docs.npmjs.com/private-modules/intro">https://docs.npmjs.com/private-modules/intro</a></p>
+
+<h5 id="优缺点-1">优缺点</h5>
+
+<p>缺点：需要支付每个月7刀； 不能使用npm直接update;</p>
+
+<p>优点：简单直接；开源&amp;闭源项目同一托管</p>
+
+<h3 id="使用verdaccio自己托管">使用verdaccio自己托管</h3>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/943491-95672e464e73e902.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="verdaccio" /></p>
+
+<h5 id="制作使用-2">制作&amp;使用</h5>
+
+<p>1.安装<a href="https://www.verdaccio.org">verdaccio</a></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>npm install --global verdaccio 
+</code></pre>
+</div>
+
+<p>2.启动服务</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>verdaccio
+</code></pre>
+</div>
+
+<p>3.团队人员都绑定registry</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>npm set registry http://verdaccio托管的ip地址:4873
+</code></pre>
+</div>
+
+<p>4.增加用户</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>npm adduser --registry http://verdaccio托管的ip地址:4873
+</code></pre>
+</div>
+
+<p>5.发布私有库</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>npm publish --registry http://verdaccio托管的ip地址:4873
+</code></pre>
+</div>
+
+<p>6.安装私有库</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>npm i 私有库名称
+</code></pre>
+</div>
+
+<p>7.使用私有库</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>var 私有库名称 = require('私有库名称');
+</code></pre>
+</div>
+
+<h5 id="优缺点-2">优缺点</h5>
+
+<p>优点：免费；本地速度快&amp;带公有库缓存；支持yarn</p>
+
+<p>缺点：需要自己托管维护</p>
+
+<h5 id="注为了切换源方便可以使用nrm">注：为了切换源方便，可以使用nrm</h5>
+
+<p>安装</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>npm install -g nrm
+</code></pre>
+</div>
+
+<p>增加私有源</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>nrm add 私有源名称 http://verdaccio托管的ip地址:4873
+</code></pre>
+</div>
+
+<p>列出所有源（*表示现在正在使用的源）</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ nrm ls
+
+* npm ---- https://registry.npmjs.org/
+  cnpm --- http://r.cnpmjs.org/
+  eu ----- http://registry.npmjs.eu/
+  au ----- http://registry.npmjs.org.au/
+  sl ----- http://npm.strongloop.com/
+  nj ----- https://registry.nodejitsu.com/
+私有源名称  http://verdaccio托管的ip地址:4873
+</code></pre>
+</div>
+
+<p>切换源</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ nrm use 自定义私有库名称
+   Registry has been set to: http://verdaccio托管的ip地址:4873
+</code></pre>
+</div>
+
+<h2 id="三总结">三、总结</h2>
+
+<p>基于上面选型中的分析，我最终选择了verdaccio。私有npm的作用，不单单是作为包管理器，更是项目模块化的一种“约束”。这样一来，你就不会往一个模块随意加入本该属于另外一个模块的代码，也就是会逼迫你去做解耦。另外有了私有npm，每个模块更“独立化”，能“专心”为其加入单元测试&amp;持续集成等实践，使每个模块的质量能得到较好的保障，提高整体软件的质量。</p>
 
 
                 <hr>
@@ -277,13 +332,9 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2016/09/20/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-toggle="tooltip" data-placement="top" title="使用Cordova开发iOS App -- 环境搭建">&larr; Previous Post</a>
+                        <a href="/2018/04/17/%E5%BC%80%E6%BA%90%E4%B8%80%E4%B8%AAnpm%E5%8C%85/" data-toggle="tooltip" data-placement="top" title="开源一个npm包">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2016/09/22/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E6%89%93%E5%8C%85%E6%8F%92%E4%BB%B6%E5%8F%8AJS%E8%84%9A%E6%9C%AC/" data-toggle="tooltip" data-placement="top" title="使用Cordova开发iOS App -- 打包插件及JS脚本">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
@@ -372,8 +423,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "catchzeng";
-    var disqus_identifier = "/2016/09/21/使用Cordova开发iOS App -- 开发iOS插件";
-    var disqus_url = "http://localhost:4000/2016/09/21/%E4%BD%BF%E7%94%A8Cordova%E5%BC%80%E5%8F%91iOS-App-%E5%BC%80%E5%8F%91iOS%E6%8F%92%E4%BB%B6/";
+    var disqus_identifier = "/2018/05/22/团队需要一个私有npm";
+    var disqus_url = "http://localhost:4000/2018/05/22/%E5%9B%A2%E9%98%9F%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E7%A7%81%E6%9C%89npm/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
