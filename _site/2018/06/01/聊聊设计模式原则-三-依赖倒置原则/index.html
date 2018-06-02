@@ -10,9 +10,9 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>屏幕适配之Size Classes - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>聊聊设计模式原则（三） -- 依赖倒置原则 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/2015/10/26/%E5%B1%8F%E5%B9%95%E9%80%82%E9%85%8D%E4%B9%8BSize-Classes/">
+    <link rel="canonical" href="http://localhost:4000/2018/06/01/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%89-%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E5%8E%9F%E5%88%99/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css ">
@@ -139,15 +139,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
+                        <a class="tag" href="/tags/#设计模式" title="设计模式">设计模式</a>
                         
                     </div>
-                    <h1>屏幕适配之Size Classes</h1>
+                    <h1>聊聊设计模式原则（三） -- 依赖倒置原则</h1>
                     
                     
-                    <h2 class="subheading">frame -> autoreszing -> autolayout -> Size Classes</h2>
+                    <h2 class="subheading">设计模式</h2>
                     
-                    <span class="meta">Posted by CatchZeng on October 26, 2015</span>
+                    <span class="meta">Posted by CatchZeng on June 1, 2018</span>
                 </div>
             </div>
         </div>
@@ -167,94 +167,206 @@
 
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
-<h2 id="前言">前言</h2>
+<h2 id="目录">目录</h2>
 
-<p>在适配ios8的时候，其实autolayout基本都可以满足，所以当时没有使用上Size Classes。这几天为了适配ios9用上了Size Classes。令我最开心的是，很方便地解决了<strong>不同状态下不同布局</strong>的问题（如：横屏和竖屏布局不同、iPad和iPhone布局不同）,下图是我用Size Classes做的一个demo。</p>
+<ul>
+  <li><a href="http://catchzeng.com/2017/02/19/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%80-%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99/">聊聊设计模式原则（一） – 单一职责原则</a></li>
+  <li><a href="http://catchzeng.com/2017/05/04/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%BA%8C-%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99/">聊聊设计模式原则（二） – 接口隔离原则</a></li>
+  <li><a href="http://catchzeng.com/2018/06/01/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%89-%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E5%8E%9F%E5%88%99/">聊聊设计模式原则（三） – 依赖倒置原则</a></li>
+</ul>
 
-<p><img src="http://img.blog.csdn.net/20150924135208588" alt="效果图" /></p>
+<h1 id="依赖倒置原则dip-dependence-inversion-principle">依赖倒置原则（DIP ：Dependence Inversion Principle）</h1>
 
-<h2 id="size-classes的概念">Size Classes的概念</h2>
-<p><strong>布局的进化史</strong>
-代码frame -&gt; autoreszing(父子控件的关系ios6) -&gt; autolayout(任何控件都可以产生关系ios7) -&gt; Size Classes（抽象ios8）。</p>
+<h2 id="定义">定义</h2>
 
-<p>其实sizeclass是对设备的一种抽象。它不再有尺寸、横屏和竖屏的概念，只有（Compact、Any，Regular）的概念，即把设备分为<strong>紧凑型、任意型、宽松型</strong>（如下图）
-<img src="http://img.blog.csdn.net/20150924204829183" alt="storyboard的展示形态" /><img src="http://img.blog.csdn.net/20150924204935390" alt="抽象形态" /></p>
+<ul>
+  <li>高层模块不应该依赖低层模块，二者都应该依赖其抽象；</li>
+  <li>抽象不应该依赖细节；</li>
+  <li>细节应该依赖抽象。</li>
+</ul>
 
-<p>为了方便理解Size Classes，可以把它想象成一个<strong>屏幕选择器</strong>，可以对不同屏幕进行选择。我们需要注意的是<strong>Size Classes仅仅是对屏幕进行了分类, 真正布局还是交给autolayout</strong></p>
+<h5 id="也就是说高层模块低层模块细节都应该依赖抽象">也就是说高层模块，低层模块，细节都应该依赖抽象</h5>
 
-<p>问题：<strong>如何知道适配的设备使用那种型</strong>？
-解决：在storyboard中移动鼠标选中某一个型，可以看到关于该型适应的信息（如下图）
-<img src="http://img.blog.csdn.net/20150924210540664" alt="这里写图片描述" />  该型表示 竖屏的iPhone</p>
+<h2 id="由来">由来</h2>
 
-<p><img src="http://img.blog.csdn.net/20150924210714273" alt="这里写图片描述" /> 该型表示 横屏的iPhone</p>
+<p>类A直接依赖类B，假如要将类B改为类C，则必须通过修改类A的代码来达成。
+类A一般是高层模块，负责复杂的业务逻辑。
+类B和类C是低层模块，负责基本的原子操作。
+修改类A，会给程序带来不必要的风险。</p>
 
-<p><img src="http://img.blog.csdn.net/20150924210835075" alt="这里写图片描述" /> 该型表示 竖屏的iPhone 和 ipad横竖屏</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-10ce9ac0558a6d77.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="由来" /></p>
 
-<h2 id="size-classes的实践">Size Classes的实践</h2>
+<h2 id="解决方案">解决方案</h2>
+<p>将类A修改为依赖接口I，类B和类C各自实现接口I，类A通过接口I间接与类B或者类C发生联系，则会大大降低修改类A的几率。</p>
 
-<p>下面我们就照着gif图上的例子来讲一下如何在项目中使用Size Classes来解决问题。
-1.首先建立一个singleview的工程，打开Main.storyboard，在wAny hAny的型下拖拽两个view和两个label
-<img src="http://img.blog.csdn.net/20150924212158909" alt="这里写图片描述" /></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-9826ba438ef18ed9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="解决方案" /></p>
 
-<p>2.接下来先设置<strong>所有状态下都需要的约束</strong></p>
+<h2 id="优点">优点</h2>
+<p>依赖倒置原则可以减少类间的耦合性，提高系统的稳定，降低并行开发引起的风险，提高代码的可读性和可维护性。</p>
 
-<p>【我们希望蓝色的view在任何情况下都是正方形，设置其Aspect Ratio为1：1】
-<img src="http://img.blog.csdn.net/20150924212511678" alt="这里写图片描述" /></p>
+<h2 id="思考">思考</h2>
 
-<p>【我们希望红色的view在任何情况下大小都是44x44并且与lab名称顶部位置一直，设置其width 44 height 44  Align Top to 名称】
-<img src="http://img.blog.csdn.net/20150924212701257" alt="这里写图片描述" /></p>
+<h4 id="1依赖倒置原则跟面向接口编程是什么关系">1.依赖倒置原则跟面向接口编程是什么关系？</h4>
+<p>依赖倒置原则的核心思想就是面向接口编程</p>
 
-<p>3.其他设置如下
-<img src="http://img.blog.csdn.net/20150924213136063" alt="这里写图片描述" /></p>
+<h4 id="2什么是细节什么是抽象他们有什么区别">2.什么是细节？什么是抽象？他们有什么区别？</h4>
 
-<p><img src="http://img.blog.csdn.net/20150924213228323" alt="这里写图片描述" /></p>
+<p>所谓细节就是较为具体的东西，比如具体的类，就如上面的类B与类C，有具体的实现。</p>
 
-<p>这个时候我们会看到红色的警告，表示我们没有把自动布局的约束设置完全，那下一步我们该做的是在你需要的型下把剩余的约束补充完成。</p>
+<p>所谓抽象就是具有<strong>契约性、共同性、规范性的表达</strong>，比如上面的接口I。它表达了一种契约–你需要实现funcA和funcB才能被当成I来对待。</p>
 
-<p>4.选择型到 wCompact hRegular（选中后wCompact hRegular的背景会变蓝色,表示你已经进入到该型的模式下）
-<img src="http://img.blog.csdn.net/20150924213511441" alt="这里写图片描述" /></p>
+<p><strong>相对于细节的多变性，抽象的东西要稳定的多。</strong>
+以上面的类ABC作为例子，B、C类都属于细节，如果A直接依赖B或者C，那么B或C的改动有可能就会影响到A的稳定性。同样的，A对B或者C的操作也有可能影响到B或C的稳定性。这些互相影响，其实来源于直接的依赖，导致B或C的细节暴露过多。而面对抽象的接口I，A只能操作funA和funcB，从而避免了不必要的暴露和风险。</p>
 
-<p>5.为该型补充剩余的约束</p>
+<p><strong>以抽象为基础搭建起来的架构比以细节为基础搭建起来的架构要稳定的多。</strong>
+稳定性表现在规范性、契约性、易修改性、扩展性、可维护性等。</p>
 
-<p><img src="http://img.blog.csdn.net/20150924213948955" alt="这里写图片描述" /></p>
+<h2 id="来个栗子">来个栗子</h2>
+<p>小明（程序员）接到小李（产品经理）的需求：
+客户端开始的时候打个“开始”的log。
+小明心想简单，一下子完成了代码</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>public class Logger {
+    func log(_ text: String) {
+        print(text)
+    }
+}
 
-<p><img src="http://img.blog.csdn.net/20150924214016180" alt="这里写图片描述" /></p>
+public class Client {
+    public var logger: Logger?
 
-<p><img src="http://img.blog.csdn.net/20150924214036219" alt="这里写图片描述" /></p>
+    func start() {
+        logger?.log("开始")
+    }
+}
 
-<p><img src="http://img.blog.csdn.net/20150924214056416" alt="这里写图片描述" /></p>
+let client = Client()
+let logger = Logger()
+client.logger = logger
 
-<p>此时我们看到红色的警告已经没有，表示我们已经把该型的约束补充完毕
-<img src="http://img.blog.csdn.net/20150924214157176" alt="这里写图片描述" /></p>
+client.start()
+</code></pre>
+</div>
+<p>这个时候，小李突然说，要把log变成存到文件的形式。
+小明想了下，有点不情愿地改了代码（因为要改好几个地方）</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>public class FileLogger { //修改1
+    func log(_ text: String) {
+        writeTofile(text) //修改2
+    }
+    
+    func start() {
+        print("开始")
+    }
+}
 
-<p>6.接下来，我们切换到wAny hCompact型下添加约束
-<img src="http://img.blog.csdn.net/20150924214333696" alt="这里写图片描述" /></p>
+public class Client {
+    public var logger: FileLogger? //修改3
 
-<p>7.添加的约束
-<img src="http://img.blog.csdn.net/20150924214538686" alt="这里写图片描述" /></p>
+    func start() {
+        logger.start()
+        logger?.log("开始")
+    }
+}
 
-<p><img src="http://img.blog.csdn.net/20150924214603332" alt="这里写图片描述" /></p>
+let client = Client()
+let logger = FileLogger() //修改4
+client.logger = logger
 
-<p><img src="http://img.blog.csdn.net/20150924214620984" alt="这里写图片描述" /></p>
+client.start()
+</code></pre>
+</div>
+<p>小李想了想现在是互联网时代，还是直接将log信息传到网络上吧。
+这个时候，小明非常不情愿地说了声“你不早说”，但还是改了代码(又是好几处改动)</p>
 
-<p><img src="http://img.blog.csdn.net/20150924214636822" alt="这里写图片描述" /></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>public class WebLogger { //修改1
+    func log(_ text: String) {
+        writeToWeb(text) //修改2
+    }
+}
 
-<p>直到红点消失！！
-<img src="http://img.blog.csdn.net/20150924214157176" alt="这里写图片描述" /></p>
+public class Client {
+    public var logger: WebLogger? //修改3
 
-<p>好了，兴奋的一刻来了运行一下，旋转一下是不是跟gif上的一样呢！</p>
+    func start() {
+        logger?.log("开始")
+    }
+}
 
-<h2 id="小结一下">小结一下</h2>
+let client = Client()
+let logger = WebLogger() //修改4
+client.logger = logger
 
-<p>1.先在 wAny hAny的型下设置所有状态下都需要的约束（有点像面向对象的基类）,能减少约束的重复设置
-2.选择需要适配的型，进行约束的添加（有点像子类）
-4.Size Classes实际上是<strong>继承的思想在布局中的运用</strong>，让我们能在一个storyboard中设置不同状态下的形态，免去了以前横屏一个xib，竖屏一个xib的麻烦。
-5.Size Classes也为ios9的分屏适配带来便捷【该点会在下一期提及】</p>
+client.start()
+</code></pre>
+</div>
+<p>这时，小明的老大小华看到小明不开心，便过来帮忙，改了下代码</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>protocol Logger {
+    func log(_ text: String)
+}
 
-<p>今天就到这里了，下期见！</p>
+public class WebLogger: Logger {
+    func log(_ text: String) {
+        writeToWeb(text) 
+    }
+}
 
-<p>demo源码：https://github.com/catchZeng/SizeClassDemo</p>
+public class FileLogger: Logger {
+    func log(_ text: String) {
+        writeTofile(text) 
+    }
+}
 
+public class PrintLogger: Logger {
+    func log(_ text: String) {
+        print(text)
+    }
+}
+
+public class Client {
+    public var logger: Logger? 
+
+    func start() {
+        logger?.log("开始")
+    }
+}
+
+let client = Client()
+let logger = WebLogger()
+client.logger = logger
+
+client.start()
+</code></pre>
+</div>
+<p>小华对小明说，现在不用怕了，小李想什么样的log你改一下实现类就行了</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>let logger = WebLogger() // PrintLogger()  FileLogger()
+</code></pre>
+</div>
+
+<p>小华的改动其实就是利用了依赖倒置原则，增强了易修改性、扩展性、可维护性等。
+细心的朋友其实还发现了，在改成FileLogger的时候，Client多余地调用了FileLogger的start方法。这就是依赖细节，暴露细节，引起的问题。而使用抽象的接口就能较好地避免这类问题。</p>
+
+<h2 id="注意点">注意点</h2>
+
+<ul>
+  <li>分清细节与抽象</li>
+</ul>
+
+<p>虽然依赖倒置原则有很大的好处，但也不是所有的类都需要有抽象一个接口去对应，要视情况而定。</p>
+
+<ul>
+  <li>变量的声明类型尽量是抽象类或接口</li>
+</ul>
+
+<p>注意是尽量，而不是全部。</p>
+
+<ul>
+  <li>尽量不要覆写基类的方法</li>
+</ul>
+
+<p>如果基类是一个抽象类，而这个方法已经实现了，子类尽量不要覆写。类间依赖的是抽象，覆写了抽象方法，对依赖的稳定性会有一定的影响。</p>
+
+<ul>
+  <li>继承要遵循里氏替换原则</li>
+</ul>
 
 
                 <hr>
@@ -265,13 +377,9 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2015/10/26/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC3%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第3期">&larr; Previous Post</a>
+                        <a href="/2018/05/22/%E5%9B%A2%E9%98%9F%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E7%A7%81%E6%9C%89npm/" data-toggle="tooltip" data-placement="top" title="团队需要一个私有npm">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2015/10/26/Mac-OS-X-10.11%E5%8D%87%E7%BA%A7%E5%B8%A6%E6%9D%A5%E7%9A%84-cocoapods%E9%97%AE%E9%A2%98/" data-toggle="tooltip" data-placement="top" title="Mac OS X 10.11升级带来的 cocoapods问题">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
@@ -366,8 +474,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "catchzeng";
-    var disqus_identifier = "/2015/10/26/屏幕适配之Size Classes";
-    var disqus_url = "http://localhost:4000/2015/10/26/%E5%B1%8F%E5%B9%95%E9%80%82%E9%85%8D%E4%B9%8BSize-Classes/";
+    var disqus_identifier = "/2018/06/01/聊聊设计模式原则（三） -- 依赖倒置原则";
+    var disqus_url = "http://localhost:4000/2018/06/01/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%89-%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E5%8E%9F%E5%88%99/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
