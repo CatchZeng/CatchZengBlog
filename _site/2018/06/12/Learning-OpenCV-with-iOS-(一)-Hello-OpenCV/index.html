@@ -10,9 +10,9 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>iOS开发见闻-第18期 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>【Learning OpenCV with iOS】(一) Hello OpenCV - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/2016/05/04/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC18%E6%9C%9F/">
+    <link rel="canonical" href="http://localhost:4000/2018/06/12/Learning-OpenCV-with-iOS-(%E4%B8%80)-Hello-OpenCV/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css ">
@@ -139,15 +139,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
+                        <a class="tag" href="/tags/#OpenCV" title="OpenCV">OpenCV</a>
                         
                     </div>
-                    <h1>iOS开发见闻-第18期</h1>
+                    <h1>【Learning OpenCV with iOS】(一) Hello OpenCV</h1>
                     
                     
-                    <h2 class="subheading">iOS开发见闻</h2>
+                    <h2 class="subheading">OpenCV</h2>
                     
-                    <span class="meta">Posted by CatchZeng on May 4, 2016</span>
+                    <span class="meta">Posted by CatchZeng on June 12, 2018</span>
                 </div>
             </div>
         </div>
@@ -167,44 +167,258 @@
 
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
-<p><strong>欢迎加QQ群讨论：157672725</strong></p>
+<h2 id="一概念介绍">一、概念介绍</h2>
+<h4 id="图像处理计算机视觉">图像处理、计算机视觉</h4>
 
-<h2 id="文章">文章</h2>
-<p>1.<a href="http://www.jianshu.com/p/ca51c9d3575b#rd">离屏渲染优化</a> : 前段时间关于圆角的库是一个接着一个，但是真正有哪个做得好的呢？这篇用实际数据说话的文章应该可以停止这段风潮了。</p>
+<p><a href="https://baike.baidu.com/item/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86">图像处理</a>，用计算机对图像进行分析，以达到所需结果的技术。又称影像处理。图像处理一般指<strong>数字图像处理</strong>。数字图像是指用工业相机、摄像机、扫描仪等设备经过拍摄得到的一个大的二维数组，该数组的元素称为<strong>像素</strong>，其值称为<strong>灰度值</strong>。图像处理技术一般包括图像压缩，增强和复原，匹配、描述和识别3个部分。</p>
 
-<p>2.<a href="http://casatwy.com/OOP_nomodel.html">去model化和数据对象</a> ：castaway老师的文章只能叫好！这篇文章主要讨论的问题是：数据传递时，是否要采用数据对象？这里的数据传递并不是说类似RPC的场景，而是在单个工程内部，各对象之间、各组件之间、各层之间的数据传递。</p>
+<p><a href="https://baike.baidu.com/item/计算机视觉">计算机视觉</a>是一门研究如何使<a href="https://baike.baidu.com/item/%E6%9C%BA%E5%99%A8">机器</a>“看”的科学，更进一步的说，就是是指用摄影机和电脑代替人眼对目标进行识别、跟踪和测量等<a href="https://baike.baidu.com/item/%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89">机器视觉</a>，并进一步做图形处理，使电脑处理成为更适合人眼观察或传送给仪器检测的图像。作为一个科学学科，计算机视觉研究相关的理论和技术，试图建立能够从图像或者多维数据中获取‘信息’的<a href="https://baike.baidu.com/item/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD">人工智能</a>系统。因为感知可以看作是从感官信号中提 取信息，所以计算机视觉也可以看作是研究如何使人工系统从图像或多维数据中“感知”的科学。</p>
 
-<p>3.<a href="https://www.tuccuay.com/2016/03/cardboard-ios-sdk-getting-started/">在 iOS 上开始创建你的虚拟现实应用</a> :  虚拟现实现在可以在iOS上可以体验了。谷歌开源了cardboard的iOS版本sdk,感兴趣的朋友可以看看。</p>
+<p>图像处理与计算机视觉区别：
+图像处理侧重于对图像的“处理”（如：增强，还原，去燥，分割等）。
+计算机视觉则重在使用计算机来模拟人的视觉，<strong>模拟</strong>才是计算机视觉的目的。</p>
 
-<p>4.<a href="http://www.jianshu.com/p/10873c5c1e08">手把手教你反编译别人的app </a> ：反编译android的看多了，看看怎么反编译iOS吧。</p>
+<h4 id="opencv">OpenCV</h4>
 
-<h2 id="工具">工具</h2>
-<p>1.<a href="https://appetize.io/demo?device=iphone5s&amp;scale=75&amp;orientation=portrait&amp;osVersion=9.3">appetize.io</a>：为你的 demo 创建在线预览的工具。
-<img src="/img/in-post/post-18/18-1.jpg" alt="appetize.io" /></p>
+<p>OpenCV（Open Source Computer Vision Library）于1999年由<a href="https://baike.baidu.com/item/Intel">Intel</a>建立，如今由Willow Garage提供支持。
+OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉库，可以运行在<a href="https://baike.baidu.com/item/Linux">Linux</a>、<a href="https://baike.baidu.com/item/Windows">Windows</a>和<a href="https://baike.baidu.com/item/Mac%20OS">Mac OS</a>操作系统上。它轻量级而且高效——由一系列 C 函数和少量 C++ 类构成，同时提供了Python、Ruby、MATLAB等语言的接口，实现了图像处理和计算机视觉方面的很多通用算法。OpenCV覆盖了计算机视觉的许多领域，如产品检测、信息安全、立体视觉和机器人、医学成像等。因为计算机视觉和机器学习关系密切，所以OpenCV还提供了MLL（Machine Learning Library）机器学习库。</p>
 
-<p>2.<a href="http://panic.com/transmit/">transmit</a> : 一个Mac OS X 上FTP客户端，有着非常漂亮的用户界面和有用的功能。
-<img src="/img/in-post/post-18/18-2.jpg" alt="transmit" /></p>
+<p>常用链接：</p>
 
-<p>3.<a href="https://itunes.apple.com/us/app/go2shell/id445770608?mt=12&amp;ign-mpt=uo%3D4">Go2Shell</a> : 非常实用的小工具，可在任何文目录中打开终端窗口进行操作。
-<img src="/img/in-post/post-18/18-3.jpg" alt="Go2Shell" /></p>
+<p><a href="https://opencv.org">OpenCV官方主页</a></p>
 
-<h2 id="开源">开源</h2>
-<p>1.<a href="https://github.com/iosWellLin/OCR">OCR</a> : 光学文字识别身份证。
-<img src="/img/in-post/post-18/18-4.jpg" alt="OCR" /></p>
+<p><a href="https://github.com/opencv/opencv">OpenCV github主页</a></p>
 
-<p>2.<a href="https://github.com/Guikunzhi/BeautifyFaceDemo">BeautifyFaceDemo</a> : 使用人脸磨皮算法美化脸部的相机实例。作者对磨皮算法也专门写了<a href="http://m.blog.csdn.net/article/details?id=50496969">一篇博文</a>,值得一看。
-<img src="/img/in-post/post-18/18-5.jpg" alt="BeautifyFaceDemo" /></p>
+<p><a href="https://docs.opencv.org/3.1.0/d3/dc9/tutorial_table_of_content_ios.html">OpenCV iOS tutorials</a></p>
 
-<p>3.<a href="https://github.com/uxyheaven/XYRouter">XYRouter</a> : XYRouter是一个通过URL routing来解决UIViewController跳转依赖的库。</p>
+<h2 id="二环境搭建">二、环境搭建</h2>
 
-<p>4.<a href="https://github.com/iSame7/Panorama">Panorama</a> : 类似 Facebook’s Paper App中的图片倾斜效果。
-<img src="https://camo.githubusercontent.com/264ad4ee96c2c0a607928a3ff6ddb700e612bc9f/687474703a2f2f73332e6a742e696f2f74696c742e676966" alt="Panorama" /></p>
+<p>“工欲善其事必先利其器”，接下来我们先搭建一下开发环境，借此了解下OpenCV的基本架构。</p>
 
-<p>4.<a href="https://github.com/DenHeadless/Shapes">Shapes</a> : 绘制形状视图并为其加入动画的库，研究动画的朋友别错过。
-<img src="https://github.com/DenHeadless/Shapes/raw/master/Images/progress_view.gif" alt="Shapes" />
-<img src="https://github.com/DenHeadless/Shapes/raw/master/Images/dimming_view.gif" alt="Shapes" />
-<img src="https://github.com/DenHeadless/Shapes/raw/master/Images/app_store_download_button.gif" alt="Shapes" />
-<img src="https://github.com/DenHeadless/Shapes/raw/master/Images/voice_memos_record_button.gif" alt="Shapes" /></p>
+<h6 id="1创建项目">1.创建项目</h6>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-d42b8064456f791a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建项目" /></p>
+
+<p>注:这里以Objective-C作为语言是因为OpenCV接口为C++，使用Objective-C较好与其交互。</p>
+
+<h5 id="2加入opencv2framework">2.加入opencv2.framework</h5>
+
+<p>前往https://opencv.org/releases.html下载iOS pack。
+<img src="https://upload-images.jianshu.io/upload_images/943491-101047bd286e5e0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS pack" /></p>
+
+<p>将opencv2.framework加入项目
+<img src="https://upload-images.jianshu.io/upload_images/943491-e0cbecf02e7fe2d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="加入项目" /></p>
+
+<p>将OpenCV所需的依赖库添加到项目中</p>
+
+<ul>
+  <li>CoreGraphics.framework</li>
+  <li>Foundation.framework</li>
+  <li>UIKit.framework</li>
+</ul>
+
+<p>如果要使用摄像头做视频处理，还需要添加以下依赖库：</p>
+
+<ul>
+  <li>CoreVideo.framework</li>
+  <li>CoreMedia.framework</li>
+  <li>AssetsLibrary.framework</li>
+</ul>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-086ef4bf0182bf81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="framework" /></p>
+
+<h5 id="3say-hello">3.Say Hello</h5>
+
+<p>新建OpenCV.h &amp; OpenCV.mm，并添加以下代码</p>
+<ul>
+  <li>注：因为OpenCV是C++写的，所以引入项目中的文件需要使用Object-C++的兼容方式来写，具体的做法就是将需要导入OpenCV头文件的m文件改成mm文件</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">//
+//  OpenCV.h
+//  LearningOpenCV
+//
+//  Created by CatchZeng on 2018/6/12.
+//  Copyright © 2018年 catch. All rights reserved.
+//
+</span>
+<span class="cp">#import &lt;Foundation/Foundation.h&gt;
+#import &lt;UIKit/UIKit.h&gt;
+</span>
+<span class="k">@interface</span> <span class="nc">OpenCV</span> <span class="p">:</span> <span class="nc">NSObject</span>
+
+<span class="k">+</span> <span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">gray</span><span class="p">:(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nv">image</span><span class="p">;</span>
+
+<span class="k">@end</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">//
+//  OpenCV.m
+//  LearningOpenCV
+//
+//  Created by CatchZeng on 2018/6/12.
+//  Copyright © 2018年 catch. All rights reserved.
+//
+</span>
+<span class="c1">//!!!opencv的头文件引入必须在其他头文件之前
+</span><span class="cp">#import &lt;opencv2/opencv.hpp&gt;
+#import &lt;opencv2/imgproc/types_c.h&gt;
+#import &lt;opencv2/imgcodecs/ios.h&gt;
+#import &lt;opencv2/core/core_c.h&gt;
+#import "OpenCV.h"
+</span><span class="n">using</span> <span class="n">namespace</span> <span class="n">cv</span><span class="p">;</span>
+
+<span class="k">@interface</span> <span class="nc">OpenCV</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="k">@end</span>
+
+<span class="k">@implementation</span> <span class="nc">OpenCV</span>
+
+<span class="k">+</span> <span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">gray</span><span class="p">:(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nv">image</span> <span class="p">{</span>
+    <span class="n">Mat</span> <span class="n">mat</span><span class="p">;</span>
+    <span class="n">UIImageToMat</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">mat</span><span class="p">);</span>
+    
+    <span class="n">Mat</span> <span class="n">grayMat</span><span class="p">;</span>
+    <span class="n">cvtColor</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grayMat</span><span class="p">,</span> <span class="n">CV_BGR2GRAY</span><span class="p">);</span>
+    
+    <span class="n">UIImage</span><span class="o">*</span> <span class="n">result</span> <span class="o">=</span> <span class="n">MatToUIImage</span><span class="p">(</span><span class="n">grayMat</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">@end</span>
+</code></pre>
+</div>
+
+<p>新建视图控制器SayHelloViewController</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class SayHelloViewController: UIViewController {
+    
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var grayImageView: UIImageView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        grayImageView.image = OpenCV.gray(#imageLiteral(resourceName: "sayHello"))
+    }
+}
+</code></pre>
+</div>
+
+<p>效果</p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-afb139a09ec5365d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果" /></p>
+
+<p>源码地址: https://github.com/CatchZeng/LearningOpenCV</p>
+
+<h2 id="三opencv基础架构">三、OpenCV基础架构</h2>
+
+<p>OpenCV包含的内容较多，在学习之前先了解下它的整体模块架构，再选择自己感兴趣的部分重点学习，这样学起来比较得心应手。</p>
+
+<p>鉴于此，下面我们一起来看下OpenCV的整体模块架构。</p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-18342122cfdc0d61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="OpenCV" /></p>
+
+<p>从上图可看到OpenCV的所有模块：</p>
+
+<ul>
+  <li>
+    <p>【calib3d】Calibration(校准)和3D这两个词的组合缩写。这个模块主要是相机校准和三维重建相关的内容，包括基本的多视角几何算法、单个立体摄像头标定，物体姿态估计，立体相似性算法，3D信息的重建等。</p>
+  </li>
+  <li>【core】核心功能模块，包含如下内容：
+    <ul>
+      <li>OpenCV基本数据结构</li>
+      <li>动态数据结构</li>
+      <li>绘图函数</li>
+      <li>数组操作相关函数</li>
+      <li>辅助功能与系统函数和宏</li>
+      <li>与OpenGL的互操作</li>
+    </ul>
+  </li>
+  <li>【feature2d】2D功能框架。包含如下内容：
+    <ul>
+      <li>特征检测和描述</li>
+      <li>特征检测器(Fearure Detectors) 通用接口</li>
+      <li>描述符提取器(Description Extractors) 通用接口</li>
+      <li>描述符匹配器(Description Eatchers) 通用接口</li>
+      <li>通用描述符(Generic Description)匹配器通用接口</li>
+      <li>关键点绘制函数和匹配功能绘制函数</li>
+    </ul>
+  </li>
+  <li>【imgproc】Image 和Process 这两个单词的缩写组合，图像处理模块。包含如下内容：
+    <ul>
+      <li>线性和非线性的图像滤波</li>
+      <li>图像的几何变换</li>
+      <li>其他的图像变换</li>
+      <li>直方图相关</li>
+      <li>结构分析和形状描述</li>
+      <li>运动分析和对象跟踪</li>
+      <li>特征检测</li>
+      <li>目标检测等内容</li>
+    </ul>
+  </li>
+  <li>
+    <p>【flann】Fast Library For Approximate Nearest Neighbors，高维的近似近邻快速搜索算法库，包含以下两个部分：</p>
+
+    <ul>
+      <li>快速近似最近邻搜索</li>
+      <li>聚类</li>
+    </ul>
+  </li>
+  <li>
+    <p>【highgui】高层GUI图形用户界面，包含媒体的输入输出、视频捕捉、图像和视频的解码编码、图形交互界面的接口等内容。</p>
+  </li>
+  <li>
+    <p>【ml】Machine Learning，机器学习模块， 基本上是统计模型和分类算法，包含如下内容：</p>
+
+    <ul>
+      <li>统计模型 （Statistical Models）</li>
+      <li>一般贝叶斯分类器 （Normal Bayes Classifier）</li>
+      <li>K-近邻 （K-NearestNeighbors）</li>
+      <li>支持向量机 （Support Vector Machines）</li>
+      <li>决策树 （Decision Trees）</li>
+      <li>提升（Boosting）</li>
+      <li>梯度提高树（Gradient Boosted Trees）</li>
+      <li>随机树 （Random Trees）</li>
+      <li>超随机树 （Extremely randomized trees）</li>
+      <li>期望最大化 （Expectation Maximization）</li>
+      <li>神经网络 （Neural Networks）</li>
+      <li>MLData</li>
+    </ul>
+  </li>
+  <li>
+    <p>【objdetect】目标检测模块，包含Cascade Classification（级联分类）和Latent SVM这两个部分。</p>
+  </li>
+  <li>
+    <p>【photo】Computational Photography，包含图像修复和图像去噪两部分。</p>
+  </li>
+  <li>
+    <p>【stitching】images stitching，图像拼接模块，包含如下部分：</p>
+
+    <ul>
+      <li>拼接流水线</li>
+      <li>特点寻找和匹配图像</li>
+      <li>估计旋转</li>
+      <li>自动校准</li>
+      <li>图片歪斜</li>
+      <li>接缝估测</li>
+      <li>曝光补偿</li>
+      <li>图片混合</li>
+    </ul>
+  </li>
+  <li>
+    <p>【video】视频分析组件，该模块包括运动估计，背景分离，对象跟踪等视频处理相关内容。</p>
+  </li>
+  <li>【Videostab】Video stabilization，视频稳定相关的组件，官方文档中没有多作介绍，不管它了。</li>
+</ul>
+
+<p>看到到这里，相信大家已经对OpenCV的模块架构设计有了一定的认识，OpenCV其实就是这么多模块作为代码容器组合起来的一个SDK，了解这些可以更快的学习OpenCV了！</p>
+
+<h2 id="四小结">四、小结</h2>
+
+<p>本文从概念到环境搭建再到基本架构的角度介绍了OpenCV，让读者有一个宏观的认识。下一节开始，我将以原理+例子的形式一步步介绍OpenCV的各个模块。</p>
 
 
                 <hr>
@@ -215,13 +429,9 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2016/05/03/iOS%E5%BC%80%E6%BA%90Log%E5%B7%A5%E5%85%B7CATLog/" data-toggle="tooltip" data-placement="top" title="iOS开源Log工具CATLog">&larr; Previous Post</a>
+                        <a href="/2018/06/01/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%89-%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E5%8E%9F%E5%88%99/" data-toggle="tooltip" data-placement="top" title="聊聊设计模式原则（三） -- 依赖倒置原则">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2016/05/05/%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84Java-Web%E6%A1%86%E6%9E%B6-%E4%BD%BF%E7%94%A8IntelliJ-IDEA-%E6%90%AD%E5%BB%BAJava-Web-%E9%A1%B9%E7%9B%AE/" data-toggle="tooltip" data-placement="top" title="搭建一个轻量级的Java Web框架--使用IntelliJ IDEA 搭建Java Web 项目">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
@@ -322,8 +532,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "catchzeng";
-    var disqus_identifier = "/2016/05/04/iOS开发见闻-第18期";
-    var disqus_url = "http://localhost:4000/2016/05/04/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC18%E6%9C%9F/";
+    var disqus_identifier = "/2018/06/12/【Learning OpenCV with iOS】(一) Hello OpenCV";
+    var disqus_url = "http://localhost:4000/2018/06/12/Learning-OpenCV-with-iOS-(%E4%B8%80)-Hello-OpenCV/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

@@ -5,9 +5,275 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 02 Jun 2018 16:41:17 +0800</pubDate>
-    <lastBuildDate>Sat, 02 Jun 2018 16:41:17 +0800</lastBuildDate>
+    <pubDate>Wed, 13 Jun 2018 17:21:09 +0800</pubDate>
+    <lastBuildDate>Wed, 13 Jun 2018 17:21:09 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>【Learning OpenCV with iOS】(一) Hello OpenCV</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;一概念介绍&quot;&gt;一、概念介绍&lt;/h2&gt;
+&lt;h4 id=&quot;图像处理计算机视觉&quot;&gt;图像处理、计算机视觉&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://baike.baidu.com/item/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86&quot;&gt;图像处理&lt;/a&gt;，用计算机对图像进行分析，以达到所需结果的技术。又称影像处理。图像处理一般指&lt;strong&gt;数字图像处理&lt;/strong&gt;。数字图像是指用工业相机、摄像机、扫描仪等设备经过拍摄得到的一个大的二维数组，该数组的元素称为&lt;strong&gt;像素&lt;/strong&gt;，其值称为&lt;strong&gt;灰度值&lt;/strong&gt;。图像处理技术一般包括图像压缩，增强和复原，匹配、描述和识别3个部分。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://baike.baidu.com/item/计算机视觉&quot;&gt;计算机视觉&lt;/a&gt;是一门研究如何使&lt;a href=&quot;https://baike.baidu.com/item/%E6%9C%BA%E5%99%A8&quot;&gt;机器&lt;/a&gt;“看”的科学，更进一步的说，就是是指用摄影机和电脑代替人眼对目标进行识别、跟踪和测量等&lt;a href=&quot;https://baike.baidu.com/item/%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89&quot;&gt;机器视觉&lt;/a&gt;，并进一步做图形处理，使电脑处理成为更适合人眼观察或传送给仪器检测的图像。作为一个科学学科，计算机视觉研究相关的理论和技术，试图建立能够从图像或者多维数据中获取‘信息’的&lt;a href=&quot;https://baike.baidu.com/item/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD&quot;&gt;人工智能&lt;/a&gt;系统。因为感知可以看作是从感官信号中提 取信息，所以计算机视觉也可以看作是研究如何使人工系统从图像或多维数据中“感知”的科学。&lt;/p&gt;
+
+&lt;p&gt;图像处理与计算机视觉区别：
+图像处理侧重于对图像的“处理”（如：增强，还原，去燥，分割等）。
+计算机视觉则重在使用计算机来模拟人的视觉，&lt;strong&gt;模拟&lt;/strong&gt;才是计算机视觉的目的。&lt;/p&gt;
+
+&lt;h4 id=&quot;opencv&quot;&gt;OpenCV&lt;/h4&gt;
+
+&lt;p&gt;OpenCV（Open Source Computer Vision Library）于1999年由&lt;a href=&quot;https://baike.baidu.com/item/Intel&quot;&gt;Intel&lt;/a&gt;建立，如今由Willow Garage提供支持。
+OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉库，可以运行在&lt;a href=&quot;https://baike.baidu.com/item/Linux&quot;&gt;Linux&lt;/a&gt;、&lt;a href=&quot;https://baike.baidu.com/item/Windows&quot;&gt;Windows&lt;/a&gt;和&lt;a href=&quot;https://baike.baidu.com/item/Mac%20OS&quot;&gt;Mac OS&lt;/a&gt;操作系统上。它轻量级而且高效——由一系列 C 函数和少量 C++ 类构成，同时提供了Python、Ruby、MATLAB等语言的接口，实现了图像处理和计算机视觉方面的很多通用算法。OpenCV覆盖了计算机视觉的许多领域，如产品检测、信息安全、立体视觉和机器人、医学成像等。因为计算机视觉和机器学习关系密切，所以OpenCV还提供了MLL（Machine Learning Library）机器学习库。&lt;/p&gt;
+
+&lt;p&gt;常用链接：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://opencv.org&quot;&gt;OpenCV官方主页&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/opencv/opencv&quot;&gt;OpenCV github主页&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://docs.opencv.org/3.1.0/d3/dc9/tutorial_table_of_content_ios.html&quot;&gt;OpenCV iOS tutorials&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;二环境搭建&quot;&gt;二、环境搭建&lt;/h2&gt;
+
+&lt;p&gt;“工欲善其事必先利其器”，接下来我们先搭建一下开发环境，借此了解下OpenCV的基本架构。&lt;/p&gt;
+
+&lt;h6 id=&quot;1创建项目&quot;&gt;1.创建项目&lt;/h6&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-d42b8064456f791a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;创建项目&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;注:这里以Objective-C作为语言是因为OpenCV接口为C++，使用Objective-C较好与其交互。&lt;/p&gt;
+
+&lt;h5 id=&quot;2加入opencv2framework&quot;&gt;2.加入opencv2.framework&lt;/h5&gt;
+
+&lt;p&gt;前往https://opencv.org/releases.html下载iOS pack。
+&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-101047bd286e5e0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;iOS pack&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;将opencv2.framework加入项目
+&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-e0cbecf02e7fe2d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;加入项目&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;将OpenCV所需的依赖库添加到项目中&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CoreGraphics.framework&lt;/li&gt;
+  &lt;li&gt;Foundation.framework&lt;/li&gt;
+  &lt;li&gt;UIKit.framework&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如果要使用摄像头做视频处理，还需要添加以下依赖库：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CoreVideo.framework&lt;/li&gt;
+  &lt;li&gt;CoreMedia.framework&lt;/li&gt;
+  &lt;li&gt;AssetsLibrary.framework&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-086ef4bf0182bf81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;framework&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;3say-hello&quot;&gt;3.Say Hello&lt;/h5&gt;
+
+&lt;p&gt;新建OpenCV.h &amp;amp; OpenCV.mm，并添加以下代码&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;注：因为OpenCV是C++写的，所以引入项目中的文件需要使用Object-C++的兼容方式来写，具体的做法就是将需要导入OpenCV头文件的m文件改成mm文件&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//
+//  OpenCV.h
+//  LearningOpenCV
+//
+//  Created by CatchZeng on 2018/6/12.
+//  Copyright © 2018年 catch. All rights reserved.
+//
+&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#import &amp;lt;Foundation/Foundation.h&amp;gt;
+#import &amp;lt;UIKit/UIKit.h&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;@interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OpenCV&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;NSObject&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;@end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//
+//  OpenCV.m
+//  LearningOpenCV
+//
+//  Created by CatchZeng on 2018/6/12.
+//  Copyright © 2018年 catch. All rights reserved.
+//
+&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//!!!opencv的头文件引入必须在其他头文件之前
+&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;#import &amp;lt;opencv2/opencv.hpp&amp;gt;
+#import &amp;lt;opencv2/imgproc/types_c.h&amp;gt;
+#import &amp;lt;opencv2/imgcodecs/ios.h&amp;gt;
+#import &amp;lt;opencv2/core/core_c.h&amp;gt;
+#import &quot;OpenCV.h&quot;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;@interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OpenCV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;@end&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;@implementation&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OpenCV&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;image&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Mat&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;UIImageToMat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;Mat&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;grayMat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cvtColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;grayMat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CV_BGR2GRAY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MatToUIImage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grayMat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;@end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;新建视图控制器SayHelloViewController&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class SayHelloViewController: UIViewController {
+    
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var grayImageView: UIImageView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        grayImageView.image = OpenCV.gray(#imageLiteral(resourceName: &quot;sayHello&quot;))
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;效果&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-afb139a09ec5365d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;效果&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;源码地址: https://github.com/CatchZeng/LearningOpenCV&lt;/p&gt;
+
+&lt;h2 id=&quot;三opencv基础架构&quot;&gt;三、OpenCV基础架构&lt;/h2&gt;
+
+&lt;p&gt;OpenCV包含的内容较多，在学习之前先了解下它的整体模块架构，再选择自己感兴趣的部分重点学习，这样学起来比较得心应手。&lt;/p&gt;
+
+&lt;p&gt;鉴于此，下面我们一起来看下OpenCV的整体模块架构。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-18342122cfdc0d61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;OpenCV&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;从上图可看到OpenCV的所有模块：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;【calib3d】Calibration(校准)和3D这两个词的组合缩写。这个模块主要是相机校准和三维重建相关的内容，包括基本的多视角几何算法、单个立体摄像头标定，物体姿态估计，立体相似性算法，3D信息的重建等。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;【core】核心功能模块，包含如下内容：
+    &lt;ul&gt;
+      &lt;li&gt;OpenCV基本数据结构&lt;/li&gt;
+      &lt;li&gt;动态数据结构&lt;/li&gt;
+      &lt;li&gt;绘图函数&lt;/li&gt;
+      &lt;li&gt;数组操作相关函数&lt;/li&gt;
+      &lt;li&gt;辅助功能与系统函数和宏&lt;/li&gt;
+      &lt;li&gt;与OpenGL的互操作&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;【feature2d】2D功能框架。包含如下内容：
+    &lt;ul&gt;
+      &lt;li&gt;特征检测和描述&lt;/li&gt;
+      &lt;li&gt;特征检测器(Fearure Detectors) 通用接口&lt;/li&gt;
+      &lt;li&gt;描述符提取器(Description Extractors) 通用接口&lt;/li&gt;
+      &lt;li&gt;描述符匹配器(Description Eatchers) 通用接口&lt;/li&gt;
+      &lt;li&gt;通用描述符(Generic Description)匹配器通用接口&lt;/li&gt;
+      &lt;li&gt;关键点绘制函数和匹配功能绘制函数&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;【imgproc】Image 和Process 这两个单词的缩写组合，图像处理模块。包含如下内容：
+    &lt;ul&gt;
+      &lt;li&gt;线性和非线性的图像滤波&lt;/li&gt;
+      &lt;li&gt;图像的几何变换&lt;/li&gt;
+      &lt;li&gt;其他的图像变换&lt;/li&gt;
+      &lt;li&gt;直方图相关&lt;/li&gt;
+      &lt;li&gt;结构分析和形状描述&lt;/li&gt;
+      &lt;li&gt;运动分析和对象跟踪&lt;/li&gt;
+      &lt;li&gt;特征检测&lt;/li&gt;
+      &lt;li&gt;目标检测等内容&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;【flann】Fast Library For Approximate Nearest Neighbors，高维的近似近邻快速搜索算法库，包含以下两个部分：&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;快速近似最近邻搜索&lt;/li&gt;
+      &lt;li&gt;聚类&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;【highgui】高层GUI图形用户界面，包含媒体的输入输出、视频捕捉、图像和视频的解码编码、图形交互界面的接口等内容。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;【ml】Machine Learning，机器学习模块， 基本上是统计模型和分类算法，包含如下内容：&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;统计模型 （Statistical Models）&lt;/li&gt;
+      &lt;li&gt;一般贝叶斯分类器 （Normal Bayes Classifier）&lt;/li&gt;
+      &lt;li&gt;K-近邻 （K-NearestNeighbors）&lt;/li&gt;
+      &lt;li&gt;支持向量机 （Support Vector Machines）&lt;/li&gt;
+      &lt;li&gt;决策树 （Decision Trees）&lt;/li&gt;
+      &lt;li&gt;提升（Boosting）&lt;/li&gt;
+      &lt;li&gt;梯度提高树（Gradient Boosted Trees）&lt;/li&gt;
+      &lt;li&gt;随机树 （Random Trees）&lt;/li&gt;
+      &lt;li&gt;超随机树 （Extremely randomized trees）&lt;/li&gt;
+      &lt;li&gt;期望最大化 （Expectation Maximization）&lt;/li&gt;
+      &lt;li&gt;神经网络 （Neural Networks）&lt;/li&gt;
+      &lt;li&gt;MLData&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;【objdetect】目标检测模块，包含Cascade Classification（级联分类）和Latent SVM这两个部分。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;【photo】Computational Photography，包含图像修复和图像去噪两部分。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;【stitching】images stitching，图像拼接模块，包含如下部分：&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;拼接流水线&lt;/li&gt;
+      &lt;li&gt;特点寻找和匹配图像&lt;/li&gt;
+      &lt;li&gt;估计旋转&lt;/li&gt;
+      &lt;li&gt;自动校准&lt;/li&gt;
+      &lt;li&gt;图片歪斜&lt;/li&gt;
+      &lt;li&gt;接缝估测&lt;/li&gt;
+      &lt;li&gt;曝光补偿&lt;/li&gt;
+      &lt;li&gt;图片混合&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;【video】视频分析组件，该模块包括运动估计，背景分离，对象跟踪等视频处理相关内容。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;【Videostab】Video stabilization，视频稳定相关的组件，官方文档中没有多作介绍，不管它了。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;看到到这里，相信大家已经对OpenCV的模块架构设计有了一定的认识，OpenCV其实就是这么多模块作为代码容器组合起来的一个SDK，了解这些可以更快的学习OpenCV了！&lt;/p&gt;
+
+&lt;h2 id=&quot;四小结&quot;&gt;四、小结&lt;/h2&gt;
+
+&lt;p&gt;本文从概念到环境搭建再到基本架构的角度介绍了OpenCV，让读者有一个宏观的认识。下一节开始，我将以原理+例子的形式一步步介绍OpenCV的各个模块。&lt;/p&gt;
+</description>
+        <pubDate>Tue, 12 Jun 2018 17:38:27 +0800</pubDate>
+        <link>http://localhost:4000/2018/06/12/Learning-OpenCV-with-iOS-(%E4%B8%80)-Hello-OpenCV/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/06/12/Learning-OpenCV-with-iOS-(%E4%B8%80)-Hello-OpenCV/</guid>
+        
+        <category>OpenCV</category>
+        
+        
+      </item>
     
       <item>
         <title>聊聊设计模式原则（三） -- 依赖倒置原则</title>
@@ -1831,117 +2097,6 @@ ARSessionConfiguration是一个父类，为了更好的看到增强现实的效�
         <pubDate>Wed, 14 Jun 2017 17:38:27 +0800</pubDate>
         <link>http://localhost:4000/2017/06/14/ARKit%E6%B5%85%E6%9E%90%E7%AF%87/</link>
         <guid isPermaLink="true">http://localhost:4000/2017/06/14/ARKit%E6%B5%85%E6%9E%90%E7%AF%87/</guid>
-        
-        <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>ARKit体验篇</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;ar简介&quot;&gt;AR简介&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;增强现实&lt;/strong&gt;（Augmented Reality，简称 AR），是一种实时地计算摄影机影像的位置及角度并加上相应&lt;a href=&quot;http://baike.baidu.com/item/%E5%9B%BE%E5%83%8F&quot;&gt;图像&lt;/a&gt;的技术，这种技术的目标是在屏幕上把虚拟世界套在现实世界并进行互动。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-5659bb5ec353b2a4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;AR&quot; /&gt;
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-84e13a4fe5722527.gif?&quot; alt=&quot;AR&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;iOS 11 引入了 ARKit，这是一个全新的框架，允许开发者轻松地为 iPhone 和 iPad 创建无与伦比的增强现实体验。通过将虚拟对象和虚拟信息同用户周围的环境相互融合，ARKit 使得应用跳出屏幕的限制，让它们能够以全新的方式与现实世界进行交互。&lt;/p&gt;
-
-&lt;h2 id=&quot;arkit的优势&quot;&gt;ARKit的优势&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;ARKit 大幅降低了开发者在 iOS 上进行 AR 应用开发的难度&lt;/li&gt;
-  &lt;li&gt;苹果设备的普及率，使得门槛低，无需其他设备便可体验&lt;/li&gt;
-  &lt;li&gt;开发人员可以用苹果的新机器学习框架&lt;a href=&quot;https://developer.apple.com/documentation/coreml&quot;&gt;CoreML&lt;/a&gt;来识别场景中的对象&lt;/li&gt;
-  &lt;li&gt;快速稳定的运动定位&lt;/li&gt;
-  &lt;li&gt;平面和边界的估计、光照估计、尺度估计&lt;/li&gt;
-  &lt;li&gt;对各个开发平台或引擎的支持（如：Unity3d）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;arkit体验&quot;&gt;ARKit体验&lt;/h2&gt;
-&lt;p&gt;废话不多说，先来体验下。当然是有要求的：&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Xcode版本：Xcode9及以上&lt;/li&gt;
-  &lt;li&gt;iOS系统： iOS11及以上&lt;/li&gt;
-  &lt;li&gt;iOS设备：处理器A9及以上（6S机型及以上）&lt;/li&gt;
-  &lt;li&gt;MacOS系统：10.12.4及以上&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;1选择augemnted-reality-app&quot;&gt;1.选择Augemnted Reality App&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-96e6901c86f1dd41.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;1&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;2填写信息&quot;&gt;2.填写信息&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-daa483ec3e1f57d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;2&quot; /&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;细心的朋友可以看到Content Technology
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-4b4a66fe2fc6b47a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Content Technology&quot; /&gt;
-&lt;a href=&quot;https://developer.apple.com/documentation/scenekit&quot;&gt;Scenekit&lt;/a&gt;：ARKit框架提供了两种AR技术，一种是基于3D场景(SceneKit)实现的增强现实
-&lt;a href=&quot;https://developer.apple.com/documentation/spriteKit&quot;&gt;SpriteKit&lt;/a&gt;：基于2D场景(SpriktKit)实现的增强现实
-&lt;a href=&quot;https://developer.apple.com/metal/&quot;&gt;Metal&lt;/a&gt;：Apple图形API
-Demo中使用3D来构建，所以选择Scenekit&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;3run&quot;&gt;3.Run&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-14612a5de2e955e6.gif?&quot; alt=&quot;效果&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;项目分析&quot;&gt;项目分析&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-d8ebceb7a8e3c15d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;项目结构&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//在界面上创建ARSCNView，用于展示AR
-@IBOutlet var sceneView: ARSCNView!
-
-override func viewDidLoad() {
-super.viewDidLoad()
-
-// 设置代理
-sceneView.delegate = self
-
-// 显示一些数据，如fps之类的
-sceneView.showsStatistics = true
-
-// 创建一个SCNScene，用于显示3d模型
-let scene = SCNScene(named: &quot;art.scnassets/ship.scn&quot;)!
-
-// 将加载了3d模型的SCNScene设置成ARSCNView的scene
-sceneView.scene = scene
-}
-
-override func viewWillAppear(_ animated: Bool) {
-super.viewWillAppear(animated)
-
-// 为ARSCNView设置一个会话配置类
-let configuration = ARWorldTrackingSessionConfiguration()
-
-// 开始session
-sceneView.session.run(configuration)
-}
-
-override func viewWillDisappear(_ animated: Bool) {
-super.viewWillDisappear(animated)
-
-// 暂停session
-sceneView.session.pause()
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;通过代码分析可以发现，在ARKit中主要有几个类&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://developer.apple.com/documentation/arkit/arscnview&quot;&gt;ARSCNView&lt;/a&gt;：一种显示AR体验的视图，它通过3D SceneKit内容增强了相机视图&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://developer.apple.com/documentation/arkit/ARWorldTrackingSessionConfiguration&quot;&gt;ARWorldTrackingSessionConfiguration&lt;/a&gt;: 会话配置类，在配置类对象里设置会话如何将真实的设备运动映射到3D场景的坐标系统里，这里默认是使用重力&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://developer.apple.com/documentation/scenekit/scnscene&quot;&gt;SCNScene&lt;/a&gt;: SceneKit 内容的容器. 你可以从3D建模工具生成的文件中加载一个场景，或者用代码创建一个 ，然后把它显示在视图上&lt;/p&gt;
-
-&lt;h2 id=&quot;体验感受&quot;&gt;体验感受&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;ARKit API够简单，效果够好。&lt;/li&gt;
-  &lt;li&gt;硬件、机器学习&lt;a href=&quot;https://developer.apple.com/documentation/coreml&quot;&gt;CoreML&lt;/a&gt;和ARkit带来的是满满的惊喜。相信ARKit在未来的时间将会在照片处理，视频，游戏等领域绽放光彩。&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Tue, 13 Jun 2017 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2017/06/13/ARKit%E4%BD%93%E9%AA%8C%E7%AF%87/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/06/13/ARKit%E4%BD%93%E9%AA%8C%E7%AF%87/</guid>
         
         <category>iOS</category>
         
