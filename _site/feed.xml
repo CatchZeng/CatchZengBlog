@@ -5,9 +5,241 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 13 Jun 2018 17:21:09 +0800</pubDate>
-    <lastBuildDate>Wed, 13 Jun 2018 17:21:09 +0800</lastBuildDate>
+    <pubDate>Fri, 15 Jun 2018 10:35:32 +0800</pubDate>
+    <lastBuildDate>Fri, 15 Jun 2018 10:35:32 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>【Learning OpenCV with iOS】(二) 掩膜操作</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;一前言&quot;&gt;一、前言&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://catchzeng.com/2018/06/12/Learning-OpenCV-with-iOS-(一)-Hello-OpenCV/&quot;&gt;上一篇&lt;/a&gt;我们简单讲解了OpenCV的概念和基础架构。本篇主要向大家介绍下图像处理中一个比较重要的概念 –  掩膜操作。开始前我们先看下利用矩阵掩膜操作来加强图像对比度的效果。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-74296305be0931e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;增强对比度&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;二开胃菜-mat对象&quot;&gt;二、开胃菜-Mat对象&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-1bda24a84044ede2.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Mat&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;我们用眼睛看到的是图像，而计算机却不认识。于是，人们使用数值的形式来记录图像，比如用RGB值记录图像的每个点，以此来表示图像。就如上图，我们看到的是一辆车，而计算机“看到”的是一个包含图像值的矩阵。OpenCV的Mat对象对应的就是矩阵。Mat提供了许多便捷的API来创建、操作矩阵。&lt;/p&gt;
+
+&lt;h4 id=&quot;mat基础操作&quot;&gt;Mat基础操作&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Mat image = Mat(240, 320, CV_8UC3);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;第一个参数是rows，该矩阵的行数；第二个参数是cols，该矩阵的列数；第三个参数是该矩阵元素的类型。这句话表示创建一个大小为240×320的矩阵，里面的元素为8位unsigned型，通道数(channel)有3个。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;image.create(480, 640, CV_8UC3);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;分配（或重新分配）image矩阵，把大小设为480×640，类型设为CV8UC3。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Mat image = Mat(3, 3, CV_32F, Scalar(5));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;定义并初始化一个3×3的32bit浮点数矩阵，每个元素都设为5。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;uchar* ptr = image.ptr(row);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;指针操作，表示拿到image第row行的指针&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;uchar* output = image.ptr(row);
+output[1] = value;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;利用指针修改图像，表示修改image第row行的第2个数据为value。&lt;/p&gt;
+
+&lt;h4 id=&quot;mat常用成员介绍&quot;&gt;Mat常用成员介绍&lt;/h4&gt;
+&lt;p&gt;1、data&lt;/p&gt;
+
+&lt;p&gt;Mat对象中的一个指针，指向存放矩阵数据的内存(uchar* data)&lt;/p&gt;
+
+&lt;p&gt;2、dims&lt;/p&gt;
+
+&lt;p&gt;矩阵的维度，3&lt;em&gt;4的矩阵维度为2维，3&lt;/em&gt;4*5的矩阵维度为3维&lt;/p&gt;
+
+&lt;p&gt;3、channels&lt;/p&gt;
+
+&lt;p&gt;矩阵通道，矩阵中的每一个矩阵元素拥有的值的个数，比如说 3 * 4 矩阵中一共 12 个元素，如果每个元素有三个值，那么就说这个矩阵是 3 通道的，即 channels = 3。常见的是一张彩色图片有红、绿、蓝三个通道。&lt;/p&gt;
+
+&lt;p&gt;4、rows&lt;/p&gt;
+
+&lt;p&gt;矩阵的行数&lt;/p&gt;
+
+&lt;p&gt;5、cols&lt;/p&gt;
+
+&lt;p&gt;矩阵的列数&lt;/p&gt;
+
+&lt;h4 id=&quot;mat与iplimage&quot;&gt;Mat与IplImage&lt;/h4&gt;
+
+&lt;p&gt;OpenCV1使用基于C接口定义的图像存储格式IplImage存储图像。IplImage直接暴露内存，如果忘记释放内存，就会造成内存泄漏。&lt;/p&gt;
+
+&lt;p&gt;从OpenCV2开始，开始使用Mat类存储图像，具有以下优势：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;图像的内存分配和释放由Mat类自动管理&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Mat类由两部分数据组成：矩阵头(包含矩阵尺寸、存储方法、存储地址等)和一个指向存储所有像素值的矩阵(根据所选存储方法的不同，矩阵可以是不同的维数)的指针。Mat在进行赋值和拷贝时，只复制矩阵头，而不复制矩阵，提高效率。如果矩阵属于多个Mat对象，则通过引用计数来判断，当最后一个使用它的对象，则负责释放矩阵。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;可以使用clone和copyTo函数，不仅复制矩阵头还复制矩阵。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;三掩膜操作&quot;&gt;三、掩膜操作&lt;/h2&gt;
+
+&lt;p&gt;数字图像处理中的掩膜的概念是借鉴于PCB制版的过程，在半导体制造中，许多芯片工艺步骤采用光刻技术，用于这些步骤的图形“底片”称为掩膜（也称作“掩模”），其作用是：在硅片上选定的区域中对一个不透明的图形模板遮盖，继而下面的腐蚀或扩散将只影响选定的区域以外的区域。 
+图像掩膜与其类似，用选定的图像、图形或物体，对处理的图像（全部或局部）进行遮挡，来控制图像处理的区域或处理过程。 
+光学图像处理中,掩模可以是胶片、滤光片等。数字图像处理中,掩模为二维矩阵数组,有时也用多值图像。&lt;/p&gt;
+
+&lt;p&gt;是不是概念看得一头雾水，没事的，我第一次看概念的也是一样样的。下面我以例子来辅助大家了解掩膜。&lt;/p&gt;
+
+&lt;h4 id=&quot;抠下铠的头&quot;&gt;抠下铠的头&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-b7718fa0c6ef972f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;铠&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;接下来我们以代码角度分析下究竟什么是掩膜。&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    // image为铠的图片
+    Mat src;
+    UIImageToMat(image, src);
+    
+    Mat mask = Mat::zeros(src.size(), CV_8UC1);
+    Rect2i r = Rect2i(120, 80, 100, 100);
+    mask(r).setTo(255);
+    
+    Mat dst;
+    src.copyTo(dst, mask);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;第一步建立与原图一样大小的mask图像，并将所有像素初始化为0，因此全图成了一张全黑色图。
+第二步将mask图中的r区域的所有像素值设置为255,也就是整个r区域变成了白色。&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; Mat mask = Mat::zeros(src.size(), CV_8UC1);
+ mask(r).setTo(255);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-9c82240d29373e2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;mask图片&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用mask将原始图src拷贝到目的图dst上。&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;src.copyTo(dst, mask);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这个拷贝的动作完整版本是这样的：&lt;/p&gt;
+
+&lt;p&gt;原图(src)与掩膜(mask)进行与运算后得到了结果图（dst）。&lt;/p&gt;
+
+&lt;p&gt;其实就是原图中的每个像素和掩膜中的每个对应像素进行与运算。比如1 &amp;amp; 1 = 1；1 &amp;amp; 0 = 0；&lt;/p&gt;
+
+&lt;p&gt;比如一个3 * 3的图像与3 * 3的掩膜进行运算，得到的结果图像就是：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-d1f9d8c3d7b09c66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;mask.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;所以，mask就是位图，来过滤像素。如果mask像素的值是非0的，我就保留，否则就丢弃。&lt;/p&gt;
+
+&lt;p&gt;因为我们上面得到的mask中，感兴趣的区域是白色的，表明感兴趣区域的像素都是非0，而非感兴趣区域都是黑色，表明那些区域的像素都是0。一旦原图与mask图进行与运算后，得到的结果图只留下原始图感兴趣区域的图像了。也正剩下铠的头部了。&lt;/p&gt;
+
+&lt;h4 id=&quot;增强对比度&quot;&gt;增强对比度&lt;/h4&gt;
+
+&lt;p&gt;矩阵的掩膜操作就是根据掩膜来重新计算每个像素的像素值，掩膜(mask)也被称为kernel。
+通过掩膜操作实现图像对比度提高的公式如下。&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;I(i,j) = 5*I(i,j) - [I(i-1,j) + I(i+1,j) + I(i,j-1) + I(i,j+1)]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;注：这里看不懂不要紧，先看具体的实现，回头我们再一起回顾这里。&lt;/p&gt;
+
+&lt;p&gt;上面的公式，转换成矩阵就如下图所示&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-2a0575afcffcc610.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;kernel&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;红色是中心像素，从上到下，从左到右对每个像素做同样的处理操作，具体过程如下图，深灰色底表示原图像，每次移动kernel便根据公司计算新值并更新矩阵。最终得到的结果就是对比度提高之后的输出图像。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-a5ba14b90afb4f08.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;kernel&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;具体的代码如下：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    // image为铠的图片
+    Mat src;
+    UIImageToMat(image, src);
+    
+    int cols = (src.cols-1) * src.channels();
+    int offset = src.channels();
+    int rows = src.rows;
+    
+    Mat dst = Mat(src.size(), src.type());
+    for (int row = 1; row &amp;lt; rows-1; row++) {
+        uchar* previous = src.ptr(row-1);
+        uchar* current = src.ptr(row);
+        uchar* next = src.ptr(row+1);
+        uchar* output = dst.ptr(row);
+        for (int col = offset; col &amp;lt; cols; col++) {
+            output[col] = saturate_cast&amp;lt;uchar&amp;gt;(5*current[col] - (current[col-offset] + current[col +offset] + previous[col] + next[col]));
+        }
+    }
+
+/*
+注：
+saturate_cast&amp;lt;uchar&amp;gt;(-100)，返回0
+saturate_cast&amp;lt;uchar&amp;gt;(288)，返回255
+saturate_cast&amp;lt;uchar&amp;gt;(100)，返回100
+这个函数的功能是确保RGB值范围在0~255之间。
+*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;效果
+&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-74296305be0931e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;增强对比度&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;接下来我们来回顾下上面的那个公式&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;I(i,j) = 5*I(i,j) - [I(i-1,j) + I(i+1,j) + I(i,j-1) + I(i,j+1)]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;其实这个公式就是5倍的中心像素减去周边的四个像素之和。
+我们举两个例子来看下这个公式的结果。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-bb4a09b443016d77.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;demo1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-a2f4113946251462.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;demo2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;我们可以&lt;strong&gt;大致&lt;/strong&gt;看到若是中心点的值大于周围，则计算后的结果会将中心点与周围的值差距拉得更大；
+若是中心点的值小于周围，则计算后的结果也会将中心点与周围的值差距拉大。这样“大的大，小的小”结果不就是对比明显了吗，也就是提高了对比度。&lt;/p&gt;
+
+&lt;p&gt;大家会发现这样做掩膜操作也太麻烦了。这个时候我们就找OpenCV来帮个忙，看看它是怎么实现的。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    Mat src;
+    UIImageToMat(image, src);
+    
+    Mat dst;
+    Mat kernel = (Mat_&amp;lt;char&amp;gt;(3, 3) &amp;lt;&amp;lt; 0, -1, 0, -1, 5, -1, 0, -1, 0);
+    filter2D(src, dst, src.depth(), kernel);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;一个filter2D搞定！定义如下：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;void filter2D( InputArray src, OutputArray dst, int ddepth,
+                            InputArray kernel, Point anchor=Point(-1,-1),
+                            double delta=0, int borderType=BORDER_DEFAULT );
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;其中src与dst是Mat类型变量、depth表示位图深度，有32、24、8等。&lt;/p&gt;
+
+&lt;h2 id=&quot;四小结&quot;&gt;四、小结&lt;/h2&gt;
+
+&lt;p&gt;本篇主要介绍了Mat对象的基本用法，并通过两个例子讲解了掩膜操作的原理和实现。下一篇还是会以这样的形式讲解OpenCV的其他知识，有更好建议的朋友可以给我留言，see you later!&lt;/p&gt;
+</description>
+        <pubDate>Thu, 14 Jun 2018 17:38:27 +0800</pubDate>
+        <link>http://localhost:4000/2018/06/14/Learning-OpenCV-with-iOS-(%E4%BA%8C)-%E6%8E%A9%E8%86%9C%E6%93%8D%E4%BD%9C/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/06/14/Learning-OpenCV-with-iOS-(%E4%BA%8C)-%E6%8E%A9%E8%86%9C%E6%93%8D%E4%BD%9C/</guid>
+        
+        <category>OpenCV</category>
+        
+        
+      </item>
     
       <item>
         <title>【Learning OpenCV with iOS】(一) Hello OpenCV</title>
@@ -264,7 +496,7 @@ OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉库�
 
 &lt;h2 id=&quot;四小结&quot;&gt;四、小结&lt;/h2&gt;
 
-&lt;p&gt;本文从概念到环境搭建再到基本架构的角度介绍了OpenCV，让读者有一个宏观的认识。下一节开始，我将以原理+例子的形式一步步介绍OpenCV的各个模块。&lt;/p&gt;
+&lt;p&gt;本篇从概念到环境搭建再到基本架构的角度介绍了OpenCV，让读者有一个宏观的认识。&lt;a href=&quot;http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-(二)-掩膜操作/&quot;&gt;下一篇&lt;/a&gt;开始，我将以原理+例子的形式一步步介绍OpenCV的各个模块。&lt;/p&gt;
 </description>
         <pubDate>Tue, 12 Jun 2018 17:38:27 +0800</pubDate>
         <link>http://localhost:4000/2018/06/12/Learning-OpenCV-with-iOS-(%E4%B8%80)-Hello-OpenCV/</link>
@@ -2031,72 +2263,6 @@ Git、SVN知道是你提交的，不用这样刷存在感&lt;/p&gt;
         <pubDate>Thu, 20 Jul 2017 17:38:27 +0800</pubDate>
         <link>http://localhost:4000/2017/07/20/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC22%E6%9C%9F/</link>
         <guid isPermaLink="true">http://localhost:4000/2017/07/20/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC22%E6%9C%9F/</guid>
-        
-        <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>ARKit浅析篇</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;在上一篇&lt;a href=&quot;http://catchzeng.com/2017/06/13/ARKit体验篇/&quot;&gt;ARKit体验篇&lt;/a&gt;中我们体验了ARKit，这一篇主要从类出发分析下ARKit的流程。&lt;/p&gt;
-
-&lt;h2 id=&quot;arkit浅析&quot;&gt;ARKit浅析&lt;/h2&gt;
-&lt;p&gt;我们知道，iOS的视图显示层级为UIWindow -》UIViewController -》UIView。UIView的作用是将视图显示在UIWindow中,AR呈现的东西也属于视图，所以我们可以大胆假设AR的呈现也是基于UIView的。由此假设，我们看下上一篇的Demo源码&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  //在界面上创建ARSCNView，用于展示AR
- @IBOutlet var sceneView: ARSCNView!
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;可以看到，AR由ARSCNView呈现出来，查看文档可以看到&lt;a href=&quot;https://developer.apple.com/documentation/arkit/arscnview&quot;&gt;ARSCNView&lt;/a&gt;继承于&lt;a href=&quot;https://developer.apple.com/documentation/scenekit/scnview&quot;&gt;SCNView&lt;/a&gt;。而SCNView则是&lt;a href=&quot;https://developer.apple.com/documentation/scenekit&quot;&gt;SceneKit&lt;/a&gt;中一个继承于UIView的类。&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@available(iOS 11.0, *)
-open class ARSCNView : SCNView {
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://developer.apple.com/documentation/scenekit/scnview&quot;&gt;SCNView&lt;/a&gt;负责显示一个3D场景，ARSCNView在SCNView的基础上，加入了&lt;a href=&quot;https://developer.apple.com/documentation/arkit/arsession&quot;&gt;ARSession&lt;/a&gt;使得其可以用摄像头(&lt;a href=&quot;https://developer.apple.com/documentation/arkit/arcamera&quot;&gt;ARCamera&lt;/a&gt;)捕捉到的现实世界图像构成3D场景，也就是AR。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-ecf16187b749b8a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;ARKit&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;arsession&quot;&gt;ARSession&lt;/h2&gt;
-&lt;p&gt;查看&lt;a href=&quot;https://developer.apple.com/documentation/arkit/arsession&quot;&gt;文档&lt;/a&gt;，不难看出ARSession是沟通摄像头(ARCamera)和运动处理的桥梁。ARCamera负责捕捉摄像头画面，ARSession负责搭建3D场景。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-90c48ba66b8751ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;ARSession&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;运行ARSession需要指定一个&lt;a href=&quot;https://developer.apple.com/documentation/arkit/arsessionconfiguration&quot;&gt;ARSessionConfiguration&lt;/a&gt;来负责追踪相机在3D世界中的位置以及场景的捕捉（例如平面）。
-ARSessionConfiguration是一个父类，为了更好的看到增强现实的效果，苹果为我们提供了它的子类&lt;a href=&quot;https://developer.apple.com/documentation/arkit/arworldtrackingsessionconfiguration&quot;&gt;ARWorldTrackingSessionConfiguration&lt;/a&gt;来便于使用。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-0176e0636dd1fdf9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;ARSessionConfiguration&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-aa2f01e187dedee3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;ARWorldTrackingSessionConfiguration&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;细心的朋友可以看到文档中有个isSupported方法应该就是为什么ARKit要求A9芯片以上的原因了（猜的，不准勿喷），所以，&lt;strong&gt;&lt;em&gt;使用ARKit时别忘了做这个判断&lt;/em&gt;&lt;/strong&gt;。
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-635dfadf320ca5fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;isSupported&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;ARWorldTrackingSessionConfiguration计算出相机在3D世界中的位置&lt;a href=&quot;https://developer.apple.com/documentation/arkit/ARFrame&quot;&gt;ARFrame&lt;/a&gt;后，将其交给ARSession去管理&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-9f5327bc022e762d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;ARFrame&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;我们理清了如何从相机捕捉图像到手机上显示3D场景，而虚拟的物体部分是由节点&lt;a href=&quot;https://developer.apple.com/documentation/scenekit/scnnode&quot;&gt;SCNNode&lt;/a&gt;构成的（节点构成了场景SCNScene,无数个场景构成了3D世界)&lt;/p&gt;
-
-&lt;h2 id=&quot;arkit流程&quot;&gt;ARKit流程&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;ARSCNView加载SCNScene&lt;/li&gt;
-  &lt;li&gt;SCNScene启动ARCamera捕捉图像&lt;/li&gt;
-  &lt;li&gt;ARSCNView将SCNScene的数据交给Session&lt;/li&gt;
-  &lt;li&gt;Session通过管理ARSessionConfiguration实现场景追踪并且返回一个ARFrame（添加3D物体模型的时候计算出3D物体模型相对于相机的真实的矩阵位置需要使用到）&lt;/li&gt;
-  &lt;li&gt;往SCNScene中添加一个3D物体（SCNNode）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-990530b6eba9202a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;ARKit&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;总结&quot;&gt;总结&lt;/h2&gt;
-
-&lt;p&gt;本篇主要分析了ARKit的流程，让大家对ARKit的几个主要类以及职责先有一个初步了解。下一篇开始将以实例来一步步探索ARKit。&lt;/p&gt;
-</description>
-        <pubDate>Wed, 14 Jun 2017 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2017/06/14/ARKit%E6%B5%85%E6%9E%90%E7%AF%87/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/06/14/ARKit%E6%B5%85%E6%9E%90%E7%AF%87/</guid>
         
         <category>iOS</category>
         
