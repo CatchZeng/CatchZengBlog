@@ -5,9 +5,226 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 15 Jun 2018 14:21:06 +0800</pubDate>
-    <lastBuildDate>Fri, 15 Jun 2018 14:21:06 +0800</lastBuildDate>
+    <pubDate>Mon, 25 Jun 2018 19:38:28 +0800</pubDate>
+    <lastBuildDate>Mon, 25 Jun 2018 19:38:28 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>【Learning OpenCV with iOS】(三) 图像混合与ROI</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;一前言&quot;&gt;一、前言&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.jianshu.com/p/7437a115a7eb&quot;&gt;上一篇&lt;/a&gt;我们讲解了OpenCV的掩膜操作。本篇主要向大家介绍下图像处理中的图像混合。按惯例，先来一张效果图。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-7fa4159088937474.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;铠与Logo&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;二图片相加&quot;&gt;二、图片相加&lt;/h2&gt;
+
+&lt;p&gt;要叠加两张图片，可以将Mat直接相加，相加两幅图片的形状（高度/宽度/通道数）必须相同。但这样的效果不一定是你想要的。我们来看一个例子。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    Mat src;
+    Mat src2;
+    UIImageToMat(image, src);
+    UIImageToMat(image2, src2);
+    
+    Mat dst;
+    dst = src + src2;
+    
+    UIImage* result = MatToUIImage(dst);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-b142c05656998fc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;图片相加&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;三线性混合&quot;&gt;三、线性混合&lt;/h2&gt;
+&lt;p&gt;图像混合其实也是一种图片相加的操作，只不过两幅图片的&lt;strong&gt;权重&lt;/strong&gt;不一样。&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;g(x) = α*f0(x) + β*f1(x)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;OpenCV处理图像混合主要是根据线性混合函数，通过在0到1范围内改变α的值，使两幅图像或者视频产生在时间上的画面叠化得效果。实际上α和β的和不一定为1，只是为了防止图像出现过饱和的现象。&lt;/p&gt;
+
+&lt;p&gt;OpenCV的&lt;strong&gt;addWeighted&lt;/strong&gt;函数便是对应线性混合操作。这个函数的作用是，计算两个图像的&lt;strong&gt;加权和&lt;/strong&gt;。&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;void addWeighted(InputArray src1, double alpha, InputArray src2, double beta, double gamma, OutputArray dst, int dtype=-1);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;src1：需要加权的第一个数组，常常填一个Mat对象。&lt;/li&gt;
+  &lt;li&gt;alpha：第一个数组的权重值，0~1之间。&lt;/li&gt;
+  &lt;li&gt;src2：第二个数组，它需要和第一个数组拥有相同的尺寸和通道数。&lt;/li&gt;
+  &lt;li&gt;beta：第二个数组的权重值，一般为1-alpha。&lt;/li&gt;
+  &lt;li&gt;gamma：一个加到权重总和上的标量值。&lt;/li&gt;
+  &lt;li&gt;dst：输出的数组，它和输入的两个数组拥有相同的尺寸和通道数。&lt;/li&gt;
+  &lt;li&gt;dtype：输出阵列的可选深度，有默认值-1；当两个输入数组具有相同的深度时，这个参数设置为-1（默认值），即等同于src1.depth()。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;当后羿遇到阿珂&quot;&gt;当后羿遇到阿珂&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-bc97e432a0639f99.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;图像混合&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)addWeighted:(UIImage *)image image2:(UIImage *)image2 alpha:(double)alpha gamma:(double)gamma {
+    Mat src;
+    Mat src2;
+    UIImageToMat(image, src);
+    UIImageToMat(image2, src2);
+    
+    Mat dst;
+    addWeighted(src, alpha, src2, gamma, 0, dst);
+    
+    UIImage* result = MatToUIImage(dst);
+    
+    return result;
+}
+
+class MixViewController: UIViewController {
+
+    @IBOutlet weak var resultImageView: UIImageView!
+    private let ake = UIImage(named: &quot;ake&quot;)
+    private let houyi = UIImage(named: &quot;houyi&quot;)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        resultImageView.image = OpenCV.addWeighted(ake, image2: houyi, alpha: 0.5, gamma: 0.5)
+    }
+    
+    @IBAction func onSliderValueChanged(_ sender: UISlider) {
+        let alpha = Double(sender.value)
+        resultImageView.image = OpenCV.addWeighted(ake, image2: houyi, alpha: alpha, gamma: (1.0 - alpha))
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;一些思考&quot;&gt;一些思考&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;为何直接的图像相加效果较差，而线性混合后的效果较好？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;可以这样简单理解：像素值范围为0~255，两张图的Mat直接相加，就是每个像素点的值相加，这样容易出现像素值较大的像素，像素“越大越白”，这样就出现了图像过曝的现象。而线性混合则是加上了权重，保证了像素值不至于过大，这样就不会出现过曝现象。以公式来说明就是&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//相加
+g(x) = 1*f0(x) + 1*f1(x)
+
+//线性混合
+g(x) = α*f0(x) + β*f1(x)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;即&lt;strong&gt;相加操作相当于α和β都等于1的线性混合&lt;/strong&gt;。&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+class MixViewController: UIViewController {
+
+    @IBOutlet weak var resultImageView: UIImageView!
+    private let ake = UIImage(named: &quot;ake&quot;)
+    private let houyi = UIImage(named: &quot;houyi&quot;)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        resultImageView.image = OpenCV.addWeighted(ake, image2: houyi, alpha: 1, gamma: 1)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-793aa9ae64bd9820.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;α和β都等于1&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;addWeighted方法要求src1和src2的尺寸和通道数相同，若是不同如何混合？
+实现这个需要先熟悉图像处理另一个重要的概念–ROI。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;四感兴趣区域roiregion-of-interest&quot;&gt;四、感兴趣区域ROI(Region Of Interest)&lt;/h2&gt;
+
+&lt;p&gt;在图像处理领域，我们常常需要设置ROI，来专注或者简化我们的工作过程 。也就是从图像中选择的一个图像区域，这个区域是我们图像分析所关注的重点。我们圈定这个区域，以便进行进一步处理。而且，使用ROI指定我们想读入的目标，可以减少处理时间，增加精度，给图像处理来带不小的便利。&lt;/p&gt;
+
+&lt;p&gt;定义ROI区域有两种方法，第一种是使用cv:Rect指定矩形区域&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Mat imageROI=image(Rect(500,250,logo.cols,logo.rows));  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;另一种定义ROI的方式是指定感兴趣行或列的范围（Range）&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Mat imageROI=srcImage3(Range(250,250+logoImage.rows),Range(200,200+logoImage.cols));  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;下面我们来看一个实例，展示如何利用ROI将一幅图加到另一幅图的指定位置。&lt;/p&gt;
+
+&lt;h4 id=&quot;铠与logo&quot;&gt;铠与Logo&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-7fa4159088937474.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;铠与Logo&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)add:(UIImage *)image alphaExist:(BOOL)alphaExist on:(UIImage *)anotherImage atPosition:(CGPoint)position alpha:(CGFloat)alpha beta:(CGFloat)beta gamma:(CGFloat)gamma {
+    Mat src;
+    Mat dst;
+    UIImageToMat(anotherImage, src);
+    UIImageToMat(image, dst, alphaExist);
+    
+    //ROI
+    short x = position.x;
+    short y = position.y;
+    Mat imageRoi;
+    imageRoi = src(cv::Rect(x, y, dst.cols, dst.rows));
+    
+    //add image
+    addWeighted(imageRoi, alpha, dst, beta, gamma, imageRoi);
+    
+    UIImage* result = MatToUIImage(src);
+    
+    return result;
+}
+
+class ROIViewController: UIViewController {
+
+    @IBOutlet weak var resultImageView: UIImageView!
+    private let logo = #imageLiteral(resourceName: &quot;logo&quot;)
+    private let sayHello = #imageLiteral(resourceName: &quot;sayHello&quot;)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        resultImageView.image = OpenCV.add(#imageLiteral(resourceName: &quot;logo&quot;), alphaExist: true, on: #imageLiteral(resourceName: &quot;sayHello&quot;), atPosition: CGPoint(x: 330, y: 0), alpha: 1.0, beta: 1.0, gamma: 0)
+    }
+    
+    @IBAction func onSliderValueChanged(_ sender: UISlider) {
+        resultImageView.image = OpenCV.add(#imageLiteral(resourceName: &quot;logo&quot;), alphaExist: true, on: #imageLiteral(resourceName: &quot;sayHello&quot;), atPosition: CGPoint(x: 330, y: 0), alpha: 1.0, beta: CGFloat(sender.value), gamma: 0)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;注：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;在UIImage转换成Mat的时候，若有透明度记得将最后一个参数alphaExist设置为true&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; UIImageToMat(image, dst, alphaExist);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;在addWeighted的时候alpha表示第一个Mat的权重，beta表示第二个Mat的权重。在实例中，Logo图片其实是第二个Mat，所以对应的参数是beta。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    Mat imageRoi;
+    imageRoi = src(cv::Rect(x, y, dst.cols, dst.rows));
+    
+    //add image
+    addWeighted(imageRoi, alpha, dst, beta, gamma, imageRoi);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;五小结&quot;&gt;五、小结&lt;/h2&gt;
+
+&lt;p&gt;本篇主要介绍了图像混合的概念，并通过例子讲解了线性混合的实现和ROI的应用。在今后的学习中ROI的使用度较高，需要好好掌握。ROI其实是“分而治之”思想在图像处理中的应用。好了，今天就到这了。有疑问的朋友可以给我留言，see you later!&lt;/p&gt;
+</description>
+        <pubDate>Sun, 24 Jun 2018 17:38:27 +0800</pubDate>
+        <link>http://localhost:4000/2018/06/24/Learning-OpenCV-with-iOS-(%E4%B8%89)-%E5%9B%BE%E5%83%8F%E6%B7%B7%E5%90%88%E4%B8%8EROI/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/06/24/Learning-OpenCV-with-iOS-(%E4%B8%89)-%E5%9B%BE%E5%83%8F%E6%B7%B7%E5%90%88%E4%B8%8EROI/</guid>
+        
+        <category>OpenCV</category>
+        
+        
+      </item>
     
       <item>
         <title>【Learning OpenCV with iOS】(二) 掩膜操作</title>
@@ -2206,63 +2423,6 @@ Git、SVN知道是你提交的，不用这样刷存在感&lt;/p&gt;
         <pubDate>Fri, 29 Sep 2017 16:38:27 +0800</pubDate>
         <link>http://localhost:4000/2017/09/29/Clean-Code-%E5%91%8A%E8%AF%89%E4%BD%A0%E4%BB%80%E4%B9%88%E6%98%AF%E5%A5%BD%E4%BB%A3%E7%A0%81/</link>
         <guid isPermaLink="true">http://localhost:4000/2017/09/29/Clean-Code-%E5%91%8A%E8%AF%89%E4%BD%A0%E4%BB%80%E4%B9%88%E6%98%AF%E5%A5%BD%E4%BB%A3%E7%A0%81/</guid>
-        
-        <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>iOS开发见闻-第22期</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;欢迎加QQ群讨论：157672725&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;文章&quot;&gt;文章&lt;/h2&gt;
-
-&lt;p&gt;1.&lt;a href=&quot;http://www.infoq.com/cn/articles/ios-arch-based-on-reswift-and-app-coordinator?utm_source=articles_about_mobile&amp;amp;utm_medium=link&amp;amp;utm_campaign=mobile&quot;&gt;基于ReSwift和App Coordinator的iOS架构&lt;/a&gt; : 本篇文章从架构漫谈到开发复杂度问题再到路由设计再到状态管理，讲述了如何使用ReSwift和App Coordinator来架构工程。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-22b6a9a5f8a39094.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;基于ReSwift和App Coordinator的iOS架构&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;https://onevcat.com/2017/07/state-based-viewcontroller/&quot;&gt;单向数据流动的函数式 View Controller&lt;/a&gt; : 喵神对单向数据流动的见解，与上篇文章中的ReSwift思想类似，但喵神以一种由浅入深的方式讲述，更易理解。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://onevcat.com/assets/images/2017/view-controller-states.svg&quot; alt=&quot;单向数据流动的函数式 View Controller&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;http://www.infoq.com/cn/articles/getting-started-with-tensorflow-on-ios?utm_source=articles_about_mobile&amp;amp;utm_medium=link&amp;amp;utm_campaign=mobile&quot;&gt;深度学习指南：在iOS平台上使用TensorFlow&lt;/a&gt; ：随着CoreML的推广，机器学习已经开始在iOS中尝试，我们可以利用TensorFlow训练自己的机器学习模型。对机器学习感兴趣的朋友可以看看。
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-1b804dc0fa8a439b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;TensorFlow&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;4.&lt;a href=&quot;http://limboy.me/tech/2017/06/22/the-right-way-to-ios-architecture.html&quot;&gt;The Right Way to Architect iOS App with Swift&lt;/a&gt; : 来自limboy的架构相关文章。
-&lt;img src=&quot;http://ww1.sinaimg.cn/large/afe37136gy1fgtcxzpz4yj218m0mw0vs.jpg&quot; alt=&quot;The Right Way to Architect iOS App with Swift&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;工具&quot;&gt;工具&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;https://pmd.github.io&quot;&gt;PMD&lt;/a&gt;：代码分析工具，支持检测swift的重复代码。
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-10a78fa32e147c61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;PMD&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/realm/SwiftLint&quot;&gt;SwiftLint&lt;/a&gt; :  是一个用于强制检查 Swift 代码风格和规定的一个工具，基本上以 &lt;a href=&quot;https://github.com/github/swift-style-guide&quot;&gt;GitHub’s Swift 代码风格指南&lt;/a&gt;为基础。带有自动更正、推荐语法等特性，值得推荐。
-&lt;img src=&quot;https://github.com/realm/SwiftLint/raw/master/assets/screenshot.png&quot; alt=&quot;SwiftLint&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;https://itunes.apple.com/us/app/quiver-programmers-notebook/id866773894?mt=12&quot;&gt;Quiver&lt;/a&gt; : Quiver 是一款为程序员专门设计的笔记软件，兼顾文本（代码）编辑与管理工作，可谓是“一车多用”， 支持纯文本、全语法 Markdown、LaTeX（MathJax）、Flowchart 以及数十种编程语言的嵌入显示（自动高亮）。设立了 Inbox + Favorites + Recents + Trash 的 Library 库架构，搭配 Tag 系统方便用户调用各种笔记，另外用户可像 Ulysses（新建组）那样创建属于不同环境的 Notebook（分组），支持全文搜索笔记和全屏演示功能，方便会议交流使用。
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-56dd51293e05f3bc.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Quiver&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;开源&quot;&gt;开源&lt;/h2&gt;
-&lt;p&gt;1.&lt;a href=&quot;https://github.com/olucurious/awesome-arkit&quot;&gt;awesome-arkit&lt;/a&gt; : 整理了ARKit的项目与资源，研究ARKit的不要错过。
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-31e115c8b3b57a36.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;awesome-arkit&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&quot;https://github.com/duzexu/ARuler&quot;&gt;ARuler&lt;/a&gt; : 使用ARkit来量距离，作者的想法也是屌屌的。
-&lt;img src=&quot;https://github.com/duzexu/ARuler/raw/master/Design/logo.png&quot; alt=&quot;ARuler&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&quot;https://github.com/raulriera/Cacher&quot;&gt;Cacher&lt;/a&gt; : 一款简单的Cache实现。
-&lt;img src=&quot;https://github.com/raulriera/Cacher/raw/master/Resources/Icon.png&quot; alt=&quot;Cacher&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;4.&lt;a href=&quot;https://github.com/fahidattique55/FAPanels&quot;&gt;FAPanels&lt;/a&gt; : 直接看效果吧。
-&lt;img src=&quot;https://camo.githubusercontent.com/ed45512fcdaee74a65976a07b7498de10300b7a9/687474703a2f2f692e696d6775722e636f6d2f5a4e31336561662e676966&quot; alt=&quot;FAPanels&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;5.&lt;a href=&quot;https://github.com/Moya/Moya&quot;&gt;Moya&lt;/a&gt; : Swift写的网络抽象层，设计得很不错。
-&lt;img src=&quot;https://github.com/Moya/Moya/raw/master/web/diagram.png&quot; alt=&quot;Moya&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Thu, 20 Jul 2017 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2017/07/20/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC22%E6%9C%9F/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/07/20/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC22%E6%9C%9F/</guid>
         
         <category>iOS</category>
         

@@ -10,9 +10,9 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>iOS开发见闻-第15期 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>【Learning OpenCV with iOS】(三) 图像混合与ROI - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/2016/03/08/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC15%E6%9C%9F/">
+    <link rel="canonical" href="http://localhost:4000/2018/06/24/Learning-OpenCV-with-iOS-(%E4%B8%89)-%E5%9B%BE%E5%83%8F%E6%B7%B7%E5%90%88%E4%B8%8EROI/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css ">
@@ -139,15 +139,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
+                        <a class="tag" href="/tags/#OpenCV" title="OpenCV">OpenCV</a>
                         
                     </div>
-                    <h1>iOS开发见闻-第15期</h1>
+                    <h1>【Learning OpenCV with iOS】(三) 图像混合与ROI</h1>
                     
                     
-                    <h2 class="subheading">iOS开发见闻</h2>
+                    <h2 class="subheading">OpenCV</h2>
                     
-                    <span class="meta">Posted by CatchZeng on March 8, 2016</span>
+                    <span class="meta">Posted by CatchZeng on June 24, 2018</span>
                 </div>
             </div>
         </div>
@@ -167,46 +167,209 @@
 
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
-<h2 id="文章">文章</h2>
-<p>1.<a href="http://www.jianshu.com/p/2141fb0dc62c">饿了么移动APP的架构演进</a> : 作者简略描述了饿了么从传统的MVC到model Decoupled、Hybrid再到React-Native &amp; Hot Patch的APP架构演进旅程。</p>
+<h2 id="一前言">一、前言</h2>
 
-<p>2.<a href="http://blog.devtang.com/2016/02/16/inspired-summary/">人员、流程和产品上的思考 - 读《启示录》总结</a> ：选这篇文章不因为是巧哥发的，而是想向大家推荐《启示录》这本书，如果你有做产品的心，一定要看看。</p>
+<p><a href="https://www.jianshu.com/p/7437a115a7eb">上一篇</a>我们讲解了OpenCV的掩膜操作。本篇主要向大家介绍下图像处理中的图像混合。按惯例，先来一张效果图。</p>
 
-<p>3.<a href="http://www.tanhao.me/code/151113.html/">iOS实时卡顿监控</a> : 本文主要讲述了如何将ios的卡顿现象量化，对于性能调试有极大的帮助。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-7fa4159088937474.gif?imageMogr2/auto-orient/strip" alt="铠与Logo" /></p>
 
-<p>4.<a href="http://www.olinone.com/?p=429">接口编程那些事</a> ：学了这么多年编程，若是有人问及什么叫面向接口编程，你能怎么回答呢？看看本文能找到一些答案。</p>
+<h2 id="二图片相加">二、图片相加</h2>
 
-<h2 id="工具">工具</h2>
-<p>1.<a href="https://www.pgyer.com/">蒲公英</a> ：国内领先的应用内测分发平台，希望为全球的开发者提供一个能够有效提高应用内测分发效率的平台。
-<img src="https://o1wjx1evz.qnssl.com/static-20160303/assets/img/QC_imac.png" alt="蒲公英" /></p>
+<p>要叠加两张图片，可以将Mat直接相加，相加两幅图片的形状（高度/宽度/通道数）必须相同。但这样的效果不一定是你想要的。我们来看一个例子。</p>
 
-<p>2.<a href="https://github.com/EDSIOON/EDSJSONToDictionary">EDSJSONToDictionary</a> : 直接看效果吧。
-<img src="https://github.com/EDSIOON/EDSJSONToDictionary/raw/master/ScreenShots/EDSJSONToDicitionary.gif" alt="EDSJSONToDictionary" /></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>    Mat src;
+    Mat src2;
+    UIImageToMat(image, src);
+    UIImageToMat(image2, src2);
+    
+    Mat dst;
+    dst = src + src2;
+    
+    UIImage* result = MatToUIImage(dst);
+</code></pre>
+</div>
 
-<p>3.<a href="https://github.com/gliyao/SketchExporter">SketchExporter</a> : Sketch的导出插件。
-<img src="https://raw.githubusercontent.com/gliyao/SketchExporter/master/SketchExporter.png" alt="SketchExporter" /></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-b142c05656998fc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片相加" /></p>
 
-<p>4.<a href="https://github.com/aotian16/SwiftJsonToObj">SwiftJsonToObj</a>: Swift中将json数据转换为对象的插件。
-<img src="https://github.com/aotian16/SwiftJsonToObj/raw/master/screenshot/SwiftJsonToObj.png" alt="SwiftJsonToObj" /></p>
+<h2 id="三线性混合">三、线性混合</h2>
+<p>图像混合其实也是一种图片相加的操作，只不过两幅图片的<strong>权重</strong>不一样。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>g(x) = α*f0(x) + β*f1(x)
+</code></pre>
+</div>
+<p>OpenCV处理图像混合主要是根据线性混合函数，通过在0到1范围内改变α的值，使两幅图像或者视频产生在时间上的画面叠化得效果。实际上α和β的和不一定为1，只是为了防止图像出现过饱和的现象。</p>
 
-<h2 id="开源">开源</h2>
-<p>1.<a href="https://github.com/storehouse/Advance">Advance</a> : swift写的一款效果很好，接口简单的动画库。
-<img src="https://github.com/storehouse/Advance/raw/master/Assets/nav.gif" alt="Advance" />
-<img src="https://github.com/storehouse/Advance/raw/master/Assets/logo.gif" alt="Advance" /></p>
+<p>OpenCV的<strong>addWeighted</strong>函数便是对应线性混合操作。这个函数的作用是，计算两个图像的<strong>加权和</strong>。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>void addWeighted(InputArray src1, double alpha, InputArray src2, double beta, double gamma, OutputArray dst, int dtype=-1);
+</code></pre>
+</div>
+<ul>
+  <li>src1：需要加权的第一个数组，常常填一个Mat对象。</li>
+  <li>alpha：第一个数组的权重值，0~1之间。</li>
+  <li>src2：第二个数组，它需要和第一个数组拥有相同的尺寸和通道数。</li>
+  <li>beta：第二个数组的权重值，一般为1-alpha。</li>
+  <li>gamma：一个加到权重总和上的标量值。</li>
+  <li>dst：输出的数组，它和输入的两个数组拥有相同的尺寸和通道数。</li>
+  <li>dtype：输出阵列的可选深度，有默认值-1；当两个输入数组具有相同的深度时，这个参数设置为-1（默认值），即等同于src1.depth()。</li>
+</ul>
 
-<p>2.<a href="https://github.com/coolbeet/CBStoreHouseRefreshControl">CBStoreHouseRefreshControl</a> : 一款在Storehouse启发下创作出来的控件，下拉刷新的时候可以完全定制自己想要的效果。</p>
+<h4 id="当后羿遇到阿珂">当后羿遇到阿珂</h4>
 
-<p><img src="https://camo.githubusercontent.com/a0ff4643665482e588bbf9f951069251604dd118/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f737579752e746573742f434253746f7265486f75736552656672657368436f6e74726f6c322e676966" alt="CBStoreHouseRefreshControl" /></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-bc97e432a0639f99.gif?imageMogr2/auto-orient/strip" alt="图像混合" /></p>
 
-<p>3.<a href="https://github.com/500px/greedo-layout-for-ios">greedo-layout-for-ios</a> : 一款让UICollectionView展示高度可变的固定比例的网格视图，具体看效果图。
-<img src="https://github.com/500px/greedo-layout-for-ios/raw/master/screenshot.png" alt="greedo-layout-for-ios" /></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>+ (UIImage *)addWeighted:(UIImage *)image image2:(UIImage *)image2 alpha:(double)alpha gamma:(double)gamma {
+    Mat src;
+    Mat src2;
+    UIImageToMat(image, src);
+    UIImageToMat(image2, src2);
+    
+    Mat dst;
+    addWeighted(src, alpha, src2, gamma, 0, dst);
+    
+    UIImage* result = MatToUIImage(dst);
+    
+    return result;
+}
 
-<p>4.<a href="https://github.com/movielala/TVOSButton">TVOSButton</a> : 效果极佳的一款视差按钮。
-<img src="https://raw.githubusercontent.com/movielala/TVOSButton/master/demo.gif" alt="TVOSButton" /></p>
+class MixViewController: UIViewController {
 
-<p>5.<a href="https://github.com/dzenbot/DZNEmptyDataSet">DZNEmptyDataSet</a> : 一个下拉式的UITableView/UICollectionView父类,在没有内容要显示时使用Empty DataSet模式。
-<img src="https://raw.githubusercontent.com/dzenbot/UITableView-DataSet/master/Examples/Applications/Screenshots/Screenshots_row1.png" alt="DZNEmptyDataSet" />
-<img src="https://raw.githubusercontent.com/dzenbot/UITableView-DataSet/master/Examples/Applications/Screenshots/Screenshots_row2.png" alt="DZNEmptyDataSet" /></p>
+    @IBOutlet weak var resultImageView: UIImageView!
+    private let ake = UIImage(named: "ake")
+    private let houyi = UIImage(named: "houyi")
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        resultImageView.image = OpenCV.addWeighted(ake, image2: houyi, alpha: 0.5, gamma: 0.5)
+    }
+    
+    @IBAction func onSliderValueChanged(_ sender: UISlider) {
+        let alpha = Double(sender.value)
+        resultImageView.image = OpenCV.addWeighted(ake, image2: houyi, alpha: alpha, gamma: (1.0 - alpha))
+    }
+}
+</code></pre>
+</div>
+
+<h4 id="一些思考">一些思考</h4>
+
+<ul>
+  <li>为何直接的图像相加效果较差，而线性混合后的效果较好？</li>
+</ul>
+
+<p>可以这样简单理解：像素值范围为0~255，两张图的Mat直接相加，就是每个像素点的值相加，这样容易出现像素值较大的像素，像素“越大越白”，这样就出现了图像过曝的现象。而线性混合则是加上了权重，保证了像素值不至于过大，这样就不会出现过曝现象。以公式来说明就是</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>//相加
+g(x) = 1*f0(x) + 1*f1(x)
+
+//线性混合
+g(x) = α*f0(x) + β*f1(x)
+</code></pre>
+</div>
+<p>即<strong>相加操作相当于α和β都等于1的线性混合</strong>。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>
+class MixViewController: UIViewController {
+
+    @IBOutlet weak var resultImageView: UIImageView!
+    private let ake = UIImage(named: "ake")
+    private let houyi = UIImage(named: "houyi")
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        resultImageView.image = OpenCV.addWeighted(ake, image2: houyi, alpha: 1, gamma: 1)
+    }
+}
+</code></pre>
+</div>
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-793aa9ae64bd9820.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="α和β都等于1" /></p>
+
+<ul>
+  <li>addWeighted方法要求src1和src2的尺寸和通道数相同，若是不同如何混合？
+实现这个需要先熟悉图像处理另一个重要的概念–ROI。</li>
+</ul>
+
+<h2 id="四感兴趣区域roiregion-of-interest">四、感兴趣区域ROI(Region Of Interest)</h2>
+
+<p>在图像处理领域，我们常常需要设置ROI，来专注或者简化我们的工作过程 。也就是从图像中选择的一个图像区域，这个区域是我们图像分析所关注的重点。我们圈定这个区域，以便进行进一步处理。而且，使用ROI指定我们想读入的目标，可以减少处理时间，增加精度，给图像处理来带不小的便利。</p>
+
+<p>定义ROI区域有两种方法，第一种是使用cv:Rect指定矩形区域</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>Mat imageROI=image(Rect(500,250,logo.cols,logo.rows));  
+</code></pre>
+</div>
+
+<p>另一种定义ROI的方式是指定感兴趣行或列的范围（Range）</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>Mat imageROI=srcImage3(Range(250,250+logoImage.rows),Range(200,200+logoImage.cols));  
+</code></pre>
+</div>
+
+<p>下面我们来看一个实例，展示如何利用ROI将一幅图加到另一幅图的指定位置。</p>
+
+<h4 id="铠与logo">铠与Logo</h4>
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-7fa4159088937474.gif?imageMogr2/auto-orient/strip" alt="铠与Logo" /></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>+ (UIImage *)add:(UIImage *)image alphaExist:(BOOL)alphaExist on:(UIImage *)anotherImage atPosition:(CGPoint)position alpha:(CGFloat)alpha beta:(CGFloat)beta gamma:(CGFloat)gamma {
+    Mat src;
+    Mat dst;
+    UIImageToMat(anotherImage, src);
+    UIImageToMat(image, dst, alphaExist);
+    
+    //ROI
+    short x = position.x;
+    short y = position.y;
+    Mat imageRoi;
+    imageRoi = src(cv::Rect(x, y, dst.cols, dst.rows));
+    
+    //add image
+    addWeighted(imageRoi, alpha, dst, beta, gamma, imageRoi);
+    
+    UIImage* result = MatToUIImage(src);
+    
+    return result;
+}
+
+class ROIViewController: UIViewController {
+
+    @IBOutlet weak var resultImageView: UIImageView!
+    private let logo = #imageLiteral(resourceName: "logo")
+    private let sayHello = #imageLiteral(resourceName: "sayHello")
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        resultImageView.image = OpenCV.add(#imageLiteral(resourceName: "logo"), alphaExist: true, on: #imageLiteral(resourceName: "sayHello"), atPosition: CGPoint(x: 330, y: 0), alpha: 1.0, beta: 1.0, gamma: 0)
+    }
+    
+    @IBAction func onSliderValueChanged(_ sender: UISlider) {
+        resultImageView.image = OpenCV.add(#imageLiteral(resourceName: "logo"), alphaExist: true, on: #imageLiteral(resourceName: "sayHello"), atPosition: CGPoint(x: 330, y: 0), alpha: 1.0, beta: CGFloat(sender.value), gamma: 0)
+    }
+}
+</code></pre>
+</div>
+
+<p><strong>注：</strong></p>
+
+<ul>
+  <li>在UIImage转换成Mat的时候，若有透明度记得将最后一个参数alphaExist设置为true</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> UIImageToMat(image, dst, alphaExist);
+</code></pre>
+</div>
+
+<ul>
+  <li>在addWeighted的时候alpha表示第一个Mat的权重，beta表示第二个Mat的权重。在实例中，Logo图片其实是第二个Mat，所以对应的参数是beta。</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    Mat imageRoi;
+    imageRoi = src(cv::Rect(x, y, dst.cols, dst.rows));
+    
+    //add image
+    addWeighted(imageRoi, alpha, dst, beta, gamma, imageRoi);
+</code></pre>
+</div>
+
+<h2 id="五小结">五、小结</h2>
+
+<p>本篇主要介绍了图像混合的概念，并通过例子讲解了线性混合的实现和ROI的应用。在今后的学习中ROI的使用度较高，需要好好掌握。ROI其实是“分而治之”思想在图像处理中的应用。好了，今天就到这了。有疑问的朋友可以给我留言，see you later!</p>
 
 
                 <hr>
@@ -217,13 +380,9 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2016/02/23/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC14%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第14期">&larr; Previous Post</a>
+                        <a href="/2018/06/14/Learning-OpenCV-with-iOS-(%E4%BA%8C)-%E6%8E%A9%E8%86%9C%E6%93%8D%E4%BD%9C/" data-toggle="tooltip" data-placement="top" title="【Learning OpenCV with iOS】(二) 掩膜操作">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2016/03/22/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC16%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第16期">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
@@ -324,8 +483,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "catchzeng";
-    var disqus_identifier = "/2016/03/08/iOS开发见闻-第15期";
-    var disqus_url = "http://localhost:4000/2016/03/08/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC15%E6%9C%9F/";
+    var disqus_identifier = "/2018/06/24/【Learning OpenCV with iOS】(三) 图像混合与ROI";
+    var disqus_url = "http://localhost:4000/2018/06/24/Learning-OpenCV-with-iOS-(%E4%B8%89)-%E5%9B%BE%E5%83%8F%E6%B7%B7%E5%90%88%E4%B8%8EROI/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
