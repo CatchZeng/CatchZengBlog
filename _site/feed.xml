@@ -5,8 +5,8 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 25 Jun 2018 19:38:28 +0800</pubDate>
-    <lastBuildDate>Mon, 25 Jun 2018 19:38:28 +0800</lastBuildDate>
+    <pubDate>Tue, 26 Jun 2018 09:32:43 +0800</pubDate>
+    <lastBuildDate>Tue, 26 Jun 2018 09:32:43 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
     
       <item>
@@ -15,7 +15,7 @@
 
 &lt;h2 id=&quot;一前言&quot;&gt;一、前言&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://www.jianshu.com/p/7437a115a7eb&quot;&gt;上一篇&lt;/a&gt;我们讲解了OpenCV的掩膜操作。本篇主要向大家介绍下图像处理中的图像混合。按惯例，先来一张效果图。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-(二)-掩膜操作/&quot;&gt;上一篇&lt;/a&gt;我们讲解了OpenCV的掩膜操作。本篇主要向大家介绍下图像处理中的图像混合。按惯例，先来一张效果图。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-7fa4159088937474.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;铠与Logo&quot; /&gt;&lt;/p&gt;
 
