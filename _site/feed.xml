@@ -5,9 +5,146 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 26 Jun 2018 09:32:43 +0800</pubDate>
-    <lastBuildDate>Tue, 26 Jun 2018 09:32:43 +0800</lastBuildDate>
+    <pubDate>Tue, 03 Jul 2018 15:13:31 +0800</pubDate>
+    <lastBuildDate>Tue, 03 Jul 2018 15:13:31 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>【Learning OpenCV with iOS】(四) 图像亮度和对比度</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;一前言&quot;&gt;一、前言&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.jianshu.com/p/cfd2686b449a&quot;&gt;上一篇&lt;/a&gt;我们讲解了OpenCV的图像混合与ROI。本篇主要向大家介绍下图像变换的调整亮度和对比度。按惯例，先来一张效果图。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-0e4ab78c269f66e4.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;魔铠变身&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;二图像变换&quot;&gt;二、图像变换&lt;/h2&gt;
+
+&lt;h4 id=&quot;算子&quot;&gt;算子&lt;/h4&gt;
+&lt;p&gt;一般的图像处理算子都是一个函数，它接受一个或多个输入图像，并产生输出图像。&lt;/p&gt;
+&lt;h6 id=&quot;单输入&quot;&gt;单输入&lt;/h6&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;g(x) = h(f(x))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h6 id=&quot;多输入&quot;&gt;多输入&lt;/h6&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;g(x) = h(f0(x)......fn(x))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;根据算子的不同，图像变换分为两大类：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;像素变换 - 点操作&lt;/li&gt;
+  &lt;li&gt;邻域操作 - 区域&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;像素变换&quot;&gt;像素变换&lt;/h4&gt;
+
+&lt;p&gt;这类变换操作的是点。根据输入像素值（有时可加上某些全局信息或参数）计算相应的输出像素值。
+这类算子包括亮度和对比度调整 ，以及颜色校正和变换。&lt;/p&gt;
+
+&lt;h4 id=&quot;邻域操作&quot;&gt;邻域操作&lt;/h4&gt;
+
+&lt;p&gt;这类变换操作的是区域（大块的，非点操作）。
+这类算子包括卷积、特征提取、梯度计算、模糊等。
+后续文章中我们将一一讲解，这里不再赘述。&lt;/p&gt;
+
+&lt;h2 id=&quot;三调整图像亮度和对比度&quot;&gt;三、调整图像亮度和对比度&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;g(i, j) = αf(i,j) + β  其中α&amp;gt;0，β是增益变量
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;f(i,j) 表示源图像像素&lt;/li&gt;
+  &lt;li&gt;g(i,j) 表示输出图像像素&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;一些理解&quot;&gt;一些理解&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;亮度越亮其实看起来越“白”，在图像处理中就是像素值越靠近255。β变量是个增益变量，β越大，像素值就越靠近255，自然就提高了亮度。所以，&lt;strong&gt;β常常被用来控制图像的亮度&lt;/strong&gt;。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;α对像素的操作是乘法，乘法会”扩大差距“，打个比方：1x10 = 10, 2x10 = 20。改变α会将像素值的差距扩大，也就是改变了对比度。所以，&lt;strong&gt;α常常被用来控制图像的对比度&lt;/strong&gt;。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;魔铠变身&quot;&gt;魔铠变身&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-0e4ab78c269f66e4.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;魔铠变身&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+(UIImage *)transform:(UIImage *)image alpha:(double)alpha beta:(double)beta {
+    Mat src;
+    UIImageToMat(image, src);
+    
+    Mat dst = Mat(src.size(), src.type());
+    
+    int rows = src.rows;
+    int cols = src.cols;
+    Mat m;
+    src.convertTo(m, CV_32F);
+    for (int row = 0; row &amp;lt; rows; row++) {
+        for (int col = 0; col &amp;lt; cols; col++) {
+            if(src.channels() == 1) {//单通道
+                float v = m.at&amp;lt;Vec3f&amp;gt;(row, col)[0];
+                dst.at&amp;lt;uchar&amp;gt;(row, col) = saturate_cast&amp;lt;uchar&amp;gt;(v*alpha + beta);
+            } else if (src.channels() == 3) { //3通道
+                for (int i=0; i&amp;lt; src.channels(); i++) {
+                    float v = m.at&amp;lt;Vec3f&amp;gt;(row, col)[i];
+                    dst.at&amp;lt;Vec3b&amp;gt;(row, col)[i] = saturate_cast&amp;lt;uchar&amp;gt;(v*alpha + beta);
+                }
+            }  else if (src.channels() == 4) { //4通道
+                for (int i=0; i&amp;lt; src.channels(); i++) {
+                    float v = m.at&amp;lt;Vec4f&amp;gt;(row, col)[i];
+                    dst.at&amp;lt;Vec4b&amp;gt;(row, col)[i] = saturate_cast&amp;lt;uchar&amp;gt;(v*alpha + beta);
+                }
+            }
+        }
+    }
+    UIImage* result = MatToUIImage(dst);
+    return result;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h6 id=&quot;注&quot;&gt;注：&lt;/h6&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;做像素点操作时应当注意数据类型的转换&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    src.convertTo(m, CV_32F);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;图像的通道多样，处理图片时需要做多通道的处理&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;if(src.channels() == 1) {//单通道
+    ...
+} else if (src.channels() == 3) { //3通道
+    ...
+}  else if (src.channels() == 4) { //4通道
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;四小结&quot;&gt;四、小结&lt;/h2&gt;
+
+&lt;p&gt;本篇主要介绍了图像变换的概念，并通过例子讲解了亮度和对比度的调整。本篇的内容相对简单，但是对像素点的操作是基本功，特别是在实现自定义算法时，需要好好掌握。在今后的学习中亮度和对比度的调整是很多图像处理的前期工作，也需要理解透彻。今天就到这了，有疑问的朋友可以给我留言，see you later!&lt;/p&gt;
+</description>
+        <pubDate>Mon, 02 Jul 2018 17:38:27 +0800</pubDate>
+        <link>http://localhost:4000/2018/07/02/Learning-OpenCV-with-iOS-(%E5%9B%9B)-%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%92%8C%E5%AF%B9%E6%AF%94%E5%BA%A6/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/07/02/Learning-OpenCV-with-iOS-(%E5%9B%9B)-%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%92%8C%E5%AF%B9%E6%AF%94%E5%BA%A6/</guid>
+        
+        <category>OpenCV</category>
+        
+        
+      </item>
     
       <item>
         <title>【Learning OpenCV with iOS】(三) 图像混合与ROI</title>
@@ -2080,351 +2217,6 @@ UIPresentationController是提供高级视图切换的类。它让管理present 
         <guid isPermaLink="true">http://localhost:4000/2018/01/04/TensorFlow-Hello-World/</guid>
         
         <category>TensorFlow</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Clean Code 告诉你什么是好代码</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;欢迎加QQ群讨论：157672725&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
-&lt;p&gt;最近在团队推行Code Review，遇到一个头痛的问题。当向伙伴的代码提一个comment时，他们不解为什么需要这样改。细细想来，是他们不知道何为好代码，也不知道自己的代码有哪些 &lt;strong&gt;“坏味道”&lt;/strong&gt;。因此，分享了几期Clean Code，团队受益良多，故成此文。&lt;/p&gt;
-
-&lt;h2 id=&quot;clean-code&quot;&gt;Clean Code&lt;/h2&gt;
-&lt;p&gt;由于Clean Code篇幅较长，故先安排如下我认为较为重要的几点：&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;命名&lt;/li&gt;
-  &lt;li&gt;函数（方法）&lt;/li&gt;
-  &lt;li&gt;注释&lt;/li&gt;
-  &lt;li&gt;对象、数据结构&lt;/li&gt;
-  &lt;li&gt;类&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;命名&quot;&gt;命名&lt;/h2&gt;
-&lt;p&gt;命名有许多规则，但总结起来就是 &lt;strong&gt;“有意义”&lt;/strong&gt; 才是硬道理。&lt;/p&gt;
-
-&lt;h4 id=&quot;名副其实&quot;&gt;名副其实&lt;/h4&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Int d；//逝去的时间
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;这句代码的问题在于d没有表达好逝去的时间这个概念，故需要注释。请记住&lt;strong&gt;“名副其实就不需要注释”&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Int elapsedTime;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;再来看个例子
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-84ec0aa383220ddd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-谁都很难猜出其意义，看看小优化后的结果
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-d49086e45373066b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-基本看清了意义，这就是命名的重要性。细心的朋友还会发现这段代码的一些瑕疵 ：这里的4是什么鬼？习惯性我们管它叫&lt;strong&gt;“魔法数字”&lt;/strong&gt;
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-c6050e2641251ccd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-还是觉得有点问题，再优化
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-b064c4481f973106.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-对比下最早的代码，相信你会有感觉了。&lt;/p&gt;
-
-&lt;h4 id=&quot;避免误导&quot;&gt;避免误导&lt;/h4&gt;
-&lt;p&gt;生活中的场景也常出现在Code中，看下图，你的Code是否也出现这样的尴尬呢？那就Make it clean
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-5f157c1bfc0ec8bd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-79d103ddf5765538.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-是否傻傻分不清了呢？ 再来个&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;accountList
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;我知道你想说，这有什么问题。是的，如果你不是做Java开发，不会知道链表叫List，所以如果你不是用链表存储account，请不要用其修饰，或许这个时候你使用acountGroup会更好些。
-&lt;strong&gt;该点需要在具体开发环境下因地制宜&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;有意义的区分&quot;&gt;有意义的区分&lt;/h4&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Product
-ProductInfo
-ProductData
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;可以想象下，当一个项目中同时出现以上三个类的时候，你是如何区分开的，反正我是没有这个能力。类似的还有&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;game
-theGame
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;name
-nameString
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;分享时，伙伴说nameString有什么问题。我反问说难道你的名字会是Float型的？你懂了吧。&lt;/p&gt;
-
-&lt;h4 id=&quot;前缀&quot;&gt;前缀&lt;/h4&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;m_desc
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;有人提出加m前缀表示该变量为私有变量。
-我想说：你的变量很多？需要区分私有的还是公有的？如果你的变量很多，那就要想想是不是没设计好类，没有遵循&lt;strong&gt;单一职责原则&lt;/strong&gt;，另外私有和公有变量编译器会帮忙高亮显示区分的，不需要自己来区分(若某些编译器无此特性，怪编译器去)。&lt;/p&gt;
-
-&lt;h4 id=&quot;命名惯性&quot;&gt;命名惯性&lt;/h4&gt;
-&lt;p&gt;命名需要&lt;strong&gt;注重词性&lt;/strong&gt;
-类名：名词 or 名词短语
-方法名:  动词 or 动词短语&lt;/p&gt;
-
-&lt;h4 id=&quot;每个概念对应一个词&quot;&gt;每个概念对应一个词&lt;/h4&gt;
-&lt;p&gt;在一个模块中不要使用两个相似的概念来表达不同的操作。我在一份代码中看到过一个类中同时出现以下三个词打头的方法&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fetch
-get
-retrieve
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;请问那个才是真的获取值的方法？我实在分不清。&lt;/p&gt;
-
-&lt;h4 id=&quot;使用领域名称&quot;&gt;使用领域名称&lt;/h4&gt;
-&lt;p&gt;使用领域命名能让伙伴更明白你的程序结构（关于&lt;strong&gt;领域&lt;/strong&gt;这个概念，不熟悉的可以看下一本书叫 &lt;strong&gt;《领域驱动设计》&lt;/strong&gt;,俗称DDD）
-举个例子，比如你使用访问者模式来构建用户系统，那么&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;AccountVisitor
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;就显得明确、易懂&lt;/p&gt;
-
-&lt;h4 id=&quot;抵制缩写诱惑&quot;&gt;抵制缩写诱惑&lt;/h4&gt;
-&lt;p&gt;缩写需要注意，适当的缩写是可以的，但是要保证缩写后的词语仍然能表达其本意。举个有意思的例子&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ABCDEFG
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;这也是个缩写，但是乍看这个真不知道是什么的缩写，直接公布答案吧&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-824add860b52f5a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;小结&quot;&gt;小结&lt;/h4&gt;
-&lt;p&gt;命名是永恒的难题，我提几个建议吧&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;多看开源代码，积累好的用词&lt;/li&gt;
-  &lt;li&gt;不懂的词就查下词典，好过你自己想的&lt;/li&gt;
-  &lt;li&gt;做个自己的开源项目，让别人给你建议&lt;/li&gt;
-  &lt;li&gt;做好积累、再积累、还是积累&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-5a060e2dfc2b0a89.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;一些借鉴词&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;函数方法&quot;&gt;函数（方法）&lt;/h2&gt;
-&lt;p&gt;函数的第一条规则是要短小，第二条规则还是要短小。&lt;/p&gt;
-
-&lt;h4 id=&quot;短小&quot;&gt;短小&lt;/h4&gt;
-&lt;p&gt;那到底多短合适呢？历史上出现过几个标准&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;一屏&lt;/li&gt;
-  &lt;li&gt;100行&lt;/li&gt;
-  &lt;li&gt;50行&lt;/li&gt;
-  &lt;li&gt;20行
-有人问我为什么会差这么多，我的回答是：以前的屏幕分辨率那么低，一屏也就20-50行之间吧，所以以前一屏的说法也是合理的。
-对于行数，行业没有一个固定的标准。我所知道的Oracle建议是50行，Bob大叔的建议是20行。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;代码短小，好处自然很多。&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;单元测试覆盖率高&lt;/li&gt;
-  &lt;li&gt;每个函数一目了然，只做一件事&lt;/li&gt;
-  &lt;li&gt;有利于函数中的代码都在同一个抽象层级&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;只做一件事&quot;&gt;只做一件事&lt;/h4&gt;
-&lt;p&gt;&lt;strong&gt;函数应该做一件事。做好这件事。只做一件事。&lt;/strong&gt;
-那么如何判断只做一件事？
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-dcdab641d4e1302f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-请问这个函数做了几件事？伙伴的答案是&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.判断是否为测试页面
-2.加入测试数据
-3.渲染页面
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;你的答案是多少呢？其实答案是只做了一件事，主要是没有看清
-&lt;strong&gt;一件事 OR 一件事的多个步骤&lt;/strong&gt;，关于这点，大家要好好体会。&lt;/p&gt;
-
-&lt;p&gt;另外一个判断是否只做一件事的好方法： &lt;strong&gt;是否能再次分离出新函数&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;同一个抽象层级&quot;&gt;同一个抽象层级&lt;/h4&gt;
-&lt;p&gt;关于层级，比较难讲明，直接看例子吧
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-1855a83626453299.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-再看一个版本
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-534558d3ed66a43c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-你会发现看第二个版本的代码，明显舒服很多。因为第二的版本的三句代码都在同一个层级。而第一个版本的代码中的第一句是设置roundView的某个属性，但是最后一句却是在设置bubbleView，层级不同（roundView与bubbleView才是同层级）&lt;/p&gt;
-
-&lt;h4 id=&quot;使用描述性名称&quot;&gt;使用描述性名称&lt;/h4&gt;
-&lt;p&gt;如果长一点的名称可以更加清晰，不要犹豫，用清晰的吧（注意是要有意义的）&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;calculate
-calculatePrice
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;相比起来calculatePrice就好很多。
-再来看个例子&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;addComment
-addCommentAndReturnCount
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;你不是说长一点更清晰吗，那addCommentAndReturnCount很好吧。
-关于这点大家要注意，如果你&lt;strong&gt;需要用and、or之类的介词来修辞函数时，要考虑下你是否违背了单一职责原则&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;参数个数&quot;&gt;参数个数&lt;/h4&gt;
-&lt;p&gt;0个最好，
-1个次之，
-2个还行，
-3个以上不是太好了。
-参数与函数名位于不同的抽象层级，它要求你必须了解目前并不特别重要的细节。
-解决办法有许多，比如某些场景可使用&lt;a href=&quot;http://blog.csdn.net/u014618469/article/details/51112357&quot;&gt;DTO&lt;/a&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;嵌套层次分支过多&quot;&gt;嵌套层次、分支过多&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-e3e65b2257fbd001.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-嵌套、分支过多会让代码变得很难理解，解决的办法有如下：&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;卫语句&lt;/li&gt;
-  &lt;li&gt;do-while,引入break&lt;/li&gt;
-  &lt;li&gt;if-else if-then&lt;/li&gt;
-  &lt;li&gt;提取函数&lt;/li&gt;
-  &lt;li&gt;以子类取代类型代码&lt;/li&gt;
-  &lt;li&gt;以多态取代条件式&lt;/li&gt;
-  &lt;li&gt;…
-具体可根据项目特点选用&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;分割指令与查询&quot;&gt;分割指令与查询&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-d0b8c4a080ee6096.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-set这个函数很不明确的是到底是设置成功了返回true，还是名字存在返回true，但真正的问题在于，它是个指令但是掺杂了查询的功能。
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-530ed1a5b0be6092.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-将查询和命令分离后，代码便清晰很多了。&lt;/p&gt;
-
-&lt;h4 id=&quot;小结-1&quot;&gt;小结&lt;/h4&gt;
-&lt;p&gt;如何写出好的函数&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;先写对的，再写好的&lt;/li&gt;
-  &lt;li&gt;对 =》 单元测试 =》识别坏味道 =》重构&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;注释&quot;&gt;注释&lt;/h2&gt;
-&lt;p&gt;“别给糟糕的代码加注释 — 重新写吧。” –Brian &amp;amp; P.J.
-“注释总是一种失败” –Bob&lt;/p&gt;
-
-&lt;h4 id=&quot;用代码来阐述&quot;&gt;用代码来阐述&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-7ded99f349de2d7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-c078b0c47617e0c9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-感受两段代码会发现&lt;strong&gt;代码即注释&lt;/strong&gt;的美&lt;/p&gt;
-
-&lt;h4 id=&quot;坏注释&quot;&gt;坏注释&lt;/h4&gt;
-&lt;p&gt;先来看看什么是坏的注释&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-1f4c7f7885168329.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h6 id=&quot;喃喃自语&quot;&gt;喃喃自语&lt;/h6&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-33d7fada2eecf05f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-这注释绝对是给自己看的&lt;/p&gt;
-
-&lt;h6 id=&quot;多余的注释&quot;&gt;多余的注释&lt;/h6&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-5b6e1b6c11fa5dcc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-解释跟没解释一样，不如代码来的简单明了&lt;/p&gt;
-
-&lt;h6 id=&quot;误导性的注释&quot;&gt;误导性的注释&lt;/h6&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-8420be9ee7452dc0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-你在误导吧&lt;/p&gt;
-
-&lt;h6 id=&quot;循规式注释&quot;&gt;循规式注释&lt;/h6&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-9abd556dce08133e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-这个一定要注意，循环式的注释完全多余（除了做sdk、开源）&lt;/p&gt;
-
-&lt;h6 id=&quot;括号后的注释&quot;&gt;括号后的注释&lt;/h6&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-2baf32c06cca4c83.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-如果括号后需要注释，只表明你这段代码太长了，需要做的不是加注释，而是将它变短。&lt;/p&gt;
-
-&lt;h6 id=&quot;归属于署名&quot;&gt;归属于署名&lt;/h6&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-c32581aef1508e65.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-Git、SVN知道是你提交的，不用这样刷存在感&lt;/p&gt;
-
-&lt;h6 id=&quot;注释掉代码&quot;&gt;注释掉代码&lt;/h6&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-80c04ff8663dc87d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-注释掉的代码，只会让修改你代码的人蒙圈，如果你觉得这段代码有可能以后会用，也不用担心，Git、SVN会帮你找回来&lt;/p&gt;
-
-&lt;h6 id=&quot;信息过多&quot;&gt;信息过多&lt;/h6&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-78b971fc580ba07b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-面向对象讲究，暴露操作，隐藏实现，如果你还要注释这些信息，表示你没有封装好。这些信息，可考虑放个链接或者其他的简短提示，太长的注释，别人懒得读、也难读懂
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-9975e7daf6d46fa5.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;好注释&quot;&gt;好注释&lt;/h4&gt;
-&lt;p&gt;看了那么多坏注释，来看看什么是好的注释&lt;/p&gt;
-
-&lt;h6 id=&quot;法律信息&quot;&gt;法律信息&lt;/h6&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-f6c465ce5b02c212.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h6 id=&quot;提供信息&quot;&gt;提供信息&lt;/h6&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-1e88b64df4b3545a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h6 id=&quot;对意图的注释&quot;&gt;对意图的注释&lt;/h6&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-3514ef2a1f11e5ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h6 id=&quot;阐释&quot;&gt;阐释&lt;/h6&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-e27063498e5fa921.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h6 id=&quot;警示&quot;&gt;警示&lt;/h6&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-9c37a2b13b274296.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h6 id=&quot;todo注释&quot;&gt;TODO注释&lt;/h6&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-8a3c0463568c7c91.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h6 id=&quot;放大&quot;&gt;放大&lt;/h6&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-8942084ca561d0ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;对象数据结构&quot;&gt;对象、数据结构&lt;/h2&gt;
-
-&lt;h4 id=&quot;数据抽象&quot;&gt;数据抽象&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-da5ce334a6178165.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-760ec2a370cb8a69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;将变量设置为私有(Private)，主要是不想让其他人依赖这些变量。所以，不要随便给变量添加赋值方法和取值方法(set/get方法)，这样其实是把私有变量公之于众。
-隐藏变量和实现，并不是在变量与外界之间放一个函数层那么简单。隐藏关乎抽象。
-类并不简单地用赋值方法和取值方法将其变量推向外间，而是暴露抽象接口，以便用户&lt;strong&gt;无需了解数据的实现而能操作数据本体。&lt;/strong&gt;
-要以什么方式呈现对象所包含的数据，需要做严肃的思考。随便加赋值方法和取值方法，是最坏的选择。&lt;/p&gt;
-
-&lt;h4 id=&quot;数据对象的反对称性&quot;&gt;数据、对象的反对称性&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-f628b8cefc80ecd5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-8cf0f6f09ad2b332.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;前者是一种过程式代码，后者是面向对象式代码。我们会发现假如要添加一个新形状的话，后者绝对是不错的选择，因为以上代码都不需要修改，只需写一个新形状类，这符合“开放–封闭”原则。然而假如添加一个计算周长的功能的话那就杯具了，因为这样子每个形状类都得改动。但是假如是用过程式代码的话只需要添加一个新函数。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;过程式代码（使用数据结构的代码）便于在不改动既有数据结构的前提下添加新函数。
-面向对象代码便于在不改动既有函数的前提下添加新类。
-一切都是对象只是一个传说&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;类&quot;&gt;类&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-fd96714e9529ec6c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;组织&quot;&gt;组织&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;公共静态变量&lt;/li&gt;
-  &lt;li&gt;私有静态变量&lt;/li&gt;
-  &lt;li&gt;私有实体变量&lt;/li&gt;
-  &lt;li&gt;公共函数&lt;/li&gt;
-  &lt;li&gt;私有函数
-自顶向下原则
-&lt;strong&gt;这里为什么没有写公有实体变量是因为，其不建议出现在代码中。&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;短小-1&quot;&gt;短小&lt;/h4&gt;
-&lt;p&gt;函数的短小标准是行数，那类是什么呢？答案是&lt;strong&gt;职责&lt;/strong&gt;
-类需要遵循&lt;a href=&quot;http://catchzeng.com/2017/02/19/iOS聊聊设计模式原则-一-单一职责原则/&quot;&gt;单一职责原则&lt;/a&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;内聚&quot;&gt;内聚&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-57db1505a58e54fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-如以上代码，内聚性高，除了size方法外，其他方法都使用了两个实例变量。
-内聚：&lt;strong&gt;模块内部各个元素彼此结合的紧密程度（类中方法和变量间的结合程度）&lt;/strong&gt;
-&lt;strong&gt;保持内聚会得到许多短小的类
-当一个类丧失内聚性时我们应当拆分它&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;总结&quot;&gt;总结&lt;/h2&gt;
-&lt;p&gt;Clean Code能帮助团队构建代码质量体系，有助于开发的各个环节（静态分析、持续集成、Code Review…）。当然，对个人的能力提高也很有好处，建议大家都应该熟悉。等团队Code Review一段时间后，有其他收获的话，再给大家分享。
-&lt;strong&gt;预祝大家国庆节快乐！&lt;/strong&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 29 Sep 2017 16:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2017/09/29/Clean-Code-%E5%91%8A%E8%AF%89%E4%BD%A0%E4%BB%80%E4%B9%88%E6%98%AF%E5%A5%BD%E4%BB%A3%E7%A0%81/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/09/29/Clean-Code-%E5%91%8A%E8%AF%89%E4%BD%A0%E4%BB%80%E4%B9%88%E6%98%AF%E5%A5%BD%E4%BB%A3%E7%A0%81/</guid>
-        
-        <category>iOS</category>
         
         
       </item>
