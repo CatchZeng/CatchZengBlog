@@ -5,9 +5,239 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 03 Jul 2018 15:13:31 +0800</pubDate>
-    <lastBuildDate>Tue, 03 Jul 2018 15:13:31 +0800</lastBuildDate>
+    <pubDate>Thu, 09 Aug 2018 11:30:48 +0800</pubDate>
+    <lastBuildDate>Thu, 09 Aug 2018 11:30:48 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>【Learning OpenCV with iOS】(五) 图像模糊--线性滤波</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;一前言&quot;&gt;一、前言&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://catchzeng.com/2018/07/02/Learning-OpenCV-with-iOS-(四)-图像亮度和对比度/&quot;&gt;上一篇&lt;/a&gt;我们讲解了OpenCV的图像亮度和对比度调整。本篇主要向大家介绍下图像模糊。按惯例，先来一张效果图。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-9f839b59fc174f06.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;铠玩模糊&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;二模糊&quot;&gt;二、模糊&lt;/h2&gt;
+
+&lt;p&gt;所谓&lt;strong&gt;模糊&lt;/strong&gt;，可以先简单理解为每一个像素都取周边像素的平均值。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-421e3e62d8da7f52.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;模糊&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上图中，2是中间点像素值，周边像素都是1。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-6f0f0a5da441812d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;模糊&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;中间点取周围点的平均值，就会变成1。在数值上叫&lt;strong&gt;平滑&lt;/strong&gt;。在图形上，就产生了&lt;strong&gt;模糊&lt;/strong&gt;效果，也就是中间点失去了细节。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-bc2ce865b85b330b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;模糊&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;三图像模糊&quot;&gt;三、图像模糊&lt;/h2&gt;
+
+&lt;p&gt;图像模糊是opencv常见的操作，使用模糊操作的原因是为了给图像&lt;strong&gt;预处理&lt;/strong&gt;时降低噪声影响。
+Smooth和Blur是opencv图像模糊的API，其背后的原理其实是数学的卷积操作&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-10def553303932ed.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;卷积&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其中权重核h(k,l) 为“滤波系数”。上面的式子可以简记为：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-d3247f1ba60ce51f.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;卷积&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;通常这些&lt;strong&gt;卷积算子&lt;/strong&gt;计算都是线性操作，所以又叫&lt;strong&gt;线性滤波&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;h2 id=&quot;四线性滤波&quot;&gt;四、线性滤波&lt;/h2&gt;
+
+&lt;h3 id=&quot;1均值滤波&quot;&gt;1、均值滤波&lt;/h3&gt;
+
+&lt;p&gt;均值滤波是典型的线性滤波算法，它是指在图像上对目标像素给一个&lt;strong&gt;模板&lt;/strong&gt;，该模板包括了其周围的临近像素，再用模板中的全体像素的平均值来代替原来像素值。&lt;/p&gt;
+
+&lt;p&gt;还记得&lt;a href=&quot;http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-(二)-掩膜操作/&quot;&gt;第二篇&lt;/a&gt;里所讲&lt;strong&gt;掩膜操作&lt;/strong&gt;吧，均值滤波的过程跟掩膜操作极其相似。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-306a532247d4b325.gif&quot; alt=&quot;均值滤波&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;滤波操作：在9x9上面有3x3的窗口，从左到右，从上到下移动，白色的每个像素点值之和取平均值赋给中心红色像素作为它处理之后的像素值。其中，&lt;strong&gt;模板&lt;/strong&gt;就是3x3的窗口，红色格子为&lt;strong&gt;目标像素&lt;/strong&gt;，白色格子为周围的&lt;strong&gt;临近像素&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;此类操作被称为&lt;strong&gt;卷积计算&lt;/strong&gt;，而模板和kernel就是卷积计算中的&lt;strong&gt;卷积算子&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;opencv提供了均值滤波（模糊）的API&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/** 
+@param src 输入图像
+@param dst 输出图像
+@param ksize 模糊kernel大小
+@param anchor 锚点; 默认值为Point(-1,-1) ，表示在锚点在kernel的中心
+@param borderType 查看#BorderTypes
+ */
+blur( InputArray src, OutputArray dst,
+                        Size ksize, Point anchor = Point(-1,-1),
+                        int borderType = BORDER_DEFAULT );
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;铠玩模糊&quot;&gt;铠玩模糊&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-9f839b59fc174f06.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;铠玩模糊&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)blur:(UIImage *)image sizeX:(int)sizeX sizeY:(int)sizeY {
+    Mat src;
+    UIImageToMat(image, src);
+    
+    Mat dst;
+    blur(src, dst, cv::Size(sizeX, sizeY));
+    
+    UIImage* result = MatToUIImage(dst);
+    
+    return result;
+}
+
+class BlurViewController: UIViewController {
+
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var resultImageView: UIImageView!
+    
+    private var sizeX: Int32 = 3
+    private var sizeY: Int32 = 3
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    @IBAction func onSliderValueChanged(_ sender: UISlider) {
+        sizeX = Int32(sender.value)
+        transform()
+    }
+    
+    @IBAction func onSlider2ValueChanged(_ sender: UISlider) {
+        sizeY = Int32(sender.value)
+        transform()
+    }
+    
+    private func transform() {
+        let image = OpenCV.blur(imageView.image, sizeX: sizeX, sizeY: sizeY)
+        resultImageView.image = image
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;一些思考&quot;&gt;一些思考&lt;/h4&gt;
+
+&lt;h5 id=&quot;滤波操作为何能将图像模糊&quot;&gt;滤波操作为何能将图像模糊？&lt;/h5&gt;
+
+&lt;p&gt;滤波操作其实是用周围的像素平均值作为目标像素的值，经过这样的处理后其实就是整个图像像素值差距缩小。差距缩小了自然就比较没有辨识度了，也就是模糊了。&lt;/p&gt;
+
+&lt;h5 id=&quot;为何在铠玩模糊中只改变size的x大小会让铠在x轴方向模糊&quot;&gt;为何在铠玩模糊中，只改变Size的x大小会让铠在x轴方向模糊？&lt;/h5&gt;
+
+&lt;p&gt;这题就当讨论题吧，有兴趣的朋友可以在文章的评论处讨论。
+提示：改变x的值其实就是改变kernel的形态，单独将x增加，就相当于kernel的形态变成宽度大于高度的长方形。&lt;/p&gt;
+
+&lt;h5 id=&quot;均值模糊有没有什么问题&quot;&gt;均值模糊有没有什么问题？&lt;/h5&gt;
+
+&lt;p&gt;我们知道图像都是&lt;strong&gt;连续的&lt;/strong&gt;，&lt;strong&gt;越靠近的点关系越密切，越远离的点关系越疏远&lt;/strong&gt;，均值模糊只是简单的取平均，没有分配&lt;strong&gt;权重&lt;/strong&gt;，肯定存在不合理之处。相比之下，加权平均更合理，距离越近的点权重越大，距离越远的点权重越小。
+下面我们就来看下带权重的高斯滤波。&lt;/p&gt;
+
+&lt;h3 id=&quot;2高斯滤波&quot;&gt;2、高斯滤波&lt;/h3&gt;
+
+&lt;h4 id=&quot;正态分布&quot;&gt;正态分布&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-a883c94a4950b72e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;正态分布&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如上图，正态分布是一种钟摆形曲线，越接近中心，取值越大，越远离中心，取值越小。
+计算平均值的时候，我们只需要将中心点作为原点，其他点按照其在正态曲线上的位置，分配权重，就可以得到一个加权平均值。&lt;/p&gt;
+
+&lt;h4 id=&quot;高斯函数&quot;&gt;高斯函数&lt;/h4&gt;
+
+&lt;h5 id=&quot;一维函数&quot;&gt;一维函数&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-e3a63c466aaf2b73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;一维高斯函数&quot; /&gt;
+σ：标准差，在这里又叫做高斯半径。
+σ2：方差。
+f(x)：概率
+μ：均值，即期望。&lt;/p&gt;
+
+&lt;p&gt;在计算平均值的时候，中心点就是原点，所以μ等于0。可得简化后的函数：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-327146860c1bcafa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;简化后的函数&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;根据一维函数，可以推导得到二维函数：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-4428118897919429.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;二维高斯函数&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;图像是二维的，所以通常处理图像时，我们使用二维高斯函数。&lt;/p&gt;
+
+&lt;h5 id=&quot;计算例子&quot;&gt;计算例子&lt;/h5&gt;
+
+&lt;p&gt;假定中心点的坐标是（0,0），那么距离它最近的8个点的坐标如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-0f621d9ee8289b44.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;坐标&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;假设σ=1.5，则权重矩阵如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-df79b4cfe9e67eaf.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;权重矩阵&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这9个点的权重总和等于0.4787147，归一化后得到最终的权重矩阵：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-b10892137ebdd773.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;归一化&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;假设现有图像矩阵如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-fe3faf6c3a2429a1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;图像矩阵.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;与权重相乘后得到的矩阵如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-40e93558114e798a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;矩阵&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;将这9个值相加就是中心点的最终值：13.9401236。而通过均值滤波得到的结果是13.5。&lt;/p&gt;
+
+&lt;h4 id=&quot;均值与高斯哪家强&quot;&gt;均值与高斯哪家强&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@param sigmaX Gaussian kernel standard deviation in X direction.
+@param sigmaY Gaussian kernel standard deviation in Y direction; if sigmaY is zero, it is set to be
+equal to sigmaX, if both sigmas are zeros, they are computed from ksize.width and ksize.height,
+respectively (see #getGaussianKernel for details); to fully control the result regardless of
+possible future modifications of all this semantics, it is recommended to specify all of ksize,
+sigmaX, and sigmaY.
+@param borderType pixel extrapolation method, see #BorderTypes
+
+@sa  sepFilter2D, filter2D, blur, boxFilter, bilateralFilter, medianBlur
+ */
+CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
+                                double sigmaX, double sigmaY = 0,
+                                int borderType = BORDER_DEFAULT );
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)gaussianblur:(UIImage *)image sizeX:(int)sizeX sizeY:(int)sizeY {
+    Mat src;
+    UIImageToMat(image, src);
+    
+    Mat dst;
+    GaussianBlur(src, dst, cv::Size(sizeX, sizeY), 11);
+    
+    UIImage* result = MatToUIImage(dst);
+    
+    return result;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-fe8d7a23f71b0c53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;均值&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-702ca4a10ec28fed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;高斯&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;仔细观看可以看到，高斯模糊图像的轮廓较均值的清晰些，没有那么“模糊”。&lt;/p&gt;
+
+&lt;h2 id=&quot;五小结&quot;&gt;五、小结&lt;/h2&gt;
+
+&lt;p&gt;本篇主要介绍了图像模糊的概念，并通过例子讲解了均值模糊和高斯模糊。模糊经常在图像预处理降时使用到，需要好好掌握其原理，以便于应对不同情况。今天就到这了，有疑问的朋友可以给我留言，咱们下篇见！&lt;/p&gt;
+</description>
+        <pubDate>Wed, 08 Aug 2018 17:38:27 +0800</pubDate>
+        <link>http://localhost:4000/2018/08/08/Learning-OpenCV-with-iOS-(%E4%BA%94)-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/08/08/Learning-OpenCV-with-iOS-(%E4%BA%94)-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/</guid>
+        
+        <category>OpenCV</category>
+        
+        
+      </item>
     
       <item>
         <title>【Learning OpenCV with iOS】(四) 图像亮度和对比度</title>
@@ -2144,79 +2374,6 @@ UIPresentationController是提供高级视图切换的类。它让管理present 
         <guid isPermaLink="true">http://localhost:4000/2018/01/11/iOS-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%B9%E5%87%BA%E8%A7%86%E5%9B%BE%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF/</guid>
         
         <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>TensorFlow--Hello World</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;欢迎加QQ群讨论：157672725&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;简介&quot;&gt;简介&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.tensorflow.org&quot;&gt;TensorFlow™&lt;/a&gt; 是一个采用&lt;strong&gt;数据流图（data flow graphs）&lt;/strong&gt;，用于数值计算的开源软件库。&lt;strong&gt;节点（Nodes）&lt;/strong&gt;在图中表示&lt;strong&gt;数学操作&lt;/strong&gt;，图中的&lt;strong&gt;线（edges）&lt;/strong&gt;则表示在节点间相互联系的&lt;strong&gt;多维数据数组&lt;/strong&gt;，即&lt;strong&gt;张量（tensor）&lt;/strong&gt;。它灵活的架构让你可以在多种平台上展开计算，例如台式计算机中的一个或多个CPU（或GPU），服务器，移动设备等等。TensorFlow 最初由Google大脑小组（隶属于Google机器智能研究机构）的研究员和工程师们开发出来，用于机器学习和深度神经网络方面的研究，但这个系统的通用性使其也可广泛用于其他计算领域。&lt;/p&gt;
-
-&lt;h2 id=&quot;概念介绍数据流图节点线张量&quot;&gt;概念介绍（数据流图、节点、线、张量）&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;数据流图&lt;/strong&gt;用&lt;strong&gt;节点&lt;/strong&gt;和&lt;strong&gt;线&lt;/strong&gt;的有向图来描述数学计算。&lt;strong&gt;节点&lt;/strong&gt; 一般用来表示施加的&lt;strong&gt;数学操作&lt;/strong&gt;，但也可以表示数据&lt;strong&gt;输入（feed in）的起点/输出（push out）的终点&lt;/strong&gt;，或者是&lt;strong&gt;读取/写入持久变量（persistent variable）的终点&lt;/strong&gt;。&lt;strong&gt;线&lt;/strong&gt;表示&lt;strong&gt;节点&lt;/strong&gt;之间的输入/输出关系。这些数据&lt;strong&gt;线&lt;/strong&gt;可以输运“size可动态调整”的多维数据数组，即&lt;strong&gt;张量&lt;/strong&gt;（tensor）。张量从图中流过的直观图像是这个工具取名为“Tensorflow”的原因。一旦输入端的所有张量准备好，节点将被分配到各种计算设备完成异步并行地执行运算。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-55c623beb0c057ae.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;数据流图&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;hello-world&quot;&gt;Hello World&lt;/h2&gt;
-&lt;p&gt;学习新语言时，我们通常都会写一个Hello World，来熟悉开发环境的搭建。TensorFlow也不例外。接下来，我将带大家一步步搭建TensorFlow的环境，向世界问好！&lt;/p&gt;
-
-&lt;h3 id=&quot;1安装anaconda后面说明为何选择anaconda&quot;&gt;1.安装Anaconda[后面说明为何选择Anaconda]&lt;/h3&gt;
-&lt;p&gt;前往&lt;a href=&quot;https://www.anaconda.com/download/#macos&quot;&gt;Anaconda&lt;/a&gt;下载安装包（这里以Mac系统为例，选择Python3.6version）
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-b3e0cc827478d1cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Anaconda&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;2启动anaconda选择环境点击创建选择环境选项这里以python-v35为例&quot;&gt;2.启动Anaconda，选择环境点击创建，选择环境选项（这里以Python V3.5为例）&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-e5abcd2b36fb1edd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Anaconda&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-9e283e4c85ff495a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;创建环境&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-89380eb14ba6c11f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;环境选项&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;3安装tensorflow包&quot;&gt;3.安装TensorFlow包&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-0f7a50b0c22ba245.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;选择All&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-d963ab9ed5345a26.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;搜索TensorFlow并勾选&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-cfe1cdc8c164b85c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Apply&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;4运行环境&quot;&gt;4.运行环境&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-cf80b1798d03c5ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Run&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;5编写hello-world&quot;&gt;5.编写Hello World&lt;/h4&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tensorflow&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tf&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;constant&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Hello, TensorFlow!'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sess&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-bf318f56b181702d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Hello World&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;自此TensorFlow的环境已搭建完成！&lt;/p&gt;
-
-&lt;h2 id=&quot;为何选择anaconda&quot;&gt;为何选择Anaconda？&lt;/h2&gt;
-
-&lt;p&gt;Python易用，但用好却不易，其中比较头疼的就是包管理和Python不同版本的问题，特别是当你使用Windows的时候。为了解决这些问题，就有了不少发行版的Python，比如WinPython、Anaconda等，这些发行版将python和许多常用的package打包，方便Pythoners直接使用。个人尝试了很多类似的发行版，因为Anaconda强大而方便的包管理与环境管理的功能，最终选择了它。&lt;/p&gt;
-
-&lt;h2 id=&quot;参考链接&quot;&gt;参考链接&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.tensorflow.org/install/&quot;&gt;https://www.tensorflow.org/install/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.anaconda.com&quot;&gt;https://www.anaconda.com&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://python.jobbole.com/86236/&quot;&gt;http://python.jobbole.com/86236/&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Thu, 04 Jan 2018 16:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2018/01/04/TensorFlow-Hello-World/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/01/04/TensorFlow-Hello-World/</guid>
-        
-        <category>TensorFlow</category>
         
         
       </item>
