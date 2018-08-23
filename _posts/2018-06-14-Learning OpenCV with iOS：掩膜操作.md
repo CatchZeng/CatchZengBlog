@@ -4,7 +4,7 @@ title:      "Learning OpenCV with iOS：掩膜操作"
 subtitle:   "OpenCV"
 date:       2018-06-14 09:38:27 
 author:     "CatchZeng"
-header-img: "img/post-bg-ios.jpg"
+header-img: "img/post-opencv.jpg"
 tags:
     - OpenCV
 ---
