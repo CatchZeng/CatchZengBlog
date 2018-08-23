@@ -10,9 +10,9 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>【Learning OpenCV with iOS】(四) 图像亮度和对比度 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>Learning OpenCV with iOS：图像模糊--非线性滤波 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/2018/07/02/Learning-OpenCV-with-iOS-(%E5%9B%9B)-%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%92%8C%E5%AF%B9%E6%AF%94%E5%BA%A6/">
+    <link rel="canonical" href="http://localhost:4000/2018/08/22/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css ">
@@ -142,12 +142,12 @@
                         <a class="tag" href="/tags/#OpenCV" title="OpenCV">OpenCV</a>
                         
                     </div>
-                    <h1>【Learning OpenCV with iOS】(四) 图像亮度和对比度</h1>
+                    <h1>Learning OpenCV with iOS：图像模糊--非线性滤波</h1>
                     
                     
                     <h2 class="subheading">OpenCV</h2>
                     
-                    <span class="meta">Posted by CatchZeng on July 2, 2018</span>
+                    <span class="meta">Posted by CatchZeng on August 22, 2018</span>
                 </div>
             </div>
         </div>
@@ -169,127 +169,267 @@
 
 <h2 id="一前言">一、前言</h2>
 
-<p><a href="https://www.jianshu.com/p/cfd2686b449a">上一篇</a>我们讲解了OpenCV的图像混合与ROI。本篇主要向大家介绍下图像变换的调整亮度和对比度。按惯例，先来一张效果图。</p>
+<p><a href="http://catchzeng.com/2018/08/08/Learning-OpenCV-with-iOS-图像模糊-线性滤波/">上一篇</a>我们讲解了OpenCV图像模糊中的线性滤波。本篇主要向大家介绍下非线性滤波。按惯例，先来看下效果图。</p>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-0e4ab78c269f66e4.gif?imageMogr2/auto-orient/strip" alt="魔铠变身" /></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-726907844b4bbb83.gif?imageMogr2/auto-orient/strip" alt="给铠祛痘" /></p>
 
-<h2 id="二图像变换">二、图像变换</h2>
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-675364f9303d8c0c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="阿珂美颜" /></p>
 
-<h4 id="算子">算子</h4>
-<p>一般的图像处理算子都是一个函数，它接受一个或多个输入图像，并产生输出图像。</p>
-<h6 id="单输入">单输入</h6>
-<div class="highlighter-rouge"><pre class="highlight"><code>g(x) = h(f(x))
+<h2 id="二线性与非线性">二、线性与非线性</h2>
+
+<p><a href="http://catchzeng.com/2018/08/08/Learning-OpenCV-with-iOS-图像模糊-线性滤波/">上一篇</a>中使用“卷积算子计算都是线性操作，所以又叫线性滤波”简单描述了线性滤波概念。下面我们详细了解下<strong>线性滤波</strong>与<strong>非线性滤波</strong>。</p>
+
+<h3 id="数学角度">数学角度</h3>
+
+<p>数学里，一般说的<strong>线性</strong>，是说的线性映射：
+线性 = <strong>齐次性</strong> + <strong>可加性</strong>
+齐次性: f(ax)=af(x)
+可加性: f(x+y)=f(x)+f(y)
+<strong>非线性</strong>就是这两条至少之一不成立.</p>
+
+<h3 id="图像角度">图像角度</h3>
+
+<p><strong>线性滤波</strong>：两个信号之和的响应和他们各自响应之和相等（<strong>可加性</strong>）。换句话说，每个像素的输出值是一些输入像素的<strong>加权和</strong>。
+<strong>非线性滤波</strong>：原始数据与滤波结果是一种<strong>逻辑关系</strong>，即通过比较一定邻域内的灰度值大小来实现的。</p>
+
+<p>线性滤波器易于构造，并且易于从频率响应角度来进行分析。但是，线性滤波在处理<strong>散粒噪声</strong>（即图像偶尔会出现很大的值）的时候，无法将噪声像素去除，只能转换为更为柔和但仍然可见的散粒。</p>
+
+<p>这时非线性滤波就该登场了。</p>
+
+<h2 id="三非线性滤波">三、非线性滤波</h2>
+
+<h3 id="1中值滤波median-filter">1、中值滤波（Median filter）</h3>
+
+<p>中值滤波是一种典型的非线性滤波技术，原理是用邻域像素灰度值的<strong>中值</strong>来代替该像素点的灰度值。</p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-306a532247d4b325.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/309" alt="滤波过程" /></p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-23b6de3e1a30d3ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="中值滤波" /></p>
+
+<p>滤波操作：在9 x 9上面有3 x 3的窗口，从左到右，从上到下移动。将3 x 3窗口内的灰度值按顺序排列，然后取中值代替中心的灰度值。</p>
+
+<p>中值滤波在一定的条件下可以克服常见线性滤波器，如均值滤波带来的图像细节模糊。而且对去除椒盐噪声非常有效，也常用于保护边缘信息, 保存边缘的特性使它在不希望出现边缘模糊的场合也很有用，是非常经典的平滑噪声处理方法。</p>
+
+<h4 id="中值滤波与均值滤波比较">中值滤波与均值滤波比较</h4>
+
+<h5 id="中值滤波优势">中值滤波优势</h5>
+
+<p>在均值滤波中，将<strong>噪声像素</strong>与非噪声像素<strong>一并放入</strong>平均计算中，影响了输出。在中值滤波中，噪声像素<strong>很难被选成中值</strong>，所以几乎不会影响到输出。因此，中值滤波消除噪声和边缘保护方便都更胜一筹。</p>
+
+<h5 id="中值滤波劣势">中值滤波劣势</h5>
+
+<p>因为中值滤波要进行排序操作，所以处理的时间长，是均值滤波的5倍以上。</p>
+
+<h4 id="给铠祛痘">给铠祛痘</h4>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-726907844b4bbb83.gif?imageMogr2/auto-orient/strip" alt="给铠祛痘" /></p>
+
+<p>OpenCV提供了中值滤波的API</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>/** 
+@param ksize aperture linear size; it must be odd and greater than 1, for example: 3, 5, 7 ...
+ */
+void medianBlur( InputArray src, OutputArray dst, int ksize );
 </code></pre>
 </div>
+<p><strong>注意：ksize必须是奇数</strong></p>
 
-<h6 id="多输入">多输入</h6>
-<div class="highlighter-rouge"><pre class="highlight"><code>g(x) = h(f0(x)......fn(x))
-</code></pre>
-</div>
-
-<p>根据算子的不同，图像变换分为两大类：</p>
-
-<ul>
-  <li>像素变换 - 点操作</li>
-  <li>邻域操作 - 区域</li>
-</ul>
-
-<h4 id="像素变换">像素变换</h4>
-
-<p>这类变换操作的是点。根据输入像素值（有时可加上某些全局信息或参数）计算相应的输出像素值。
-这类算子包括亮度和对比度调整 ，以及颜色校正和变换。</p>
-
-<h4 id="邻域操作">邻域操作</h4>
-
-<p>这类变换操作的是区域（大块的，非点操作）。
-这类算子包括卷积、特征提取、梯度计算、模糊等。
-后续文章中我们将一一讲解，这里不再赘述。</p>
-
-<h2 id="三调整图像亮度和对比度">三、调整图像亮度和对比度</h2>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>g(i, j) = αf(i,j) + β  其中α&gt;0，β是增益变量
-</code></pre>
-</div>
-<ul>
-  <li>f(i,j) 表示源图像像素</li>
-  <li>g(i,j) 表示输出图像像素</li>
-</ul>
-
-<h4 id="一些理解">一些理解</h4>
-
-<ul>
-  <li>
-    <p>亮度越亮其实看起来越“白”，在图像处理中就是像素值越靠近255。β变量是个增益变量，β越大，像素值就越靠近255，自然就提高了亮度。所以，<strong>β常常被用来控制图像的亮度</strong>。</p>
-  </li>
-  <li>
-    <p>α对像素的操作是乘法，乘法会”扩大差距“，打个比方：1x10 = 10, 2x10 = 20。改变α会将像素值的差距扩大，也就是改变了对比度。所以，<strong>α常常被用来控制图像的对比度</strong>。</p>
-  </li>
-</ul>
-
-<h4 id="魔铠变身">魔铠变身</h4>
-
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-0e4ab78c269f66e4.gif?imageMogr2/auto-orient/strip" alt="魔铠变身" /></p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>+(UIImage *)transform:(UIImage *)image alpha:(double)alpha beta:(double)beta {
+<div class="highlighter-rouge"><pre class="highlight"><code>+ (UIImage *)medianBlur:(UIImage *)image size:(int)size {
     Mat src;
     UIImageToMat(image, src);
     
-    Mat dst = Mat(src.size(), src.type());
-    
-    int rows = src.rows;
-    int cols = src.cols;
-    Mat m;
-    src.convertTo(m, CV_32F);
-    for (int row = 0; row &lt; rows; row++) {
-        for (int col = 0; col &lt; cols; col++) {
-            if(src.channels() == 1) {//单通道
-                float v = m.at&lt;Vec3f&gt;(row, col)[0];
-                dst.at&lt;uchar&gt;(row, col) = saturate_cast&lt;uchar&gt;(v*alpha + beta);
-            } else if (src.channels() == 3) { //3通道
-                for (int i=0; i&lt; src.channels(); i++) {
-                    float v = m.at&lt;Vec3f&gt;(row, col)[i];
-                    dst.at&lt;Vec3b&gt;(row, col)[i] = saturate_cast&lt;uchar&gt;(v*alpha + beta);
-                }
-            }  else if (src.channels() == 4) { //4通道
-                for (int i=0; i&lt; src.channels(); i++) {
-                    float v = m.at&lt;Vec4f&gt;(row, col)[i];
-                    dst.at&lt;Vec4b&gt;(row, col)[i] = saturate_cast&lt;uchar&gt;(v*alpha + beta);
-                }
-            }
-        }
+    int finalSize = size;
+    if (size%2 == 0) {
+        finalSize = size + 1;
     }
+    Mat dst;
+    medianBlur(src, dst, finalSize);
+    
     UIImage* result = MatToUIImage(dst);
+    
     return result;
 }
-</code></pre>
-</div>
-<h6 id="注">注：</h6>
 
-<ul>
-  <li>做像素点操作时应当注意数据类型的转换</li>
-</ul>
+class NolinearBlurViewController: UIViewController {
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    src.convertTo(m, CV_32F);
-</code></pre>
-</div>
-
-<ul>
-  <li>图像的通道多样，处理图片时需要做多通道的处理</li>
-</ul>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>if(src.channels() == 1) {//单通道
-    ...
-} else if (src.channels() == 3) { //3通道
-    ...
-}  else if (src.channels() == 4) { //4通道
-    ...
+    @IBOutlet weak var resultImageView: UIImageView!
+    let image = #imageLiteral(resourceName: "ddkai")
+    
+    @IBAction func onSliderValueChanged(_ sender: UISlider) {
+        resultImageView.image = OpenCV.medianBlur(self.image, size: Int32(Int(sender.value)))
+    }
 }
 </code></pre>
 </div>
+
+<h4 id="一些思考">一些思考</h4>
+
+<h5 id="为何ksize必须是奇数">为何ksize必须是奇数？</h5>
+
+<p>因为如果ksize是偶数，那么将像素灰度值从小到大排列后，必然就没有<strong>唯一的中值</strong>。即使得出中值，那么又将那个作为中心像素呢？因此，中值滤波要求ksize必须是奇数。</p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-436b6cb8f29b527c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ksize" /></p>
+
+<h4 id="中值滤波有什么不适合的场景">中值滤波有什么不适合的场景？</h4>
+
+<p>对一些<strong>细节多</strong>，特别是<strong>线、尖顶</strong>等细节多的图像不宜采用中值滤波。因为中值滤波会将这些细节也模糊掉。</p>
+
+<h3 id="2双边滤波bilateral-filter">2、双边滤波（Bilateral filter）</h3>
+
+<h4 id="空间域像素值域">空间域&amp;像素值域</h4>
+
+<p>对于图像滤波来说，图像在<strong>空间中</strong>变化缓慢，因此<strong>相邻的像素点会更相近</strong>。但是这个假设在图像的<strong>边缘处</strong>变得不成立。如果在边缘处也用这种思路来进行滤波的话，即认为相邻相近，则得到的结果必然会<strong>模糊掉边缘</strong>。因为边缘两侧的点的像素值差别很大，所以权重还需考虑像素值。</p>
+
+<p>因此，滤波不但要考虑<strong>空间域</strong>（以下简称空域），还需要考虑<strong>像素值域</strong>（以下简称值域）。</p>
+
+<h4 id="滤波分析">滤波分析</h4>
+
+<ul>
+  <li>均值滤波无法克服<strong>边缘像素信息丢失</strong>。原因是均值滤波是基于<strong>平均权重</strong>，没有考虑<strong>空域</strong>和<strong>值域</strong>。</li>
+  <li>高斯模糊部分克服了该缺陷（考虑了<strong>空域</strong>），但是无法完全避免，因为<strong>没有考虑像素值的不同</strong>，即没有考虑<strong>值域</strong>。</li>
+</ul>
+
+<h4 id="双边滤波">双边滤波</h4>
+
+<p>双边滤波是一种非线性的滤波方法，具有<strong>保边去噪</strong>的效果。</p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-2efa467fe7d31a4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="双边滤波" /></p>
+
+<p>双边滤波的基本思路是同时考虑像素点的<strong>空域</strong>和<strong>值域</strong>。
+双边滤波在考虑<strong>值域</strong>时，利用像素点的值的大小进行补充，因为边缘两侧的点的像素值差别很大，因此会使得其加权的时候权重具有很大的差别，从而使得只考虑自己所属的一边的邻域。可以理解成先根据像素值对要用来进行滤波的邻域做一个<strong>分割或分类</strong>，再给该点所属的类别相对较高的权重，然后进行<strong>邻域加权求和</strong>，得到最终结果。</p>
+
+<p>在双边滤波器中，输出像素的值依赖于邻域像素值的加权值组合：</p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-073bcd78d1de5de6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="双边滤波" /></p>
+<ul>
+  <li>w(i,j,k,l): 加权系数, 取决于空域核和值域核的乘积。</li>
+  <li>(i,j)，(k,l): 指两个像素点的坐标。</li>
+</ul>
+
+<p>空域核：</p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-1b1b874780ab2317.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="空域核" /></p>
+
+<p>值域核：</p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-175f62622c5d4770.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="值域核" /></p>
+
+<p>双边滤波权重函数：</p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-0339aafde3fc3167.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="双边滤波权重函数" /></p>
+
+<p>空域核（d）函数是根据<strong>像素距离</strong>选择权重，距离越近权重越大。
+值域核（r）函数则是根据<strong>像素的差异</strong>来分配权值。如果两个像素值越接近，即使相距较远，也比差异大而距离近的像素点权重大。这点使得边缘（即相距近但差异大的像素点）的特性得以保留。</p>
+
+<h4 id="阿珂美颜">阿珂美颜</h4>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-7326e1aa4b39d860.gif?imageMogr2/auto-orient/strip" alt="阿珂美颜" /></p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-675364f9303d8c0c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="阿珂美颜" /></p>
+
+<p>OpenCV提供了双边滤波的API</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>/** 
+_Sigma values_: 为了简单起见，可以将2 Sigma值设置为相同。
+如果它们很小（&lt;10）滤波器不会有太大的效果。
+如果它们很大（＞150），它们将具有非常强烈的效果，使图像看起来“卡通化”。
+
+_Filter size_: 大的滤波器（D&gt; 5）非常慢，因此建议在进行实时处理应用程序时使用d＝5。对于需要重噪声过滤的离线应用程序可以试下d＝9。
+
+@param src : 即源图像，需要为8位或者浮点型单通道、三通道的图像。
+@param d：过滤过程中每个像素邻域的直径。如果这个值我们设其为非正数，那么OpenCV会从第五个参数sigmaSpace来计算出它来。
+@param sigmaColor ：颜色空间滤波器的sigma值。这个参数的值越大，就表明该像素邻域内有更宽广的颜色会被混合到一起，产生较大的半相等颜色区域。
+@param sigmaSpace：坐标空间中滤波器的sigma值，坐标空间的标注方差。
+他的数值越大，意味着越远的像素会相互影响，从而使更大的区域足够相似的颜色获取相同的颜色。
+当d&gt;0，d指定了邻域大小且与sigmaSpace无关。否则，d正比于sigmaSpace。
+ */ 
+void bilateralFilter( InputArray src, OutputArray dst, int d,
+                                   double sigmaColor, double sigmaSpace,
+                                   int borderType = BORDER_DEFAULT );
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>+ (UIImage *)bilateralFilter:(UIImage *)image
+                           d:(int)d
+                  sigmaColor:(double)sigmaColor
+                  sigmaSpace:(double)sigmaSpace {
+    Mat src;
+    UIImageToMat(image, src);
+    
+    if (src.channels() == 4) {
+        cvtColor(src, src, CV_BGRA2BGR);
+    }
+    
+    Mat dst;
+    bilateralFilter(src, dst, d, sigmaColor, sigmaSpace);
+    
+    UIImage* result = MatToUIImage(dst);
+    
+    return result;
+}
+
+
+class BilateralFilterViewController: UIViewController {
+
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var blurImageView: UIImageView!
+    @IBOutlet weak var gBlurImageView: UIImageView!
+    @IBOutlet weak var resultImageView: UIImageView!
+    
+    private var d: Int32 = 1
+    private var color: Double = 1.0
+    private var space: Double = 1.0
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        blurImageView.image = OpenCV.blur(imageView.image, sizeX: 3, sizeY: 3)
+        gBlurImageView.image = OpenCV.gaussianblur(imageView.image, sizeX: 3, sizeY: 3)
+    }
+
+    @IBAction func onSliderValueChanged(_ sender: UISlider) {
+        d = Int32(sender.value)
+        transform()
+    }
+    
+    @IBAction func onSlider2ValueChanged(_ sender: UISlider) {
+        color = Double(sender.value)
+        transform()
+    }
+    
+    @IBAction func onSlider3ValueChanged(_ sender: UISlider) {
+        space = Double(sender.value)
+        transform()
+    }
+    
+    private func transform() {
+        resultImageView.image = OpenCV.bilateralFilter(imageView.image, d: d, sigmaColor: color, sigmaSpace: space)
+    }
+}
+</code></pre>
+</div>
+
+<h4 id="小小经验">小小经验</h4>
+
+<h5 id="如何选取合适的参数">如何选取合适的参数？</h5>
+
+<ul>
+  <li>使用OpenCV API时可以先看下<strong>API的注释文档</strong>，比如在双边滤波的注释文档中对Sigma的取值做了说明。这些值一般都是<strong>经验值</strong>。
+    <div class="highlighter-rouge"><pre class="highlight"><code>_Sigma values_: 为了简单起见，可以将2 Sigma值设置为相同。
+如果它们很小（&lt;10）滤波器不会有太大的效果。
+如果它们很大（＞150），它们将具有非常强烈的效果，使图像看起来“卡通化”。
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>使用<strong>滑竿</strong>帮助快速调节参数，观察效果。</p>
+  </li>
+  <li>从<strong>原理公式</strong>出发，假定一些参数，观察其趋势，掌握规律。</li>
+</ul>
 
 <h2 id="四小结">四、小结</h2>
 
-<p>本篇主要介绍了图像变换的概念，并通过例子讲解了亮度和对比度的调整。本篇的内容相对简单，但是对像素点的操作是基本功，特别是在实现自定义算法时，需要好好掌握。在今后的学习中亮度和对比度的调整是很多图像处理的前期工作，也需要理解透彻。今天就到这了，有疑问的朋友可以给我留言，see you later!</p>
+<p>本篇主要介绍了非线性滤波的概念，并通过例子讲解了中值滤波和双边滤波。 非线性滤波的应用广泛，不但要掌握API的调用，更要明白各种滤波的原理，这样才能创造个性化的滤波，也许有一天你就创造出自己的美颜滤镜了。 今天就到这了，有疑问的朋友可以给我留言，咱们下篇见！</p>
 
 
                 <hr>
@@ -300,13 +440,9 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/06/24/Learning-OpenCV-with-iOS-(%E4%B8%89)-%E5%9B%BE%E5%83%8F%E6%B7%B7%E5%90%88%E4%B8%8EROI/" data-toggle="tooltip" data-placement="top" title="【Learning OpenCV with iOS】(三) 图像混合与ROI">&larr; Previous Post</a>
+                        <a href="/2018/08/08/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/" data-toggle="tooltip" data-placement="top" title="Learning OpenCV with iOS：图像模糊--线性滤波">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2018/08/08/Learning-OpenCV-with-iOS-(%E4%BA%94)-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/" data-toggle="tooltip" data-placement="top" title="【Learning OpenCV with iOS】(五) 图像模糊--线性滤波">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
@@ -373,7 +509,7 @@
                             
         				
                             
-                				<a href="/tags/#OpenCV" title="OpenCV" rel="5">
+                				<a href="/tags/#OpenCV" title="OpenCV" rel="6">
                                     OpenCV
                                 </a>
                             
@@ -407,8 +543,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "catchzeng";
-    var disqus_identifier = "/2018/07/02/【Learning OpenCV with iOS】(四) 图像亮度和对比度";
-    var disqus_url = "http://localhost:4000/2018/07/02/Learning-OpenCV-with-iOS-(%E5%9B%9B)-%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%92%8C%E5%AF%B9%E6%AF%94%E5%BA%A6/";
+    var disqus_identifier = "/2018/08/22/Learning OpenCV with iOS：图像模糊--非线性滤波";
+    var disqus_url = "http://localhost:4000/2018/08/22/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

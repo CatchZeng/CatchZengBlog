@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "【Learning OpenCV with iOS】(一) Hello OpenCV"
+title:      "Learning OpenCV with iOS：Hello OpenCV"
 subtitle:   "OpenCV"
 date:       2018-06-12 09:38:27 
 author:     "CatchZeng"

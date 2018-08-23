@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "【Learning OpenCV with iOS】(三) 图像混合与ROI"
+title:      "Learning OpenCV with iOS：图像混合与ROI"
 subtitle:   "OpenCV"
 date:       2018-06-24 09:38:27 
 author:     "CatchZeng"
@@ -12,7 +12,7 @@ tags:
 
 ## 一、前言
 
-[上一篇](http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-(二)-掩膜操作/)我们讲解了OpenCV的掩膜操作。本篇主要向大家介绍下图像处理中的图像混合。按惯例，先来一张效果图。
+[上一篇](http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-掩膜操作/)我们讲解了OpenCV的掩膜操作。本篇主要向大家介绍下图像处理中的图像混合。按惯例，先来一张效果图。
 
 ![铠与Logo](https://upload-images.jianshu.io/upload_images/943491-7fa4159088937474.gif?imageMogr2/auto-orient/strip)
 

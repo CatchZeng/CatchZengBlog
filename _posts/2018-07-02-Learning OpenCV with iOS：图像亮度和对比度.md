@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "【Learning OpenCV with iOS】(四) 图像亮度和对比度"
+title:      "Learning OpenCV with iOS：图像亮度和对比度"
 subtitle:   "OpenCV"
 date:       2018-07-02 09:38:27 
 author:     "CatchZeng"
@@ -12,7 +12,7 @@ tags:
 
 ## 一、前言
 
-[上一篇](https://www.jianshu.com/p/cfd2686b449a)我们讲解了OpenCV的图像混合与ROI。本篇主要向大家介绍下图像变换的调整亮度和对比度。按惯例，先来一张效果图。
+[上一篇](http://catchzeng.com/2018/06/24/Learning-OpenCV-with-iOS-图像混合与ROI/)我们讲解了OpenCV的图像混合与ROI。本篇主要向大家介绍下图像变换的调整亮度和对比度。按惯例，先来一张效果图。
 
 ![魔铠变身](https://upload-images.jianshu.io/upload_images/943491-0e4ab78c269f66e4.gif?imageMogr2/auto-orient/strip)
 

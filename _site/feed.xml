@@ -5,17 +5,294 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 09 Aug 2018 11:30:48 +0800</pubDate>
-    <lastBuildDate>Thu, 09 Aug 2018 11:30:48 +0800</lastBuildDate>
+    <pubDate>Thu, 23 Aug 2018 09:37:33 +0800</pubDate>
+    <lastBuildDate>Thu, 23 Aug 2018 09:37:33 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
     
       <item>
-        <title>【Learning OpenCV with iOS】(五) 图像模糊--线性滤波</title>
+        <title>Learning OpenCV with iOS：图像模糊--非线性滤波</title>
         <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;一前言&quot;&gt;一、前言&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://catchzeng.com/2018/07/02/Learning-OpenCV-with-iOS-(四)-图像亮度和对比度/&quot;&gt;上一篇&lt;/a&gt;我们讲解了OpenCV的图像亮度和对比度调整。本篇主要向大家介绍下图像模糊。按惯例，先来一张效果图。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://catchzeng.com/2018/08/08/Learning-OpenCV-with-iOS-图像模糊-线性滤波/&quot;&gt;上一篇&lt;/a&gt;我们讲解了OpenCV图像模糊中的线性滤波。本篇主要向大家介绍下非线性滤波。按惯例，先来看下效果图。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-726907844b4bbb83.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;给铠祛痘&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-675364f9303d8c0c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;阿珂美颜&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;二线性与非线性&quot;&gt;二、线性与非线性&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://catchzeng.com/2018/08/08/Learning-OpenCV-with-iOS-图像模糊-线性滤波/&quot;&gt;上一篇&lt;/a&gt;中使用“卷积算子计算都是线性操作，所以又叫线性滤波”简单描述了线性滤波概念。下面我们详细了解下&lt;strong&gt;线性滤波&lt;/strong&gt;与&lt;strong&gt;非线性滤波&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;h3 id=&quot;数学角度&quot;&gt;数学角度&lt;/h3&gt;
+
+&lt;p&gt;数学里，一般说的&lt;strong&gt;线性&lt;/strong&gt;，是说的线性映射：
+线性 = &lt;strong&gt;齐次性&lt;/strong&gt; + &lt;strong&gt;可加性&lt;/strong&gt;
+齐次性: f(ax)=af(x)
+可加性: f(x+y)=f(x)+f(y)
+&lt;strong&gt;非线性&lt;/strong&gt;就是这两条至少之一不成立.&lt;/p&gt;
+
+&lt;h3 id=&quot;图像角度&quot;&gt;图像角度&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;线性滤波&lt;/strong&gt;：两个信号之和的响应和他们各自响应之和相等（&lt;strong&gt;可加性&lt;/strong&gt;）。换句话说，每个像素的输出值是一些输入像素的&lt;strong&gt;加权和&lt;/strong&gt;。
+&lt;strong&gt;非线性滤波&lt;/strong&gt;：原始数据与滤波结果是一种&lt;strong&gt;逻辑关系&lt;/strong&gt;，即通过比较一定邻域内的灰度值大小来实现的。&lt;/p&gt;
+
+&lt;p&gt;线性滤波器易于构造，并且易于从频率响应角度来进行分析。但是，线性滤波在处理&lt;strong&gt;散粒噪声&lt;/strong&gt;（即图像偶尔会出现很大的值）的时候，无法将噪声像素去除，只能转换为更为柔和但仍然可见的散粒。&lt;/p&gt;
+
+&lt;p&gt;这时非线性滤波就该登场了。&lt;/p&gt;
+
+&lt;h2 id=&quot;三非线性滤波&quot;&gt;三、非线性滤波&lt;/h2&gt;
+
+&lt;h3 id=&quot;1中值滤波median-filter&quot;&gt;1、中值滤波（Median filter）&lt;/h3&gt;
+
+&lt;p&gt;中值滤波是一种典型的非线性滤波技术，原理是用邻域像素灰度值的&lt;strong&gt;中值&lt;/strong&gt;来代替该像素点的灰度值。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-306a532247d4b325.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/309&quot; alt=&quot;滤波过程&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-23b6de3e1a30d3ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;中值滤波&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;滤波操作：在9 x 9上面有3 x 3的窗口，从左到右，从上到下移动。将3 x 3窗口内的灰度值按顺序排列，然后取中值代替中心的灰度值。&lt;/p&gt;
+
+&lt;p&gt;中值滤波在一定的条件下可以克服常见线性滤波器，如均值滤波带来的图像细节模糊。而且对去除椒盐噪声非常有效，也常用于保护边缘信息, 保存边缘的特性使它在不希望出现边缘模糊的场合也很有用，是非常经典的平滑噪声处理方法。&lt;/p&gt;
+
+&lt;h4 id=&quot;中值滤波与均值滤波比较&quot;&gt;中值滤波与均值滤波比较&lt;/h4&gt;
+
+&lt;h5 id=&quot;中值滤波优势&quot;&gt;中值滤波优势&lt;/h5&gt;
+
+&lt;p&gt;在均值滤波中，将&lt;strong&gt;噪声像素&lt;/strong&gt;与非噪声像素&lt;strong&gt;一并放入&lt;/strong&gt;平均计算中，影响了输出。在中值滤波中，噪声像素&lt;strong&gt;很难被选成中值&lt;/strong&gt;，所以几乎不会影响到输出。因此，中值滤波消除噪声和边缘保护方便都更胜一筹。&lt;/p&gt;
+
+&lt;h5 id=&quot;中值滤波劣势&quot;&gt;中值滤波劣势&lt;/h5&gt;
+
+&lt;p&gt;因为中值滤波要进行排序操作，所以处理的时间长，是均值滤波的5倍以上。&lt;/p&gt;
+
+&lt;h4 id=&quot;给铠祛痘&quot;&gt;给铠祛痘&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-726907844b4bbb83.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;给铠祛痘&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;OpenCV提供了中值滤波的API&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/** 
+@param ksize aperture linear size; it must be odd and greater than 1, for example: 3, 5, 7 ...
+ */
+void medianBlur( InputArray src, OutputArray dst, int ksize );
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;注意：ksize必须是奇数&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)medianBlur:(UIImage *)image size:(int)size {
+    Mat src;
+    UIImageToMat(image, src);
+    
+    int finalSize = size;
+    if (size%2 == 0) {
+        finalSize = size + 1;
+    }
+    Mat dst;
+    medianBlur(src, dst, finalSize);
+    
+    UIImage* result = MatToUIImage(dst);
+    
+    return result;
+}
+
+class NolinearBlurViewController: UIViewController {
+
+    @IBOutlet weak var resultImageView: UIImageView!
+    let image = #imageLiteral(resourceName: &quot;ddkai&quot;)
+    
+    @IBAction func onSliderValueChanged(_ sender: UISlider) {
+        resultImageView.image = OpenCV.medianBlur(self.image, size: Int32(Int(sender.value)))
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;一些思考&quot;&gt;一些思考&lt;/h4&gt;
+
+&lt;h5 id=&quot;为何ksize必须是奇数&quot;&gt;为何ksize必须是奇数？&lt;/h5&gt;
+
+&lt;p&gt;因为如果ksize是偶数，那么将像素灰度值从小到大排列后，必然就没有&lt;strong&gt;唯一的中值&lt;/strong&gt;。即使得出中值，那么又将那个作为中心像素呢？因此，中值滤波要求ksize必须是奇数。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-436b6cb8f29b527c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;ksize&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;中值滤波有什么不适合的场景&quot;&gt;中值滤波有什么不适合的场景？&lt;/h4&gt;
+
+&lt;p&gt;对一些&lt;strong&gt;细节多&lt;/strong&gt;，特别是&lt;strong&gt;线、尖顶&lt;/strong&gt;等细节多的图像不宜采用中值滤波。因为中值滤波会将这些细节也模糊掉。&lt;/p&gt;
+
+&lt;h3 id=&quot;2双边滤波bilateral-filter&quot;&gt;2、双边滤波（Bilateral filter）&lt;/h3&gt;
+
+&lt;h4 id=&quot;空间域像素值域&quot;&gt;空间域&amp;amp;像素值域&lt;/h4&gt;
+
+&lt;p&gt;对于图像滤波来说，图像在&lt;strong&gt;空间中&lt;/strong&gt;变化缓慢，因此&lt;strong&gt;相邻的像素点会更相近&lt;/strong&gt;。但是这个假设在图像的&lt;strong&gt;边缘处&lt;/strong&gt;变得不成立。如果在边缘处也用这种思路来进行滤波的话，即认为相邻相近，则得到的结果必然会&lt;strong&gt;模糊掉边缘&lt;/strong&gt;。因为边缘两侧的点的像素值差别很大，所以权重还需考虑像素值。&lt;/p&gt;
+
+&lt;p&gt;因此，滤波不但要考虑&lt;strong&gt;空间域&lt;/strong&gt;（以下简称空域），还需要考虑&lt;strong&gt;像素值域&lt;/strong&gt;（以下简称值域）。&lt;/p&gt;
+
+&lt;h4 id=&quot;滤波分析&quot;&gt;滤波分析&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;均值滤波无法克服&lt;strong&gt;边缘像素信息丢失&lt;/strong&gt;。原因是均值滤波是基于&lt;strong&gt;平均权重&lt;/strong&gt;，没有考虑&lt;strong&gt;空域&lt;/strong&gt;和&lt;strong&gt;值域&lt;/strong&gt;。&lt;/li&gt;
+  &lt;li&gt;高斯模糊部分克服了该缺陷（考虑了&lt;strong&gt;空域&lt;/strong&gt;），但是无法完全避免，因为&lt;strong&gt;没有考虑像素值的不同&lt;/strong&gt;，即没有考虑&lt;strong&gt;值域&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;双边滤波&quot;&gt;双边滤波&lt;/h4&gt;
+
+&lt;p&gt;双边滤波是一种非线性的滤波方法，具有&lt;strong&gt;保边去噪&lt;/strong&gt;的效果。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-2efa467fe7d31a4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;双边滤波&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;双边滤波的基本思路是同时考虑像素点的&lt;strong&gt;空域&lt;/strong&gt;和&lt;strong&gt;值域&lt;/strong&gt;。
+双边滤波在考虑&lt;strong&gt;值域&lt;/strong&gt;时，利用像素点的值的大小进行补充，因为边缘两侧的点的像素值差别很大，因此会使得其加权的时候权重具有很大的差别，从而使得只考虑自己所属的一边的邻域。可以理解成先根据像素值对要用来进行滤波的邻域做一个&lt;strong&gt;分割或分类&lt;/strong&gt;，再给该点所属的类别相对较高的权重，然后进行&lt;strong&gt;邻域加权求和&lt;/strong&gt;，得到最终结果。&lt;/p&gt;
+
+&lt;p&gt;在双边滤波器中，输出像素的值依赖于邻域像素值的加权值组合：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-073bcd78d1de5de6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;双边滤波&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;w(i,j,k,l): 加权系数, 取决于空域核和值域核的乘积。&lt;/li&gt;
+  &lt;li&gt;(i,j)，(k,l): 指两个像素点的坐标。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;空域核：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-1b1b874780ab2317.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;空域核&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;值域核：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-175f62622c5d4770.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;值域核&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;双边滤波权重函数：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-0339aafde3fc3167.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;双边滤波权重函数&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;空域核（d）函数是根据&lt;strong&gt;像素距离&lt;/strong&gt;选择权重，距离越近权重越大。
+值域核（r）函数则是根据&lt;strong&gt;像素的差异&lt;/strong&gt;来分配权值。如果两个像素值越接近，即使相距较远，也比差异大而距离近的像素点权重大。这点使得边缘（即相距近但差异大的像素点）的特性得以保留。&lt;/p&gt;
+
+&lt;h4 id=&quot;阿珂美颜&quot;&gt;阿珂美颜&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-7326e1aa4b39d860.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;阿珂美颜&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-675364f9303d8c0c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;阿珂美颜&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;OpenCV提供了双边滤波的API&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/** 
+_Sigma values_: 为了简单起见，可以将2 Sigma值设置为相同。
+如果它们很小（&amp;lt;10）滤波器不会有太大的效果。
+如果它们很大（＞150），它们将具有非常强烈的效果，使图像看起来“卡通化”。
+
+_Filter size_: 大的滤波器（D&amp;gt; 5）非常慢，因此建议在进行实时处理应用程序时使用d＝5。对于需要重噪声过滤的离线应用程序可以试下d＝9。
+
+@param src : 即源图像，需要为8位或者浮点型单通道、三通道的图像。
+@param d：过滤过程中每个像素邻域的直径。如果这个值我们设其为非正数，那么OpenCV会从第五个参数sigmaSpace来计算出它来。
+@param sigmaColor ：颜色空间滤波器的sigma值。这个参数的值越大，就表明该像素邻域内有更宽广的颜色会被混合到一起，产生较大的半相等颜色区域。
+@param sigmaSpace：坐标空间中滤波器的sigma值，坐标空间的标注方差。
+他的数值越大，意味着越远的像素会相互影响，从而使更大的区域足够相似的颜色获取相同的颜色。
+当d&amp;gt;0，d指定了邻域大小且与sigmaSpace无关。否则，d正比于sigmaSpace。
+ */ 
+void bilateralFilter( InputArray src, OutputArray dst, int d,
+                                   double sigmaColor, double sigmaSpace,
+                                   int borderType = BORDER_DEFAULT );
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)bilateralFilter:(UIImage *)image
+                           d:(int)d
+                  sigmaColor:(double)sigmaColor
+                  sigmaSpace:(double)sigmaSpace {
+    Mat src;
+    UIImageToMat(image, src);
+    
+    if (src.channels() == 4) {
+        cvtColor(src, src, CV_BGRA2BGR);
+    }
+    
+    Mat dst;
+    bilateralFilter(src, dst, d, sigmaColor, sigmaSpace);
+    
+    UIImage* result = MatToUIImage(dst);
+    
+    return result;
+}
+
+
+class BilateralFilterViewController: UIViewController {
+
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var blurImageView: UIImageView!
+    @IBOutlet weak var gBlurImageView: UIImageView!
+    @IBOutlet weak var resultImageView: UIImageView!
+    
+    private var d: Int32 = 1
+    private var color: Double = 1.0
+    private var space: Double = 1.0
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        blurImageView.image = OpenCV.blur(imageView.image, sizeX: 3, sizeY: 3)
+        gBlurImageView.image = OpenCV.gaussianblur(imageView.image, sizeX: 3, sizeY: 3)
+    }
+
+    @IBAction func onSliderValueChanged(_ sender: UISlider) {
+        d = Int32(sender.value)
+        transform()
+    }
+    
+    @IBAction func onSlider2ValueChanged(_ sender: UISlider) {
+        color = Double(sender.value)
+        transform()
+    }
+    
+    @IBAction func onSlider3ValueChanged(_ sender: UISlider) {
+        space = Double(sender.value)
+        transform()
+    }
+    
+    private func transform() {
+        resultImageView.image = OpenCV.bilateralFilter(imageView.image, d: d, sigmaColor: color, sigmaSpace: space)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;小小经验&quot;&gt;小小经验&lt;/h4&gt;
+
+&lt;h5 id=&quot;如何选取合适的参数&quot;&gt;如何选取合适的参数？&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;使用OpenCV API时可以先看下&lt;strong&gt;API的注释文档&lt;/strong&gt;，比如在双边滤波的注释文档中对Sigma的取值做了说明。这些值一般都是&lt;strong&gt;经验值&lt;/strong&gt;。
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;_Sigma values_: 为了简单起见，可以将2 Sigma值设置为相同。
+如果它们很小（&amp;lt;10）滤波器不会有太大的效果。
+如果它们很大（＞150），它们将具有非常强烈的效果，使图像看起来“卡通化”。
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;使用&lt;strong&gt;滑竿&lt;/strong&gt;帮助快速调节参数，观察效果。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;从&lt;strong&gt;原理公式&lt;/strong&gt;出发，假定一些参数，观察其趋势，掌握规律。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;四小结&quot;&gt;四、小结&lt;/h2&gt;
+
+&lt;p&gt;本篇主要介绍了非线性滤波的概念，并通过例子讲解了中值滤波和双边滤波。 非线性滤波的应用广泛，不但要掌握API的调用，更要明白各种滤波的原理，这样才能创造个性化的滤波，也许有一天你就创造出自己的美颜滤镜了。 今天就到这了，有疑问的朋友可以给我留言，咱们下篇见！&lt;/p&gt;
+</description>
+        <pubDate>Wed, 22 Aug 2018 17:38:27 +0800</pubDate>
+        <link>http://localhost:4000/2018/08/22/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/08/22/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/</guid>
+        
+        <category>OpenCV</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Learning OpenCV with iOS：图像模糊--线性滤波</title>
+        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;一前言&quot;&gt;一、前言&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://catchzeng.com/2018/07/02/Learning-OpenCV-with-iOS-图像亮度和对比度/&quot;&gt;上一篇&lt;/a&gt;我们讲解了OpenCV的图像亮度和对比度调整。本篇主要向大家介绍下图像模糊。按惯例，先来一张效果图。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-9f839b59fc174f06.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;铠玩模糊&quot; /&gt;&lt;/p&gt;
 
@@ -52,7 +329,7 @@ Smooth和Blur是opencv图像模糊的API，其背后的原理其实是数学的�
 
 &lt;p&gt;均值滤波是典型的线性滤波算法，它是指在图像上对目标像素给一个&lt;strong&gt;模板&lt;/strong&gt;，该模板包括了其周围的临近像素，再用模板中的全体像素的平均值来代替原来像素值。&lt;/p&gt;
 
-&lt;p&gt;还记得&lt;a href=&quot;http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-(二)-掩膜操作/&quot;&gt;第二篇&lt;/a&gt;里所讲&lt;strong&gt;掩膜操作&lt;/strong&gt;吧，均值滤波的过程跟掩膜操作极其相似。&lt;/p&gt;
+&lt;p&gt;还记得&lt;a href=&quot;http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-掩膜操作/&quot;&gt;第二篇&lt;/a&gt;里所讲&lt;strong&gt;掩膜操作&lt;/strong&gt;吧，均值滤波的过程跟掩膜操作极其相似。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-306a532247d4b325.gif&quot; alt=&quot;均值滤波&quot; /&gt;&lt;/p&gt;
 
@@ -231,8 +508,8 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
 &lt;p&gt;本篇主要介绍了图像模糊的概念，并通过例子讲解了均值模糊和高斯模糊。模糊经常在图像预处理降时使用到，需要好好掌握其原理，以便于应对不同情况。今天就到这了，有疑问的朋友可以给我留言，咱们下篇见！&lt;/p&gt;
 </description>
         <pubDate>Wed, 08 Aug 2018 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2018/08/08/Learning-OpenCV-with-iOS-(%E4%BA%94)-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/08/08/Learning-OpenCV-with-iOS-(%E4%BA%94)-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/</guid>
+        <link>http://localhost:4000/2018/08/08/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/08/08/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/</guid>
         
         <category>OpenCV</category>
         
@@ -240,12 +517,12 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
       </item>
     
       <item>
-        <title>【Learning OpenCV with iOS】(四) 图像亮度和对比度</title>
+        <title>Learning OpenCV with iOS：图像亮度和对比度</title>
         <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;一前言&quot;&gt;一、前言&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://www.jianshu.com/p/cfd2686b449a&quot;&gt;上一篇&lt;/a&gt;我们讲解了OpenCV的图像混合与ROI。本篇主要向大家介绍下图像变换的调整亮度和对比度。按惯例，先来一张效果图。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://catchzeng.com/2018/06/24/Learning-OpenCV-with-iOS-图像混合与ROI/&quot;&gt;上一篇&lt;/a&gt;我们讲解了OpenCV的图像混合与ROI。本篇主要向大家介绍下图像变换的调整亮度和对比度。按惯例，先来一张效果图。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-0e4ab78c269f66e4.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;魔铠变身&quot; /&gt;&lt;/p&gt;
 
@@ -368,8 +645,8 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
 &lt;p&gt;本篇主要介绍了图像变换的概念，并通过例子讲解了亮度和对比度的调整。本篇的内容相对简单，但是对像素点的操作是基本功，特别是在实现自定义算法时，需要好好掌握。在今后的学习中亮度和对比度的调整是很多图像处理的前期工作，也需要理解透彻。今天就到这了，有疑问的朋友可以给我留言，see you later!&lt;/p&gt;
 </description>
         <pubDate>Mon, 02 Jul 2018 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2018/07/02/Learning-OpenCV-with-iOS-(%E5%9B%9B)-%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%92%8C%E5%AF%B9%E6%AF%94%E5%BA%A6/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/07/02/Learning-OpenCV-with-iOS-(%E5%9B%9B)-%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%92%8C%E5%AF%B9%E6%AF%94%E5%BA%A6/</guid>
+        <link>http://localhost:4000/2018/07/02/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%92%8C%E5%AF%B9%E6%AF%94%E5%BA%A6/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/07/02/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%92%8C%E5%AF%B9%E6%AF%94%E5%BA%A6/</guid>
         
         <category>OpenCV</category>
         
@@ -377,12 +654,12 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
       </item>
     
       <item>
-        <title>【Learning OpenCV with iOS】(三) 图像混合与ROI</title>
+        <title>Learning OpenCV with iOS：图像混合与ROI</title>
         <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;一前言&quot;&gt;一、前言&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-(二)-掩膜操作/&quot;&gt;上一篇&lt;/a&gt;我们讲解了OpenCV的掩膜操作。本篇主要向大家介绍下图像处理中的图像混合。按惯例，先来一张效果图。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-掩膜操作/&quot;&gt;上一篇&lt;/a&gt;我们讲解了OpenCV的掩膜操作。本篇主要向大家介绍下图像处理中的图像混合。按惯例，先来一张效果图。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-7fa4159088937474.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;铠与Logo&quot; /&gt;&lt;/p&gt;
 
@@ -585,8 +862,8 @@ class ROIViewController: UIViewController {
 &lt;p&gt;本篇主要介绍了图像混合的概念，并通过例子讲解了线性混合的实现和ROI的应用。在今后的学习中ROI的使用度较高，需要好好掌握。ROI其实是“分而治之”思想在图像处理中的应用。好了，今天就到这了。有疑问的朋友可以给我留言，see you later!&lt;/p&gt;
 </description>
         <pubDate>Sun, 24 Jun 2018 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2018/06/24/Learning-OpenCV-with-iOS-(%E4%B8%89)-%E5%9B%BE%E5%83%8F%E6%B7%B7%E5%90%88%E4%B8%8EROI/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/06/24/Learning-OpenCV-with-iOS-(%E4%B8%89)-%E5%9B%BE%E5%83%8F%E6%B7%B7%E5%90%88%E4%B8%8EROI/</guid>
+        <link>http://localhost:4000/2018/06/24/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%B7%B7%E5%90%88%E4%B8%8EROI/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/06/24/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%B7%B7%E5%90%88%E4%B8%8EROI/</guid>
         
         <category>OpenCV</category>
         
@@ -594,12 +871,12 @@ class ROIViewController: UIViewController {
       </item>
     
       <item>
-        <title>【Learning OpenCV with iOS】(二) 掩膜操作</title>
+        <title>Learning OpenCV with iOS：掩膜操作</title>
         <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;一前言&quot;&gt;一、前言&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://catchzeng.com/2018/06/12/Learning-OpenCV-with-iOS-(一)-Hello-OpenCV/&quot;&gt;上一篇&lt;/a&gt;我们简单讲解了OpenCV的概念和基础架构。本篇主要向大家介绍下图像处理中一个比较重要的概念 –  掩膜操作。开始前我们先看下利用矩阵掩膜操作来加强图像对比度的效果。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://catchzeng.com/2018/06/12/Learning-OpenCV-with-iOS-Hello-OpenCV/&quot;&gt;上一篇&lt;/a&gt;我们简单讲解了OpenCV的概念和基础架构。本篇主要向大家介绍下图像处理中一个比较重要的概念 –  掩膜操作。开始前我们先看下利用矩阵掩膜操作来加强图像对比度的效果。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-74296305be0931e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;增强对比度&quot; /&gt;&lt;/p&gt;
 
@@ -817,8 +1094,8 @@ saturate_cast&amp;lt;uchar&amp;gt;(100)，返回100
 &lt;p&gt;本篇主要介绍了Mat对象的基本用法，并通过两个例子讲解了掩膜操作的原理和实现。下一篇还是会以这样的形式讲解OpenCV的其他知识，有更好建议的朋友可以给我留言，see you later!&lt;/p&gt;
 </description>
         <pubDate>Thu, 14 Jun 2018 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2018/06/14/Learning-OpenCV-with-iOS-(%E4%BA%8C)-%E6%8E%A9%E8%86%9C%E6%93%8D%E4%BD%9C/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/06/14/Learning-OpenCV-with-iOS-(%E4%BA%8C)-%E6%8E%A9%E8%86%9C%E6%93%8D%E4%BD%9C/</guid>
+        <link>http://localhost:4000/2018/06/14/Learning-OpenCV-with-iOS-%E6%8E%A9%E8%86%9C%E6%93%8D%E4%BD%9C/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/06/14/Learning-OpenCV-with-iOS-%E6%8E%A9%E8%86%9C%E6%93%8D%E4%BD%9C/</guid>
         
         <category>OpenCV</category>
         
@@ -826,7 +1103,7 @@ saturate_cast&amp;lt;uchar&amp;gt;(100)，返回100
       </item>
     
       <item>
-        <title>【Learning OpenCV with iOS】(一) Hello OpenCV</title>
+        <title>Learning OpenCV with iOS：Hello OpenCV</title>
         <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;一概念介绍&quot;&gt;一、概念介绍&lt;/h2&gt;
@@ -1083,8 +1360,8 @@ OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉库�
 &lt;p&gt;本篇从概念到环境搭建再到基本架构的角度介绍了OpenCV，让读者有一个宏观的认识。&lt;a href=&quot;http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-(二)-掩膜操作/&quot;&gt;下一篇&lt;/a&gt;开始，我将以原理+例子的形式一步步介绍OpenCV的各个模块。&lt;/p&gt;
 </description>
         <pubDate>Tue, 12 Jun 2018 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2018/06/12/Learning-OpenCV-with-iOS-(%E4%B8%80)-Hello-OpenCV/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/06/12/Learning-OpenCV-with-iOS-(%E4%B8%80)-Hello-OpenCV/</guid>
+        <link>http://localhost:4000/2018/06/12/Learning-OpenCV-with-iOS-Hello-OpenCV/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/06/12/Learning-OpenCV-with-iOS-Hello-OpenCV/</guid>
         
         <category>OpenCV</category>
         
@@ -2175,203 +2452,6 @@ void libSystem_initializer(int argc, const char* argv[], const char* envp[], con
         <pubDate>Fri, 23 Mar 2018 16:38:27 +0800</pubDate>
         <link>http://localhost:4000/2018/03/23/iOS%E8%BF%9B%E9%98%B6-%E7%A8%8B%E5%BA%8F%E5%90%AF%E5%8A%A8%E9%82%A3%E4%BA%9B%E4%BA%8B/</link>
         <guid isPermaLink="true">http://localhost:4000/2018/03/23/iOS%E8%BF%9B%E9%98%B6-%E7%A8%8B%E5%BA%8F%E5%90%AF%E5%8A%A8%E9%82%A3%E4%BA%9B%E4%BA%8B/</guid>
-        
-        <category>iOS</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>iOS 自定义弹出视图的正确姿势</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;欢迎加QQ群讨论：157672725&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
-&lt;p&gt;开发时经常会自定义一些弹出视图，比如弹框（Alert）、底部弹出框(Action Sheet)等。自定义弹出视图有许多方法，到底哪种才更正确呢？下面我列举几种方法，一起讨论。先附上我的方案&lt;a href=&quot;https://github.com/CatchZeng/SwiftPopup&quot;&gt;https://github.com/CatchZeng/SwiftPopup&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;addsubview&quot;&gt;addSubview&lt;/h2&gt;
-&lt;p&gt;顾名思义，就是造出一个View，然后add到ViewController的View上显示出来，如&lt;a href=&quot;https://www.jianshu.com/p/de2ecfd770c2&quot;&gt;https://www.jianshu.com/p/de2ecfd770c2&lt;/a&gt;的做法。&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;好处：够简单&lt;/li&gt;
-  &lt;li&gt;坏处：视图&amp;amp;逻辑都在View上，职能不清晰，扩展性差，显示依赖于ViewController&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;addchildviewcontroller&quot;&gt;addChildViewController&lt;/h2&gt;
-&lt;p&gt;使用addChildViewController方法，将视图显示出来。如&lt;a href=&quot;https://www.jianshu.com/p/6d790e6eb2ba&quot;&gt;https://www.jianshu.com/p/6d790e6eb2ba&lt;/a&gt;的做法。&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;好处：简单、职能清晰…&lt;/li&gt;
-  &lt;li&gt;坏处：在导航栏控制器或者标签栏控制器下弹出，会出现没完全覆盖到的情况。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;window&quot;&gt;window&lt;/h2&gt;
-&lt;p&gt;新建一个window，切换成KeyWindow，将弹出视图作为rootViewController。代码如下&lt;/p&gt;
-
-&lt;div class=&quot;language-swift highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;previousWindow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shared&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;keyWindow&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;keyWindow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIWindow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIScreen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bounds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;keyWindow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rootViewController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;keyWindow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;windowLevel&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIWindowLevelNormal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;keyWindow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;backgroundColor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIColor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;clear&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;keyWindow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;makeKeyAndVisible&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;ul&gt;
-  &lt;li&gt;好处：简单、职能清晰…&lt;/li&gt;
-  &lt;li&gt;坏处：在横屏的时候，第二次弹出时，出现显示问题【暂时不知道为什么】&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-1211c59a06555b49.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;第二次显示问题&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;uipresentationcontroller&quot;&gt;UIPresentationController&lt;/h2&gt;
-&lt;p&gt;使用UIPresentationController自定义转场动画，这也是我的实现方法。
-UIPresentationController是提供高级视图切换的类。它让管理present ViewController的过程变得简单。&lt;/p&gt;
-
-&lt;h4 id=&quot;presentation&quot;&gt;Presentation&lt;/h4&gt;
-&lt;p&gt;如下图弹出一个UIViewController，可以和用户交互的Controller叫做PresentedViewController，而后面那个被部分遮挡的UIViewController叫做PresentingViewController.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-bc6b9c4ea47bd482.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Presentation&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;uipopovercontroller的使用方法&quot;&gt;UIPopoverController的使用方法&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;设置style&amp;amp;delegate&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-swift highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;n&quot;&gt;modalPresentationStyle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;custom&lt;/span&gt;
- &lt;span class=&quot;n&quot;&gt;transitioningDelegate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;实现delegate，此代理需要UIPresentationController，以及UIViewControllerAnimatedTransitioning来自定义转场的动画&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-swift highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;extension&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;SwiftPopup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIViewControllerTransitioningDelegate&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;presentationController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;forPresented&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;presented&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIViewController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                                       &lt;span class=&quot;nv&quot;&gt;presenting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIViewController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?,&lt;/span&gt;
-                                       &lt;span class=&quot;nv&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIViewController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIPresentationController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;controller&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;SwiftPopupPresentationController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;presentedViewController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;presented&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                                                       &lt;span class=&quot;nv&quot;&gt;presenting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;presenting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;controller&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;backViewColor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;backViewColor&lt;/span&gt;
-        
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;controller&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;animationController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;forPresented&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;presented&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIViewController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                                    &lt;span class=&quot;nv&quot;&gt;presenting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIViewController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                                    &lt;span class=&quot;nv&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIViewController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIViewControllerAnimatedTransitioning&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;showAnimation&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;animationController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;forDismissed&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dismissed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIViewController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIViewControllerAnimatedTransitioning&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dismissAnimation&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;实现自定义的UIPresentationController&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-swift highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;SwiftPopupPresentationController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIPresentationController&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// MARK: Override Methods &lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// 将要开始转场&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;override&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;presentationTransitionWillBegin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// 将要移除页面&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;override&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;dismissalTransitionWillBegin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    
-   &lt;span class=&quot;c1&quot;&gt;// 是否要移除PresentersView，也就是转场之前的视图，这里为false，因为弹框需要看到之前的视图&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;override&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;shouldRemovePresentersView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Bool&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;实现自定义的动画&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-swift highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;SwiftPopupShowAnimation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;NSObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIViewControllerAnimatedTransitioning&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;duration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;TimeInterval&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.8&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;delay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;TimeInterval&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.0&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;springWithDamping&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;CGFloat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.8&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;springVelocity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;CGFloat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;2.0&lt;/span&gt;
-    
-    &lt;span class=&quot;n&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;transitionDuration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;transitionContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIViewControllerContextTransitioning&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;TimeInterval&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;duration&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    
-    &lt;span class=&quot;n&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;animateTransition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;transitionContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIViewControllerContextTransitioning&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;guard&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;toViewController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;transitionContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;viewController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;forKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UITransitionContextViewControllerKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;toView&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;transitionContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;forKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UITransitionContextViewKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        
-        &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;containerView&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;transitionContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;containerView&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;toView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;frame&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;transitionContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;finalFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toViewController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;containerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;addSubview&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;toView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        
-        &lt;span class=&quot;n&quot;&gt;toView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;transform&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;CGAffineTransform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;scaleX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.01&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.01&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;UIView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;animate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;withDuration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;duration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                       &lt;span class=&quot;nv&quot;&gt;delay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;delay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                       &lt;span class=&quot;nv&quot;&gt;usingSpringWithDamping&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;springWithDamping&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                       &lt;span class=&quot;nv&quot;&gt;initialSpringVelocity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;springVelocity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                       &lt;span class=&quot;nv&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;curveEaseInOut&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;animations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                        &lt;span class=&quot;n&quot;&gt;toView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;transform&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;CGAffineTransform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;scaleX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;finished&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;transitionContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;completeTransition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;finished&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Show&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-swift highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;above&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;viewController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIViewController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shared&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;keyWindow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rootViewController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                           &lt;span class=&quot;nv&quot;&gt;completion&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)?&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;mIsShowing&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
-        
-        &lt;span class=&quot;n&quot;&gt;viewController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;present&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;animated&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;completion&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;completion&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Dismiss&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-swift highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;dismiss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;completion&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)?&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nf&quot;&gt;dismiss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;animated&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mIsShowing&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
-            &lt;span class=&quot;nf&quot;&gt;completion&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?()&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;完整代码 &lt;a href=&quot;https://github.com/CatchZeng/SwiftPopup&quot;&gt;https://github.com/CatchZeng/SwiftPopup&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-4b0dfb03164525fa.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Demo&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;小结&quot;&gt;小结&lt;/h2&gt;
-&lt;p&gt;如遇问题或者有更好的方式，&lt;strong&gt;欢迎加QQ群讨论：157672725&lt;/strong&gt;&lt;/p&gt;
-</description>
-        <pubDate>Thu, 11 Jan 2018 16:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2018/01/11/iOS-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%B9%E5%87%BA%E8%A7%86%E5%9B%BE%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/01/11/iOS-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%B9%E5%87%BA%E8%A7%86%E5%9B%BE%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF/</guid>
         
         <category>iOS</category>
         

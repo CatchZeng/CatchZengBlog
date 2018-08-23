@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "【Learning OpenCV with iOS】(二) 掩膜操作"
+title:      "Learning OpenCV with iOS：掩膜操作"
 subtitle:   "OpenCV"
 date:       2018-06-14 09:38:27 
 author:     "CatchZeng"
@@ -12,7 +12,7 @@ tags:
 
 ## 一、前言
 
-[上一篇](http://catchzeng.com/2018/06/12/Learning-OpenCV-with-iOS-(一)-Hello-OpenCV/)我们简单讲解了OpenCV的概念和基础架构。本篇主要向大家介绍下图像处理中一个比较重要的概念 --  掩膜操作。开始前我们先看下利用矩阵掩膜操作来加强图像对比度的效果。
+[上一篇](http://catchzeng.com/2018/06/12/Learning-OpenCV-with-iOS-Hello-OpenCV/)我们简单讲解了OpenCV的概念和基础架构。本篇主要向大家介绍下图像处理中一个比较重要的概念 --  掩膜操作。开始前我们先看下利用矩阵掩膜操作来加强图像对比度的效果。
 
 ![增强对比度](https://upload-images.jianshu.io/upload_images/943491-74296305be0931e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 

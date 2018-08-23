@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "【Learning OpenCV with iOS】(五) 图像模糊--线性滤波"
+title:      "Learning OpenCV with iOS：图像模糊--线性滤波"
 subtitle:   "OpenCV"
 date:       2018-08-08 09:38:27 
 author:     "CatchZeng"
@@ -12,7 +12,7 @@ tags:
 
 ## 一、前言
 
-[上一篇](http://catchzeng.com/2018/07/02/Learning-OpenCV-with-iOS-(四)-图像亮度和对比度/)我们讲解了OpenCV的图像亮度和对比度调整。本篇主要向大家介绍下图像模糊。按惯例，先来一张效果图。
+[上一篇](http://catchzeng.com/2018/07/02/Learning-OpenCV-with-iOS-图像亮度和对比度/)我们讲解了OpenCV的图像亮度和对比度调整。本篇主要向大家介绍下图像模糊。按惯例，先来一张效果图。
 
 ![铠玩模糊](https://upload-images.jianshu.io/upload_images/943491-9f839b59fc174f06.gif?imageMogr2/auto-orient/strip)
 
@@ -50,7 +50,7 @@ Smooth和Blur是opencv图像模糊的API，其背后的原理其实是数学的�
 
 均值滤波是典型的线性滤波算法，它是指在图像上对目标像素给一个**模板**，该模板包括了其周围的临近像素，再用模板中的全体像素的平均值来代替原来像素值。
 
-还记得[第二篇](http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-(二)-掩膜操作/)里所讲**掩膜操作**吧，均值滤波的过程跟掩膜操作极其相似。
+还记得[第二篇](http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-掩膜操作/)里所讲**掩膜操作**吧，均值滤波的过程跟掩膜操作极其相似。
 
 ![均值滤波](https://upload-images.jianshu.io/upload_images/943491-306a532247d4b325.gif)
 

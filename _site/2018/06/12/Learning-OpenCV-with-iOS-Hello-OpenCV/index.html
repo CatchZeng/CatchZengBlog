@@ -10,9 +10,9 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>【Learning OpenCV with iOS】(三) 图像混合与ROI - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>Learning OpenCV with iOS：Hello OpenCV - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/2018/06/24/Learning-OpenCV-with-iOS-(%E4%B8%89)-%E5%9B%BE%E5%83%8F%E6%B7%B7%E5%90%88%E4%B8%8EROI/">
+    <link rel="canonical" href="http://localhost:4000/2018/06/12/Learning-OpenCV-with-iOS-Hello-OpenCV/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css ">
@@ -142,12 +142,12 @@
                         <a class="tag" href="/tags/#OpenCV" title="OpenCV">OpenCV</a>
                         
                     </div>
-                    <h1>【Learning OpenCV with iOS】(三) 图像混合与ROI</h1>
+                    <h1>Learning OpenCV with iOS：Hello OpenCV</h1>
                     
                     
                     <h2 class="subheading">OpenCV</h2>
                     
-                    <span class="meta">Posted by CatchZeng on June 24, 2018</span>
+                    <span class="meta">Posted by CatchZeng on June 12, 2018</span>
                 </div>
             </div>
         </div>
@@ -167,209 +167,258 @@
 
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
-<h2 id="一前言">一、前言</h2>
+<h2 id="一概念介绍">一、概念介绍</h2>
+<h4 id="图像处理计算机视觉">图像处理、计算机视觉</h4>
 
-<p><a href="http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-(二)-掩膜操作/">上一篇</a>我们讲解了OpenCV的掩膜操作。本篇主要向大家介绍下图像处理中的图像混合。按惯例，先来一张效果图。</p>
+<p><a href="https://baike.baidu.com/item/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86">图像处理</a>，用计算机对图像进行分析，以达到所需结果的技术。又称影像处理。图像处理一般指<strong>数字图像处理</strong>。数字图像是指用工业相机、摄像机、扫描仪等设备经过拍摄得到的一个大的二维数组，该数组的元素称为<strong>像素</strong>，其值称为<strong>灰度值</strong>。图像处理技术一般包括图像压缩，增强和复原，匹配、描述和识别3个部分。</p>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-7fa4159088937474.gif?imageMogr2/auto-orient/strip" alt="铠与Logo" /></p>
+<p><a href="https://baike.baidu.com/item/计算机视觉">计算机视觉</a>是一门研究如何使<a href="https://baike.baidu.com/item/%E6%9C%BA%E5%99%A8">机器</a>“看”的科学，更进一步的说，就是是指用摄影机和电脑代替人眼对目标进行识别、跟踪和测量等<a href="https://baike.baidu.com/item/%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89">机器视觉</a>，并进一步做图形处理，使电脑处理成为更适合人眼观察或传送给仪器检测的图像。作为一个科学学科，计算机视觉研究相关的理论和技术，试图建立能够从图像或者多维数据中获取‘信息’的<a href="https://baike.baidu.com/item/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD">人工智能</a>系统。因为感知可以看作是从感官信号中提 取信息，所以计算机视觉也可以看作是研究如何使人工系统从图像或多维数据中“感知”的科学。</p>
 
-<h2 id="二图片相加">二、图片相加</h2>
+<p>图像处理与计算机视觉区别：
+图像处理侧重于对图像的“处理”（如：增强，还原，去燥，分割等）。
+计算机视觉则重在使用计算机来模拟人的视觉，<strong>模拟</strong>才是计算机视觉的目的。</p>
 
-<p>要叠加两张图片，可以将Mat直接相加，相加两幅图片的形状（高度/宽度/通道数）必须相同。但这样的效果不一定是你想要的。我们来看一个例子。</p>
+<h4 id="opencv">OpenCV</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    Mat src;
-    Mat src2;
-    UIImageToMat(image, src);
-    UIImageToMat(image2, src2);
-    
-    Mat dst;
-    dst = src + src2;
-    
-    UIImage* result = MatToUIImage(dst);
-</code></pre>
-</div>
+<p>OpenCV（Open Source Computer Vision Library）于1999年由<a href="https://baike.baidu.com/item/Intel">Intel</a>建立，如今由Willow Garage提供支持。
+OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉库，可以运行在<a href="https://baike.baidu.com/item/Linux">Linux</a>、<a href="https://baike.baidu.com/item/Windows">Windows</a>和<a href="https://baike.baidu.com/item/Mac%20OS">Mac OS</a>操作系统上。它轻量级而且高效——由一系列 C 函数和少量 C++ 类构成，同时提供了Python、Ruby、MATLAB等语言的接口，实现了图像处理和计算机视觉方面的很多通用算法。OpenCV覆盖了计算机视觉的许多领域，如产品检测、信息安全、立体视觉和机器人、医学成像等。因为计算机视觉和机器学习关系密切，所以OpenCV还提供了MLL（Machine Learning Library）机器学习库。</p>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-b142c05656998fc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片相加" /></p>
+<p>常用链接：</p>
 
-<h2 id="三线性混合">三、线性混合</h2>
-<p>图像混合其实也是一种图片相加的操作，只不过两幅图片的<strong>权重</strong>不一样。</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>g(x) = α*f0(x) + β*f1(x)
-</code></pre>
-</div>
-<p>OpenCV处理图像混合主要是根据线性混合函数，通过在0到1范围内改变α的值，使两幅图像或者视频产生在时间上的画面叠化得效果。实际上α和β的和不一定为1，只是为了防止图像出现过饱和的现象。</p>
+<p><a href="https://opencv.org">OpenCV官方主页</a></p>
 
-<p>OpenCV的<strong>addWeighted</strong>函数便是对应线性混合操作。这个函数的作用是，计算两个图像的<strong>加权和</strong>。</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>void addWeighted(InputArray src1, double alpha, InputArray src2, double beta, double gamma, OutputArray dst, int dtype=-1);
-</code></pre>
-</div>
+<p><a href="https://github.com/opencv/opencv">OpenCV github主页</a></p>
+
+<p><a href="https://docs.opencv.org/3.1.0/d3/dc9/tutorial_table_of_content_ios.html">OpenCV iOS tutorials</a></p>
+
+<h2 id="二环境搭建">二、环境搭建</h2>
+
+<p>“工欲善其事必先利其器”，接下来我们先搭建一下开发环境，借此了解下OpenCV的基本架构。</p>
+
+<h6 id="1创建项目">1.创建项目</h6>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-d42b8064456f791a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建项目" /></p>
+
+<p>注:这里以Objective-C作为语言是因为OpenCV接口为C++，使用Objective-C较好与其交互。</p>
+
+<h5 id="2加入opencv2framework">2.加入opencv2.framework</h5>
+
+<p>前往https://opencv.org/releases.html下载iOS pack。
+<img src="https://upload-images.jianshu.io/upload_images/943491-101047bd286e5e0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS pack" /></p>
+
+<p>将opencv2.framework加入项目
+<img src="https://upload-images.jianshu.io/upload_images/943491-e0cbecf02e7fe2d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="加入项目" /></p>
+
+<p>将OpenCV所需的依赖库添加到项目中</p>
+
 <ul>
-  <li>src1：需要加权的第一个数组，常常填一个Mat对象。</li>
-  <li>alpha：第一个数组的权重值，0~1之间。</li>
-  <li>src2：第二个数组，它需要和第一个数组拥有相同的尺寸和通道数。</li>
-  <li>beta：第二个数组的权重值，一般为1-alpha。</li>
-  <li>gamma：一个加到权重总和上的标量值。</li>
-  <li>dst：输出的数组，它和输入的两个数组拥有相同的尺寸和通道数。</li>
-  <li>dtype：输出阵列的可选深度，有默认值-1；当两个输入数组具有相同的深度时，这个参数设置为-1（默认值），即等同于src1.depth()。</li>
+  <li>CoreGraphics.framework</li>
+  <li>Foundation.framework</li>
+  <li>UIKit.framework</li>
 </ul>
 
-<h4 id="当后羿遇到阿珂">当后羿遇到阿珂</h4>
+<p>如果要使用摄像头做视频处理，还需要添加以下依赖库：</p>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-bc97e432a0639f99.gif?imageMogr2/auto-orient/strip" alt="图像混合" /></p>
+<ul>
+  <li>CoreVideo.framework</li>
+  <li>CoreMedia.framework</li>
+  <li>AssetsLibrary.framework</li>
+</ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>+ (UIImage *)addWeighted:(UIImage *)image image2:(UIImage *)image2 alpha:(double)alpha gamma:(double)gamma {
-    Mat src;
-    Mat src2;
-    UIImageToMat(image, src);
-    UIImageToMat(image2, src2);
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-086ef4bf0182bf81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="framework" /></p>
+
+<h5 id="3say-hello">3.Say Hello</h5>
+
+<p>新建OpenCV.h &amp; OpenCV.mm，并添加以下代码</p>
+<ul>
+  <li>注：因为OpenCV是C++写的，所以引入项目中的文件需要使用Object-C++的兼容方式来写，具体的做法就是将需要导入OpenCV头文件的m文件改成mm文件</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">//
+//  OpenCV.h
+//  LearningOpenCV
+//
+//  Created by CatchZeng on 2018/6/12.
+//  Copyright © 2018年 catch. All rights reserved.
+//
+</span>
+<span class="cp">#import &lt;Foundation/Foundation.h&gt;
+#import &lt;UIKit/UIKit.h&gt;
+</span>
+<span class="k">@interface</span> <span class="nc">OpenCV</span> <span class="p">:</span> <span class="nc">NSObject</span>
+
+<span class="k">+</span> <span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">gray</span><span class="p">:(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nv">image</span><span class="p">;</span>
+
+<span class="k">@end</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">//
+//  OpenCV.m
+//  LearningOpenCV
+//
+//  Created by CatchZeng on 2018/6/12.
+//  Copyright © 2018年 catch. All rights reserved.
+//
+</span>
+<span class="c1">//!!!opencv的头文件引入必须在其他头文件之前
+</span><span class="cp">#import &lt;opencv2/opencv.hpp&gt;
+#import &lt;opencv2/imgproc/types_c.h&gt;
+#import &lt;opencv2/imgcodecs/ios.h&gt;
+#import &lt;opencv2/core/core_c.h&gt;
+#import "OpenCV.h"
+</span><span class="n">using</span> <span class="n">namespace</span> <span class="n">cv</span><span class="p">;</span>
+
+<span class="k">@interface</span> <span class="nc">OpenCV</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="k">@end</span>
+
+<span class="k">@implementation</span> <span class="nc">OpenCV</span>
+
+<span class="k">+</span> <span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">gray</span><span class="p">:(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nv">image</span> <span class="p">{</span>
+    <span class="n">Mat</span> <span class="n">mat</span><span class="p">;</span>
+    <span class="n">UIImageToMat</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">mat</span><span class="p">);</span>
     
-    Mat dst;
-    addWeighted(src, alpha, src2, gamma, 0, dst);
+    <span class="n">Mat</span> <span class="n">grayMat</span><span class="p">;</span>
+    <span class="n">cvtColor</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grayMat</span><span class="p">,</span> <span class="n">CV_BGR2GRAY</span><span class="p">);</span>
     
-    UIImage* result = MatToUIImage(dst);
+    <span class="n">UIImage</span><span class="o">*</span> <span class="n">result</span> <span class="o">=</span> <span class="n">MatToUIImage</span><span class="p">(</span><span class="n">grayMat</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">@end</span>
+</code></pre>
+</div>
+
+<p>新建视图控制器SayHelloViewController</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class SayHelloViewController: UIViewController {
     
-    return result;
-}
-
-class MixViewController: UIViewController {
-
-    @IBOutlet weak var resultImageView: UIImageView!
-    private let ake = UIImage(named: "ake")
-    private let houyi = UIImage(named: "houyi")
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var grayImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        resultImageView.image = OpenCV.addWeighted(ake, image2: houyi, alpha: 0.5, gamma: 0.5)
-    }
-    
-    @IBAction func onSliderValueChanged(_ sender: UISlider) {
-        let alpha = Double(sender.value)
-        resultImageView.image = OpenCV.addWeighted(ake, image2: houyi, alpha: alpha, gamma: (1.0 - alpha))
+        grayImageView.image = OpenCV.gray(#imageLiteral(resourceName: "sayHello"))
     }
 }
 </code></pre>
 </div>
 
-<h4 id="一些思考">一些思考</h4>
+<p>效果</p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-afb139a09ec5365d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果" /></p>
+
+<p>源码地址: https://github.com/CatchZeng/LearningOpenCV</p>
+
+<h2 id="三opencv基础架构">三、OpenCV基础架构</h2>
+
+<p>OpenCV包含的内容较多，在学习之前先了解下它的整体模块架构，再选择自己感兴趣的部分重点学习，这样学起来比较得心应手。</p>
+
+<p>鉴于此，下面我们一起来看下OpenCV的整体模块架构。</p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-18342122cfdc0d61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="OpenCV" /></p>
+
+<p>从上图可看到OpenCV的所有模块：</p>
 
 <ul>
-  <li>为何直接的图像相加效果较差，而线性混合后的效果较好？</li>
+  <li>
+    <p>【calib3d】Calibration(校准)和3D这两个词的组合缩写。这个模块主要是相机校准和三维重建相关的内容，包括基本的多视角几何算法、单个立体摄像头标定，物体姿态估计，立体相似性算法，3D信息的重建等。</p>
+  </li>
+  <li>【core】核心功能模块，包含如下内容：
+    <ul>
+      <li>OpenCV基本数据结构</li>
+      <li>动态数据结构</li>
+      <li>绘图函数</li>
+      <li>数组操作相关函数</li>
+      <li>辅助功能与系统函数和宏</li>
+      <li>与OpenGL的互操作</li>
+    </ul>
+  </li>
+  <li>【feature2d】2D功能框架。包含如下内容：
+    <ul>
+      <li>特征检测和描述</li>
+      <li>特征检测器(Fearure Detectors) 通用接口</li>
+      <li>描述符提取器(Description Extractors) 通用接口</li>
+      <li>描述符匹配器(Description Eatchers) 通用接口</li>
+      <li>通用描述符(Generic Description)匹配器通用接口</li>
+      <li>关键点绘制函数和匹配功能绘制函数</li>
+    </ul>
+  </li>
+  <li>【imgproc】Image 和Process 这两个单词的缩写组合，图像处理模块。包含如下内容：
+    <ul>
+      <li>线性和非线性的图像滤波</li>
+      <li>图像的几何变换</li>
+      <li>其他的图像变换</li>
+      <li>直方图相关</li>
+      <li>结构分析和形状描述</li>
+      <li>运动分析和对象跟踪</li>
+      <li>特征检测</li>
+      <li>目标检测等内容</li>
+    </ul>
+  </li>
+  <li>
+    <p>【flann】Fast Library For Approximate Nearest Neighbors，高维的近似近邻快速搜索算法库，包含以下两个部分：</p>
+
+    <ul>
+      <li>快速近似最近邻搜索</li>
+      <li>聚类</li>
+    </ul>
+  </li>
+  <li>
+    <p>【highgui】高层GUI图形用户界面，包含媒体的输入输出、视频捕捉、图像和视频的解码编码、图形交互界面的接口等内容。</p>
+  </li>
+  <li>
+    <p>【ml】Machine Learning，机器学习模块， 基本上是统计模型和分类算法，包含如下内容：</p>
+
+    <ul>
+      <li>统计模型 （Statistical Models）</li>
+      <li>一般贝叶斯分类器 （Normal Bayes Classifier）</li>
+      <li>K-近邻 （K-NearestNeighbors）</li>
+      <li>支持向量机 （Support Vector Machines）</li>
+      <li>决策树 （Decision Trees）</li>
+      <li>提升（Boosting）</li>
+      <li>梯度提高树（Gradient Boosted Trees）</li>
+      <li>随机树 （Random Trees）</li>
+      <li>超随机树 （Extremely randomized trees）</li>
+      <li>期望最大化 （Expectation Maximization）</li>
+      <li>神经网络 （Neural Networks）</li>
+      <li>MLData</li>
+    </ul>
+  </li>
+  <li>
+    <p>【objdetect】目标检测模块，包含Cascade Classification（级联分类）和Latent SVM这两个部分。</p>
+  </li>
+  <li>
+    <p>【photo】Computational Photography，包含图像修复和图像去噪两部分。</p>
+  </li>
+  <li>
+    <p>【stitching】images stitching，图像拼接模块，包含如下部分：</p>
+
+    <ul>
+      <li>拼接流水线</li>
+      <li>特点寻找和匹配图像</li>
+      <li>估计旋转</li>
+      <li>自动校准</li>
+      <li>图片歪斜</li>
+      <li>接缝估测</li>
+      <li>曝光补偿</li>
+      <li>图片混合</li>
+    </ul>
+  </li>
+  <li>
+    <p>【video】视频分析组件，该模块包括运动估计，背景分离，对象跟踪等视频处理相关内容。</p>
+  </li>
+  <li>【Videostab】Video stabilization，视频稳定相关的组件，官方文档中没有多作介绍，不管它了。</li>
 </ul>
 
-<p>可以这样简单理解：像素值范围为0~255，两张图的Mat直接相加，就是每个像素点的值相加，这样容易出现像素值较大的像素，像素“越大越白”，这样就出现了图像过曝的现象。而线性混合则是加上了权重，保证了像素值不至于过大，这样就不会出现过曝现象。以公式来说明就是</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>//相加
-g(x) = 1*f0(x) + 1*f1(x)
+<p>看到到这里，相信大家已经对OpenCV的模块架构设计有了一定的认识，OpenCV其实就是这么多模块作为代码容器组合起来的一个SDK，了解这些可以更快的学习OpenCV了！</p>
 
-//线性混合
-g(x) = α*f0(x) + β*f1(x)
-</code></pre>
-</div>
-<p>即<strong>相加操作相当于α和β都等于1的线性混合</strong>。</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>
-class MixViewController: UIViewController {
+<h2 id="四小结">四、小结</h2>
 
-    @IBOutlet weak var resultImageView: UIImageView!
-    private let ake = UIImage(named: "ake")
-    private let houyi = UIImage(named: "houyi")
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        resultImageView.image = OpenCV.addWeighted(ake, image2: houyi, alpha: 1, gamma: 1)
-    }
-}
-</code></pre>
-</div>
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-793aa9ae64bd9820.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="α和β都等于1" /></p>
-
-<ul>
-  <li>addWeighted方法要求src1和src2的尺寸和通道数相同，若是不同如何混合？
-实现这个需要先熟悉图像处理另一个重要的概念–ROI。</li>
-</ul>
-
-<h2 id="四感兴趣区域roiregion-of-interest">四、感兴趣区域ROI(Region Of Interest)</h2>
-
-<p>在图像处理领域，我们常常需要设置ROI，来专注或者简化我们的工作过程 。也就是从图像中选择的一个图像区域，这个区域是我们图像分析所关注的重点。我们圈定这个区域，以便进行进一步处理。而且，使用ROI指定我们想读入的目标，可以减少处理时间，增加精度，给图像处理来带不小的便利。</p>
-
-<p>定义ROI区域有两种方法，第一种是使用cv:Rect指定矩形区域</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>Mat imageROI=image(Rect(500,250,logo.cols,logo.rows));  
-</code></pre>
-</div>
-
-<p>另一种定义ROI的方式是指定感兴趣行或列的范围（Range）</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>Mat imageROI=srcImage3(Range(250,250+logoImage.rows),Range(200,200+logoImage.cols));  
-</code></pre>
-</div>
-
-<p>下面我们来看一个实例，展示如何利用ROI将一幅图加到另一幅图的指定位置。</p>
-
-<h4 id="铠与logo">铠与Logo</h4>
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-7fa4159088937474.gif?imageMogr2/auto-orient/strip" alt="铠与Logo" /></p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>+ (UIImage *)add:(UIImage *)image alphaExist:(BOOL)alphaExist on:(UIImage *)anotherImage atPosition:(CGPoint)position alpha:(CGFloat)alpha beta:(CGFloat)beta gamma:(CGFloat)gamma {
-    Mat src;
-    Mat dst;
-    UIImageToMat(anotherImage, src);
-    UIImageToMat(image, dst, alphaExist);
-    
-    //ROI
-    short x = position.x;
-    short y = position.y;
-    Mat imageRoi;
-    imageRoi = src(cv::Rect(x, y, dst.cols, dst.rows));
-    
-    //add image
-    addWeighted(imageRoi, alpha, dst, beta, gamma, imageRoi);
-    
-    UIImage* result = MatToUIImage(src);
-    
-    return result;
-}
-
-class ROIViewController: UIViewController {
-
-    @IBOutlet weak var resultImageView: UIImageView!
-    private let logo = #imageLiteral(resourceName: "logo")
-    private let sayHello = #imageLiteral(resourceName: "sayHello")
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        resultImageView.image = OpenCV.add(#imageLiteral(resourceName: "logo"), alphaExist: true, on: #imageLiteral(resourceName: "sayHello"), atPosition: CGPoint(x: 330, y: 0), alpha: 1.0, beta: 1.0, gamma: 0)
-    }
-    
-    @IBAction func onSliderValueChanged(_ sender: UISlider) {
-        resultImageView.image = OpenCV.add(#imageLiteral(resourceName: "logo"), alphaExist: true, on: #imageLiteral(resourceName: "sayHello"), atPosition: CGPoint(x: 330, y: 0), alpha: 1.0, beta: CGFloat(sender.value), gamma: 0)
-    }
-}
-</code></pre>
-</div>
-
-<p><strong>注：</strong></p>
-
-<ul>
-  <li>在UIImage转换成Mat的时候，若有透明度记得将最后一个参数alphaExist设置为true</li>
-</ul>
-
-<div class="highlighter-rouge"><pre class="highlight"><code> UIImageToMat(image, dst, alphaExist);
-</code></pre>
-</div>
-
-<ul>
-  <li>在addWeighted的时候alpha表示第一个Mat的权重，beta表示第二个Mat的权重。在实例中，Logo图片其实是第二个Mat，所以对应的参数是beta。</li>
-</ul>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>    Mat imageRoi;
-    imageRoi = src(cv::Rect(x, y, dst.cols, dst.rows));
-    
-    //add image
-    addWeighted(imageRoi, alpha, dst, beta, gamma, imageRoi);
-</code></pre>
-</div>
-
-<h2 id="五小结">五、小结</h2>
-
-<p>本篇主要介绍了图像混合的概念，并通过例子讲解了线性混合的实现和ROI的应用。在今后的学习中ROI的使用度较高，需要好好掌握。ROI其实是“分而治之”思想在图像处理中的应用。好了，今天就到这了。有疑问的朋友可以给我留言，see you later!</p>
+<p>本篇从概念到环境搭建再到基本架构的角度介绍了OpenCV，让读者有一个宏观的认识。<a href="http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-(二)-掩膜操作/">下一篇</a>开始，我将以原理+例子的形式一步步介绍OpenCV的各个模块。</p>
 
 
                 <hr>
@@ -380,12 +429,12 @@ class ROIViewController: UIViewController {
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/06/14/Learning-OpenCV-with-iOS-(%E4%BA%8C)-%E6%8E%A9%E8%86%9C%E6%93%8D%E4%BD%9C/" data-toggle="tooltip" data-placement="top" title="【Learning OpenCV with iOS】(二) 掩膜操作">&larr; Previous Post</a>
+                        <a href="/2018/06/01/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%89-%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E5%8E%9F%E5%88%99/" data-toggle="tooltip" data-placement="top" title="聊聊设计模式原则（三） -- 依赖倒置原则">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2018/07/02/Learning-OpenCV-with-iOS-(%E5%9B%9B)-%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%92%8C%E5%AF%B9%E6%AF%94%E5%BA%A6/" data-toggle="tooltip" data-placement="top" title="【Learning OpenCV with iOS】(四) 图像亮度和对比度">Next Post &rarr;</a>
+                        <a href="/2018/06/14/Learning-OpenCV-with-iOS-%E6%8E%A9%E8%86%9C%E6%93%8D%E4%BD%9C/" data-toggle="tooltip" data-placement="top" title="Learning OpenCV with iOS：掩膜操作">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -453,7 +502,7 @@ class ROIViewController: UIViewController {
                             
         				
                             
-                				<a href="/tags/#OpenCV" title="OpenCV" rel="5">
+                				<a href="/tags/#OpenCV" title="OpenCV" rel="6">
                                     OpenCV
                                 </a>
                             
@@ -487,8 +536,8 @@ class ROIViewController: UIViewController {
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "catchzeng";
-    var disqus_identifier = "/2018/06/24/【Learning OpenCV with iOS】(三) 图像混合与ROI";
-    var disqus_url = "http://localhost:4000/2018/06/24/Learning-OpenCV-with-iOS-(%E4%B8%89)-%E5%9B%BE%E5%83%8F%E6%B7%B7%E5%90%88%E4%B8%8EROI/";
+    var disqus_identifier = "/2018/06/12/Learning OpenCV with iOS：Hello OpenCV";
+    var disqus_url = "http://localhost:4000/2018/06/12/Learning-OpenCV-with-iOS-Hello-OpenCV/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

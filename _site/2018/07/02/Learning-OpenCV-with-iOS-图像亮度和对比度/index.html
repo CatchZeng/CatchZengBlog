@@ -10,9 +10,9 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>iOS开发见闻-第16期 - CatchZeng的技术博客 | CatchZeng Blog</title>
+    <title>Learning OpenCV with iOS：图像亮度和对比度 - CatchZeng的技术博客 | CatchZeng Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/2016/03/22/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC16%E6%9C%9F/">
+    <link rel="canonical" href="http://localhost:4000/2018/07/02/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%92%8C%E5%AF%B9%E6%AF%94%E5%BA%A6/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css ">
@@ -139,15 +139,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
+                        <a class="tag" href="/tags/#OpenCV" title="OpenCV">OpenCV</a>
                         
                     </div>
-                    <h1>iOS开发见闻-第16期</h1>
+                    <h1>Learning OpenCV with iOS：图像亮度和对比度</h1>
                     
                     
-                    <h2 class="subheading">iOS开发见闻</h2>
+                    <h2 class="subheading">OpenCV</h2>
                     
-                    <span class="meta">Posted by CatchZeng on March 22, 2016</span>
+                    <span class="meta">Posted by CatchZeng on July 2, 2018</span>
                 </div>
             </div>
         </div>
@@ -167,46 +167,129 @@
 
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
-<h2 id="文章">文章</h2>
-<p>1.<a href="http://casatwy.com/iOS-Modulization.html">iOS应用架构谈 组件化方案 </a> : 组件化是 App 膨胀到一定体积后的解决方案，能一定程度上解决问题。casatwy老师的这篇文章起源于Limboy的<a href="http://limboy.me/ios/2016/03/10/mgj-components.html">蘑菇街 App 的组件化之路</a>。18号bang大神也出来发话了<a href="http://blog.cnbang.net/tech/3080/">iOS 组件化方案探索</a>。看完三篇文章后收益良多，极力推荐。</p>
+<h2 id="一前言">一、前言</h2>
 
-<p>2.<a href="http://www.jianshu.com/p/a0c4d34feadd">ApplePay高调入华，教你在app里上线ApplePay</a> ：ApplePay与各大银行开展了国内市场，我们的app是否也要加入ApplePay了呢？需要的朋友可以参考这篇文章。</p>
+<p><a href="http://catchzeng.com/2018/06/24/Learning-OpenCV-with-iOS-图像混合与ROI/">上一篇</a>我们讲解了OpenCV的图像混合与ROI。本篇主要向大家介绍下图像变换的调整亮度和对比度。按惯例，先来一张效果图。</p>
 
-<p>3.<a href="http://www.ismash.cn/post/ru-he-shi-xian-zi-ji-mei-shi-xian-guo-de-xu-qiu-zhi-wen-ben-dong-hua-pian">如何实现自己没实现过的需求之文本动画</a> : 本文细致地讲解了文本动画相关的知识，是篇难得的好文章。
-<img src="https://cloud.githubusercontent.com/assets/3759810/13845905/1e55a5d0-ec7e-11e5-9631-68aaf6b07ba1.gif" alt="如何实现自己没实现过的需求之文本动画" /></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-0e4ab78c269f66e4.gif?imageMogr2/auto-orient/strip" alt="魔铠变身" /></p>
 
-<p>4.<a href="http://www.olinone.com/?p=484">iOS图片圆角优化</a> ：本文提及了开源项目<a href="https://github.com/panghaijiao/HJCornerRadius">HJCornerRadius</a>但目的不是介绍如何使用该工具，而是想跟大家分享开发时用到的几点设计思想。</p>
+<h2 id="二图像变换">二、图像变换</h2>
 
-<h2 id="工具">工具</h2>
-<p>1.<a href="https://itunes.apple.com/app/prepo/id476533227?mt=12">Prepo</a> ：一款图标转化器，它可以帮助设计师快速的导出各种尺寸的图标。设计师通过Prepo把任何格式的图片文件转换成iOS可用的图片格式。此外，通过点击Prepo对话框底部“copy plist”按钮，设计师可以轻松的把导出的文件复制到Xcode中，节省了设计师大量的工作时间。
-<img src="http://a5.mzstatic.com/us/r30/Purple4/v4/ff/30/41/ff30414a-fdc5-ea96-4a2f-396291368d18/screen800x500.jpeg" alt="Prepo" /></p>
+<h4 id="算子">算子</h4>
+<p>一般的图像处理算子都是一个函数，它接受一个或多个输入图像，并产生输出图像。</p>
+<h6 id="单输入">单输入</h6>
+<div class="highlighter-rouge"><pre class="highlight"><code>g(x) = h(f(x))
+</code></pre>
+</div>
 
-<p>2.<a href="https://www.cocoacontrols.com/">Cocoa Controls</a> : 一些很棒的你可以用在你的iOS应用中的组件（代码）的列表。有时你可以找到一段优秀代码来节省时间，有时你也可以学习其他开发者是如何完成某个功能的。订阅他们的每周一报吧，都是精华，极少糟粕。
-<img src="https://www.cocoacontrols.com/assets/logo@2x-1b08dd117f43ea835e9af45533fd6e75.png" alt="Cocoa Controls" /></p>
+<h6 id="多输入">多输入</h6>
+<div class="highlighter-rouge"><pre class="highlight"><code>g(x) = h(f0(x)......fn(x))
+</code></pre>
+</div>
 
-<p>3.<a href="https://github.com/MellongLau/AMMethod2Implement">AMMethod2Implement</a> : 支持h文件声明方法自动生成实现，m或者mm文件已写好的方法生成方法声明到h文件， extern NSString * const， @select(method:) 和 [self methodName] 实现代码生成。
-<img src="https://camo.githubusercontent.com/f22645bb84f9ddbdcca5cf9850eb7dc8f66f1ea3/68747470733a2f2f7261772e6769746875622e636f6d2f4d656c6c6f6e674c61752f414d4d6574686f6432496d706c656d656e742f6d61737465722f53637265656e73686f74732f757361676553637265656e73686f742e676966" alt="AMMethod2Implement" /></p>
+<p>根据算子的不同，图像变换分为两大类：</p>
 
-<p>4.<a href="https://github.com/krzysztofzablocki/KZLinkedConsole">KZLinkedConsole</a>: 可以直接从错误日志跳转到源代码的插件。
-<img src="https://github.com/krzysztofzablocki/KZLinkedConsole/raw/master/logs.gif?raw=true" alt="KZLinkedConsole" /></p>
+<ul>
+  <li>像素变换 - 点操作</li>
+  <li>邻域操作 - 区域</li>
+</ul>
 
-<h2 id="开源">开源</h2>
-<p>1.<a href="https://github.com/EddyBorja/EBPhotoPages">EBPhotoPages</a> : 用于显示一个滚动型照片页和元数据的图片库。用户可以放大、缩小图片，以及创建，编辑或删除注释和标记，共享或删除照片，并报告不当的照片。所有照片和内容异步加载。相片的用户权限通过委托协议控制。该库是使用状态模式来控制画廊的行为，让其他开发人员可以轻松地修改或增加新的状态，而不必了解太多的原代码设计。
-<img src="https://github.com/EddyBorja/EBPhotoPages/raw/master/EBPhotoPages@1x.png" alt="EBPhotoPages" />
-<img src="https://github.com/EddyBorja/EBPhotoPages/raw/master/3.png" alt="EBPhotoPages" />
-<img src="https://github.com/EddyBorja/EBPhotoPages/raw/master/5.png" alt="EBPhotoPages" /></p>
+<h4 id="像素变换">像素变换</h4>
 
-<p>2.<a href="https://github.com/Ramotion/navigation-stack">navigation-stack</a> : 用于导航控制器的 Stack 视图模型最佳实践类库及演示。
-<img src="https://github.com/Ramotion/navigation-stack/raw/master/Navigation-Stack.gif" alt="navigation-stack" /></p>
+<p>这类变换操作的是点。根据输入像素值（有时可加上某些全局信息或参数）计算相应的输出像素值。
+这类算子包括亮度和对比度调整 ，以及颜色校正和变换。</p>
 
-<p>3.<a href="https://github.com/marmelroy/PeekPop">PeekPop</a> : Peek 和 Pop 是 iPhone 6S 和 6S+ 新推出的一项很棒的特性，可以让你轻松通过 3D touch 实现内容预览。但是还有大概 80% 的 iOS 用户使用的是老的设备。而 PeekPop 是一个 Swift 框架，可以让你的老系统支持 Peek 和 Pop 特性。
-<img src="https://camo.githubusercontent.com/4a3f8f136def3a4fa4fe0c00cb02118e72d838dc/687474703a2f2f692e67697068792e636f6d2f336f3761626c7530616449436651334f58432e676966" alt="PeekPop" /></p>
+<h4 id="邻域操作">邻域操作</h4>
 
-<p>4.<a href="https://github.com/zhangsuya/SYStickHeaderWaterFall">SYStickHeaderWaterFall</a> : 一款更加灵活支持各种类型的瀑布流结构的库。
-<img src="https://github.com/zhangsuya/SYStickHeaderWaterFall/raw/master/SYStickHeaderWaterFall/4.gif" alt="SYStickHeaderWaterFall" /></p>
+<p>这类变换操作的是区域（大块的，非点操作）。
+这类算子包括卷积、特征提取、梯度计算、模糊等。
+后续文章中我们将一一讲解，这里不再赘述。</p>
 
-<p>5.<a href="https://github.com/tdginternet/TGCameraViewController">TGCameraViewController</a> : 一款可定制的AVFoundation相机,界面美观、实用性强且容易集成到自己的项目中。
-<img src="https://camo.githubusercontent.com/420d3b828938e244f8bcf943343dc271ecc9e150/687474703a2f2f7332382e706f7374696d672e6f72672f65656c69316f6d63742f544743616d6572615f566965775f436f6e74726f6c6c65722e706e67" alt="TGCameraViewController" /></p>
+<h2 id="三调整图像亮度和对比度">三、调整图像亮度和对比度</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>g(i, j) = αf(i,j) + β  其中α&gt;0，β是增益变量
+</code></pre>
+</div>
+<ul>
+  <li>f(i,j) 表示源图像像素</li>
+  <li>g(i,j) 表示输出图像像素</li>
+</ul>
+
+<h4 id="一些理解">一些理解</h4>
+
+<ul>
+  <li>
+    <p>亮度越亮其实看起来越“白”，在图像处理中就是像素值越靠近255。β变量是个增益变量，β越大，像素值就越靠近255，自然就提高了亮度。所以，<strong>β常常被用来控制图像的亮度</strong>。</p>
+  </li>
+  <li>
+    <p>α对像素的操作是乘法，乘法会”扩大差距“，打个比方：1x10 = 10, 2x10 = 20。改变α会将像素值的差距扩大，也就是改变了对比度。所以，<strong>α常常被用来控制图像的对比度</strong>。</p>
+  </li>
+</ul>
+
+<h4 id="魔铠变身">魔铠变身</h4>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/943491-0e4ab78c269f66e4.gif?imageMogr2/auto-orient/strip" alt="魔铠变身" /></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>+(UIImage *)transform:(UIImage *)image alpha:(double)alpha beta:(double)beta {
+    Mat src;
+    UIImageToMat(image, src);
+    
+    Mat dst = Mat(src.size(), src.type());
+    
+    int rows = src.rows;
+    int cols = src.cols;
+    Mat m;
+    src.convertTo(m, CV_32F);
+    for (int row = 0; row &lt; rows; row++) {
+        for (int col = 0; col &lt; cols; col++) {
+            if(src.channels() == 1) {//单通道
+                float v = m.at&lt;Vec3f&gt;(row, col)[0];
+                dst.at&lt;uchar&gt;(row, col) = saturate_cast&lt;uchar&gt;(v*alpha + beta);
+            } else if (src.channels() == 3) { //3通道
+                for (int i=0; i&lt; src.channels(); i++) {
+                    float v = m.at&lt;Vec3f&gt;(row, col)[i];
+                    dst.at&lt;Vec3b&gt;(row, col)[i] = saturate_cast&lt;uchar&gt;(v*alpha + beta);
+                }
+            }  else if (src.channels() == 4) { //4通道
+                for (int i=0; i&lt; src.channels(); i++) {
+                    float v = m.at&lt;Vec4f&gt;(row, col)[i];
+                    dst.at&lt;Vec4b&gt;(row, col)[i] = saturate_cast&lt;uchar&gt;(v*alpha + beta);
+                }
+            }
+        }
+    }
+    UIImage* result = MatToUIImage(dst);
+    return result;
+}
+</code></pre>
+</div>
+<h6 id="注">注：</h6>
+
+<ul>
+  <li>做像素点操作时应当注意数据类型的转换</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    src.convertTo(m, CV_32F);
+</code></pre>
+</div>
+
+<ul>
+  <li>图像的通道多样，处理图片时需要做多通道的处理</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>if(src.channels() == 1) {//单通道
+    ...
+} else if (src.channels() == 3) { //3通道
+    ...
+}  else if (src.channels() == 4) { //4通道
+    ...
+}
+</code></pre>
+</div>
+
+<h2 id="四小结">四、小结</h2>
+
+<p>本篇主要介绍了图像变换的概念，并通过例子讲解了亮度和对比度的调整。本篇的内容相对简单，但是对像素点的操作是基本功，特别是在实现自定义算法时，需要好好掌握。在今后的学习中亮度和对比度的调整是很多图像处理的前期工作，也需要理解透彻。今天就到这了，有疑问的朋友可以给我留言，see you later!</p>
 
 
                 <hr>
@@ -217,12 +300,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2016/03/08/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC15%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第15期">&larr; Previous Post</a>
+                        <a href="/2018/06/24/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%B7%B7%E5%90%88%E4%B8%8EROI/" data-toggle="tooltip" data-placement="top" title="Learning OpenCV with iOS：图像混合与ROI">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2016/04/21/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC17%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第17期">Next Post &rarr;</a>
+                        <a href="/2018/08/08/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/" data-toggle="tooltip" data-placement="top" title="Learning OpenCV with iOS：图像模糊--线性滤波">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -324,8 +407,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "catchzeng";
-    var disqus_identifier = "/2016/03/22/iOS开发见闻-第16期";
-    var disqus_url = "http://localhost:4000/2016/03/22/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC16%E6%9C%9F/";
+    var disqus_identifier = "/2018/07/02/Learning OpenCV with iOS：图像亮度和对比度";
+    var disqus_url = "http://localhost:4000/2018/07/02/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%92%8C%E5%AF%B9%E6%AF%94%E5%BA%A6/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
