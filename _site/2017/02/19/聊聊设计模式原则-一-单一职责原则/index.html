@@ -203,8 +203,7 @@ if (!cell) {
 }
 TestModel *model = self.dataList[indexPath.row];
 [cell configWithModel:model];
-</code></pre>
-</div>
+</code></pre></div>
 <p>殊不知这已经违背了SRP，Cell的职责是描述与渲染自身,解析Model这个职责不属于Cell，并且在Cell中引入Model会增加不必要的依赖，Cell需要根据Model的改变而做出相应的修改，不利于Cell的复用。做过Android开发的同学知道，其实如何让Model的数据呈现在Cell上是<a href="http://blog.csdn.net/fznpcy/article/details/8658155/">Adapter</a>需要做的事情。</p>
 
 <h2 id="一些看法">一些看法</h2>
@@ -222,15 +221,13 @@ TestModel *model = self.dataList[indexPath.row];
 
 <span class="c1">//Result
 </span><span class="err">“</span><span class="n">iOS</span><span class="err">工程师写</span><span class="n">OC</span><span class="err">代码”</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>殊不知，iOS只是代码界的一部分</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>[programmer program:@"前端工程师"];
 
 //Result
 “前端工程师写OC代码”
-</code></pre>
-</div>
+</code></pre></div>
 <p>发现不对劲了，这个时候想到了SRP，要不这样改改</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@implementation</span> <span class="nc">IOSProgrammer</span>
@@ -254,8 +251,7 @@ TestModel *model = self.dataList[indexPath.row];
 <span class="c1">//Result
 </span><span class="err">“</span><span class="n">iOS</span><span class="err">工程师写</span><span class="n">OC</span><span class="err">代码”</span>
 <span class="err">“前端工程师写</span><span class="n">JS</span><span class="err">代码”</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>我们会发现如果这样修改花销是很大的，除了将原来的类分解之外，还需要修改客户端。而直接修改类Programmer来达成目的虽然违背了SRP但花销却小的多，代码如下：</p>
 <div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@implementation</span> <span class="nc">Programmer</span>
 <span class="k">-</span><span class="p">(</span><span class="n">Void</span><span class="p">)</span> <span class="nf">program</span><span class="p">:(</span><span class="n">NSString</span><span class="o">*</span> <span class="n">name</span><span class="p">){</span>
@@ -266,8 +262,7 @@ TestModel *model = self.dataList[indexPath.row];
     <span class="p">}</span>
 <span class="p">}</span>
 <span class="k">@end</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>可以看到，这种修改方式要简单的多。但是却存在着隐患：有一天需要后台程序员写PHP，则又需要修改Programmer类的program方法，而对原有代码的修改会对调用iOS工程师、前端工程师带来风险。这种修改方式直接在<strong><em>代码级别上</em></strong>违背了SRP，虽然修改起来最简单，但隐患却是最大。
 那么还有别的方式吗？答案是肯定的，代码如下：</p>
 <div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@implementation</span> <span class="nc">Programmer</span>
@@ -289,8 +284,7 @@ TestModel *model = self.dataList[indexPath.row];
 <span class="c1">//Result
 </span><span class="err">“</span><span class="n">iOS</span><span class="err">工程师写</span><span class="n">OC</span><span class="err">代码”</span>
 <span class="err">“前端工程师写</span><span class="n">JS</span><span class="err">代码”</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>这种在类中新加一个方法的修改方式，虽然也违背了SRP，但在方法级别上却是符合SRP的，因为它并没有动原来方法的代码。
 这三种方式各有优缺点，在开发中，需要根据实际情况来确定。需要注意的是：只有逻辑足够简单，才可以在<strong><em>代码级别上</em></strong>违反SRP；只有类中方法数量足够少，才可以在<strong><em>方法级别上</em></strong>违反SRP；</p>
 
@@ -393,9 +387,11 @@ TestModel *model = self.dataList[indexPath.row];
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
                     
+                        <li><a href="http://echowxsy.com/">Echowxsy's Blog</a></li>
+                    
                         <li><a href="https://suquanlin.github.io">Shero's Blog</a></li>
                     
-                        <li><a href="http://callblueday.com">callblueday's blog 关注硬件的软件工程师</a></li>
+                        <li><a href="http://callblueday.com">callblueday's blog</a></li>
                     
                 </ul>
                 

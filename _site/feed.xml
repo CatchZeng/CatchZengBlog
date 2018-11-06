@@ -5,8 +5,8 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 26 Sep 2018 13:07:12 +0800</pubDate>
-    <lastBuildDate>Wed, 26 Sep 2018 13:07:12 +0800</lastBuildDate>
+    <pubDate>Tue, 06 Nov 2018 14:49:10 +0800</pubDate>
+    <lastBuildDate>Tue, 06 Nov 2018 14:49:10 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
     
       <item>
@@ -35,8 +35,7 @@
 } else {
   //TODO handle error
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;我们可以看到伪代码中呈现着&lt;strong&gt;回调地狱&lt;/strong&gt;，上传前、上传、上传后的操作逻辑也零散地分布，很容易造成阅读和维护困难，而&lt;strong&gt;中间件&lt;/strong&gt;的出现，让我们处理这类业务变得简单很多。&lt;/p&gt;
 
 &lt;p&gt;在讲中间件之前我们先来回顾下AOP。&lt;/p&gt;
@@ -81,8 +80,7 @@
     &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;swizzled_viewWillDisappear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;animated&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Analytics&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;endTimingEvent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;className&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;思考&quot;&gt;思考&lt;/h3&gt;
 
@@ -122,8 +120,7 @@ Function.prototype.after = function(fn){
      fn.call(this);  
    }  
 } 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;有了这两个扩展，可以按下面的方式实现上传业务。&lt;/p&gt;
 
@@ -152,8 +149,7 @@ function showSuccessView() {
 }
 
 uploadFile.before(checkFile).after(showSuccessView)();
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;思考-1&quot;&gt;思考&lt;/h3&gt;
 
@@ -177,8 +173,7 @@ uploadFile.before(checkFile).after(showSuccessView)();
   next();
 }
 app.use(logger);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;像上面代码中的logger函数就叫做”中间件”（middleware），因为它处在 HTTP Request 和 HTTP Response 中间，用来实现某种中间功能。app.use()用来加载中间件。&lt;/p&gt;
 
 &lt;h3 id=&quot;中间件栈&quot;&gt;中间件栈&lt;/h3&gt;
@@ -219,8 +214,7 @@ app.use(three);
 &amp;lt;&amp;lt; two
 &amp;lt;&amp;lt; one
 */
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;中间件一个奇妙的点在于&lt;strong&gt;next函数&lt;/strong&gt;。如果中间件内部没有调用next函数，那么执行权就不会传递下去。&lt;/p&gt;
 
 &lt;h3 id=&quot;中间件的实现&quot;&gt;中间件的实现&lt;/h3&gt;
@@ -280,8 +274,7 @@ function compose(middleware) {
         }
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;详细的代码可以看我的开源项目&lt;a href=&quot;https://github.com/CatchZeng/middleware-center&quot;&gt;middleware-center&lt;/a&gt;。&lt;/p&gt;
 
 &lt;h3 id=&quot;利用中间件优化上传业务&quot;&gt;利用中间件优化上传业务&lt;/h3&gt;
@@ -297,8 +290,7 @@ after finishUpload
 after startUplaod
 after beforeUpload
 */
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class UploadFileCenter extends MiddlewareCenter {
 
@@ -355,8 +347,7 @@ after beforeUpload
         })
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;大家可以看到，利用中间件不但可以实现业务隔离，调用也很清晰，只要&lt;strong&gt;根据业务调整use的顺序&lt;/strong&gt;即可。各个中间件还可以&lt;strong&gt;随意组合，各组件间也没有依赖关系，自身内聚性高&lt;/strong&gt;。细心的朋友可以发现，&lt;a href=&quot;https://github.com/CatchZeng/middleware-center&quot;&gt;middleware-center&lt;/a&gt; 还支持&lt;strong&gt;异步方法&lt;/strong&gt;。得益于中间件的洋葱结构，使得使用者可以处理业务的任何“位置”（如：beforeUpload、startUplaod、finishUpload、after finishUpload、after startUplaod、after beforeUpload）&lt;/p&gt;
 
 &lt;h3 id=&quot;遍地开花&quot;&gt;遍地开花&lt;/h3&gt;
@@ -401,8 +392,7 @@ public class EndUpload: Middleware {
         print(&quot;after EndUpload.&quot;)
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;四总结&quot;&gt;四、总结&lt;/h2&gt;
 
@@ -485,8 +475,7 @@ public class EndUpload: Middleware {
 @param ksize aperture linear size; it must be odd and greater than 1, for example: 3, 5, 7 ...
  */
 void medianBlur( InputArray src, OutputArray dst, int ksize );
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;注意：ksize必须是奇数&lt;/strong&gt;&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)medianBlur:(UIImage *)image size:(int)size {
@@ -514,8 +503,7 @@ class NolinearBlurViewController: UIViewController {
         resultImageView.image = OpenCV.medianBlur(self.image, size: Int32(Int(sender.value)))
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&quot;一些思考&quot;&gt;一些思考&lt;/h4&gt;
 
@@ -601,8 +589,7 @@ _Filter size_: 大的滤波器（D&amp;gt; 5）非常慢，因此建议在进行
 void bilateralFilter( InputArray src, OutputArray dst, int d,
                                    double sigmaColor, double sigmaSpace,
                                    int borderType = BORDER_DEFAULT );
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)bilateralFilter:(UIImage *)image
                            d:(int)d
@@ -661,8 +648,7 @@ class BilateralFilterViewController: UIViewController {
         resultImageView.image = OpenCV.bilateralFilter(imageView.image, d: d, sigmaColor: color, sigmaSpace: space)
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&quot;小小经验&quot;&gt;小小经验&lt;/h4&gt;
 
@@ -673,8 +659,7 @@ class BilateralFilterViewController: UIViewController {
     &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;_Sigma values_: 为了简单起见，可以将2 Sigma值设置为相同。
 如果它们很小（&amp;lt;10）滤波器不会有太大的效果。
 如果它们很大（＞150），它们将具有非常强烈的效果，使图像看起来“卡通化”。
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;使用&lt;strong&gt;滑竿&lt;/strong&gt;帮助快速调节参数，观察效果。&lt;/p&gt;
@@ -757,8 +742,7 @@ Smooth和Blur是opencv图像模糊的API，其背后的原理其实是数学的�
 blur( InputArray src, OutputArray dst,
                         Size ksize, Point anchor = Point(-1,-1),
                         int borderType = BORDER_DEFAULT );
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&quot;铠玩模糊&quot;&gt;铠玩模糊&lt;/h4&gt;
 
@@ -803,8 +787,7 @@ class BlurViewController: UIViewController {
         resultImageView.image = image
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&quot;一些思考&quot;&gt;一些思考&lt;/h4&gt;
 
@@ -890,8 +873,7 @@ sigmaX, and sigmaY.
 CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
                                 double sigmaX, double sigmaY = 0,
                                 int borderType = BORDER_DEFAULT );
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)gaussianblur:(UIImage *)image sizeX:(int)sizeX sizeY:(int)sizeY {
     Mat src;
     UIImageToMat(image, src);
@@ -903,8 +885,7 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
     
     return result;
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-fe8d7a23f71b0c53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;均值&quot; /&gt;&lt;/p&gt;
 
@@ -941,13 +922,11 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
 &lt;p&gt;一般的图像处理算子都是一个函数，它接受一个或多个输入图像，并产生输出图像。&lt;/p&gt;
 &lt;h6 id=&quot;单输入&quot;&gt;单输入&lt;/h6&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;g(x) = h(f(x))
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h6 id=&quot;多输入&quot;&gt;多输入&lt;/h6&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;g(x) = h(f0(x)......fn(x))
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;根据算子的不同，图像变换分为两大类：&lt;/p&gt;
 
@@ -970,8 +949,7 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
 &lt;h2 id=&quot;三调整图像亮度和对比度&quot;&gt;三、调整图像亮度和对比度&lt;/h2&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;g(i, j) = αf(i,j) + β  其中α&amp;gt;0，β是增益变量
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
   &lt;li&gt;f(i,j) 表示源图像像素&lt;/li&gt;
   &lt;li&gt;g(i,j) 表示输出图像像素&lt;/li&gt;
@@ -1023,8 +1001,7 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
     UIImage* result = MatToUIImage(dst);
     return result;
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h6 id=&quot;注&quot;&gt;注：&lt;/h6&gt;
 
 &lt;ul&gt;
@@ -1032,8 +1009,7 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
 &lt;/ul&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    src.convertTo(m, CV_32F);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;图像的通道多样，处理图片时需要做多通道的处理&lt;/li&gt;
@@ -1046,8 +1022,7 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
 }  else if (src.channels() == 4) { //4通道
     ...
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;四小结&quot;&gt;四、小结&lt;/h2&gt;
 
@@ -1085,22 +1060,19 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
     dst = src + src2;
     
     UIImage* result = MatToUIImage(dst);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-b142c05656998fc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;图片相加&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;三线性混合&quot;&gt;三、线性混合&lt;/h2&gt;
 &lt;p&gt;图像混合其实也是一种图片相加的操作，只不过两幅图片的&lt;strong&gt;权重&lt;/strong&gt;不一样。&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;g(x) = α*f0(x) + β*f1(x)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;OpenCV处理图像混合主要是根据线性混合函数，通过在0到1范围内改变α的值，使两幅图像或者视频产生在时间上的画面叠化得效果。实际上α和β的和不一定为1，只是为了防止图像出现过饱和的现象。&lt;/p&gt;
 
 &lt;p&gt;OpenCV的&lt;strong&gt;addWeighted&lt;/strong&gt;函数便是对应线性混合操作。这个函数的作用是，计算两个图像的&lt;strong&gt;加权和&lt;/strong&gt;。&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;void addWeighted(InputArray src1, double alpha, InputArray src2, double beta, double gamma, OutputArray dst, int dtype=-1);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
   &lt;li&gt;src1：需要加权的第一个数组，常常填一个Mat对象。&lt;/li&gt;
   &lt;li&gt;alpha：第一个数组的权重值，0~1之间。&lt;/li&gt;
@@ -1146,8 +1118,7 @@ class MixViewController: UIViewController {
         resultImageView.image = OpenCV.addWeighted(ake, image2: houyi, alpha: alpha, gamma: (1.0 - alpha))
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&quot;一些思考&quot;&gt;一些思考&lt;/h4&gt;
 
@@ -1161,8 +1132,7 @@ g(x) = 1*f0(x) + 1*f1(x)
 
 //线性混合
 g(x) = α*f0(x) + β*f1(x)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;即&lt;strong&gt;相加操作相当于α和β都等于1的线性混合&lt;/strong&gt;。&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 class MixViewController: UIViewController {
@@ -1177,8 +1147,7 @@ class MixViewController: UIViewController {
         resultImageView.image = OpenCV.addWeighted(ake, image2: houyi, alpha: 1, gamma: 1)
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-793aa9ae64bd9820.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;α和β都等于1&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
@@ -1192,13 +1161,11 @@ class MixViewController: UIViewController {
 
 &lt;p&gt;定义ROI区域有两种方法，第一种是使用cv:Rect指定矩形区域&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Mat imageROI=image(Rect(500,250,logo.cols,logo.rows));  
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;另一种定义ROI的方式是指定感兴趣行或列的范围（Range）&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Mat imageROI=srcImage3(Range(250,250+logoImage.rows),Range(200,200+logoImage.cols));  
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;下面我们来看一个实例，展示如何利用ROI将一幅图加到另一幅图的指定位置。&lt;/p&gt;
 
@@ -1241,8 +1208,7 @@ class ROIViewController: UIViewController {
         resultImageView.image = OpenCV.add(#imageLiteral(resourceName: &quot;logo&quot;), alphaExist: true, on: #imageLiteral(resourceName: &quot;sayHello&quot;), atPosition: CGPoint(x: 330, y: 0), alpha: 1.0, beta: CGFloat(sender.value), gamma: 0)
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;strong&gt;注：&lt;/strong&gt;&lt;/p&gt;
 
@@ -1251,8 +1217,7 @@ class ROIViewController: UIViewController {
 &lt;/ul&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; UIImageToMat(image, dst, alphaExist);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;在addWeighted的时候alpha表示第一个Mat的权重，beta表示第二个Mat的权重。在实例中，Logo图片其实是第二个Mat，所以对应的参数是beta。&lt;/li&gt;
@@ -1263,8 +1228,7 @@ class ROIViewController: UIViewController {
     
     //add image
     addWeighted(imageRoi, alpha, dst, beta, gamma, imageRoi);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;五小结&quot;&gt;五、小结&lt;/h2&gt;
 
@@ -1298,29 +1262,24 @@ class ROIViewController: UIViewController {
 &lt;h4 id=&quot;mat基础操作&quot;&gt;Mat基础操作&lt;/h4&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Mat image = Mat(240, 320, CV_8UC3);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;第一个参数是rows，该矩阵的行数；第二个参数是cols，该矩阵的列数；第三个参数是该矩阵元素的类型。这句话表示创建一个大小为240×320的矩阵，里面的元素为8位unsigned型，通道数(channel)有3个。&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;image.create(480, 640, CV_8UC3);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;分配（或重新分配）image矩阵，把大小设为480×640，类型设为CV8UC3。&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Mat image = Mat(3, 3, CV_32F, Scalar(5));
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;定义并初始化一个3×3的32bit浮点数矩阵，每个元素都设为5。&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;uchar* ptr = image.ptr(row);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;指针操作，表示拿到image第row行的指针&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;uchar* output = image.ptr(row);
 output[1] = value;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;利用指针修改图像，表示修改image第row行的第2个数据为value。&lt;/p&gt;
 
 &lt;h4 id=&quot;mat常用成员介绍&quot;&gt;Mat常用成员介绍&lt;/h4&gt;
@@ -1385,22 +1344,19 @@ output[1] = value;
     
     Mat dst;
     src.copyTo(dst, mask);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;第一步建立与原图一样大小的mask图像，并将所有像素初始化为0，因此全图成了一张全黑色图。
 第二步将mask图中的r区域的所有像素值设置为255,也就是整个r区域变成了白色。&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; Mat mask = Mat::zeros(src.size(), CV_8UC1);
  mask(r).setTo(255);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-9c82240d29373e2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;mask图片&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;使用mask将原始图src拷贝到目的图dst上。&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;src.copyTo(dst, mask);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;这个拷贝的动作完整版本是这样的：&lt;/p&gt;
 
@@ -1421,8 +1377,7 @@ output[1] = value;
 &lt;p&gt;矩阵的掩膜操作就是根据掩膜来重新计算每个像素的像素值，掩膜(mask)也被称为kernel。
 通过掩膜操作实现图像对比度提高的公式如下。&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;I(i,j) = 5*I(i,j) - [I(i-1,j) + I(i+1,j) + I(i,j-1) + I(i,j+1)]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;注：这里看不懂不要紧，先看具体的实现，回头我们再一起回顾这里。&lt;/p&gt;
 
 &lt;p&gt;上面的公式，转换成矩阵就如下图所示&lt;/p&gt;
@@ -1460,16 +1415,14 @@ saturate_cast&amp;lt;uchar&amp;gt;(288)，返回255
 saturate_cast&amp;lt;uchar&amp;gt;(100)，返回100
 这个函数的功能是确保RGB值范围在0~255之间。
 */
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;效果
 &lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-74296305be0931e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;增强对比度&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;接下来我们来回顾下上面的那个公式&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;I(i,j) = 5*I(i,j) - [I(i-1,j) + I(i+1,j) + I(i,j-1) + I(i,j+1)]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;其实这个公式就是5倍的中心像素减去周边的四个像素之和。
 我们举两个例子来看下这个公式的结果。&lt;/p&gt;
 
@@ -1488,14 +1441,12 @@ saturate_cast&amp;lt;uchar&amp;gt;(100)，返回100
     Mat dst;
     Mat kernel = (Mat_&amp;lt;char&amp;gt;(3, 3) &amp;lt;&amp;lt; 0, -1, 0, -1, 5, -1, 0, -1, 0);
     filter2D(src, dst, src.depth(), kernel);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;一个filter2D搞定！定义如下：&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;void filter2D( InputArray src, OutputArray dst, int ddepth,
                             InputArray kernel, Point anchor=Point(-1,-1),
                             double delta=0, int borderType=BORDER_DEFAULT );
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;其中src与dst是Mat类型变量、depth表示位图深度，有32、24、8等。&lt;/p&gt;
 
 &lt;h2 id=&quot;四小结&quot;&gt;四、小结&lt;/h2&gt;
@@ -1598,8 +1549,7 @@ OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉库�
 &lt;span class=&quot;k&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;@end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//
 //  OpenCV.m
@@ -1636,8 +1586,7 @@ OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉库�
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;@end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;新建视图控制器SayHelloViewController&lt;/p&gt;
 
@@ -1652,8 +1601,7 @@ OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉库�
         grayImageView.image = OpenCV.gray(#imageLiteral(resourceName: &quot;sayHello&quot;))
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;效果&lt;/p&gt;
 
@@ -1858,8 +1806,7 @@ let logger = Logger()
 client.logger = logger
 
 client.start()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;这个时候，小李突然说，要把log变成存到文件的形式。
 小明想了下，有点不情愿地改了代码（因为要改好几个地方）&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public class FileLogger { //修改1
@@ -1886,8 +1833,7 @@ let logger = FileLogger() //修改4
 client.logger = logger
 
 client.start()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;小李想了想现在是互联网时代，还是直接将log信息传到网络上吧。
 这个时候，小明非常不情愿地说了声“你不早说”，但还是改了代码(又是好几处改动)&lt;/p&gt;
 
@@ -1910,8 +1856,7 @@ let logger = WebLogger() //修改4
 client.logger = logger
 
 client.start()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;这时，小明的老大小华看到小明不开心，便过来帮忙，改了下代码&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;protocol Logger {
     func log(_ text: String)
@@ -1948,12 +1893,10 @@ let logger = WebLogger()
 client.logger = logger
 
 client.start()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;小华对小明说，现在不用怕了，小李想什么样的log你改一下实现类就行了&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let logger = WebLogger() // PrintLogger()  FileLogger()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;小华的改动其实就是利用了依赖倒置原则，增强了易修改性、扩展性、可维护性等。
 细心的朋友其实还发现了，在改成FileLogger的时候，Client多余地调用了FileLogger的start方法。这就是依赖细节，暴露细节，引起的问题。而使用抽象的接口就能较好地避免这类问题。&lt;/p&gt;
@@ -2010,27 +1953,23 @@ client.start()
 &lt;p&gt;2.clone仓库&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://gitlab.com/mygroup/myproject.git
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;3.npm  init&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm init --scope=mygroup
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;4.push到仓库即可&lt;/p&gt;
 
 &lt;p&gt;5.安装&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;@mygroup/myproject&quot;: &quot;https://gitlab.com/mygroup/myproject.git&quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;6.使用&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var myproject = require('@mygroup/myproject');
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h5 id=&quot;优缺点&quot;&gt;优缺点&lt;/h5&gt;
 
@@ -2059,44 +1998,37 @@ client.start()
 &lt;p&gt;1.安装&lt;a href=&quot;https://www.verdaccio.org&quot;&gt;verdaccio&lt;/a&gt;&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm install --global verdaccio 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;2.启动服务&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;verdaccio
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;3.团队人员都绑定registry&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm set registry http://verdaccio托管的ip地址:4873
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;4.增加用户&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm adduser --registry http://verdaccio托管的ip地址:4873
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;5.发布私有库&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm publish --registry http://verdaccio托管的ip地址:4873
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;6.安装私有库&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm i 私有库名称
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;7.使用私有库&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var 私有库名称 = require('私有库名称');
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h5 id=&quot;优缺点-2&quot;&gt;优缺点&lt;/h5&gt;
 
@@ -2109,14 +2041,12 @@ client.start()
 &lt;p&gt;安装&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm install -g nrm
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;增加私有源&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nrm add 私有源名称 http://verdaccio托管的ip地址:4873
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;列出所有源（*表示现在正在使用的源）&lt;/p&gt;
 
@@ -2129,15 +2059,13 @@ client.start()
   sl ----- http://npm.strongloop.com/
   nj ----- https://registry.nodejitsu.com/
 私有源名称  http://verdaccio托管的ip地址:4873
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;切换源&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ nrm use 自定义私有库名称
    Registry has been set to: http://verdaccio托管的ip地址:4873
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;三总结&quot;&gt;三、总结&lt;/h2&gt;
 
@@ -2172,8 +2100,7 @@ client.start()
 &lt;p&gt;未占用&lt;/p&gt;
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cenghaihandeMacBook-Pro:cat-jsutils catchzeng&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm search cat-jsutils
 No matches found &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;cat-jsutils&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;已占用&lt;/p&gt;
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cenghaihandeMacBook-Pro:cat-jsutils catchzeng&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm search jsutils
@@ -2193,8 +2120,7 @@ jsutil                    | A utilities package… | =gm12306        | 2013-03-2
 rb-jsutils                |                      | =dhanna         | 2016-06-29 | 0.9.0    |
 @moodxd/jsutil-openable   | JavaScript Utility…  | =moodxd         | 2017-03-08 | 1.0.3    |
 @moodxd/jsutil-stickable  | JavaScript Utility…  | =moodxd         | 2017-03-08 | 1.0.3    |
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h5 id=&quot;2clone仓库到本地--cd到cat-jsutils执行npm-init&quot;&gt;2.Clone仓库到本地 &amp;amp; cd到cat-jsutils，执行npm init&lt;/h5&gt;
 
@@ -2249,8 +2175,7 @@ About to write to /Users/catchzeng/Documents/Code/Github/cat-jsutils/package.jso
   &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
   &lt;span class=&quot;s2&quot;&gt;&quot;homepage&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;https://github.com/CatchZeng/cat-jsutils#readme&quot;&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h5 id=&quot;3新建indexjs根据上一步的entry-point-indexjs指定组织代码结构这里以cat-jsutils为例&quot;&gt;3.新建index.js【根据上一步的entry point: (index.js)指定】，组织代码结构，这里以cat-jsutils为例&lt;/h5&gt;
 
@@ -2265,8 +2190,7 @@ About to write to /Users/catchzeng/Documents/Code/Github/cat-jsutils/package.jso
 &lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;nx&quot;&gt;isNum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//string.js&lt;/span&gt;
 
@@ -2281,8 +2205,7 @@ About to write to /Users/catchzeng/Documents/Code/Github/cat-jsutils/package.jso
 	&lt;span class=&quot;nx&quot;&gt;containsAny&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
 	&lt;span class=&quot;nx&quot;&gt;containsAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//index.js&lt;/span&gt;
 &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;utils&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{};&lt;/span&gt;
@@ -2291,20 +2214,18 @@ About to write to /Users/catchzeng/Documents/Code/Github/cat-jsutils/package.jso
 &lt;span class=&quot;nx&quot;&gt;utils&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'./src/number'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
 &lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;utils&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h5 id=&quot;4在packagejson中指定版本号并提交代码到github上&quot;&gt;4.在package.json中指定版本号，并提交代码到github上&lt;/h5&gt;
 
 &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;cat-jsutils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;js utils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;main&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;index.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;cat-jsutils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;js utils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;main&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;index.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;三发布npm包&quot;&gt;三、发布npm包&lt;/h2&gt;
 
@@ -2312,27 +2233,24 @@ About to write to /Users/catchzeng/Documents/Code/Github/cat-jsutils/package.jso
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cenghaihandeMacBook-Pro:cat-jsutils catchzeng&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm publish
 + cat-jsutils@1.0.1
 cenghaihandeMacBook-Pro:cat-jsutils catchzeng&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;发布成功后就可以在&lt;a href=&quot;https://www.npmjs.com&quot;&gt;https://www.npmjs.com&lt;/a&gt;上看到自己的项目&lt;/p&gt;
 
 &lt;h2 id=&quot;四更新版本&quot;&gt;四、更新版本&lt;/h2&gt;
 
 &lt;p&gt;更新package.json中的版本号，并提交代码到github上，重新publish npm包即可&lt;/p&gt;
 &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;cat-jsutils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;js utils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;main&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;index.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;cat-jsutils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;js utils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;main&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;index.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cenghaihandeMacBook-Pro:cat-jsutils catchzeng$ npm publish
 + cat-jsutils@1.0.2
 cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;五变优雅&quot;&gt;五、变优雅&lt;/h2&gt;
 &lt;p&gt;何为优雅，先看下&lt;a href=&quot;https://github.com/expressjs/express&quot;&gt;express&lt;/a&gt;这个仓库比我们自己的仓库优雅在哪里&lt;/p&gt;
@@ -2351,12 +2269,10 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
 &lt;p&gt;增加这个其实只要在README中增加&lt;/p&gt;
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;![NPM version]&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;https://img.shields.io/npm/v/仓库名.svg&lt;span class=&quot;o&quot;&gt;)](&lt;/span&gt;https://www.npmjs.com/package/仓库名&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;以cat-jsutils为例子&lt;/p&gt;
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;![NPM version]&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;https://img.shields.io/npm/v/cat-jsutils.svg&lt;span class=&quot;o&quot;&gt;)](&lt;/span&gt;https://www.npmjs.com/package/cat-jsutils&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;3ci状态&quot;&gt;3.CI状态&lt;/h2&gt;
 
@@ -2368,29 +2284,28 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
 
 &lt;p&gt;在项目中增加.travis.yml文件，用于配置持续集成的构建步骤。这里以cat-jsutils为例，里面只执行了单元测试&lt;/p&gt;
 
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;language&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;node_js&lt;/span&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;language&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;node_js&lt;/span&gt;
 &lt;span class=&quot;nl&quot;&gt;node_js&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;stable&lt;/span&gt;
 &lt;span class=&quot;nl&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;test&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;：cat-jsutils的测试使用的是mocha+chai+istanbul，详见package.json&lt;/p&gt;
 &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;cat-jsutils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;js utils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;main&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;index.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;mocha&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;coverage&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;istanbul cover _mocha -- -R spec --timeout 5000 --recursive&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;coverage:check&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;istanbul check-coverage&quot;&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;cat-jsutils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;js utils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;main&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;index.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;mocha&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;coverage&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;istanbul cover _mocha -- -R spec --timeout 5000 --recursive&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;coverage:check&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;istanbul check-coverage&quot;&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;repository&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;git&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;git+https://github.com/CatchZeng/cat-jsutils.git&quot;&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;repository&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;git&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;git+https://github.com/CatchZeng/cat-jsutils.git&quot;&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;keywords&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;keywords&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
     &lt;span class=&quot;s2&quot;&gt;&quot;util&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;s2&quot;&gt;&quot;utils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;s2&quot;&gt;&quot;js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
@@ -2399,20 +2314,19 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
     &lt;span class=&quot;s2&quot;&gt;&quot;utility&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;s2&quot;&gt;&quot;utilities&quot;&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;author&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;CatchZeng&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;license&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;MIT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;bugs&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://github.com/CatchZeng/cat-jsutils/issues&quot;&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;author&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;CatchZeng&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;license&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;MIT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;bugs&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://github.com/CatchZeng/cat-jsutils/issues&quot;&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;homepage&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://github.com/CatchZeng/cat-jsutils#readme&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;devDependencies&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;chai&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;^4.1.2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;istanbul&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;^0.4.5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;mocha&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;^5.1.0&quot;&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;homepage&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://github.com/CatchZeng/cat-jsutils#readme&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;devDependencies&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;chai&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;^4.1.2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;istanbul&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;^0.4.5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;mocha&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;^5.1.0&quot;&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;提交.travis.yml后变会触发构建，可以到&lt;a href=&quot;https://travis-ci.org&quot;&gt;travis-ci&lt;/a&gt;查看构建过程。&lt;/p&gt;
 
@@ -2425,8 +2339,7 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
 
 &lt;p&gt;将该地址放到README上即可。以cat-jsutils为例子&lt;/p&gt;
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;![travis ci]&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;https://api.travis-ci.org/CatchZeng/cat-jsutils.svg?branch&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;master&lt;span class=&quot;o&quot;&gt;)](&lt;/span&gt;https://travis-ci.org/CatchZeng/cat-jsutils&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;4测试覆盖率&quot;&gt;4.测试覆盖率&lt;/h2&gt;
 
@@ -2439,59 +2352,53 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
 
 &lt;p&gt;安装coveralls&lt;/p&gt;
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm i coveralls -D
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;安装travis&lt;/p&gt;
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem install travis
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;执行encrypt，COVERALLS_TOKEN就是刚才复制的repo_token&lt;/p&gt;
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;travis encrypt &lt;span class=&quot;nv&quot;&gt;COVERALLS_TOKEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;JGOXXXXXXXXXXXXXqKVJ --add
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;执行之后会发现.travis.yml下多出env，这个环境变量能帮助我们将测试覆盖率安全上传到coveralls&lt;/p&gt;
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
   &lt;span class=&quot;nl&quot;&gt;global&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;secure&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;nHaHZZDNmW3Fx3YPvBEc2E0a0kjsVhKUssi4GpWYcFDiJe6ufHAVjukHnV4RQOlSgRgp1q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;v9KJFeQbkcR9vSNQhtkjzHW&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//AbNGIOCZFyvmb3j/FH1hFxGqK129IC9tDHn1JeRSr5qSKK+TFTwINWQHCGAdA32PY+swuNT30UGrhBHtw3UaN8Hgu9xRH8g8UpqAMcGyX0rCnYCzPD2gYBEOo3zqEQvNvttu2YeSxvBXpU8doJuZLu7yvrRhvD3DGg3r/BWX7UDZtX16gZCdw3N9EnMWqgdaos7blE3eSKeHj89OHhiXeRSqHN7RKyUAp9dDmW1M63onsNvEpoho4ULCVTiVvX+Y25c+gZML3boeBlm3KOdwYKOCKhQLj/DIY5ojQd33jFBdBoouWW5ZG2cpfg8iq/Jyg2OoJFvJRjG04/T85a+l89wMnZKMDDl8zRgsnDhZho69EQmTz9WeBCvL2Bg87+n2Mg909InEw1D1PskGPkyD02zR7newOU+gJM2zK3pUYxt6O4EHUukoYL9XS14ogYIsrYFWqls0BHnTQXWKf+DQckL+H4+nZxdEPF6fEaebI8jgH9pgQiCHqMAKaQNsLApZRQ58DXLv78nZ/Sd/e/WmEgPfXZcrhTiLC8/yistVy3N5EKYHCjg6sB5RMO4BRNAsq0rnR3v1rA=&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;secure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;nHaHZZDNmW3Fx3YPvBEc2E0a0kjsVhKUssi4GpWYcFDiJe6ufHAVjukHnV4RQOlSgRgp1q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;v9KJFeQbkcR9vSNQhtkjzHW&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//AbNGIOCZFyvmb3j/FH1hFxGqK129IC9tDHn1JeRSr5qSKK+TFTwINWQHCGAdA32PY+swuNT30UGrhBHtw3UaN8Hgu9xRH8g8UpqAMcGyX0rCnYCzPD2gYBEOo3zqEQvNvttu2YeSxvBXpU8doJuZLu7yvrRhvD3DGg3r/BWX7UDZtX16gZCdw3N9EnMWqgdaos7blE3eSKeHj89OHhiXeRSqHN7RKyUAp9dDmW1M63onsNvEpoho4ULCVTiVvX+Y25c+gZML3boeBlm3KOdwYKOCKhQLj/DIY5ojQd33jFBdBoouWW5ZG2cpfg8iq/Jyg2OoJFvJRjG04/T85a+l89wMnZKMDDl8zRgsnDhZho69EQmTz9WeBCvL2Bg87+n2Mg909InEw1D1PskGPkyD02zR7newOU+gJM2zK3pUYxt6O4EHUukoYL9XS14ogYIsrYFWqls0BHnTQXWKf+DQckL+H4+nZxdEPF6fEaebI8jgH9pgQiCHqMAKaQNsLApZRQ58DXLv78nZ/Sd/e/WmEgPfXZcrhTiLC8/yistVy3N5EKYHCjg6sB5RMO4BRNAsq0rnR3v1rA=&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;加入cover脚本&lt;/p&gt;
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s2&quot;&gt;&quot;cover&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;istanbul cover --report lcov node_modules/mocha/bin/_mocha -- -R spec test/*.js&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s2&quot;&gt;&quot;cover&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;istanbul cover --report lcov node_modules/mocha/bin/_mocha -- -R spec test/*.js&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;看下最后的.travis.yml文件和 package.json&lt;/p&gt;
 
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;language&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;node_js&lt;/span&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;language&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;node_js&lt;/span&gt;
 &lt;span class=&quot;nl&quot;&gt;node_js&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;stable&lt;/span&gt;
 &lt;span class=&quot;nl&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;test&lt;/span&gt;
 &lt;span class=&quot;nl&quot;&gt;after_script&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cover&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;coverage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;lcov&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;info&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;node_modules&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;coveralls&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;coveralls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;js&lt;/span&gt;
 &lt;span class=&quot;nl&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
   &lt;span class=&quot;nl&quot;&gt;global&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;secure&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;nHaHZZDNmW3Fx3YPvBEc2E0a0kjsVhKUssi4GpWYcFDiJe6ufHAVjukHnV4RQOlSgRgp1q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;v9KJFeQbkcR9vSNQhtkjzHW&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//AbNGIOCZFyvmb3j/FH1hFxGqK129IC9tDHn1JeRSr5qSKK+TFTwINWQHCGAdA32PY+swuNT30UGrhBHtw3UaN8Hgu9xRH8g8UpqAMcGyX0rCnYCzPD2gYBEOo3zqEQvNvttu2YeSxvBXpU8doJuZLu7yvrRhvD3DGg3r/BWX7UDZtX16gZCdw3N9EnMWqgdaos7blE3eSKeHj89OHhiXeRSqHN7RKyUAp9dDmW1M63onsNvEpoho4ULCVTiVvX+Y25c+gZML3boeBlm3KOdwYKOCKhQLj/DIY5ojQd33jFBdBoouWW5ZG2cpfg8iq/Jyg2OoJFvJRjG04/T85a+l89wMnZKMDDl8zRgsnDhZho69EQmTz9WeBCvL2Bg87+n2Mg909InEw1D1PskGPkyD02zR7newOU+gJM2zK3pUYxt6O4EHUukoYL9XS14ogYIsrYFWqls0BHnTQXWKf+DQckL+H4+nZxdEPF6fEaebI8jgH9pgQiCHqMAKaQNsLApZRQ58DXLv78nZ/Sd/e/WmEgPfXZcrhTiLC8/yistVy3N5EKYHCjg6sB5RMO4BRNAsq0rnR3v1rA=&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;secure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;nHaHZZDNmW3Fx3YPvBEc2E0a0kjsVhKUssi4GpWYcFDiJe6ufHAVjukHnV4RQOlSgRgp1q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;v9KJFeQbkcR9vSNQhtkjzHW&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//AbNGIOCZFyvmb3j/FH1hFxGqK129IC9tDHn1JeRSr5qSKK+TFTwINWQHCGAdA32PY+swuNT30UGrhBHtw3UaN8Hgu9xRH8g8UpqAMcGyX0rCnYCzPD2gYBEOo3zqEQvNvttu2YeSxvBXpU8doJuZLu7yvrRhvD3DGg3r/BWX7UDZtX16gZCdw3N9EnMWqgdaos7blE3eSKeHj89OHhiXeRSqHN7RKyUAp9dDmW1M63onsNvEpoho4ULCVTiVvX+Y25c+gZML3boeBlm3KOdwYKOCKhQLj/DIY5ojQd33jFBdBoouWW5ZG2cpfg8iq/Jyg2OoJFvJRjG04/T85a+l89wMnZKMDDl8zRgsnDhZho69EQmTz9WeBCvL2Bg87+n2Mg909InEw1D1PskGPkyD02zR7newOU+gJM2zK3pUYxt6O4EHUukoYL9XS14ogYIsrYFWqls0BHnTQXWKf+DQckL+H4+nZxdEPF6fEaebI8jgH9pgQiCHqMAKaQNsLApZRQ58DXLv78nZ/Sd/e/WmEgPfXZcrhTiLC8/yistVy3N5EKYHCjg6sB5RMO4BRNAsq0rnR3v1rA=&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;cat-jsutils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;js utils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;main&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;index.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;mocha&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;coverage&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;istanbul cover _mocha -- -R spec --timeout 5000 --recursive&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;coverage:check&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;istanbul check-coverage&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;cover&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;istanbul cover --report lcov node_modules/mocha/bin/_mocha -- -R spec test/*.js&quot;&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;cat-jsutils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;js utils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;main&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;index.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;mocha&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;coverage&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;istanbul cover _mocha -- -R spec --timeout 5000 --recursive&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;coverage:check&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;istanbul check-coverage&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;cover&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;istanbul cover --report lcov node_modules/mocha/bin/_mocha -- -R spec test/*.js&quot;&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;repository&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;git&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;git+https://github.com/CatchZeng/cat-jsutils.git&quot;&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;repository&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;git&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;git+https://github.com/CatchZeng/cat-jsutils.git&quot;&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;keywords&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;keywords&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
     &lt;span class=&quot;s2&quot;&gt;&quot;util&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;s2&quot;&gt;&quot;utils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;s2&quot;&gt;&quot;js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
@@ -2500,21 +2407,20 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
     &lt;span class=&quot;s2&quot;&gt;&quot;utility&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;s2&quot;&gt;&quot;utilities&quot;&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;author&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;CatchZeng&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;license&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;MIT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;bugs&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://github.com/CatchZeng/cat-jsutils/issues&quot;&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;author&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;CatchZeng&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;license&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;MIT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;bugs&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://github.com/CatchZeng/cat-jsutils/issues&quot;&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;homepage&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://github.com/CatchZeng/cat-jsutils#readme&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;devDependencies&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;chai&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;^4.1.2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;coveralls&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;^3.0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;istanbul&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;^0.4.5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;mocha&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;^5.1.0&quot;&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;homepage&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://github.com/CatchZeng/cat-jsutils#readme&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;devDependencies&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;chai&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;^4.1.2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;coveralls&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;^3.0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;istanbul&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;^0.4.5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;mocha&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;^5.1.0&quot;&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;5小结&quot;&gt;5.小结&lt;/h2&gt;
 &lt;p&gt;至此，我们完成了提交代码-》travis-》mocha单元测试-》istanbul覆盖率-》coveralls-》github显示npm版本、ci、覆盖率状态。&lt;/p&gt;

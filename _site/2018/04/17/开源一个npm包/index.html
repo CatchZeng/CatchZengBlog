@@ -183,8 +183,7 @@
 <p>未占用</p>
 <div class="language-shell highlighter-rouge"><pre class="highlight"><code>cenghaihandeMacBook-Pro:cat-jsutils catchzeng<span class="nv">$ </span>npm search cat-jsutils
 No matches found <span class="k">for</span> <span class="s2">"cat-jsutils"</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 <p>已占用</p>
 <div class="language-shell highlighter-rouge"><pre class="highlight"><code>cenghaihandeMacBook-Pro:cat-jsutils catchzeng<span class="nv">$ </span>npm search jsutils
@@ -204,8 +203,7 @@ jsutil                    | A utilities package… | =gm12306        | 2013-03-2
 rb-jsutils                |                      | =dhanna         | 2016-06-29 | 0.9.0    |
 @moodxd/jsutil-openable   | JavaScript Utility…  | =moodxd         | 2017-03-08 | 1.0.3    |
 @moodxd/jsutil-stickable  | JavaScript Utility…  | =moodxd         | 2017-03-08 | 1.0.3    |
-</span></code></pre>
-</div>
+</span></code></pre></div>
 
 <h5 id="2clone仓库到本地--cd到cat-jsutils执行npm-init">2.Clone仓库到本地 &amp; cd到cat-jsutils，执行npm init</h5>
 
@@ -260,8 +258,7 @@ About to write to /Users/catchzeng/Documents/Code/Github/cat-jsutils/package.jso
   <span class="o">}</span>,
   <span class="s2">"homepage"</span>: <span class="s2">"https://github.com/CatchZeng/cat-jsutils#readme"</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 <h5 id="3新建indexjs根据上一步的entry-point-indexjs指定组织代码结构这里以cat-jsutils为例">3.新建index.js【根据上一步的entry point: (index.js)指定】，组织代码结构，这里以cat-jsutils为例</h5>
 
@@ -276,8 +273,7 @@ About to write to /Users/catchzeng/Documents/Code/Github/cat-jsutils/package.jso
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">isNum</span><span class="p">,</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">//string.js</span>
 
@@ -292,8 +288,7 @@ About to write to /Users/catchzeng/Documents/Code/Github/cat-jsutils/package.jso
 	<span class="nx">containsAny</span><span class="p">,</span>
 	<span class="nx">containsAll</span><span class="p">,</span>
 <span class="p">};</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">//index.js</span>
 <span class="kd">var</span> <span class="nx">utils</span> <span class="o">=</span> <span class="p">{};</span>
@@ -302,20 +297,18 @@ About to write to /Users/catchzeng/Documents/Code/Github/cat-jsutils/package.jso
 <span class="nx">utils</span><span class="p">.</span><span class="nx">number</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./src/number'</span><span class="p">);</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">;</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 <h5 id="4在packagejson中指定版本号并提交代码到github上">4.在package.json中指定版本号，并提交代码到github上</h5>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">{</span>
-  <span class="s2">"name"</span><span class="err">:</span> <span class="s2">"cat-jsutils"</span><span class="p">,</span>
-  <span class="s2">"version"</span><span class="err">:</span> <span class="s2">"1.0.1"</span><span class="p">,</span>
-  <span class="s2">"description"</span><span class="err">:</span> <span class="s2">"js utils"</span><span class="p">,</span>
-  <span class="s2">"main"</span><span class="err">:</span> <span class="s2">"index.js"</span><span class="p">,</span>
+  <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"cat-jsutils"</span><span class="p">,</span>
+  <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"1.0.1"</span><span class="p">,</span>
+  <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"js utils"</span><span class="p">,</span>
+  <span class="s2">"main"</span><span class="p">:</span> <span class="s2">"index.js"</span><span class="p">,</span>
   <span class="p">...</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 <h2 id="三发布npm包">三、发布npm包</h2>
 
@@ -323,27 +316,24 @@ About to write to /Users/catchzeng/Documents/Code/Github/cat-jsutils/package.jso
 <div class="language-shell highlighter-rouge"><pre class="highlight"><code>cenghaihandeMacBook-Pro:cat-jsutils catchzeng<span class="nv">$ </span>npm publish
 + cat-jsutils@1.0.1
 cenghaihandeMacBook-Pro:cat-jsutils catchzeng<span class="err">$</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>发布成功后就可以在<a href="https://www.npmjs.com">https://www.npmjs.com</a>上看到自己的项目</p>
 
 <h2 id="四更新版本">四、更新版本</h2>
 
 <p>更新package.json中的版本号，并提交代码到github上，重新publish npm包即可</p>
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">{</span>
-  <span class="s2">"name"</span><span class="err">:</span> <span class="s2">"cat-jsutils"</span><span class="p">,</span>
-  <span class="s2">"version"</span><span class="err">:</span> <span class="s2">"1.0.2"</span><span class="p">,</span>
-  <span class="s2">"description"</span><span class="err">:</span> <span class="s2">"js utils"</span><span class="p">,</span>
-  <span class="s2">"main"</span><span class="err">:</span> <span class="s2">"index.js"</span><span class="p">,</span>
+  <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"cat-jsutils"</span><span class="p">,</span>
+  <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"1.0.2"</span><span class="p">,</span>
+  <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"js utils"</span><span class="p">,</span>
+  <span class="s2">"main"</span><span class="p">:</span> <span class="s2">"index.js"</span><span class="p">,</span>
   <span class="p">...</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div>
 <div class="highlighter-rouge"><pre class="highlight"><code>cenghaihandeMacBook-Pro:cat-jsutils catchzeng$ npm publish
 + cat-jsutils@1.0.2
 cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
-</code></pre>
-</div>
+</code></pre></div>
 
 <h2 id="五变优雅">五、变优雅</h2>
 <p>何为优雅，先看下<a href="https://github.com/expressjs/express">express</a>这个仓库比我们自己的仓库优雅在哪里</p>
@@ -362,12 +352,10 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
 <p>增加这个其实只要在README中增加</p>
 <div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="o">[</span>![NPM version]<span class="o">(</span>https://img.shields.io/npm/v/仓库名.svg<span class="o">)](</span>https://www.npmjs.com/package/仓库名<span class="o">)</span>
 
-</code></pre>
-</div>
+</code></pre></div>
 <p>以cat-jsutils为例子</p>
 <div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="o">[</span>![NPM version]<span class="o">(</span>https://img.shields.io/npm/v/cat-jsutils.svg<span class="o">)](</span>https://www.npmjs.com/package/cat-jsutils<span class="o">)</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 <h2 id="3ci状态">3.CI状态</h2>
 
@@ -379,29 +367,28 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
 
 <p>在项目中增加.travis.yml文件，用于配置持续集成的构建步骤。这里以cat-jsutils为例，里面只执行了单元测试</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">language</span><span class="err">:</span> <span class="nx">node_js</span>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">language</span><span class="p">:</span> <span class="nx">node_js</span>
 <span class="nl">node_js</span><span class="p">:</span>
 <span class="o">-</span> <span class="nx">stable</span>
 <span class="nl">script</span><span class="p">:</span> <span class="nx">npm</span> <span class="nx">run</span> <span class="nx">test</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 <p><strong>说明</strong>：cat-jsutils的测试使用的是mocha+chai+istanbul，详见package.json</p>
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">{</span>
-  <span class="s2">"name"</span><span class="err">:</span> <span class="s2">"cat-jsutils"</span><span class="p">,</span>
-  <span class="s2">"version"</span><span class="err">:</span> <span class="s2">"1.0.1"</span><span class="p">,</span>
-  <span class="s2">"description"</span><span class="err">:</span> <span class="s2">"js utils"</span><span class="p">,</span>
-  <span class="s2">"main"</span><span class="err">:</span> <span class="s2">"index.js"</span><span class="p">,</span>
-  <span class="s2">"scripts"</span><span class="err">:</span> <span class="p">{</span>
-    <span class="s2">"test"</span><span class="err">:</span> <span class="s2">"mocha"</span><span class="p">,</span>
-    <span class="s2">"coverage"</span><span class="err">:</span> <span class="s2">"istanbul cover _mocha -- -R spec --timeout 5000 --recursive"</span><span class="p">,</span>
-    <span class="s2">"coverage:check"</span><span class="err">:</span> <span class="s2">"istanbul check-coverage"</span>
+  <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"cat-jsutils"</span><span class="p">,</span>
+  <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"1.0.1"</span><span class="p">,</span>
+  <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"js utils"</span><span class="p">,</span>
+  <span class="s2">"main"</span><span class="p">:</span> <span class="s2">"index.js"</span><span class="p">,</span>
+  <span class="s2">"scripts"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"test"</span><span class="p">:</span> <span class="s2">"mocha"</span><span class="p">,</span>
+    <span class="s2">"coverage"</span><span class="p">:</span> <span class="s2">"istanbul cover _mocha -- -R spec --timeout 5000 --recursive"</span><span class="p">,</span>
+    <span class="s2">"coverage:check"</span><span class="p">:</span> <span class="s2">"istanbul check-coverage"</span>
   <span class="p">},</span>
-  <span class="s2">"repository"</span><span class="err">:</span> <span class="p">{</span>
-    <span class="s2">"type"</span><span class="err">:</span> <span class="s2">"git"</span><span class="p">,</span>
-    <span class="s2">"url"</span><span class="err">:</span> <span class="s2">"git+https://github.com/CatchZeng/cat-jsutils.git"</span>
+  <span class="s2">"repository"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"git"</span><span class="p">,</span>
+    <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"git+https://github.com/CatchZeng/cat-jsutils.git"</span>
   <span class="p">},</span>
-  <span class="s2">"keywords"</span><span class="err">:</span> <span class="p">[</span>
+  <span class="s2">"keywords"</span><span class="p">:</span> <span class="p">[</span>
     <span class="s2">"util"</span><span class="p">,</span>
     <span class="s2">"utils"</span><span class="p">,</span>
     <span class="s2">"js"</span><span class="p">,</span>
@@ -410,20 +397,19 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
     <span class="s2">"utility"</span><span class="p">,</span>
     <span class="s2">"utilities"</span>
   <span class="p">],</span>
-  <span class="s2">"author"</span><span class="err">:</span> <span class="s2">"CatchZeng"</span><span class="p">,</span>
-  <span class="s2">"license"</span><span class="err">:</span> <span class="s2">"MIT"</span><span class="p">,</span>
-  <span class="s2">"bugs"</span><span class="err">:</span> <span class="p">{</span>
-    <span class="s2">"url"</span><span class="err">:</span> <span class="s2">"https://github.com/CatchZeng/cat-jsutils/issues"</span>
+  <span class="s2">"author"</span><span class="p">:</span> <span class="s2">"CatchZeng"</span><span class="p">,</span>
+  <span class="s2">"license"</span><span class="p">:</span> <span class="s2">"MIT"</span><span class="p">,</span>
+  <span class="s2">"bugs"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"https://github.com/CatchZeng/cat-jsutils/issues"</span>
   <span class="p">},</span>
-  <span class="s2">"homepage"</span><span class="err">:</span> <span class="s2">"https://github.com/CatchZeng/cat-jsutils#readme"</span><span class="p">,</span>
-  <span class="s2">"devDependencies"</span><span class="err">:</span> <span class="p">{</span>
-    <span class="s2">"chai"</span><span class="err">:</span> <span class="s2">"^4.1.2"</span><span class="p">,</span>
-    <span class="s2">"istanbul"</span><span class="err">:</span> <span class="s2">"^0.4.5"</span><span class="p">,</span>
-    <span class="s2">"mocha"</span><span class="err">:</span> <span class="s2">"^5.1.0"</span>
+  <span class="s2">"homepage"</span><span class="p">:</span> <span class="s2">"https://github.com/CatchZeng/cat-jsutils#readme"</span><span class="p">,</span>
+  <span class="s2">"devDependencies"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"chai"</span><span class="p">:</span> <span class="s2">"^4.1.2"</span><span class="p">,</span>
+    <span class="s2">"istanbul"</span><span class="p">:</span> <span class="s2">"^0.4.5"</span><span class="p">,</span>
+    <span class="s2">"mocha"</span><span class="p">:</span> <span class="s2">"^5.1.0"</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 <p>提交.travis.yml后变会触发构建，可以到<a href="https://travis-ci.org">travis-ci</a>查看构建过程。</p>
 
@@ -436,8 +422,7 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
 
 <p>将该地址放到README上即可。以cat-jsutils为例子</p>
 <div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="o">[</span>![travis ci]<span class="o">(</span>https://api.travis-ci.org/CatchZeng/cat-jsutils.svg?branch<span class="o">=</span>master<span class="o">)](</span>https://travis-ci.org/CatchZeng/cat-jsutils<span class="o">)</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 <h2 id="4测试覆盖率">4.测试覆盖率</h2>
 
@@ -450,59 +435,53 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
 
 <p>安装coveralls</p>
 <div class="language-shell highlighter-rouge"><pre class="highlight"><code>npm i coveralls -D
-</code></pre>
-</div>
+</code></pre></div>
 
 <p>安装travis</p>
 <div class="language-shell highlighter-rouge"><pre class="highlight"><code>gem install travis
-</code></pre>
-</div>
+</code></pre></div>
 
 <p>执行encrypt，COVERALLS_TOKEN就是刚才复制的repo_token</p>
 <div class="language-shell highlighter-rouge"><pre class="highlight"><code>travis encrypt <span class="nv">COVERALLS_TOKEN</span><span class="o">=</span>JGOXXXXXXXXXXXXXqKVJ --add
-</code></pre>
-</div>
+</code></pre></div>
 <p>执行之后会发现.travis.yml下多出env，这个环境变量能帮助我们将测试覆盖率安全上传到coveralls</p>
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">env</span><span class="err">:</span>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">env</span><span class="p">:</span>
   <span class="nl">global</span><span class="p">:</span>
-  <span class="o">-</span> <span class="nx">secure</span><span class="err">:</span> <span class="nx">nHaHZZDNmW3Fx3YPvBEc2E0a0kjsVhKUssi4GpWYcFDiJe6ufHAVjukHnV4RQOlSgRgp1q</span><span class="o">+</span><span class="mi">5</span><span class="nx">v9KJFeQbkcR9vSNQhtkjzHW</span><span class="c1">//AbNGIOCZFyvmb3j/FH1hFxGqK129IC9tDHn1JeRSr5qSKK+TFTwINWQHCGAdA32PY+swuNT30UGrhBHtw3UaN8Hgu9xRH8g8UpqAMcGyX0rCnYCzPD2gYBEOo3zqEQvNvttu2YeSxvBXpU8doJuZLu7yvrRhvD3DGg3r/BWX7UDZtX16gZCdw3N9EnMWqgdaos7blE3eSKeHj89OHhiXeRSqHN7RKyUAp9dDmW1M63onsNvEpoho4ULCVTiVvX+Y25c+gZML3boeBlm3KOdwYKOCKhQLj/DIY5ojQd33jFBdBoouWW5ZG2cpfg8iq/Jyg2OoJFvJRjG04/T85a+l89wMnZKMDDl8zRgsnDhZho69EQmTz9WeBCvL2Bg87+n2Mg909InEw1D1PskGPkyD02zR7newOU+gJM2zK3pUYxt6O4EHUukoYL9XS14ogYIsrYFWqls0BHnTQXWKf+DQckL+H4+nZxdEPF6fEaebI8jgH9pgQiCHqMAKaQNsLApZRQ58DXLv78nZ/Sd/e/WmEgPfXZcrhTiLC8/yistVy3N5EKYHCjg6sB5RMO4BRNAsq0rnR3v1rA=</span>
-</code></pre>
-</div>
+  <span class="o">-</span> <span class="nx">secure</span><span class="p">:</span> <span class="nx">nHaHZZDNmW3Fx3YPvBEc2E0a0kjsVhKUssi4GpWYcFDiJe6ufHAVjukHnV4RQOlSgRgp1q</span><span class="o">+</span><span class="mi">5</span><span class="nx">v9KJFeQbkcR9vSNQhtkjzHW</span><span class="c1">//AbNGIOCZFyvmb3j/FH1hFxGqK129IC9tDHn1JeRSr5qSKK+TFTwINWQHCGAdA32PY+swuNT30UGrhBHtw3UaN8Hgu9xRH8g8UpqAMcGyX0rCnYCzPD2gYBEOo3zqEQvNvttu2YeSxvBXpU8doJuZLu7yvrRhvD3DGg3r/BWX7UDZtX16gZCdw3N9EnMWqgdaos7blE3eSKeHj89OHhiXeRSqHN7RKyUAp9dDmW1M63onsNvEpoho4ULCVTiVvX+Y25c+gZML3boeBlm3KOdwYKOCKhQLj/DIY5ojQd33jFBdBoouWW5ZG2cpfg8iq/Jyg2OoJFvJRjG04/T85a+l89wMnZKMDDl8zRgsnDhZho69EQmTz9WeBCvL2Bg87+n2Mg909InEw1D1PskGPkyD02zR7newOU+gJM2zK3pUYxt6O4EHUukoYL9XS14ogYIsrYFWqls0BHnTQXWKf+DQckL+H4+nZxdEPF6fEaebI8jgH9pgQiCHqMAKaQNsLApZRQ58DXLv78nZ/Sd/e/WmEgPfXZcrhTiLC8/yistVy3N5EKYHCjg6sB5RMO4BRNAsq0rnR3v1rA=</span>
+</code></pre></div>
 
 <p>加入cover脚本</p>
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="s2">"cover"</span><span class="err">:</span> <span class="s2">"istanbul cover --report lcov node_modules/mocha/bin/_mocha -- -R spec test/*.js"</span>
-</code></pre>
-</div>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="s2">"cover"</span><span class="p">:</span> <span class="s2">"istanbul cover --report lcov node_modules/mocha/bin/_mocha -- -R spec test/*.js"</span>
+</code></pre></div>
 
 <p>看下最后的.travis.yml文件和 package.json</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">language</span><span class="err">:</span> <span class="nx">node_js</span>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">language</span><span class="p">:</span> <span class="nx">node_js</span>
 <span class="nl">node_js</span><span class="p">:</span>
 <span class="o">-</span> <span class="nx">stable</span>
 <span class="nl">script</span><span class="p">:</span> <span class="nx">npm</span> <span class="nx">run</span> <span class="nx">test</span>
 <span class="nl">after_script</span><span class="p">:</span> <span class="nx">npm</span> <span class="nx">run</span> <span class="nx">cover</span> <span class="o">&amp;&amp;</span> <span class="nx">cat</span> <span class="nx">coverage</span><span class="o">/</span><span class="nx">lcov</span><span class="p">.</span><span class="nx">info</span> <span class="o">|</span> <span class="nx">node_modules</span><span class="o">/</span><span class="nx">coveralls</span><span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">coveralls</span><span class="p">.</span><span class="nx">js</span>
 <span class="nl">env</span><span class="p">:</span>
   <span class="nl">global</span><span class="p">:</span>
-  <span class="o">-</span> <span class="nx">secure</span><span class="err">:</span> <span class="nx">nHaHZZDNmW3Fx3YPvBEc2E0a0kjsVhKUssi4GpWYcFDiJe6ufHAVjukHnV4RQOlSgRgp1q</span><span class="o">+</span><span class="mi">5</span><span class="nx">v9KJFeQbkcR9vSNQhtkjzHW</span><span class="c1">//AbNGIOCZFyvmb3j/FH1hFxGqK129IC9tDHn1JeRSr5qSKK+TFTwINWQHCGAdA32PY+swuNT30UGrhBHtw3UaN8Hgu9xRH8g8UpqAMcGyX0rCnYCzPD2gYBEOo3zqEQvNvttu2YeSxvBXpU8doJuZLu7yvrRhvD3DGg3r/BWX7UDZtX16gZCdw3N9EnMWqgdaos7blE3eSKeHj89OHhiXeRSqHN7RKyUAp9dDmW1M63onsNvEpoho4ULCVTiVvX+Y25c+gZML3boeBlm3KOdwYKOCKhQLj/DIY5ojQd33jFBdBoouWW5ZG2cpfg8iq/Jyg2OoJFvJRjG04/T85a+l89wMnZKMDDl8zRgsnDhZho69EQmTz9WeBCvL2Bg87+n2Mg909InEw1D1PskGPkyD02zR7newOU+gJM2zK3pUYxt6O4EHUukoYL9XS14ogYIsrYFWqls0BHnTQXWKf+DQckL+H4+nZxdEPF6fEaebI8jgH9pgQiCHqMAKaQNsLApZRQ58DXLv78nZ/Sd/e/WmEgPfXZcrhTiLC8/yistVy3N5EKYHCjg6sB5RMO4BRNAsq0rnR3v1rA=</span>
-</code></pre>
-</div>
+  <span class="o">-</span> <span class="nx">secure</span><span class="p">:</span> <span class="nx">nHaHZZDNmW3Fx3YPvBEc2E0a0kjsVhKUssi4GpWYcFDiJe6ufHAVjukHnV4RQOlSgRgp1q</span><span class="o">+</span><span class="mi">5</span><span class="nx">v9KJFeQbkcR9vSNQhtkjzHW</span><span class="c1">//AbNGIOCZFyvmb3j/FH1hFxGqK129IC9tDHn1JeRSr5qSKK+TFTwINWQHCGAdA32PY+swuNT30UGrhBHtw3UaN8Hgu9xRH8g8UpqAMcGyX0rCnYCzPD2gYBEOo3zqEQvNvttu2YeSxvBXpU8doJuZLu7yvrRhvD3DGg3r/BWX7UDZtX16gZCdw3N9EnMWqgdaos7blE3eSKeHj89OHhiXeRSqHN7RKyUAp9dDmW1M63onsNvEpoho4ULCVTiVvX+Y25c+gZML3boeBlm3KOdwYKOCKhQLj/DIY5ojQd33jFBdBoouWW5ZG2cpfg8iq/Jyg2OoJFvJRjG04/T85a+l89wMnZKMDDl8zRgsnDhZho69EQmTz9WeBCvL2Bg87+n2Mg909InEw1D1PskGPkyD02zR7newOU+gJM2zK3pUYxt6O4EHUukoYL9XS14ogYIsrYFWqls0BHnTQXWKf+DQckL+H4+nZxdEPF6fEaebI8jgH9pgQiCHqMAKaQNsLApZRQ58DXLv78nZ/Sd/e/WmEgPfXZcrhTiLC8/yistVy3N5EKYHCjg6sB5RMO4BRNAsq0rnR3v1rA=</span>
+</code></pre></div>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">{</span>
-  <span class="s2">"name"</span><span class="err">:</span> <span class="s2">"cat-jsutils"</span><span class="p">,</span>
-  <span class="s2">"version"</span><span class="err">:</span> <span class="s2">"1.0.1"</span><span class="p">,</span>
-  <span class="s2">"description"</span><span class="err">:</span> <span class="s2">"js utils"</span><span class="p">,</span>
-  <span class="s2">"main"</span><span class="err">:</span> <span class="s2">"index.js"</span><span class="p">,</span>
-  <span class="s2">"scripts"</span><span class="err">:</span> <span class="p">{</span>
-    <span class="s2">"test"</span><span class="err">:</span> <span class="s2">"mocha"</span><span class="p">,</span>
-    <span class="s2">"coverage"</span><span class="err">:</span> <span class="s2">"istanbul cover _mocha -- -R spec --timeout 5000 --recursive"</span><span class="p">,</span>
-    <span class="s2">"coverage:check"</span><span class="err">:</span> <span class="s2">"istanbul check-coverage"</span><span class="p">,</span>
-    <span class="s2">"cover"</span><span class="err">:</span> <span class="s2">"istanbul cover --report lcov node_modules/mocha/bin/_mocha -- -R spec test/*.js"</span>
+  <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"cat-jsutils"</span><span class="p">,</span>
+  <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"1.0.1"</span><span class="p">,</span>
+  <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"js utils"</span><span class="p">,</span>
+  <span class="s2">"main"</span><span class="p">:</span> <span class="s2">"index.js"</span><span class="p">,</span>
+  <span class="s2">"scripts"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"test"</span><span class="p">:</span> <span class="s2">"mocha"</span><span class="p">,</span>
+    <span class="s2">"coverage"</span><span class="p">:</span> <span class="s2">"istanbul cover _mocha -- -R spec --timeout 5000 --recursive"</span><span class="p">,</span>
+    <span class="s2">"coverage:check"</span><span class="p">:</span> <span class="s2">"istanbul check-coverage"</span><span class="p">,</span>
+    <span class="s2">"cover"</span><span class="p">:</span> <span class="s2">"istanbul cover --report lcov node_modules/mocha/bin/_mocha -- -R spec test/*.js"</span>
   <span class="p">},</span>
-  <span class="s2">"repository"</span><span class="err">:</span> <span class="p">{</span>
-    <span class="s2">"type"</span><span class="err">:</span> <span class="s2">"git"</span><span class="p">,</span>
-    <span class="s2">"url"</span><span class="err">:</span> <span class="s2">"git+https://github.com/CatchZeng/cat-jsutils.git"</span>
+  <span class="s2">"repository"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"git"</span><span class="p">,</span>
+    <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"git+https://github.com/CatchZeng/cat-jsutils.git"</span>
   <span class="p">},</span>
-  <span class="s2">"keywords"</span><span class="err">:</span> <span class="p">[</span>
+  <span class="s2">"keywords"</span><span class="p">:</span> <span class="p">[</span>
     <span class="s2">"util"</span><span class="p">,</span>
     <span class="s2">"utils"</span><span class="p">,</span>
     <span class="s2">"js"</span><span class="p">,</span>
@@ -511,21 +490,20 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
     <span class="s2">"utility"</span><span class="p">,</span>
     <span class="s2">"utilities"</span>
   <span class="p">],</span>
-  <span class="s2">"author"</span><span class="err">:</span> <span class="s2">"CatchZeng"</span><span class="p">,</span>
-  <span class="s2">"license"</span><span class="err">:</span> <span class="s2">"MIT"</span><span class="p">,</span>
-  <span class="s2">"bugs"</span><span class="err">:</span> <span class="p">{</span>
-    <span class="s2">"url"</span><span class="err">:</span> <span class="s2">"https://github.com/CatchZeng/cat-jsutils/issues"</span>
+  <span class="s2">"author"</span><span class="p">:</span> <span class="s2">"CatchZeng"</span><span class="p">,</span>
+  <span class="s2">"license"</span><span class="p">:</span> <span class="s2">"MIT"</span><span class="p">,</span>
+  <span class="s2">"bugs"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"https://github.com/CatchZeng/cat-jsutils/issues"</span>
   <span class="p">},</span>
-  <span class="s2">"homepage"</span><span class="err">:</span> <span class="s2">"https://github.com/CatchZeng/cat-jsutils#readme"</span><span class="p">,</span>
-  <span class="s2">"devDependencies"</span><span class="err">:</span> <span class="p">{</span>
-    <span class="s2">"chai"</span><span class="err">:</span> <span class="s2">"^4.1.2"</span><span class="p">,</span>
-    <span class="s2">"coveralls"</span><span class="err">:</span> <span class="s2">"^3.0.0"</span><span class="p">,</span>
-    <span class="s2">"istanbul"</span><span class="err">:</span> <span class="s2">"^0.4.5"</span><span class="p">,</span>
-    <span class="s2">"mocha"</span><span class="err">:</span> <span class="s2">"^5.1.0"</span>
+  <span class="s2">"homepage"</span><span class="p">:</span> <span class="s2">"https://github.com/CatchZeng/cat-jsutils#readme"</span><span class="p">,</span>
+  <span class="s2">"devDependencies"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"chai"</span><span class="p">:</span> <span class="s2">"^4.1.2"</span><span class="p">,</span>
+    <span class="s2">"coveralls"</span><span class="p">:</span> <span class="s2">"^3.0.0"</span><span class="p">,</span>
+    <span class="s2">"istanbul"</span><span class="p">:</span> <span class="s2">"^0.4.5"</span><span class="p">,</span>
+    <span class="s2">"mocha"</span><span class="p">:</span> <span class="s2">"^5.1.0"</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 <h2 id="5小结">5.小结</h2>
 <p>至此，我们完成了提交代码-》travis-》mocha单元测试-》istanbul覆盖率-》coveralls-》github显示npm版本、ci、覆盖率状态。</p>
@@ -635,9 +613,11 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
                     
+                        <li><a href="http://echowxsy.com/">Echowxsy's Blog</a></li>
+                    
                         <li><a href="https://suquanlin.github.io">Shero's Blog</a></li>
                     
-                        <li><a href="http://callblueday.com">callblueday's blog 关注硬件的软件工程师</a></li>
+                        <li><a href="http://callblueday.com">callblueday's blog</a></li>
                     
                 </ul>
                 

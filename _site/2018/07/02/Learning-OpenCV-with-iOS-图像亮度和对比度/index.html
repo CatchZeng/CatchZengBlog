@@ -179,13 +179,11 @@
 <p>一般的图像处理算子都是一个函数，它接受一个或多个输入图像，并产生输出图像。</p>
 <h6 id="单输入">单输入</h6>
 <div class="highlighter-rouge"><pre class="highlight"><code>g(x) = h(f(x))
-</code></pre>
-</div>
+</code></pre></div>
 
 <h6 id="多输入">多输入</h6>
 <div class="highlighter-rouge"><pre class="highlight"><code>g(x) = h(f0(x)......fn(x))
-</code></pre>
-</div>
+</code></pre></div>
 
 <p>根据算子的不同，图像变换分为两大类：</p>
 
@@ -208,8 +206,7 @@
 <h2 id="三调整图像亮度和对比度">三、调整图像亮度和对比度</h2>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>g(i, j) = αf(i,j) + β  其中α&gt;0，β是增益变量
-</code></pre>
-</div>
+</code></pre></div>
 <ul>
   <li>f(i,j) 表示源图像像素</li>
   <li>g(i,j) 表示输出图像像素</li>
@@ -261,8 +258,7 @@
     UIImage* result = MatToUIImage(dst);
     return result;
 }
-</code></pre>
-</div>
+</code></pre></div>
 <h6 id="注">注：</h6>
 
 <ul>
@@ -270,8 +266,7 @@
 </ul>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>    src.convertTo(m, CV_32F);
-</code></pre>
-</div>
+</code></pre></div>
 
 <ul>
   <li>图像的通道多样，处理图片时需要做多通道的处理</li>
@@ -284,8 +279,7 @@
 }  else if (src.channels() == 4) { //4通道
     ...
 }
-</code></pre>
-</div>
+</code></pre></div>
 
 <h2 id="四小结">四、小结</h2>
 
@@ -388,9 +382,11 @@
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
                     
+                        <li><a href="http://echowxsy.com/">Echowxsy's Blog</a></li>
+                    
                         <li><a href="https://suquanlin.github.io">Shero's Blog</a></li>
                     
-                        <li><a href="http://callblueday.com">callblueday's blog 关注硬件的软件工程师</a></li>
+                        <li><a href="http://callblueday.com">callblueday's blog</a></li>
                     
                 </ul>
                 

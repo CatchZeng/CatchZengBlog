@@ -187,12 +187,10 @@
 
 <h4 id="名副其实">名副其实</h4>
 <div class="highlighter-rouge"><pre class="highlight"><code>Int d；//逝去的时间
-</code></pre>
-</div>
+</code></pre></div>
 <p>这句代码的问题在于d没有表达好逝去的时间这个概念，故需要注释。请记住<strong>“名副其实就不需要注释”</strong></p>
 <div class="highlighter-rouge"><pre class="highlight"><code>Int elapsedTime;
-</code></pre>
-</div>
+</code></pre></div>
 <p>再来看个例子
 <img src="http://upload-images.jianshu.io/upload_images/943491-84ec0aa383220ddd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" />
 谁都很难猜出其意义，看看小优化后的结果
@@ -210,8 +208,7 @@
 <p><img src="http://upload-images.jianshu.io/upload_images/943491-79d103ddf5765538.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" />
 是否傻傻分不清了呢？ 再来个</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>accountList
-</code></pre>
-</div>
+</code></pre></div>
 <p>我知道你想说，这有什么问题。是的，如果你不是做Java开发，不会知道链表叫List，所以如果你不是用链表存储account，请不要用其修饰，或许这个时候你使用acountGroup会更好些。
 <strong>该点需要在具体开发环境下因地制宜</strong></p>
 
@@ -219,23 +216,19 @@
 <div class="highlighter-rouge"><pre class="highlight"><code>Product
 ProductInfo
 ProductData
-</code></pre>
-</div>
+</code></pre></div>
 <p>可以想象下，当一个项目中同时出现以上三个类的时候，你是如何区分开的，反正我是没有这个能力。类似的还有</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>game
 theGame
-</code></pre>
-</div>
+</code></pre></div>
 <div class="highlighter-rouge"><pre class="highlight"><code>name
 nameString
-</code></pre>
-</div>
+</code></pre></div>
 <p>分享时，伙伴说nameString有什么问题。我反问说难道你的名字会是Float型的？你懂了吧。</p>
 
 <h4 id="前缀">前缀</h4>
 <div class="highlighter-rouge"><pre class="highlight"><code>m_desc
-</code></pre>
-</div>
+</code></pre></div>
 <p>有人提出加m前缀表示该变量为私有变量。
 我想说：你的变量很多？需要区分私有的还是公有的？如果你的变量很多，那就要想想是不是没设计好类，没有遵循<strong>单一职责原则</strong>，另外私有和公有变量编译器会帮忙高亮显示区分的，不需要自己来区分(若某些编译器无此特性，怪编译器去)。</p>
 
@@ -249,23 +242,20 @@ nameString
 <div class="highlighter-rouge"><pre class="highlight"><code>fetch
 get
 retrieve
-</code></pre>
-</div>
+</code></pre></div>
 <p>请问那个才是真的获取值的方法？我实在分不清。</p>
 
 <h4 id="使用领域名称">使用领域名称</h4>
 <p>使用领域命名能让伙伴更明白你的程序结构（关于<strong>领域</strong>这个概念，不熟悉的可以看下一本书叫 <strong>《领域驱动设计》</strong>,俗称DDD）
 举个例子，比如你使用访问者模式来构建用户系统，那么</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>AccountVisitor
-</code></pre>
-</div>
+</code></pre></div>
 <p>就显得明确、易懂</p>
 
 <h4 id="抵制缩写诱惑">抵制缩写诱惑</h4>
 <p>缩写需要注意，适当的缩写是可以的，但是要保证缩写后的词语仍然能表达其本意。举个有意思的例子</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>ABCDEFG
-</code></pre>
-</div>
+</code></pre></div>
 <p>这也是个缩写，但是乍看这个真不知道是什么的缩写，直接公布答案吧</p>
 
 <p><img src="http://upload-images.jianshu.io/upload_images/943491-824add860b52f5a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
@@ -310,8 +300,7 @@ retrieve
 <div class="highlighter-rouge"><pre class="highlight"><code>1.判断是否为测试页面
 2.加入测试数据
 3.渲染页面
-</code></pre>
-</div>
+</code></pre></div>
 <p>你的答案是多少呢？其实答案是只做了一件事，主要是没有看清
 <strong>一件事 OR 一件事的多个步骤</strong>，关于这点，大家要好好体会。</p>
 
@@ -328,14 +317,12 @@ retrieve
 <p>如果长一点的名称可以更加清晰，不要犹豫，用清晰的吧（注意是要有意义的）</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>calculate
 calculatePrice
-</code></pre>
-</div>
+</code></pre></div>
 <p>相比起来calculatePrice就好很多。
 再来看个例子</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>addComment
 addCommentAndReturnCount
-</code></pre>
-</div>
+</code></pre></div>
 <p>你不是说长一点更清晰吗，那addCommentAndReturnCount很好吧。
 关于这点大家要注意，如果你<strong>需要用and、or之类的介词来修辞函数时，要考虑下你是否违背了单一职责原则</strong></p>
 
@@ -596,9 +583,11 @@ Git、SVN知道是你提交的，不用这样刷存在感</p>
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
                     
+                        <li><a href="http://echowxsy.com/">Echowxsy's Blog</a></li>
+                    
                         <li><a href="https://suquanlin.github.io">Shero's Blog</a></li>
                     
-                        <li><a href="http://callblueday.com">callblueday's blog 关注硬件的软件工程师</a></li>
+                        <li><a href="http://callblueday.com">callblueday's blog</a></li>
                     
                 </ul>
                 

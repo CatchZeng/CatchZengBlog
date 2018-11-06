@@ -244,8 +244,7 @@ let logger = Logger()
 client.logger = logger
 
 client.start()
-</code></pre>
-</div>
+</code></pre></div>
 <p>这个时候，小李突然说，要把log变成存到文件的形式。
 小明想了下，有点不情愿地改了代码（因为要改好几个地方）</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>public class FileLogger { //修改1
@@ -272,8 +271,7 @@ let logger = FileLogger() //修改4
 client.logger = logger
 
 client.start()
-</code></pre>
-</div>
+</code></pre></div>
 <p>小李想了想现在是互联网时代，还是直接将log信息传到网络上吧。
 这个时候，小明非常不情愿地说了声“你不早说”，但还是改了代码(又是好几处改动)</p>
 
@@ -296,8 +294,7 @@ let logger = WebLogger() //修改4
 client.logger = logger
 
 client.start()
-</code></pre>
-</div>
+</code></pre></div>
 <p>这时，小明的老大小华看到小明不开心，便过来帮忙，改了下代码</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>protocol Logger {
     func log(_ text: String)
@@ -334,12 +331,10 @@ let logger = WebLogger()
 client.logger = logger
 
 client.start()
-</code></pre>
-</div>
+</code></pre></div>
 <p>小华对小明说，现在不用怕了，小李想什么样的log你改一下实现类就行了</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>let logger = WebLogger() // PrintLogger()  FileLogger()
-</code></pre>
-</div>
+</code></pre></div>
 
 <p>小华的改动其实就是利用了依赖倒置原则，增强了易修改性、扩展性、可维护性等。
 细心的朋友其实还发现了，在改成FileLogger的时候，Client多余地调用了FileLogger的start方法。这就是依赖细节，暴露细节，引起的问题。而使用抽象的接口就能较好地避免这类问题。</p>
@@ -465,9 +460,11 @@ client.start()
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
                     
+                        <li><a href="http://echowxsy.com/">Echowxsy's Blog</a></li>
+                    
                         <li><a href="https://suquanlin.github.io">Shero's Blog</a></li>
                     
-                        <li><a href="http://callblueday.com">callblueday's blog 关注硬件的软件工程师</a></li>
+                        <li><a href="http://callblueday.com">callblueday's blog</a></li>
                     
                 </ul>
                 

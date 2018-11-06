@@ -190,8 +190,7 @@
 &lt;key&gt;NSAllowsArbitraryLoads&lt;/key&gt;
 &lt;true/&gt;
 &lt;/dict&gt;
-</code></pre>
-</div>
+</code></pre></div>
 <p><strong>2.添加白名单</strong></p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>&lt;key&gt;NSAppTransportSecurity&lt;/key&gt;
@@ -212,8 +211,7 @@
     &lt;/dict&gt;
   &lt;/dict&gt;
 &lt;/dict&gt;
-</code></pre>
-</div>
+</code></pre></div>
 <p><strong>3.改变服务器（改用HTTPS）,需要注意一下几点</strong>
 3.1Transport Layer Security协议版本要求TLS1.2以上
 3.2服务的Ciphers配置要求支持Forward Secrecy
@@ -243,8 +241,7 @@ Xcode 7 会开启 Bitcode，如果项目中第三方库不包含bitcode,将会�
 <div class="highlighter-rouge"><pre class="highlight"><code>&lt;Error&gt;: CGContextSaveGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
 &lt;Error&gt;: CGContextTranslateCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
 &lt;Error&gt;: CGContextRestoreGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
-</code></pre>
-</div>
+</code></pre></div>
 
 <p>原因：在info.plist里面设置了View controller-based status bar appearance为NO，默认为YES，该种方式兼容iOS6、iOS7、iOS8但是到了iOS9会报警告。</p>
 
@@ -254,8 +251,7 @@ Xcode 7 会开启 Bitcode，如果项目中第三方库不包含bitcode,将会�
 <p>2.去除以下方式改变状态栏</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-</code></pre>
-</div>
+</code></pre></div>
 <p>3.使用新的改变状态栏方法
 在自定义控制器里面添加如下方法:</p>
 
@@ -263,8 +259,7 @@ Xcode 7 会开启 Bitcode，如果项目中第三方库不包含bitcode,将会�
 {
     return UIStatusBarStyleLightContent;
 }
-</code></pre>
-</div>
+</code></pre></div>
 <p>4.clean 或者删除应用程序重新运行,验证结果。</p>
 
 <h2 id="白名单问题">白名单问题</h2>
@@ -370,9 +365,11 @@ error: “This app is not allowed to query for scheme mqqopensdkapiV2”</p>
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
                     
+                        <li><a href="http://echowxsy.com/">Echowxsy's Blog</a></li>
+                    
                         <li><a href="https://suquanlin.github.io">Shero's Blog</a></li>
                     
-                        <li><a href="http://callblueday.com">callblueday's blog 关注硬件的软件工程师</a></li>
+                        <li><a href="http://callblueday.com">callblueday's blog</a></li>
                     
                 </ul>
                 

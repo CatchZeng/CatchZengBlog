@@ -230,8 +230,7 @@
 @param ksize aperture linear size; it must be odd and greater than 1, for example: 3, 5, 7 ...
  */
 void medianBlur( InputArray src, OutputArray dst, int ksize );
-</code></pre>
-</div>
+</code></pre></div>
 <p><strong>注意：ksize必须是奇数</strong></p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>+ (UIImage *)medianBlur:(UIImage *)image size:(int)size {
@@ -259,8 +258,7 @@ class NolinearBlurViewController: UIViewController {
         resultImageView.image = OpenCV.medianBlur(self.image, size: Int32(Int(sender.value)))
     }
 }
-</code></pre>
-</div>
+</code></pre></div>
 
 <h4 id="一些思考">一些思考</h4>
 
@@ -346,8 +344,7 @@ _Filter size_: 大的滤波器（D&gt; 5）非常慢，因此建议在进行实�
 void bilateralFilter( InputArray src, OutputArray dst, int d,
                                    double sigmaColor, double sigmaSpace,
                                    int borderType = BORDER_DEFAULT );
-</code></pre>
-</div>
+</code></pre></div>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>+ (UIImage *)bilateralFilter:(UIImage *)image
                            d:(int)d
@@ -406,8 +403,7 @@ class BilateralFilterViewController: UIViewController {
         resultImageView.image = OpenCV.bilateralFilter(imageView.image, d: d, sigmaColor: color, sigmaSpace: space)
     }
 }
-</code></pre>
-</div>
+</code></pre></div>
 
 <h4 id="小小经验">小小经验</h4>
 
@@ -418,8 +414,7 @@ class BilateralFilterViewController: UIViewController {
     <div class="highlighter-rouge"><pre class="highlight"><code>_Sigma values_: 为了简单起见，可以将2 Sigma值设置为相同。
 如果它们很小（&lt;10）滤波器不会有太大的效果。
 如果它们很大（＞150），它们将具有非常强烈的效果，使图像看起来“卡通化”。
-</code></pre>
-    </div>
+</code></pre>    </div>
   </li>
   <li>
     <p>使用<strong>滑竿</strong>帮助快速调节参数，观察效果。</p>
@@ -528,9 +523,11 @@ class BilateralFilterViewController: UIViewController {
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
                     
+                        <li><a href="http://echowxsy.com/">Echowxsy's Blog</a></li>
+                    
                         <li><a href="https://suquanlin.github.io">Shero's Blog</a></li>
                     
-                        <li><a href="http://callblueday.com">callblueday's blog 关注硬件的软件工程师</a></li>
+                        <li><a href="http://callblueday.com">callblueday's blog</a></li>
                     
                 </ul>
                 

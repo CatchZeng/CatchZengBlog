@@ -221,15 +221,13 @@ B得到加密后的信息，用私钥解密。
 <h6 id="2计算p和q的乘积n">2.计算p和q的乘积n。</h6>
 <p>A把61和53相乘。</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>n = 61×53 = 3233
-</code></pre>
-</div>
+</code></pre></div>
 <p>n的长度就是密钥长度。3233写成二进制是110010100001，一共有12位，所以这个密钥就是12位。（实际应用中，RSA密钥一般是1024位，重要场合则为2048位）</p>
 
 <h6 id="3计算n的欧拉函数φn">3.计算n的欧拉函数φ(n)。</h6>
 <p>根据公式：</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>　　φ(n) = (p-1)(q-1)
-</code></pre>
-</div>
+</code></pre></div>
 <p>A算出φ(3233)等于60×52，即3120。</p>
 
 <h6 id="4随机选择一个整数e条件是1-e--φn且e与φn-互质">4.随机选择一个整数e，条件是1&lt; e &lt; φ(n)，且e与φ(n) 互质。</h6>
@@ -238,20 +236,16 @@ B得到加密后的信息，用私钥解密。
 <h6 id="5计算e对于φn的模反元素d">5.计算e对于φ(n)的模反元素d。</h6>
 <p>所谓”模反元素”就是指有一个整数d，可以使得ed被φ(n)除的余数为1。</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>　ed ≡ 1 (mod φ(n))
-</code></pre>
-</div>
+</code></pre></div>
 <p>这个式子等价于</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>　　ed - 1 = kφ(n)
-</code></pre>
-</div>
+</code></pre></div>
 <p>于是，找到模反元素d，实质上就是对下面这个二元一次方程求解。</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>　　ex + φ(n)y = 1
-</code></pre>
-</div>
+</code></pre></div>
 <p>已知 e=17, φ(n)=3120，</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>　　17x + 3120y = 1
-</code></pre>
-</div>
+</code></pre></div>
 <p>这个方程可以用”扩展欧几里得算法”求解，此处省略具体过程。A算出一组整数解为 (x,y)=(2753,-15)，即 d=2753。
 至此所有计算完成。</p>
 
@@ -646,8 +640,7 @@ B得到加密后的信息，用私钥解密。
     <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="k">@end</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>最后附上<a href="https://github.com/CatchZeng/CATSecurity">工程地址</a>。</p>
 
 
@@ -747,9 +740,11 @@ B得到加密后的信息，用私钥解密。
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
                     
+                        <li><a href="http://echowxsy.com/">Echowxsy's Blog</a></li>
+                    
                         <li><a href="https://suquanlin.github.io">Shero's Blog</a></li>
                     
-                        <li><a href="http://callblueday.com">callblueday's blog 关注硬件的软件工程师</a></li>
+                        <li><a href="http://callblueday.com">callblueday's blog</a></li>
                     
                 </ul>
                 

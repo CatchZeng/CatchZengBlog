@@ -280,8 +280,7 @@
 <span class="p">}</span>
 
 <span class="k">@end</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 <h2 id="解决方案">解决方案</h2>
 <p>将臃肿的接口I拆分为独立的几个接口，类A和类C分别与他们需要的接口建立依赖关系。</p>
@@ -380,8 +379,7 @@
 <span class="p">}</span>
 
 <span class="k">@end</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 <h2 id="优点">优点</h2>
 <p>建立单一接口，不要建立庞大臃肿的接口，尽量细化接口，接口中的方法尽量少。也就是说，我们要为各个类建立专用的接口，而不要试图去建立一个很庞大的接口供所有依赖它的类去调用。在程序设计中，依赖几个专用的接口要比依赖一个综合的接口更灵活。接口是设计时对外部设定的“契约”，通过分散定义多个接口，可以预防外来变更的扩散，提高系统的灵活性和可维护性。</p>
@@ -410,8 +408,7 @@
 <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">loadCancel</span><span class="p">;</span>
 
 <span class="k">@end</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>对于loadCancel方法，它跟网络请求是相关的，但是它不希望每个实现者都必须处理它，所以使用@optional。</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">NetworkProtocol</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span>
@@ -424,8 +421,7 @@
 <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">helloWorld</span><span class="p">;</span>
 
 <span class="k">@end</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>另外一种情况类似于helloWorld方法，这个方法跟网络请求协议完全没有相关，只是有个依赖需要他实现这个方法，这个时候用@optional就不是很合适，应该将helloWorld放到一个单独的协议中，让需要实现它的类实现helloWorld这个协议。</p>
 
 <h2 id="注意点">注意点</h2>
@@ -532,9 +528,11 @@
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
                     
+                        <li><a href="http://echowxsy.com/">Echowxsy's Blog</a></li>
+                    
                         <li><a href="https://suquanlin.github.io">Shero's Blog</a></li>
                     
-                        <li><a href="http://callblueday.com">callblueday's blog 关注硬件的软件工程师</a></li>
+                        <li><a href="http://callblueday.com">callblueday's blog</a></li>
                     
                 </ul>
                 

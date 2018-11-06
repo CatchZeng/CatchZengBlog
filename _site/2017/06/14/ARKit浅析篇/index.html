@@ -173,13 +173,11 @@
 <p>我们知道，iOS的视图显示层级为UIWindow -》UIViewController -》UIView。UIView的作用是将视图显示在UIWindow中,AR呈现的东西也属于视图，所以我们可以大胆假设AR的呈现也是基于UIView的。由此假设，我们看下上一篇的Demo源码</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>  //在界面上创建ARSCNView，用于展示AR
  @IBOutlet var sceneView: ARSCNView!
-</code></pre>
-</div>
+</code></pre></div>
 <p>可以看到，AR由ARSCNView呈现出来，查看文档可以看到<a href="https://developer.apple.com/documentation/arkit/arscnview">ARSCNView</a>继承于<a href="https://developer.apple.com/documentation/scenekit/scnview">SCNView</a>。而SCNView则是<a href="https://developer.apple.com/documentation/scenekit">SceneKit</a>中一个继承于UIView的类。</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>@available(iOS 11.0, *)
 open class ARSCNView : SCNView {
-</code></pre>
-</div>
+</code></pre></div>
 <p><a href="https://developer.apple.com/documentation/scenekit/scnview">SCNView</a>负责显示一个3D场景，ARSCNView在SCNView的基础上，加入了<a href="https://developer.apple.com/documentation/arkit/arsession">ARSession</a>使得其可以用摄像头(<a href="https://developer.apple.com/documentation/arkit/arcamera">ARCamera</a>)捕捉到的现实世界图像构成3D场景，也就是AR。</p>
 
 <p><img src="http://upload-images.jianshu.io/upload_images/943491-ecf16187b749b8a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ARKit" /></p>
@@ -317,9 +315,11 @@ ARSessionConfiguration是一个父类，为了更好的看到增强现实的效�
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
                     
+                        <li><a href="http://echowxsy.com/">Echowxsy's Blog</a></li>
+                    
                         <li><a href="https://suquanlin.github.io">Shero's Blog</a></li>
                     
-                        <li><a href="http://callblueday.com">callblueday's blog 关注硬件的软件工程师</a></li>
+                        <li><a href="http://callblueday.com">callblueday's blog</a></li>
                     
                 </ul>
                 

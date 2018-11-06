@@ -225,8 +225,7 @@ Smooth和Blur是opencv图像模糊的API，其背后的原理其实是数学的�
 blur( InputArray src, OutputArray dst,
                         Size ksize, Point anchor = Point(-1,-1),
                         int borderType = BORDER_DEFAULT );
-</code></pre>
-</div>
+</code></pre></div>
 
 <h4 id="铠玩模糊">铠玩模糊</h4>
 
@@ -271,8 +270,7 @@ class BlurViewController: UIViewController {
         resultImageView.image = image
     }
 }
-</code></pre>
-</div>
+</code></pre></div>
 
 <h4 id="一些思考">一些思考</h4>
 
@@ -358,8 +356,7 @@ sigmaX, and sigmaY.
 CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
                                 double sigmaX, double sigmaY = 0,
                                 int borderType = BORDER_DEFAULT );
-</code></pre>
-</div>
+</code></pre></div>
 <div class="highlighter-rouge"><pre class="highlight"><code>+ (UIImage *)gaussianblur:(UIImage *)image sizeX:(int)sizeX sizeY:(int)sizeY {
     Mat src;
     UIImageToMat(image, src);
@@ -371,8 +368,7 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
     
     return result;
 }
-</code></pre>
-</div>
+</code></pre></div>
 
 <p><img src="https://upload-images.jianshu.io/upload_images/943491-fe8d7a23f71b0c53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="均值" /></p>
 
@@ -481,9 +477,11 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
                     
+                        <li><a href="http://echowxsy.com/">Echowxsy's Blog</a></li>
+                    
                         <li><a href="https://suquanlin.github.io">Shero's Blog</a></li>
                     
-                        <li><a href="http://callblueday.com">callblueday's blog 关注硬件的软件工程师</a></li>
+                        <li><a href="http://callblueday.com">callblueday's blog</a></li>
                     
                 </ul>
                 
