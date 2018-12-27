@@ -5,9 +5,236 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 17 Dec 2018 09:37:50 +0800</pubDate>
-    <lastBuildDate>Mon, 17 Dec 2018 09:37:50 +0800</lastBuildDate>
+    <pubDate>Thu, 27 Dec 2018 11:56:20 +0800</pubDate>
+    <lastBuildDate>Thu, 27 Dec 2018 11:56:20 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>Android Maven 私有库</title>
+        <description>&lt;h2 id=&quot;一前言&quot;&gt;一、前言&lt;/h2&gt;
+
+&lt;h3 id=&quot;maven&quot;&gt;Maven&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://maven.apache.org/images/maven-logo-black-on-white.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://maven.apache.org&quot;&gt;Maven&lt;/a&gt; 是一个项目管理和自动构建工具。Maven 包是由 POM（Project Object Model）所定义的文件包格式。Maven 包集中存放的地方，就是 Maven 仓库。这些仓库，可以是放在本地，也可以放在某个远程服务器上。 可以是私有仓库，也可以是公开的。使用方式如下&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;allprojects &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    repositories &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        mavenCentral&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;;
+        jcenter&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+        maven &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            url &lt;span class=&quot;s1&quot;&gt;'file:///Users/name/Documents/Android/repo/'&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        maven &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            url &lt;span class=&quot;s1&quot;&gt;'http://x.x.x.x:8081/nexus/repositories/android/'&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;gradle&quot;&gt;Gradle&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1950150083,1970746056&amp;amp;fm=58&amp;amp;bpow=500&amp;amp;bpoh=526&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://gradle.org&quot;&gt;Gradle&lt;/a&gt; 是一个基于 JVM 的构建工具，是一款通用灵活的构建工具，支持 Maven， Ivy 仓库，支持传递性依赖管理，而不需要远程仓库或者是 pom.xml 和 ivy.xml 配置文件，基于 Groovy，build 脚本使用 Groovy 编写。&lt;/p&gt;
+
+&lt;p&gt;Android 支持的 Maven 仓库：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;mavenCentral：最早的 maven 中央仓库&lt;/li&gt;
+  &lt;li&gt;jcenter：Android Studio 0.8 版本起的默认 maven 中央仓库&lt;/li&gt;
+  &lt;li&gt;本机仓库&lt;/li&gt;
+  &lt;li&gt;内网服务器的私有仓库&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;二搭建-maven-私有库原因&quot;&gt;二、搭建 Maven 私有库原因&lt;/h2&gt;
+
+&lt;p&gt;每一种技术,每一个框架都不是凭空产生,都是为了&lt;strong&gt;解决特定需求&lt;/strong&gt;。因此使用什么技术取决于我们的需求,作为一个研发人员,我们不仅仅要懂得编码,更要有&lt;strong&gt;洞察真实需求的能力&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;做开发时间长的同学一般都会开发多个 App。而这些 APP 有&lt;strong&gt;很多共同的部分&lt;/strong&gt;，比如一些工具类，自定义 UI，视频播放功能等甚至是框架。为了&lt;strong&gt;提高整体团队的开发效率，不重复造车轮子&lt;/strong&gt;，我们便会设想把这些可以复用的代码通过一种特殊的方式进行管理。而 Maven 正符合我们的要求。这样做有几点好处：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;实现模块化，不同功能模块可以单独引入，优化实现方式，符合类似&lt;strong&gt;单一原则&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;对各个模块进行版本迭代更新，执行持续集成。某个模块修改了，跑单元测试，通过后才放上仓库，保证模块质量。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;带版本管理，有问题还可以回滚到上一个版本&lt;/li&gt;
+  &lt;li&gt;组件化，按功能拆分出各种组件，数据存储、网络层、日志 等。提高代码复用率&lt;/li&gt;
+  &lt;li&gt;私有库带缓存，可提高引用公开模块的速度&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;三搭建-maven-私有库&quot;&gt;三、搭建 Maven 私有库&lt;/h2&gt;
+
+&lt;h3 id=&quot;nexus&quot;&gt;Nexus&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2933299757,2202685093&amp;amp;fm=26&amp;amp;gp=0.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.sonatype.com/download-oss-sonatype&quot;&gt;Nexus&lt;/a&gt; 是一个基于 Maven 的仓库管理的社区项目。主要的使用场景就是可以在局域网搭建一个 Maven 私服，用来部署&lt;strong&gt;第三方公共构件&lt;/strong&gt;或者&lt;strong&gt;作为远程仓库在该局域网的一个代理&lt;/strong&gt;。简单举个例子就是：第三方 Jar 包可以放在 Nexus 上，项目可以直接通过 Url 和路径配置直接引用。方便进行统一管理。同时有多个项目在开发的时候，一些共用基础模块可以单独抽取到 Nexus 上，需要用的项目直接从 Nexus 上拉取就行。封闭开发的过程中开发机是不能上公网的，所以连接 central repository 和下载 jar 就比较麻烦，这时就可以用 nexus 搭建起来一个介于公网和局域网之间的桥梁。&lt;/p&gt;
+
+&lt;h3 id=&quot;搭建&quot;&gt;搭建&lt;/h3&gt;
+
+&lt;h4 id=&quot;1安装&quot;&gt;1、安装&lt;/h4&gt;
+
+&lt;p&gt;前往 &lt;a href=&quot;https://www.sonatype.com/download-oss-sonatype&quot;&gt;Nexus 官网&lt;/a&gt; 下载安装包，并解压存放到自己希望保存的目录。&lt;/p&gt;
+
+&lt;h4 id=&quot;2启动&quot;&gt;2、启动&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-maven/nexus.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;前往 nexus 存放位置下的 bin 文件夹，执行 &lt;code class=&quot;highlighter-rouge&quot;&gt;./nexus start&lt;/code&gt;。稍等 nexus 启动完毕，即可使用浏览器访问 http://127.0.0.1:8081 即可看到 nexus 欢迎页。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-maven/home.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;3登录&quot;&gt;3、登录&lt;/h4&gt;
+
+&lt;p&gt;使用用户名 admin 和默认密码 admin123 登录，即可创建和管理用户。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-maven/user.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;4创建仓库&quot;&gt;4、创建仓库&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-maven/repo1.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;仓库分了三种类型：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;hosted(宿主仓库)：用来部署自己，第三方或者公共仓库的构件&lt;/li&gt;
+  &lt;li&gt;proxy(代理仓库)：代理远程仓库&lt;/li&gt;
+  &lt;li&gt;group(仓库组)：统一管理多个仓库&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;这里我们选择 hosted 作为私有库类型，创建 test 仓库。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-maven/repo2.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;四上传私有库&quot;&gt;四、上传私有库&lt;/h2&gt;
+
+&lt;p&gt;新建 testutils module，并新建 Utils 测试类。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-maven/testutils.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在项目的 build.gradle 中加入 mavenLocal&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;allprojects &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    repositories &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        google&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+        jcenter&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+        //需要添加的
+        mavenLocal&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;到 testutils 的 build.gradle 中添加 maven 信息&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apply plugin: &lt;span class=&quot;s1&quot;&gt;'com.android.library'&lt;/span&gt;
+
+//需要添加的
+apply plugin: &lt;span class=&quot;s1&quot;&gt;'maven'&lt;/span&gt;
+
+//需要添加的
+uploadArchives &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    repositories.mavenDeployer &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        repository&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;url:&lt;span class=&quot;s2&quot;&gt;&quot;http://127.0.0.1:8081/repository/test/&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            authentication&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;userName:&lt;span class=&quot;s2&quot;&gt;&quot;test&quot;&lt;/span&gt;, password:&lt;span class=&quot;s2&quot;&gt;&quot;123456&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        pom.version&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.0&quot;&lt;/span&gt;
+        pom.artifactId&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;testutils&quot;&lt;/span&gt;
+        pom.groupId&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;com.test&quot;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+android &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    compileSdkVersion 28
+
+
+
+    defaultConfig &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName &lt;span class=&quot;s2&quot;&gt;&quot;1.0&quot;&lt;/span&gt;
+
+        testInstrumentationRunner &lt;span class=&quot;s2&quot;&gt;&quot;android.support.test.runner.AndroidJUnitRunner&quot;&lt;/span&gt;
+
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    buildTypes &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        release &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            minifyEnabled &lt;span class=&quot;nb&quot;&gt;false
+            &lt;/span&gt;proguardFiles getDefaultProguardFile&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'proguard-android.txt'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, &lt;span class=&quot;s1&quot;&gt;'proguard-rules.pro'&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+dependencies &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    implementation fileTree&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;dir: &lt;span class=&quot;s1&quot;&gt;'libs'&lt;/span&gt;, include: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'*.jar'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;
+
+    implementation &lt;span class=&quot;s1&quot;&gt;'com.android.support:appcompat-v7:28.0.0'&lt;/span&gt;
+    testImplementation &lt;span class=&quot;s1&quot;&gt;'junit:junit:4.12'&lt;/span&gt;
+    androidTestImplementation &lt;span class=&quot;s1&quot;&gt;'com.android.support.test:runner:1.0.2'&lt;/span&gt;
+    androidTestImplementation &lt;span class=&quot;s1&quot;&gt;'com.android.support.test.espresso:espresso-core:3.0.2'&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;注：&lt;/p&gt;
+
+&lt;p&gt;repository 的 url 可访问 nexus  进行复制&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-maven/repourl.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;sync 完 gradle 后，打开 gradle 选项，找到 upload，进行上传。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-maven/upload.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上传成功后，即可前往 nexus 查看。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-maven/uploaded.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;五使用私有库&quot;&gt;五、使用私有库&lt;/h2&gt;
+
+&lt;p&gt;在项目的 build.gradle 中加入私有 Maven 库&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;allprojects &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    repositories &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        google&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+        jcenter&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+        //需要添加的
+        maven &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; url &lt;span class=&quot;s2&quot;&gt;&quot;http://127.0.0.1:8081/repository/test/&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;在需要引用私有库的 module 的 build.gradle 中引用私有库&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;implementation 'com.test:testutils:1.0'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;注：不是 com.test.testutils 而是 &lt;strong&gt;com.test:testutils&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;sync 完 gradle 后，即可在 module 中引用&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-maven/import.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;至此，我们完成了私有 Maven 库的搭建和使用，有问题的同学给我留言。&lt;/p&gt;
+
+&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+本文总阅读量&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;次
+&lt;/span&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 12 Dec 2018 17:38:27 +0800</pubDate>
+        <link>http://localhost:4000/2018/12/12/Android-Maven-%E7%A7%81%E6%9C%89%E5%BA%93/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/12/12/Android-Maven-%E7%A7%81%E6%9C%89%E5%BA%93/</guid>
+        
+        <category>Android</category>
+        
+        
+      </item>
     
       <item>
         <title>被轻视的持续集成</title>
@@ -1980,152 +2207,6 @@ client.start()
         <guid isPermaLink="true">http://localhost:4000/2018/06/01/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%89-%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E5%8E%9F%E5%88%99/</guid>
         
         <category>设计模式</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>团队需要一个私有npm</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;一前言&quot;&gt;一、前言&lt;/h2&gt;
-
-&lt;p&gt;随着Team人员越来越多，项目间的代码复用显得越来越重要。比如：常用的框架/库、工具方法等。另外团队内部的代码模块化，也需要有一个机制来管理。目前npm是前端代码的包管理(类似iOS 的cocoapods、android的gradle)首选。于是，我尝试使用私有npm搭建一套前端仓库，用以在公司内部托管公共代码以及将代码模块化。&lt;/p&gt;
-
-&lt;h2 id=&quot;二选型&quot;&gt;二、选型&lt;/h2&gt;
-
-&lt;h3 id=&quot;npm私有git仓库&quot;&gt;npm+私有git仓库&lt;/h3&gt;
-
-&lt;h5 id=&quot;制作使用&quot;&gt;制作&amp;amp;使用&lt;/h5&gt;
-
-&lt;p&gt;1.新建私有git仓库（如：https://gitlab.com/mygroup/myproject.git)，用group建立项目较方便代码的管理，也能作为npm的scope。&lt;/p&gt;
-
-&lt;p&gt;2.clone仓库&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://gitlab.com/mygroup/myproject.git
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;3.npm  init&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm init --scope=mygroup
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;4.push到仓库即可&lt;/p&gt;
-
-&lt;p&gt;5.安装&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;@mygroup/myproject&quot;: &quot;https://gitlab.com/mygroup/myproject.git&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;6.使用&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var myproject = require('@mygroup/myproject');
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;优缺点&quot;&gt;优缺点&lt;/h5&gt;
-
-&lt;p&gt;缺点：不能使用npm直接update&lt;/p&gt;
-
-&lt;p&gt;优点：简单直接&lt;/p&gt;
-
-&lt;h3 id=&quot;npmjs官方托管&quot;&gt;npmjs官方托管&lt;/h3&gt;
-
-&lt;h5 id=&quot;制作使用-1&quot;&gt;制作&amp;amp;使用&lt;/h5&gt;
-
-&lt;p&gt;参考官方教程&lt;a href=&quot;https://docs.npmjs.com/private-modules/intro&quot;&gt;https://docs.npmjs.com/private-modules/intro&lt;/a&gt;&lt;/p&gt;
-
-&lt;h5 id=&quot;优缺点-1&quot;&gt;优缺点&lt;/h5&gt;
-
-&lt;p&gt;缺点：需要支付每个月7刀； 不能使用npm直接update;&lt;/p&gt;
-
-&lt;p&gt;优点：简单直接；开源&amp;amp;闭源项目同一托管&lt;/p&gt;
-
-&lt;h3 id=&quot;使用verdaccio自己托管&quot;&gt;使用verdaccio自己托管&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/943491-95672e464e73e902.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;verdaccio&quot; /&gt;&lt;/p&gt;
-
-&lt;h5 id=&quot;制作使用-2&quot;&gt;制作&amp;amp;使用&lt;/h5&gt;
-
-&lt;p&gt;1.安装&lt;a href=&quot;https://www.verdaccio.org&quot;&gt;verdaccio&lt;/a&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm install --global verdaccio 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;2.启动服务&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;verdaccio
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;3.团队人员都绑定registry&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm set registry http://verdaccio托管的ip地址:4873
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;4.增加用户&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm adduser --registry http://verdaccio托管的ip地址:4873
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;5.发布私有库&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm publish --registry http://verdaccio托管的ip地址:4873
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;6.安装私有库&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm i 私有库名称
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;7.使用私有库&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var 私有库名称 = require('私有库名称');
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;优缺点-2&quot;&gt;优缺点&lt;/h5&gt;
-
-&lt;p&gt;优点：免费；本地速度快&amp;amp;带公有库缓存；支持yarn&lt;/p&gt;
-
-&lt;p&gt;缺点：需要自己托管维护&lt;/p&gt;
-
-&lt;h5 id=&quot;注为了切换源方便可以使用nrm&quot;&gt;注：为了切换源方便，可以使用nrm&lt;/h5&gt;
-
-&lt;p&gt;安装&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm install -g nrm
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;增加私有源&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nrm add 私有源名称 http://verdaccio托管的ip地址:4873
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;列出所有源（*表示现在正在使用的源）&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ nrm ls
-
-* npm ---- https://registry.npmjs.org/
-  cnpm --- http://r.cnpmjs.org/
-  eu ----- http://registry.npmjs.eu/
-  au ----- http://registry.npmjs.org.au/
-  sl ----- http://npm.strongloop.com/
-  nj ----- https://registry.nodejitsu.com/
-私有源名称  http://verdaccio托管的ip地址:4873
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;切换源&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ nrm use 自定义私有库名称
-   Registry has been set to: http://verdaccio托管的ip地址:4873
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;三总结&quot;&gt;三、总结&lt;/h2&gt;
-
-&lt;p&gt;基于上面选型中的分析，我最终选择了verdaccio。私有npm的作用，不单单是作为包管理器，更是项目模块化的一种“约束”。这样一来，你就不会往一个模块随意加入本该属于另外一个模块的代码，也就是会逼迫你去做解耦。另外有了私有npm，每个模块更“独立化”，能“专心”为其加入单元测试&amp;amp;持续集成等实践，使每个模块的质量能得到较好的保障，提高整体软件的质量。&lt;/p&gt;
-</description>
-        <pubDate>Tue, 22 May 2018 16:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2018/05/22/%E5%9B%A2%E9%98%9F%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E7%A7%81%E6%9C%89npm/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/05/22/%E5%9B%A2%E9%98%9F%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E7%A7%81%E6%9C%89npm/</guid>
-        
-        <category>JS</category>
         
         
       </item>
