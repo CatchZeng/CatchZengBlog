@@ -10,9 +10,9 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>iOS 函数响应式编程 （ReactiveCocoa） - CatchZeng的技术博客 | CatchZeng's Blog</title>
+    <title>Go web编程 - CatchZeng的技术博客 | CatchZeng's Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/2015/12/09/iOS-%E5%87%BD%E6%95%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B-ReactiveCocoa/">
+    <link rel="canonical" href="http://localhost:4000/2019/01/01/Go-web%E7%BC%96%E7%A8%8B/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css ">
@@ -124,12 +124,12 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/post-bg-ios.jpg" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-go.jpg" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
-        background-image: url('/img/post-bg-ios.jpg')
+        background-image: url('/img/post-bg-go.jpg')
     }
 </style>
 <header class="intro-header" >
@@ -139,15 +139,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
+                        <a class="tag" href="/tags/#Go" title="Go">Go</a>
                         
                     </div>
-                    <h1>iOS 函数响应式编程 （ReactiveCocoa）</h1>
+                    <h1>Go web编程</h1>
                     
                     
-                    <h2 class="subheading">ReactiveCocoa</h2>
+                    <h2 class="subheading">Go</h2>
                     
-                    <span class="meta">Posted by CatchZeng on December 9, 2015</span>
+                    <span class="meta">Posted by CatchZeng on January 1, 2019</span>
                 </div>
             </div>
         </div>
@@ -165,81 +165,52 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<p><span id="busuanzi_container_page_pv"></span></p>
+				<h2 id="专栏简介">专栏简介</h2>
 
-<h2 id="前言">前言</h2>
-<p>近来，Q群的几个朋友谈起如何使用ReactiveCocoa（以下简称RAC）开发的问题。大家觉得RAC很好，但不知如何运用它。在此整理一些对RAC的看法，希望对学习RAC的朋友有所帮助。本篇是前篇，主要涉及以下内容。</p>
+<p>分享 Go web 编程。在这里你可以了解到什么是 Go，为什么越来越多人喜欢它。在实践中也能了解到 web 编程的知识。</p>
+
+<h2 id="核心内容">核心内容</h2>
+
+<p>Go 语法;</p>
+
+<p>单元测试;</p>
+
+<p>Go 包管理工具;</p>
+
+<p>web 编程;</p>
+
+<p>gin web 框架;</p>
+
+<p>restful API;</p>
+
+<p>web 项目 docker 化;</p>
+
+<p>……</p>
+
+<h2 id="适宜人群">适宜人群</h2>
+
+<p>喜欢 Go 语言的开发者;</p>
+
+<p>希望了解 web 编程的移动开发者；</p>
+
+<p>希望优化 web 项目部署的开发者；</p>
+
+<p>想提高个人能力的开发者；</p>
+
+<h2 id="文章">文章</h2>
 
 <ul>
-  <li>现有的编程问题</li>
-  <li>为何出现了这些问题</li>
-  <li>编程思想的变化</li>
+  <li><a href="https://xiaozhuanlan.com/topic/4632709185">Go 初见</a></li>
+  <li><a href="https://xiaozhuanlan.com/topic/1846325907">Go 单元测试</a></li>
+  <li><a href="https://xiaozhuanlan.com/topic/2957168304">Go web 初探</a></li>
+  <li><a href="https://xiaozhuanlan.com/topic/7256384091">Go 文件上传</a></li>
+  <li><a href="https://xiaozhuanlan.com/topic/7813259064">Go RESTful API</a></li>
+  <li>不断更新中……</li>
 </ul>
 
-<h2 id="现有的编程问题">现有的编程问题</h2>
-<ol>
-  <li>
-    <p>状态量问题（类似Cache问题）
-在开发中时常需要一些状态量来辅助处理事务。比如：按下登录按钮后发起请求时需要一个状态量（isRequesting）来标注正在请求。
-<img src="http://leanote.com/api/file/getImage?fileId=566787a5ab6441601e001166" alt="状态量问题" />
-但是由于isRequesting的改变相对随意，也时常会忘记对它正确赋值，导致难以维护。这也就跟Cache中的难点（难以知道何时去更新Cache中的值）一样。另外，当状态量多起来时便会出现组合爆炸的问题（状态成指数级增长），不利于扩展及维护。</p>
-  </li>
-  <li>
-    <p>Controller爆炸问题
-随着程序逻辑复杂度的提高，你是否也发现了App中一些ViewController的代码行数急剧增多，达到了2，3千行，甚至更多。这带来了许多问题:1.不利于后续维护2.不利于支撑UI的变动3.不利于复用 4….</p>
-  </li>
-  <li>
-    <p>消息传递机制方式繁多，带来的选择性问题
-iOS 开发中有着各种消息传递机制，包括 KVO、block、Notification、delegation以及 target-action 方式。各种消息传递机制使得开发者在做具体选择时感到困惑，虽然有不少大牛分享了他们选择的经验，但是在开发中始终觉得繁琐。重点是如果选择错了方式，极不利于代码质量的保证。</p>
-  </li>
-</ol>
-
-<h2 id="为何出现了这些问题">为何出现了这些问题</h2>
-<p><img src="http://leanote.com/api/file/getImage?fileId=56678bc5ab6441601e001182" alt="1" /></p>
-
-<p><img src="http://leanote.com/api/file/getImage?fileId=56678bd3ab6441616d00114d" alt="2" /></p>
-
-<p><img src="http://leanote.com/api/file/getImage?fileId=56679cdbab6441616d0013fb" alt="3" /></p>
-
-<p>从上面几张图我们可以看出，app其实是一个输入-》处理-》输出的过程。而它随着输入输出的增多，开发的难度也越来越大。抽象一点来讲就是变化越多，控制越难。</p>
-
-<p>传统的命令式编程，是以命令为主的，给机器提供一条又一条的命令序列让其原封不动的执行，这就限制了编程的灵活性。
-变化（输入、输出）越来越多-》分支越来越多-》状态量问题
-变化越来越多-》Handler处理的实务越来越多-》Controller爆炸问题（可通过MVVM模式解决）
-变化越来越多-》需要不同的消息处理机制-》消息传递机制方式的选择问题
-……</p>
-
-<p>既然命令式编程不能满足我们的需求，那便寻求解决之法。于是我们想到了Functional Reactive Programming。</p>
-
-<h2 id="编程思想的变化">编程思想的变化</h2>
-<p>最近关于是否使用RAC的讨论非常多。相当一部分的原因是RAC的学习成本高在团队协作中需要每个人都学会使用。使用了一段时间后，个人觉得RAC学习成本高的原因是编程思想上的改变。
-RAC运用的响应式编程（Functional Reactive Programming,以下简称FRP）与传统的命令式编程思想差异较大。下面我们先来了解一下RAC使用的FRP思想。</p>
-
-<h2 id="rac中的函数式思想">RAC中的函数式思想</h2>
-<ol>
-  <li>高阶函数：函数作为参数来回传递。在oc中，block是被广泛使用的参数传递，它实际上是匿名函数。
-例:
-<img src="http://leanote.com/api/file/getImage?fileId=56678d47ab6441616d0011d1" alt="高阶函数" />
-上面的例子中先使用filter（过滤）判断value是否有“catch”前缀，然后使用map（映射）将值映射成no more，最后输出。不难看出例子中的filter 和 map block正是高阶函数的应用。</li>
-  <li>惰性求值：只有当被使用到时，才会对其求值。在RAC中<strong><em>信号只有被订阅了，才会触发</em></strong>。
-例:
-<img src="http://leanote.com/api/file/getImage?fileId=56678dc8ab6441601e001195" alt="惰性求值" />
-将例子中的订阅部分注释，会发现虽然username改变了但是filter 和map不会触发，这就是惰性求值思想的应用。
-在RAC中将<strong><em>未被订阅的信号称为“冷信号”，将已被订阅的信号称为“热信号”</em></strong>。
-例2:
-<img src="http://leanote.com/api/file/getImage?fileId=56678f0dab6441616d0011e5" alt="惰性求值2" />
-RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的时候，断点是不触发的），这也是惰性求值思想的应用。</li>
-</ol>
-
-<h2 id="rac中的响应式思想">RAC中的响应式思想</h2>
-<p>响应式编程是一种和事件流有关的编程模式，关注导致状态值改变的行为事件，一系列事件组成了事件流。一系列事件是导致属性值发生变化的原因。FRP非常类似于设计模式里的<strong><em>观察者模式</em></strong>。
-例:
-<img src="http://leanote.com/api/file/getImage?fileId=56679a9cab6441601e0013c7" alt="RAC中的响应式思想" />
-在传统命令式的编程中可解读成：a是 b + c 表达式的值。
-而在响应式的编程中应解读成：建立了一个<strong><em>动态的数据流关系</em></strong>（当c或者b的值发生变化时，a的值自动发生变化）。</p>
-
-<h2 id="小结">小结</h2>
-<p>本篇概述了RAC与传统编程方式的区别，下一篇开始，我们将利用RAC来开发一个完整的应用，以此来边掌握RAC的知识。这期就到这了，下期见。</p>
+<p><span id="busuanzi_container_page_pv">
+本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span></p>
 
 
                 <hr>
@@ -250,13 +221,9 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2015/12/08/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC10%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第10期">&larr; Previous Post</a>
+                        <a href="/2018/12/12/Android-Maven-%E7%A7%81%E6%9C%89%E5%BA%93/" data-toggle="tooltip" data-placement="top" title="Android Maven 私有库">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2015/12/19/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC11%E6%9C%9F/" data-toggle="tooltip" data-placement="top" title="iOS开发见闻-第11期">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
@@ -371,8 +338,8 @@ RACSequence只有当被使用到时，才会对其求值（当注释掉订阅的
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "catchzeng";
-    var disqus_identifier = "/2015/12/09/iOS 函数响应式编程 （ReactiveCocoa）";
-    var disqus_url = "http://localhost:4000/2015/12/09/iOS-%E5%87%BD%E6%95%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B-ReactiveCocoa/";
+    var disqus_identifier = "/2019/01/01/Go web编程";
+    var disqus_url = "http://localhost:4000/2019/01/01/Go-web%E7%BC%96%E7%A8%8B/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

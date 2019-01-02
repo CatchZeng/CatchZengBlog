@@ -5,9 +5,67 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 27 Dec 2018 11:56:20 +0800</pubDate>
-    <lastBuildDate>Thu, 27 Dec 2018 11:56:20 +0800</lastBuildDate>
+    <pubDate>Wed, 02 Jan 2019 12:00:08 +0800</pubDate>
+    <lastBuildDate>Wed, 02 Jan 2019 12:00:08 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>Go web编程</title>
+        <description>&lt;h2 id=&quot;专栏简介&quot;&gt;专栏简介&lt;/h2&gt;
+
+&lt;p&gt;分享 Go web 编程。在这里你可以了解到什么是 Go，为什么越来越多人喜欢它。在实践中也能了解到 web 编程的知识。&lt;/p&gt;
+
+&lt;h2 id=&quot;核心内容&quot;&gt;核心内容&lt;/h2&gt;
+
+&lt;p&gt;Go 语法;&lt;/p&gt;
+
+&lt;p&gt;单元测试;&lt;/p&gt;
+
+&lt;p&gt;Go 包管理工具;&lt;/p&gt;
+
+&lt;p&gt;web 编程;&lt;/p&gt;
+
+&lt;p&gt;gin web 框架;&lt;/p&gt;
+
+&lt;p&gt;restful API;&lt;/p&gt;
+
+&lt;p&gt;web 项目 docker 化;&lt;/p&gt;
+
+&lt;p&gt;……&lt;/p&gt;
+
+&lt;h2 id=&quot;适宜人群&quot;&gt;适宜人群&lt;/h2&gt;
+
+&lt;p&gt;喜欢 Go 语言的开发者;&lt;/p&gt;
+
+&lt;p&gt;希望了解 web 编程的移动开发者；&lt;/p&gt;
+
+&lt;p&gt;希望优化 web 项目部署的开发者；&lt;/p&gt;
+
+&lt;p&gt;想提高个人能力的开发者；&lt;/p&gt;
+
+&lt;h2 id=&quot;文章&quot;&gt;文章&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://xiaozhuanlan.com/topic/4632709185&quot;&gt;Go 初见&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://xiaozhuanlan.com/topic/1846325907&quot;&gt;Go 单元测试&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://xiaozhuanlan.com/topic/2957168304&quot;&gt;Go web 初探&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://xiaozhuanlan.com/topic/7256384091&quot;&gt;Go 文件上传&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://xiaozhuanlan.com/topic/7813259064&quot;&gt;Go RESTful API&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;不断更新中……&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+本文总阅读量&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;次
+&lt;/span&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 01 Jan 2019 17:38:27 +0800</pubDate>
+        <link>http://localhost:4000/2019/01/01/Go-web%E7%BC%96%E7%A8%8B/</link>
+        <guid isPermaLink="true">http://localhost:4000/2019/01/01/Go-web%E7%BC%96%E7%A8%8B/</guid>
+        
+        <category>Go</category>
+        
+        
+      </item>
     
       <item>
         <title>Android Maven 私有库</title>
@@ -1998,215 +2056,6 @@ OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉库�
         <guid isPermaLink="true">http://localhost:4000/2018/06/12/Learning-OpenCV-with-iOS-Hello-OpenCV/</guid>
         
         <category>OpenCV</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>聊聊设计模式原则（三） -- 依赖倒置原则</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;目录&quot;&gt;目录&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://catchzeng.com/2017/02/19/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%80-%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99/&quot;&gt;聊聊设计模式原则（一） – 单一职责原则&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://catchzeng.com/2017/05/04/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%BA%8C-%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99/&quot;&gt;聊聊设计模式原则（二） – 接口隔离原则&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://catchzeng.com/2018/06/01/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%89-%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E5%8E%9F%E5%88%99/&quot;&gt;聊聊设计模式原则（三） – 依赖倒置原则&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;依赖倒置原则dip-dependence-inversion-principle&quot;&gt;依赖倒置原则（DIP ：Dependence Inversion Principle）&lt;/h1&gt;
-
-&lt;h2 id=&quot;定义&quot;&gt;定义&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;高层模块不应该依赖低层模块，二者都应该依赖其抽象；&lt;/li&gt;
-  &lt;li&gt;抽象不应该依赖细节；&lt;/li&gt;
-  &lt;li&gt;细节应该依赖抽象。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;也就是说高层模块低层模块细节都应该依赖抽象&quot;&gt;也就是说高层模块，低层模块，细节都应该依赖抽象&lt;/h5&gt;
-
-&lt;h2 id=&quot;由来&quot;&gt;由来&lt;/h2&gt;
-
-&lt;p&gt;类A直接依赖类B，假如要将类B改为类C，则必须通过修改类A的代码来达成。
-类A一般是高层模块，负责复杂的业务逻辑。
-类B和类C是低层模块，负责基本的原子操作。
-修改类A，会给程序带来不必要的风险。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-10ce9ac0558a6d77.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;由来&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;解决方案&quot;&gt;解决方案&lt;/h2&gt;
-&lt;p&gt;将类A修改为依赖接口I，类B和类C各自实现接口I，类A通过接口I间接与类B或者类C发生联系，则会大大降低修改类A的几率。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-9826ba438ef18ed9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;解决方案&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;优点&quot;&gt;优点&lt;/h2&gt;
-&lt;p&gt;依赖倒置原则可以减少类间的耦合性，提高系统的稳定，降低并行开发引起的风险，提高代码的可读性和可维护性。&lt;/p&gt;
-
-&lt;h2 id=&quot;思考&quot;&gt;思考&lt;/h2&gt;
-
-&lt;h4 id=&quot;1依赖倒置原则跟面向接口编程是什么关系&quot;&gt;1.依赖倒置原则跟面向接口编程是什么关系？&lt;/h4&gt;
-&lt;p&gt;依赖倒置原则的核心思想就是面向接口编程&lt;/p&gt;
-
-&lt;h4 id=&quot;2什么是细节什么是抽象他们有什么区别&quot;&gt;2.什么是细节？什么是抽象？他们有什么区别？&lt;/h4&gt;
-
-&lt;p&gt;所谓细节就是较为具体的东西，比如具体的类，就如上面的类B与类C，有具体的实现。&lt;/p&gt;
-
-&lt;p&gt;所谓抽象就是具有&lt;strong&gt;契约性、共同性、规范性的表达&lt;/strong&gt;，比如上面的接口I。它表达了一种契约–你需要实现funcA和funcB才能被当成I来对待。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;相对于细节的多变性，抽象的东西要稳定的多。&lt;/strong&gt;
-以上面的类ABC作为例子，B、C类都属于细节，如果A直接依赖B或者C，那么B或C的改动有可能就会影响到A的稳定性。同样的，A对B或者C的操作也有可能影响到B或C的稳定性。这些互相影响，其实来源于直接的依赖，导致B或C的细节暴露过多。而面对抽象的接口I，A只能操作funA和funcB，从而避免了不必要的暴露和风险。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;以抽象为基础搭建起来的架构比以细节为基础搭建起来的架构要稳定的多。&lt;/strong&gt;
-稳定性表现在规范性、契约性、易修改性、扩展性、可维护性等。&lt;/p&gt;
-
-&lt;h2 id=&quot;来个栗子&quot;&gt;来个栗子&lt;/h2&gt;
-&lt;p&gt;小明（程序员）接到小李（产品经理）的需求：
-客户端开始的时候打个“开始”的log。
-小明心想简单，一下子完成了代码&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public class Logger {
-    func log(_ text: String) {
-        print(text)
-    }
-}
-
-public class Client {
-    public var logger: Logger?
-
-    func start() {
-        logger?.log(&quot;开始&quot;)
-    }
-}
-
-let client = Client()
-let logger = Logger()
-client.logger = logger
-
-client.start()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;这个时候，小李突然说，要把log变成存到文件的形式。
-小明想了下，有点不情愿地改了代码（因为要改好几个地方）&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public class FileLogger { //修改1
-    func log(_ text: String) {
-        writeTofile(text) //修改2
-    }
-    
-    func start() {
-        print(&quot;开始&quot;)
-    }
-}
-
-public class Client {
-    public var logger: FileLogger? //修改3
-
-    func start() {
-        logger.start()
-        logger?.log(&quot;开始&quot;)
-    }
-}
-
-let client = Client()
-let logger = FileLogger() //修改4
-client.logger = logger
-
-client.start()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;小李想了想现在是互联网时代，还是直接将log信息传到网络上吧。
-这个时候，小明非常不情愿地说了声“你不早说”，但还是改了代码(又是好几处改动)&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public class WebLogger { //修改1
-    func log(_ text: String) {
-        writeToWeb(text) //修改2
-    }
-}
-
-public class Client {
-    public var logger: WebLogger? //修改3
-
-    func start() {
-        logger?.log(&quot;开始&quot;)
-    }
-}
-
-let client = Client()
-let logger = WebLogger() //修改4
-client.logger = logger
-
-client.start()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;这时，小明的老大小华看到小明不开心，便过来帮忙，改了下代码&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;protocol Logger {
-    func log(_ text: String)
-}
-
-public class WebLogger: Logger {
-    func log(_ text: String) {
-        writeToWeb(text) 
-    }
-}
-
-public class FileLogger: Logger {
-    func log(_ text: String) {
-        writeTofile(text) 
-    }
-}
-
-public class PrintLogger: Logger {
-    func log(_ text: String) {
-        print(text)
-    }
-}
-
-public class Client {
-    public var logger: Logger? 
-
-    func start() {
-        logger?.log(&quot;开始&quot;)
-    }
-}
-
-let client = Client()
-let logger = WebLogger()
-client.logger = logger
-
-client.start()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;小华对小明说，现在不用怕了，小李想什么样的log你改一下实现类就行了&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let logger = WebLogger() // PrintLogger()  FileLogger()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;小华的改动其实就是利用了依赖倒置原则，增强了易修改性、扩展性、可维护性等。
-细心的朋友其实还发现了，在改成FileLogger的时候，Client多余地调用了FileLogger的start方法。这就是依赖细节，暴露细节，引起的问题。而使用抽象的接口就能较好地避免这类问题。&lt;/p&gt;
-
-&lt;h2 id=&quot;注意点&quot;&gt;注意点&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;分清细节与抽象&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;虽然依赖倒置原则有很大的好处，但也不是所有的类都需要有抽象一个接口去对应，要视情况而定。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;变量的声明类型尽量是抽象类或接口&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;注意是尽量，而不是全部。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;尽量不要覆写基类的方法&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;如果基类是一个抽象类，而这个方法已经实现了，子类尽量不要覆写。类间依赖的是抽象，覆写了抽象方法，对依赖的稳定性会有一定的影响。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;继承要遵循里氏替换原则&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Fri, 01 Jun 2018 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2018/06/01/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%89-%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E5%8E%9F%E5%88%99/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/06/01/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%89-%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E5%8E%9F%E5%88%99/</guid>
-        
-        <category>设计模式</category>
         
         
       </item>
