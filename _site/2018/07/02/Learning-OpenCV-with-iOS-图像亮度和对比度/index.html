@@ -178,12 +178,12 @@
 <h4 id="算子">算子</h4>
 <p>一般的图像处理算子都是一个函数，它接受一个或多个输入图像，并产生输出图像。</p>
 <h6 id="单输入">单输入</h6>
-<div class="highlighter-rouge"><pre class="highlight"><code>g(x) = h(f(x))
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>g(x) = h(f(x))
+</code></pre></div></div>
 
 <h6 id="多输入">多输入</h6>
-<div class="highlighter-rouge"><pre class="highlight"><code>g(x) = h(f0(x)......fn(x))
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>g(x) = h(f0(x)......fn(x))
+</code></pre></div></div>
 
 <p>根据算子的不同，图像变换分为两大类：</p>
 
@@ -205,8 +205,8 @@
 
 <h2 id="三调整图像亮度和对比度">三、调整图像亮度和对比度</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>g(i, j) = αf(i,j) + β  其中α&gt;0，β是增益变量
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>g(i, j) = αf(i,j) + β  其中α&gt;0，β是增益变量
+</code></pre></div></div>
 <ul>
   <li>f(i,j) 表示源图像像素</li>
   <li>g(i,j) 表示输出图像像素</li>
@@ -227,7 +227,7 @@
 
 <p><img src="https://upload-images.jianshu.io/upload_images/943491-0e4ab78c269f66e4.gif?imageMogr2/auto-orient/strip" alt="魔铠变身" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>+(UIImage *)transform:(UIImage *)image alpha:(double)alpha beta:(double)beta {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+(UIImage *)transform:(UIImage *)image alpha:(double)alpha beta:(double)beta {
     Mat src;
     UIImageToMat(image, src);
     
@@ -258,28 +258,28 @@
     UIImage* result = MatToUIImage(dst);
     return result;
 }
-</code></pre></div>
+</code></pre></div></div>
 <h6 id="注">注：</h6>
 
 <ul>
   <li>做像素点操作时应当注意数据类型的转换</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    src.convertTo(m, CV_32F);
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    src.convertTo(m, CV_32F);
+</code></pre></div></div>
 
 <ul>
   <li>图像的通道多样，处理图片时需要做多通道的处理</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>if(src.channels() == 1) {//单通道
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if(src.channels() == 1) {//单通道
     ...
 } else if (src.channels() == 3) { //3通道
     ...
 }  else if (src.channels() == 4) { //4通道
     ...
 }
-</code></pre></div>
+</code></pre></div></div>
 
 <h2 id="四小结">四、小结</h2>
 
@@ -329,6 +329,12 @@
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+        				
+                            
+                				<a href="/tags/#Policy" title="Policy" rel="1">
+                                    Policy
+                                </a>
+                            
         				
                             
                 				<a href="/tags/#iOS" title="iOS" rel="46">

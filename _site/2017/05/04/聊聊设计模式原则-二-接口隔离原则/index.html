@@ -188,99 +188,99 @@
 
 <h4 id="code">Code</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">I</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@protocol I &lt;NSObject&gt;
 
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m1</span><span class="p">;</span>
+- (void)m1;
 
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m2</span><span class="p">;</span>
+- (void)m2;
 
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m3</span><span class="p">;</span>
+- (void)m3;
 
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m4</span><span class="p">;</span>
+- (void)m4;
 
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m5</span><span class="p">;</span>
+- (void)m5;
 
-<span class="k">@end</span>
-
-
-<span class="k">@interface</span> <span class="nc">B</span> <span class="p">:</span> <span class="nc">NSObject</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;</span>
-<span class="k">@end</span>
-
-<span class="k">@implementation</span> <span class="nc">B</span>
-
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m1</span><span class="p">{</span> <span class="p">}</span>
-
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m2</span><span class="p">{</span> <span class="p">}</span>
-
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m3</span><span class="p">{</span> <span class="p">}</span>
-
-<span class="c1">//实现的多余方法
-</span><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m4</span><span class="p">{</span> <span class="p">}</span>
-
-<span class="c1">//实现的多余方法
-</span><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m5</span><span class="p">{</span> <span class="p">}</span>
-
-<span class="k">@end</span>
-
-<span class="k">@interface</span> <span class="nc">A</span> <span class="p">:</span> <span class="nc">NSObject</span>
-<span class="k">@end</span>
-
-<span class="k">@implementation</span> <span class="nc">A</span>
-
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">m1</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">i</span><span class="p">{</span>
-    <span class="p">[</span><span class="n">i</span> <span class="nf">m1</span><span class="p">];</span>
-<span class="p">}</span>
-
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">m2</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">i</span><span class="p">{</span>
-    <span class="p">[</span><span class="n">i</span> <span class="nf">m2</span><span class="p">];</span>
-<span class="p">}</span>
-
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">m3</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">i</span><span class="p">{</span>
-    <span class="p">[</span><span class="n">i</span> <span class="nf">m3</span><span class="p">];</span>
-<span class="p">}</span>
-
-<span class="k">@end</span>
+@end
 
 
-<span class="k">@interface</span> <span class="nc">D</span> <span class="p">:</span> <span class="nc">NSObject</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;</span>
-<span class="k">@end</span>
+@interface B : NSObject&lt;I&gt;
+@end
 
-<span class="k">@implementation</span> <span class="nc">D</span>
+@implementation B
 
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m1</span><span class="p">{</span> <span class="p">}</span>
+- (void)m1{ }
 
-<span class="c1">//实现的多余方法
-</span><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m2</span><span class="p">{</span> <span class="p">}</span>
+- (void)m2{ }
 
-<span class="c1">//实现的多余方法
-</span><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m3</span><span class="p">{</span> <span class="p">}</span>
+- (void)m3{ }
 
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m4</span><span class="p">{</span> <span class="p">}</span>
+//实现的多余方法
+- (void)m4{ }
 
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m5</span><span class="p">{</span> <span class="p">}</span>
+//实现的多余方法
+- (void)m5{ }
 
-<span class="k">@end</span>
+@end
+
+@interface A : NSObject
+@end
+
+@implementation A
+
+- (void)m1:(id&lt;I&gt;)i{
+    [i m1];
+}
+
+- (void)m2:(id&lt;I&gt;)i{
+    [i m2];
+}
+
+- (void)m3:(id&lt;I&gt;)i{
+    [i m3];
+}
+
+@end
 
 
-<span class="k">@interface</span> <span class="nc">C</span> <span class="p">:</span> <span class="nc">NSObject</span>
-<span class="k">@end</span>
+@interface D : NSObject&lt;I&gt;
+@end
 
-<span class="k">@implementation</span> <span class="nc">C</span>
+@implementation D
 
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">m1</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">i</span><span class="p">{</span>
-    <span class="p">[</span><span class="n">i</span> <span class="nf">m1</span><span class="p">];</span>
-<span class="p">}</span>
+- (void)m1{ }
 
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">m4</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">i</span><span class="p">{</span>
-    <span class="p">[</span><span class="n">i</span> <span class="nf">m4</span><span class="p">];</span>
-<span class="p">}</span>
+//实现的多余方法
+- (void)m2{ }
 
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">m5</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">i</span><span class="p">{</span>
-    <span class="p">[</span><span class="n">i</span> <span class="nf">m5</span><span class="p">];</span>
-<span class="p">}</span>
+//实现的多余方法
+- (void)m3{ }
 
-<span class="k">@end</span>
-</code></pre></div>
+- (void)m4{ }
+
+- (void)m5{ }
+
+@end
+
+
+@interface C : NSObject
+@end
+
+@implementation C
+
+- (void)m1:(id&lt;I&gt;)i{
+    [i m1];
+}
+
+- (void)m4:(id&lt;I&gt;)i{
+    [i m4];
+}
+
+- (void)m5:(id&lt;I&gt;)i{
+    [i m5];
+}
+
+@end
+</code></pre></div></div>
 
 <h2 id="解决方案">解决方案</h2>
 <p>将臃肿的接口I拆分为独立的几个接口，类A和类C分别与他们需要的接口建立依赖关系。</p>
@@ -289,97 +289,97 @@
 
 <h3 id="code-1">Code</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">I</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@protocol I &lt;NSObject&gt;
 
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m1</span><span class="p">;</span>
+- (void)m1;
 
-<span class="k">@end</span>
-
-
-<span class="k">@protocol</span> <span class="nc">I2</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span>
-
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m2</span><span class="p">;</span>
-
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m3</span><span class="p">;</span>
-
-<span class="k">@end</span>
-
-<span class="k">@protocol</span> <span class="nc">I3</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span>
-
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m4</span><span class="p">;</span>
-
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m5</span><span class="p">;</span>
-
-<span class="k">@end</span>
+@end
 
 
-<span class="k">@interface</span> <span class="nc">B</span> <span class="p">:</span> <span class="nc">NSObject</span><span class="o">&lt;</span><span class="n">I</span><span class="p">,</span><span class="n">I2</span><span class="o">&gt;</span>
-<span class="k">@end</span>
+@protocol I2 &lt;NSObject&gt;
 
-<span class="k">@implementation</span> <span class="nc">B</span>
+- (void)m2;
 
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m1</span><span class="p">{</span> <span class="p">}</span>
+- (void)m3;
 
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m2</span><span class="p">{</span> <span class="p">}</span>
+@end
 
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m3</span><span class="p">{</span> <span class="p">}</span>
+@protocol I3 &lt;NSObject&gt;
 
-<span class="k">@end</span>
+- (void)m4;
 
-<span class="k">@interface</span> <span class="nc">A</span> <span class="p">:</span> <span class="nc">NSObject</span>
-<span class="k">@end</span>
+- (void)m5;
 
-<span class="k">@implementation</span> <span class="nc">A</span>
-
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">m1</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">i</span><span class="p">{</span>
-    <span class="p">[</span><span class="n">i</span> <span class="nf">m1</span><span class="p">];</span>
-<span class="p">}</span>
-
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">m2</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">I2</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">i</span><span class="p">{</span>
-    <span class="p">[</span><span class="n">i</span> <span class="nf">m2</span><span class="p">];</span>
-<span class="p">}</span>
-
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">m3</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">I2</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">i</span><span class="p">{</span>
-    <span class="p">[</span><span class="n">i</span> <span class="nf">m3</span><span class="p">];</span>
-<span class="p">}</span>
-
-<span class="k">@end</span>
+@end
 
 
+@interface B : NSObject&lt;I,I2&gt;
+@end
 
-<span class="k">@interface</span> <span class="nc">D</span> <span class="p">:</span> <span class="nc">NSObject</span><span class="o">&lt;</span><span class="n">I</span><span class="p">,</span><span class="n">I3</span><span class="o">&gt;</span>
-<span class="k">@end</span>
+@implementation B
 
-<span class="k">@implementation</span> <span class="nc">D</span>
+- (void)m1{ }
 
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m1</span><span class="p">{</span> <span class="p">}</span>
+- (void)m2{ }
 
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m4</span><span class="p">{</span> <span class="p">}</span>
+- (void)m3{ }
 
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">m5</span><span class="p">{</span> <span class="p">}</span>
+@end
 
-<span class="k">@end</span>
+@interface A : NSObject
+@end
+
+@implementation A
+
+- (void)m1:(id&lt;I&gt;)i{
+    [i m1];
+}
+
+- (void)m2:(id&lt;I2&gt;)i{
+    [i m2];
+}
+
+- (void)m3:(id&lt;I2&gt;)i{
+    [i m3];
+}
+
+@end
 
 
-<span class="k">@interface</span> <span class="nc">C</span> <span class="p">:</span> <span class="nc">NSObject</span>
-<span class="k">@end</span>
 
-<span class="k">@implementation</span> <span class="nc">C</span>
+@interface D : NSObject&lt;I,I3&gt;
+@end
 
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">m1</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">i</span><span class="p">{</span>
-    <span class="p">[</span><span class="n">i</span> <span class="nf">m1</span><span class="p">];</span>
-<span class="p">}</span>
+@implementation D
 
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">m4</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">I3</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">i</span><span class="p">{</span>
-    <span class="p">[</span><span class="n">i</span> <span class="nf">m4</span><span class="p">];</span>
-<span class="p">}</span>
+- (void)m1{ }
 
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">m5</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">I3</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">i</span><span class="p">{</span>
-    <span class="p">[</span><span class="n">i</span> <span class="nf">m5</span><span class="p">];</span>
-<span class="p">}</span>
+- (void)m4{ }
 
-<span class="k">@end</span>
-</code></pre></div>
+- (void)m5{ }
+
+@end
+
+
+@interface C : NSObject
+@end
+
+@implementation C
+
+- (void)m1:(id&lt;I&gt;)i{
+    [i m1];
+}
+
+- (void)m4:(id&lt;I3&gt;)i{
+    [i m4];
+}
+
+- (void)m5:(id&lt;I3&gt;)i{
+    [i m5];
+}
+
+@end
+</code></pre></div></div>
 
 <h2 id="优点">优点</h2>
 <p>建立单一接口，不要建立庞大臃肿的接口，尽量细化接口，接口中的方法尽量少。也就是说，我们要为各个类建立专用的接口，而不要试图去建立一个很庞大的接口供所有依赖它的类去调用。在程序设计中，依赖几个专用的接口要比依赖一个综合的接口更灵活。接口是设计时对外部设定的“契约”，通过分散定义多个接口，可以预防外来变更的扩散，提高系统的灵活性和可维护性。</p>
@@ -398,30 +398,30 @@
   </li>
 </ol>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">NetworkProtocol</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@protocol NetworkProtocol &lt;NSObject&gt;
 
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">loadSuccess</span><span class="p">;</span>
+- (void)loadSuccess;
 
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">loadFailed</span><span class="p">;</span>
+- (void)loadFailed;
 
-<span class="k">@optional</span>
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">loadCancel</span><span class="p">;</span>
+@optional
+- (void)loadCancel;
 
-<span class="k">@end</span>
-</code></pre></div>
+@end
+</code></pre></div></div>
 <p>对于loadCancel方法，它跟网络请求是相关的，但是它不希望每个实现者都必须处理它，所以使用@optional。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">NetworkProtocol</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@protocol NetworkProtocol &lt;NSObject&gt;
 
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">loadSuccess</span><span class="p">;</span>
+- (void)loadSuccess;
 
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">loadFailed</span><span class="p">;</span>
+- (void)loadFailed;
 
-<span class="k">@optional</span>
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">helloWorld</span><span class="p">;</span>
+@optional
+- (void)helloWorld;
 
-<span class="k">@end</span>
-</code></pre></div>
+@end
+</code></pre></div></div>
 <p>另外一种情况类似于helloWorld方法，这个方法跟网络请求协议完全没有相关，只是有个依赖需要他实现这个方法，这个时候用@optional就不是很合适，应该将helloWorld放到一个单独的协议中，让需要实现它的类实现helloWorld这个协议。</p>
 
 <h2 id="注意点">注意点</h2>
@@ -475,6 +475,12 @@
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+        				
+                            
+                				<a href="/tags/#Policy" title="Policy" rel="1">
+                                    Policy
+                                </a>
+                            
         				
                             
                 				<a href="/tags/#iOS" title="iOS" rel="46">

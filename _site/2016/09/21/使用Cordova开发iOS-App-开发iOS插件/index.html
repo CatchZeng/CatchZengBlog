@@ -185,29 +185,29 @@
 
 <p><img src="/img/in-post/post-cordova2/3.gif" alt="Plugins" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
-<span class="k">@implementation</span> <span class="nc">TestPlugin</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+@implementation TestPlugin
 
-<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">testWithTitle</span><span class="p">:(</span><span class="n">CDVInvokedUrlCommand</span> <span class="o">*</span><span class="p">)</span><span class="nv">command</span><span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">command</span><span class="p">.</span><span class="n">arguments</span><span class="p">.</span><span class="n">count</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">//customize argument
-</span>        <span class="n">NSString</span><span class="o">*</span> <span class="n">title</span> <span class="o">=</span> <span class="n">command</span><span class="p">.</span><span class="n">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+-(void)testWithTitle:(CDVInvokedUrlCommand *)command{
+    if (command.arguments.count&gt;0) {
+        //customize argument
+        NSString* title = command.arguments[0];
         
-        <span class="n">TestViewController</span><span class="o">*</span> <span class="n">testViewCtrl</span> <span class="o">=</span> <span class="p">[[</span><span class="n">TestViewController</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">init</span><span class="p">];</span>
-        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">viewController</span> <span class="nf">presentViewController</span><span class="p">:</span><span class="n">testViewCtrl</span> <span class="nf">animated</span><span class="p">:</span><span class="nb">YES</span> <span class="n">completion</span><span class="o">:^</span><span class="p">{</span>
-            <span class="n">CDVPluginResult</span><span class="o">*</span> <span class="n">pluginResult</span> <span class="o">=</span> <span class="p">[</span><span class="n">CDVPluginResult</span> <span class="nf">resultWithStatus</span><span class="p">:</span><span class="n">CDVCommandStatus_OK</span> <span class="nf">messageAsString</span><span class="p">:</span><span class="s">@"我是OC回传的参数!"</span><span class="p">];</span>
-            <span class="n">testViewCtrl</span><span class="p">.</span><span class="n">labTitle</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">title</span><span class="p">;</span>
-            <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">commandDelegate</span> <span class="nf">sendPluginResult</span><span class="p">:</span><span class="n">pluginResult</span> <span class="nf">callbackId</span><span class="p">:</span><span class="n">command</span><span class="p">.</span><span class="n">callbackId</span><span class="p">];</span>
-        <span class="p">}];</span>
-    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-        <span class="c1">//callback
-</span>        <span class="n">CDVPluginResult</span><span class="o">*</span> <span class="n">pluginResult</span> <span class="o">=</span> <span class="p">[</span><span class="n">CDVPluginResult</span> <span class="nf">resultWithStatus</span><span class="p">:</span><span class="n">CDVCommandStatus_ERROR</span> <span class="nf">messageAsString</span><span class="p">:</span><span class="s">@"没有参数"</span><span class="p">];</span>
-        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">commandDelegate</span> <span class="nf">sendPluginResult</span><span class="p">:</span><span class="n">pluginResult</span> <span class="nf">callbackId</span><span class="p">:</span><span class="n">command</span><span class="p">.</span><span class="n">callbackId</span><span class="p">];</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+        TestViewController* testViewCtrl = [[TestViewController alloc]init];
+        [self.viewController presentViewController:testViewCtrl animated:YES completion:^{
+            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"我是OC回传的参数!"];
+            testViewCtrl.labTitle.text = title;
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        }];
+    }else{
+        //callback
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"没有参数"];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }
+}
 
-<span class="k">@end</span>
-</code></pre></div>
+@end
+</code></pre></div></div>
 <p>说明：</p>
 
 <p>command.arguments：JS传递过来的参数列表，可自行协定参数的格式</p>
@@ -219,13 +219,13 @@
 <h3 id="三测试插件">三、测试插件</h3>
 <p>在config.xml文件中加入以下代码让JS能够调用我们的OC类,需要注意的是需要配置Staging下的config.xml,而不是外部的</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;feature name="ocTestPlugin"&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;feature name="ocTestPlugin"&gt;
   &lt;param name="ios-package" value="TestPlugin" /&gt;
 &lt;/feature&gt;
-</code></pre></div>
+</code></pre></div></div>
 <p>修改index.html</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html&gt;</span>
     <span class="nt">&lt;head&gt;</span>
         <span class="nt">&lt;title&gt;</span>testPlugin<span class="nt">&lt;/title&gt;</span>
@@ -250,7 +250,7 @@
         <span class="nt">&lt;br&gt;</span>
     <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
-</code></pre></div>
+</code></pre></div></div>
 <p>最后附上工程的结构图</p>
 
 <p><img src="/img/in-post/post-cordova2/4.png" alt="Plugins" /></p>
@@ -301,6 +301,12 @@
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+        				
+                            
+                				<a href="/tags/#Policy" title="Policy" rel="1">
+                                    Policy
+                                </a>
+                            
         				
                             
                 				<a href="/tags/#iOS" title="iOS" rel="46">

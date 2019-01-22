@@ -215,7 +215,7 @@ Smooth和Blur是opencv图像模糊的API，其背后的原理其实是数学的�
 <p>此类操作被称为<strong>卷积计算</strong>，而模板和kernel就是卷积计算中的<strong>卷积算子</strong>。</p>
 
 <p>opencv提供了均值滤波（模糊）的API</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>/** 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/** 
 @param src 输入图像
 @param dst 输出图像
 @param ksize 模糊kernel大小
@@ -225,13 +225,13 @@ Smooth和Blur是opencv图像模糊的API，其背后的原理其实是数学的�
 blur( InputArray src, OutputArray dst,
                         Size ksize, Point anchor = Point(-1,-1),
                         int borderType = BORDER_DEFAULT );
-</code></pre></div>
+</code></pre></div></div>
 
 <h4 id="铠玩模糊">铠玩模糊</h4>
 
 <p><img src="https://upload-images.jianshu.io/upload_images/943491-9f839b59fc174f06.gif?imageMogr2/auto-orient/strip" alt="铠玩模糊" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>+ (UIImage *)blur:(UIImage *)image sizeX:(int)sizeX sizeY:(int)sizeY {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+ (UIImage *)blur:(UIImage *)image sizeX:(int)sizeX sizeY:(int)sizeY {
     Mat src;
     UIImageToMat(image, src);
     
@@ -270,7 +270,7 @@ class BlurViewController: UIViewController {
         resultImageView.image = image
     }
 }
-</code></pre></div>
+</code></pre></div></div>
 
 <h4 id="一些思考">一些思考</h4>
 
@@ -343,7 +343,7 @@ f(x)：概率
 
 <h4 id="均值与高斯哪家强">均值与高斯哪家强</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>@param sigmaX Gaussian kernel standard deviation in X direction.
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@param sigmaX Gaussian kernel standard deviation in X direction.
 @param sigmaY Gaussian kernel standard deviation in Y direction; if sigmaY is zero, it is set to be
 equal to sigmaX, if both sigmas are zeros, they are computed from ksize.width and ksize.height,
 respectively (see #getGaussianKernel for details); to fully control the result regardless of
@@ -356,8 +356,8 @@ sigmaX, and sigmaY.
 CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
                                 double sigmaX, double sigmaY = 0,
                                 int borderType = BORDER_DEFAULT );
-</code></pre></div>
-<div class="highlighter-rouge"><pre class="highlight"><code>+ (UIImage *)gaussianblur:(UIImage *)image sizeX:(int)sizeX sizeY:(int)sizeY {
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+ (UIImage *)gaussianblur:(UIImage *)image sizeX:(int)sizeX sizeY:(int)sizeY {
     Mat src;
     UIImageToMat(image, src);
     
@@ -368,7 +368,7 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
     
     return result;
 }
-</code></pre></div>
+</code></pre></div></div>
 
 <p><img src="https://upload-images.jianshu.io/upload_images/943491-fe8d7a23f71b0c53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="均值" /></p>
 
@@ -424,6 +424,12 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+        				
+                            
+                				<a href="/tags/#Policy" title="Policy" rel="1">
+                                    Policy
+                                </a>
+                            
         				
                             
                 				<a href="/tags/#iOS" title="iOS" rel="46">

@@ -243,45 +243,45 @@ QQ支持ARM32&amp;64所以可以看到两个Mach Header
 
 <p>dyld是<a href="https://github.com/opensource-apple/dyld">开源</a>的，下面我们就从代码的角度分析dyld。</p>
 
-<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="kt">uintptr_t</span>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">uintptr_t</span>
 <span class="nf">_main</span><span class="p">(</span><span class="k">const</span> <span class="n">macho_header</span><span class="o">*</span> <span class="n">mainExecutableMH</span><span class="p">,</span> <span class="kt">uintptr_t</span> <span class="n">mainExecutableSlide</span><span class="p">,</span> 
 		<span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[],</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">envp</span><span class="p">[],</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">apple</span><span class="p">[],</span> 
 		<span class="kt">uintptr_t</span><span class="o">*</span> <span class="n">startGlue</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="c1">//...
-</span>        <span class="c1">// 1.instantiate ImageLoader for main executable
-</span>       <span class="n">sMainExecutable</span> <span class="o">=</span> <span class="n">instantiateFromLoadedImage</span><span class="p">(</span><span class="n">mainExecutableMH</span><span class="p">,</span> <span class="n">mainExecutableSlide</span><span class="p">,</span> <span class="n">sExecPath</span><span class="p">);</span>
+        <span class="c1">//...</span>
+        <span class="c1">// 1.instantiate ImageLoader for main executable</span>
+       <span class="n">sMainExecutable</span> <span class="o">=</span> <span class="n">instantiateFromLoadedImage</span><span class="p">(</span><span class="n">mainExecutableMH</span><span class="p">,</span> <span class="n">mainExecutableSlide</span><span class="p">,</span> <span class="n">sExecPath</span><span class="p">);</span>
         <span class="p">...</span>
-        <span class="c1">// 2.load any inserted libraries
-</span>       <span class="k">if</span><span class="p">(</span> <span class="n">sEnv</span><span class="p">.</span><span class="n">DYLD_INSERT_LIBRARIES</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 2.load any inserted libraries</span>
+       <span class="k">if</span><span class="p">(</span> <span class="n">sEnv</span><span class="p">.</span><span class="n">DYLD_INSERT_LIBRARIES</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="p">)</span> <span class="p">{</span>
             <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="k">const</span><span class="o">*</span> <span class="n">lib</span> <span class="o">=</span> <span class="n">sEnv</span><span class="p">.</span><span class="n">DYLD_INSERT_LIBRARIES</span><span class="p">;</span> <span class="o">*</span><span class="n">lib</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">;</span> <span class="o">++</span><span class="n">lib</span><span class="p">)</span> 
             <span class="n">loadInsertedDylib</span><span class="p">(</span><span class="o">*</span><span class="n">lib</span><span class="p">);</span>
         <span class="p">}</span>
         <span class="p">...</span>
-       <span class="c1">//3.link main executable
-</span>        <span class="n">link</span><span class="p">(</span><span class="n">sMainExecutable</span><span class="p">,</span> <span class="n">sEnv</span><span class="p">.</span><span class="n">DYLD_BIND_AT_LAUNCH</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="n">ImageLoader</span><span class="o">::</span><span class="n">RPathChain</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">));</span>
+       <span class="c1">//3.link main executable</span>
+        <span class="n">link</span><span class="p">(</span><span class="n">sMainExecutable</span><span class="p">,</span> <span class="n">sEnv</span><span class="p">.</span><span class="n">DYLD_BIND_AT_LAUNCH</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="n">ImageLoader</span><span class="o">::</span><span class="n">RPathChain</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">));</span>
         <span class="p">...</span>
-       <span class="c1">//4. link any inserted libraries
-</span>       <span class="c1">// do this after linking main executable so that any dylibs pulled in by inserted 
-</span>       <span class="c1">// dylibs (e.g. libSystem) will not be in front of dylibs the program uses
-</span>       <span class="k">if</span> <span class="p">(</span> <span class="n">sInsertedDylibCount</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span> <span class="p">{</span>
+       <span class="c1">//4. link any inserted libraries</span>
+       <span class="c1">// do this after linking main executable so that any dylibs pulled in by inserted </span>
+       <span class="c1">// dylibs (e.g. libSystem) will not be in front of dylibs the program uses</span>
+       <span class="k">if</span> <span class="p">(</span> <span class="n">sInsertedDylibCount</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span> <span class="p">{</span>
             <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">sInsertedDylibCount</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
                 <span class="n">ImageLoader</span><span class="o">*</span> <span class="n">image</span> <span class="o">=</span> <span class="n">sAllImages</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
                 <span class="n">link</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">sEnv</span><span class="p">.</span><span class="n">DYLD_BIND_AT_LAUNCH</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="n">ImageLoader</span><span class="o">::</span><span class="n">RPathChain</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">));</span>
                 <span class="p">...</span>
        <span class="p">}</span>
         <span class="p">...</span>
-        <span class="c1">//5. run all initializers
-</span>        <span class="n">initializeMainExecutable</span><span class="p">();</span> 
+        <span class="c1">//5. run all initializers</span>
+        <span class="n">initializeMainExecutable</span><span class="p">();</span> 
         <span class="p">...</span>
 <span class="p">}</span>
 
-</code></pre></div>
+</code></pre></div></div>
 
 <h4 id="1-instantiatefromloadedimage">1. instantiateFromLoadedImage</h4>
 <p>dyld通过<strong>instantiateFromLoadedImage</strong>方法初始化<strong>ImageLoader</strong>并将我们<strong>可执行文件</strong>加载进内存,生成对应的image（镜像）。每个Mach-O 文件都会对应一个ImageLoader实例。ImageLoader是一个抽象类，每一种具体的Mach-O 文件都会继承 ImageLoader。在加载时会根据Mach-O的格式不同选择生成不用的实例(如：<strong>ImageLoaderMachOClassic</strong>、<strong>ImageLoaderMachOCompressed</strong>)。而<strong>sMainExecutable</strong>对应可执行文件，里面包含了我们项目中<strong>所有新建的类</strong>。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>//
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//
 // ImageLoader is an abstract base class.  To support loading a particular executable
 // file format, you make a concrete subclass of ImageLoader.
 //
@@ -310,13 +310,13 @@ public:
 	struct Symbol;  // abstact symbol
     ...
 }
-</code></pre></div>
+</code></pre></div></div>
 
 <p><img src="https://upload-images.jianshu.io/upload_images/943491-df21867ba98b660f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ImageLoader" /></p>
 
 <h4 id="2-loadinserteddylib">2. loadInsertedDylib</h4>
 <p>dyld通过<strong>loadInsertedDylib</strong>方法将插入的lib加载进内存,生成对应的image。</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>static void loadInsertedDylib(const char* path)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>static void loadInsertedDylib(const char* path)
 {
 	ImageLoader* image = NULL;
 	try {
@@ -336,7 +336,7 @@ public:
 	}
     ...
 }
-</code></pre></div>
+</code></pre></div></div>
 
 <h4 id="3-link-smainexecutable">3. link sMainExecutable</h4>
 <p>链接instantiateFromLoadedImage生成的Images。</p>
@@ -345,7 +345,7 @@ public:
 <p>链接loadInsertedDylib生成的Images。</p>
 
 <p><strong>Link</strong>操作其实是调用Imageloader的Link方法，负责对image进行load(加载)、UpdateDepth（更新深度）、rebase(基地址复位)、bind(外部符号绑定)等。</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>void link(ImageLoader* image, bool forceLazysBound, bool neverUnload, const ImageLoader::RPathChain&amp; loaderRPaths)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void link(ImageLoader* image, bool forceLazysBound, bool neverUnload, const ImageLoader::RPathChain&amp; loaderRPaths)
 {        
     ...
 	// process images
@@ -354,9 +354,9 @@ public:
 	}
     ...
 }
-</code></pre></div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>void ImageLoader::link(const LinkContext&amp; context, bool forceLazysBound, bool preflightOnly, bool neverUnload, const RPathChain&amp; loaderRPaths)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void ImageLoader::link(const LinkContext&amp; context, bool forceLazysBound, bool preflightOnly, bool neverUnload, const RPathChain&amp; loaderRPaths)
 {
     ...
 	this-&gt;recursiveLoadLibraries(context, preflightOnly, loaderRPaths);
@@ -370,12 +370,12 @@ public:
 	this-&gt;recursiveGetDOFSections(context, dofs);
     ...
 }
-</code></pre></div>
+</code></pre></div></div>
 
 <h5 id="recursiveloadlibraries">recursiveLoadLibraries</h5>
 <p>递归加载依赖的动态链接库。
 可以使用<strong>otool -L 二进制文件路径</strong>来列出程序的动态链接库。</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>cenghaihandeMacBook-Pro:QQ.app catchzeng$ otool -L QQ
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cenghaihandeMacBook-Pro:QQ.app catchzeng$ otool -L QQ
 QQ (architecture armv7):
 	@rpath/TlibDy.framework/TlibDy (compatibility version 1.0.0, current version 1.0.0)
 	@rpath/QQMainProject.framework/QQMainProject (compatibility version 1.0.0, current version 1.0.0)
@@ -388,7 +388,7 @@ QQ (architecture armv7):
 	/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)
 	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1252.0.0)
     ...
-</code></pre></div>
+</code></pre></div></div>
 <p>UIKit 、Foundation、CFNetwork 等框架相信大家已经很熟悉了。而其中的libobjc.A.dylib 包含 runtime，libSystem.B.dylib 则包含像 libdispatch、libsystem_c 等系统级别的库，二者都是被默认添加到程序中的。由于动态链接库本身还可能依赖其他动态链接库，所以整个加载过程是递归进行的，以下几个操作同理都是<strong>递归</strong>的。</p>
 
 <h5 id="recursiverebase">recursiveRebase</h5>
@@ -403,7 +403,7 @@ QQ (architecture armv7):
 这里可以利用环境变量<strong>DYLD_PRINT_INITIALIZERS=1</strong>来打印出程序的各种依赖库的initializer方法：
 <img src="https://upload-images.jianshu.io/upload_images/943491-a932419f6b8d3e9b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DYLD_PRINT_INITIALIZERS" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>dyld: calling initializer function 0x103c5f9fe in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/lib/libSystem.dylib
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dyld: calling initializer function 0x103c5f9fe in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/lib/libSystem.dylib
 dyld: calling -init function 0x10278a3c6 in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/lib/libBacktraceRecording.dylib
 dyld: calling initializer function 0x1068e4d91 in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/lib/libc++.1.dylib
 dyld: calling -init function 0x107ba0f80 in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation
@@ -417,10 +417,10 @@ dyld: calling initializer function 0x107456551 in /Applications/Xcode.app/Conten
 dyld: calling initializer function 0x1076189b3 in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/CFNetwork.framework/CFNetwork
 dyld: calling initializer function 0x102f3b5e1 in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/Foundation.framework/Foundation
 dyld: calling -init function 0x1027c11c3 in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/lib/libMainThreadChecker.dylib
-</code></pre></div>
+</code></pre></div></div>
 <p>这里最开始调用的libSystem.dylib的initializer比较特殊，因为runtime初始化就在这一阶段。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>/*
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/*
  * libsyscall_initializer() initializes all of libSystem.dylib &lt;rdar://problem/4892197&gt;
  */
 static __attribute__((constructor)) 
@@ -455,7 +455,7 @@ void libSystem_initializer(int argc, const char* argv[], const char* envp[], con
 	 */
 	errno = 0;
 }
-</code></pre></div>
+</code></pre></div></div>
 <p>libdispatch_init初始化会调用runtime的_objc_init初始化方法，这里我们利用符号断点调试可以看到程序的调用栈，也能验证以上的过程。</p>
 
 <p><img src="https://upload-images.jianshu.io/upload_images/943491-f47c66ed03d820d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="符号断点" /></p>
@@ -465,12 +465,12 @@ void libSystem_initializer(int argc, const char* argv[], const char* envp[], con
 <h2 id="main">Main</h2>
 <p>当所有的依赖库库的lnitializer都调用完后，dyld的main函数会返回程序的main函数地址，main函数被调用。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>int main(int argc, char * argv[]) {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int main(int argc, char * argv[]) {
     @autoreleasepool {
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 }
-</code></pre></div>
+</code></pre></div></div>
 <p><a href="https://developer.apple.com/documentation/uikit/1622933-uiapplicationmain?language=occ">UIApplicationMain</a>，它主要是创建了一个application对象和设置事件循环（autoreleasepool）。至此程序便开始运行。</p>
 
 <h2 id="总结">总结</h2>
@@ -520,6 +520,12 @@ void libSystem_initializer(int argc, const char* argv[], const char* envp[], con
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+        				
+                            
+                				<a href="/tags/#Policy" title="Policy" rel="1">
+                                    Policy
+                                </a>
+                            
         				
                             
                 				<a href="/tags/#iOS" title="iOS" rel="46">

@@ -214,7 +214,7 @@ Demo中使用3D来构建，所以选择Scenekit</li>
 <h2 id="项目分析">项目分析</h2>
 <p><img src="http://upload-images.jianshu.io/upload_images/943491-d8ebceb7a8e3c15d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="项目结构" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>//在界面上创建ARSCNView，用于展示AR
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//在界面上创建ARSCNView，用于展示AR
 @IBOutlet var sceneView: ARSCNView!
 
 override func viewDidLoad() {
@@ -249,7 +249,7 @@ super.viewWillDisappear(animated)
 // 暂停session
 sceneView.session.pause()
 }
-</code></pre></div>
+</code></pre></div></div>
 <p>通过代码分析可以发现，在ARKit中主要有几个类</p>
 
 <p><a href="https://developer.apple.com/documentation/arkit/arscnview">ARSCNView</a>：一种显示AR体验的视图，它通过3D SceneKit内容增强了相机视图</p>
@@ -308,6 +308,12 @@ sceneView.session.pause()
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+        				
+                            
+                				<a href="/tags/#Policy" title="Policy" rel="1">
+                                    Policy
+                                </a>
+                            
         				
                             
                 				<a href="/tags/#iOS" title="iOS" rel="46">

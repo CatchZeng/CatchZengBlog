@@ -181,24 +181,24 @@
 
 <p>2.clone仓库</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>git clone https://gitlab.com/mygroup/myproject.git
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://gitlab.com/mygroup/myproject.git
+</code></pre></div></div>
 
 <p>3.npm  init</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>npm init --scope=mygroup
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm init --scope=mygroup
+</code></pre></div></div>
 <p>4.push到仓库即可</p>
 
 <p>5.安装</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>"@mygroup/myproject": "https://gitlab.com/mygroup/myproject.git"
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"@mygroup/myproject": "https://gitlab.com/mygroup/myproject.git"
+</code></pre></div></div>
 
 <p>6.使用</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>var myproject = require('@mygroup/myproject');
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var myproject = require('@mygroup/myproject');
+</code></pre></div></div>
 
 <h5 id="优缺点">优缺点</h5>
 
@@ -226,38 +226,38 @@
 
 <p>1.安装<a href="https://www.verdaccio.org">verdaccio</a></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>npm install --global verdaccio 
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install --global verdaccio 
+</code></pre></div></div>
 
 <p>2.启动服务</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>verdaccio
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>verdaccio
+</code></pre></div></div>
 
 <p>3.团队人员都绑定registry</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>npm set registry http://verdaccio托管的ip地址:4873
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm set registry http://verdaccio托管的ip地址:4873
+</code></pre></div></div>
 
 <p>4.增加用户</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>npm adduser --registry http://verdaccio托管的ip地址:4873
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm adduser --registry http://verdaccio托管的ip地址:4873
+</code></pre></div></div>
 
 <p>5.发布私有库</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>npm publish --registry http://verdaccio托管的ip地址:4873
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm publish --registry http://verdaccio托管的ip地址:4873
+</code></pre></div></div>
 
 <p>6.安装私有库</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>npm i 私有库名称
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i 私有库名称
+</code></pre></div></div>
 
 <p>7.使用私有库</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>var 私有库名称 = require('私有库名称');
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var 私有库名称 = require('私有库名称');
+</code></pre></div></div>
 
 <h5 id="优缺点-2">优缺点</h5>
 
@@ -269,17 +269,17 @@
 
 <p>安装</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>npm install -g nrm
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install -g nrm
+</code></pre></div></div>
 
 <p>增加私有源</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>nrm add 私有源名称 http://verdaccio托管的ip地址:4873
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nrm add 私有源名称 http://verdaccio托管的ip地址:4873
+</code></pre></div></div>
 
 <p>列出所有源（*表示现在正在使用的源）</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ nrm ls
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ nrm ls
 
 * npm ---- https://registry.npmjs.org/
   cnpm --- http://r.cnpmjs.org/
@@ -288,13 +288,13 @@
   sl ----- http://npm.strongloop.com/
   nj ----- https://registry.nodejitsu.com/
 私有源名称  http://verdaccio托管的ip地址:4873
-</code></pre></div>
+</code></pre></div></div>
 
 <p>切换源</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ nrm use 自定义私有库名称
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ nrm use 自定义私有库名称
    Registry has been set to: http://verdaccio托管的ip地址:4873
-</code></pre></div>
+</code></pre></div></div>
 
 <h2 id="三总结">三、总结</h2>
 
@@ -344,6 +344,12 @@
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+        				
+                            
+                				<a href="/tags/#Policy" title="Policy" rel="1">
+                                    Policy
+                                </a>
+                            
         				
                             
                 				<a href="/tags/#iOS" title="iOS" rel="46">

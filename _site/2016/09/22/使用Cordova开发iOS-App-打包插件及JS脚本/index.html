@@ -179,7 +179,7 @@
 <h3 id="二编写js代码">二、编写JS代码</h3>
 <p>编写testPlugin.js，向外部暴露testModel的testPlugin方法，这便是前端人员需要调用的接口。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>var exec = require("cordova/exec");
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var exec = require("cordova/exec");
 
 function TestModel() {};
 
@@ -190,12 +190,12 @@ TestModel.prototype.testPlugin = function (success,fail,option) {
 var testModel = new TestModel();
 module.exports = testModel;
 
-</code></pre></div>
+</code></pre></div></div>
 
 <h3 id="三配置pluginxml文件">三、配置plugin.xml文件</h3>
 <p>配置plugin.xml 就是为了告诉cordova我们的文件路径在哪,我们的oc类名是什么,oc对象名是什么,js类名及js对象名是什么等信息。这样cordova在安装插件时,才能找到正确的插件文件。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
 <span class="nt">&lt;plugin</span> <span class="na">xmlns=</span><span class="s">"http://phonegap.com/ns/plugins/1.0"</span>
     <span class="na">id=</span><span class="s">"com.catchzeng.testplugin"</span>
     <span class="na">version=</span><span class="s">"1.0.0"</span><span class="nt">&gt;</span>
@@ -226,7 +226,7 @@ module.exports = testModel;
         <span class="nt">&lt;/config-file&gt;</span>
     <span class="nt">&lt;/platform&gt;</span>
 <span class="nt">&lt;/plugin&gt;</span>
-</code></pre></div>
+</code></pre></div></div>
 <p>参数说明：</p>
 
 <p><code class="highlighter-rouge">id="com.catchzeng.testplugin"</code> ：插件id必须与文件夹名称相同</p>
@@ -249,14 +249,14 @@ module.exports = testModel;
 添加插件到测试项目
 </code></pre>
 <p>cordova plugin add  xxxxxx</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 ![Plugins](/img/in-post/post-cordova3/4.png)
 
 修改工程项目的index.html
 
 ![Plugins](/img/in-post/post-cordova3/5.png)
 
-</code></pre></div>
+</code></pre></div></div>
 <p>&lt;!DOCTYPE html&gt;</p>
 <html>
     <head>
@@ -343,6 +343,12 @@ module.exports = testModel;
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+        				
+                            
+                				<a href="/tags/#Policy" title="Policy" rel="1">
+                                    Policy
+                                </a>
+                            
         				
                             
                 				<a href="/tags/#iOS" title="iOS" rel="46">

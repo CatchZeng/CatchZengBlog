@@ -10,9 +10,9 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>聊聊设计模式原则（三） -- 依赖倒置原则 - CatchZeng的技术博客 | CatchZeng's Blog</title>
+    <title>Privacy Policy - CatchZeng的技术博客 | CatchZeng's Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/2018/06/01/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%89-%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E5%8E%9F%E5%88%99/">
+    <link rel="canonical" href="http://localhost:4000/2015/10/09/Privacy-Policy/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css ">
@@ -139,15 +139,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#设计模式" title="设计模式">设计模式</a>
+                        <a class="tag" href="/tags/#Policy" title="Policy">Policy</a>
                         
                     </div>
-                    <h1>聊聊设计模式原则（三） -- 依赖倒置原则</h1>
+                    <h1>Privacy Policy</h1>
                     
                     
-                    <h2 class="subheading">设计模式</h2>
+                    <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by CatchZeng on June 1, 2018</span>
+                    <span class="meta">Posted by CatchZeng on October 9, 2015</span>
                 </div>
             </div>
         </div>
@@ -167,201 +167,33 @@
 
 				<p><span id="busuanzi_container_page_pv"></span></p>
 
-<h2 id="目录">目录</h2>
+<h2 id="privacy-policy">PRIVACY POLICY</h2>
 
-<ul>
-  <li><a href="http://catchzeng.com/2017/02/19/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%80-%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99/">聊聊设计模式原则（一） – 单一职责原则</a></li>
-  <li><a href="http://catchzeng.com/2017/05/04/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%BA%8C-%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99/">聊聊设计模式原则（二） – 接口隔离原则</a></li>
-  <li><a href="http://catchzeng.com/2018/06/01/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%89-%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E5%8E%9F%E5%88%99/">聊聊设计模式原则（三） – 依赖倒置原则</a></li>
-</ul>
+<p>We do not collect and save from your social account in any form or sell any information to advertisers or other operators.</p>
 
-<h1 id="依赖倒置原则dip-dependence-inversion-principle">依赖倒置原则（DIP ：Dependence Inversion Principle）</h1>
+<h3 id="personal-information">Personal information</h3>
 
-<h2 id="定义">定义</h2>
+<p>When you share information through social accounts may be asked to enter the account and password, but that information is management by iOS system. App does not save account and password in any form or collect and save any personal information in any form on your social account.</p>
 
-<ul>
-  <li>高层模块不应该依赖低层模块，二者都应该依赖其抽象；</li>
-  <li>抽象不应该依赖细节；</li>
-  <li>细节应该依赖抽象。</li>
-</ul>
+<h3 id="privacy-policy-terms">Privacy Policy Terms</h3>
 
-<h5 id="也就是说高层模块低层模块细节都应该依赖抽象">也就是说高层模块，低层模块，细节都应该依赖抽象</h5>
+<p>Use this App mean you agree to the terms and conditions of this Privacy Policy. If you do not agree to this policy, please do not use this App. We reserve the right, in our decision to change, modify, add or remove portions of this policy at any time. Please check this page periodically for any changes. Publish any changes to these terms if you continue to use our App future will mean that you have accepted these adjustments.</p>
 
-<h2 id="由来">由来</h2>
+<p>E-Mail : catchzenghh@gmail.com</p>
 
-<p>类A直接依赖类B，假如要将类B改为类C，则必须通过修改类A的代码来达成。
-类A一般是高层模块，负责复杂的业务逻辑。
-类B和类C是低层模块，负责基本的原子操作。
-修改类A，会给程序带来不必要的风险。</p>
+<h2 id="隐私政策">隐私政策</h2>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-10ce9ac0558a6d77.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="由来" /></p>
+<p>我們不會收集及以任何形式儲存來自你社交網路的任何資訊或銷售給廣告或其它營運機構。</p>
 
-<h2 id="解决方案">解决方案</h2>
-<p>将类A修改为依赖接口I，类B和类C各自实现接口I，类A通过接口I间接与类B或者类C发生联系，则会大大降低修改类A的几率。</p>
+<h3 id="个人信息">个人信息</h3>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-9826ba438ef18ed9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="解决方案" /></p>
+<p>當你透過社交網路進行分享時，可能會要求輸入帳號密碼，但該資訊由 iOS 系統管理，App 不會以任何形式儲存帳號密碼，也不會收集及以任何形式儲存您在社交網路上的任何個人資訊。</p>
 
-<h2 id="优点">优点</h2>
-<p>依赖倒置原则可以减少类间的耦合性，提高系统的稳定，降低并行开发引起的风险，提高代码的可读性和可维护性。</p>
+<h3 id="隐私政策条款">隐私政策条款</h3>
 
-<h2 id="思考">思考</h2>
+<p>使用本 App 即表示您同意此隱私政策的條款和條件。如果您不同意本政策，請不要使用該 App。我們保留權利，在我們決定更改，修改，增加或刪除本政策的部分，在任何時候。請定期瀏覽此網頁查閱任何修改。如果您繼續使用我們的 App 以後的任何更改這些條款的發布將意味著你已經接受了這些調整。</p>
 
-<h4 id="1依赖倒置原则跟面向接口编程是什么关系">1.依赖倒置原则跟面向接口编程是什么关系？</h4>
-<p>依赖倒置原则的核心思想就是面向接口编程</p>
-
-<h4 id="2什么是细节什么是抽象他们有什么区别">2.什么是细节？什么是抽象？他们有什么区别？</h4>
-
-<p>所谓细节就是较为具体的东西，比如具体的类，就如上面的类B与类C，有具体的实现。</p>
-
-<p>所谓抽象就是具有<strong>契约性、共同性、规范性的表达</strong>，比如上面的接口I。它表达了一种契约–你需要实现funcA和funcB才能被当成I来对待。</p>
-
-<p><strong>相对于细节的多变性，抽象的东西要稳定的多。</strong>
-以上面的类ABC作为例子，B、C类都属于细节，如果A直接依赖B或者C，那么B或C的改动有可能就会影响到A的稳定性。同样的，A对B或者C的操作也有可能影响到B或C的稳定性。这些互相影响，其实来源于直接的依赖，导致B或C的细节暴露过多。而面对抽象的接口I，A只能操作funA和funcB，从而避免了不必要的暴露和风险。</p>
-
-<p><strong>以抽象为基础搭建起来的架构比以细节为基础搭建起来的架构要稳定的多。</strong>
-稳定性表现在规范性、契约性、易修改性、扩展性、可维护性等。</p>
-
-<h2 id="来个栗子">来个栗子</h2>
-<p>小明（程序员）接到小李（产品经理）的需求：
-客户端开始的时候打个“开始”的log。
-小明心想简单，一下子完成了代码</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class Logger {
-    func log(_ text: String) {
-        print(text)
-    }
-}
-
-public class Client {
-    public var logger: Logger?
-
-    func start() {
-        logger?.log("开始")
-    }
-}
-
-let client = Client()
-let logger = Logger()
-client.logger = logger
-
-client.start()
-</code></pre></div></div>
-<p>这个时候，小李突然说，要把log变成存到文件的形式。
-小明想了下，有点不情愿地改了代码（因为要改好几个地方）</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class FileLogger { //修改1
-    func log(_ text: String) {
-        writeTofile(text) //修改2
-    }
-    
-    func start() {
-        print("开始")
-    }
-}
-
-public class Client {
-    public var logger: FileLogger? //修改3
-
-    func start() {
-        logger.start()
-        logger?.log("开始")
-    }
-}
-
-let client = Client()
-let logger = FileLogger() //修改4
-client.logger = logger
-
-client.start()
-</code></pre></div></div>
-<p>小李想了想现在是互联网时代，还是直接将log信息传到网络上吧。
-这个时候，小明非常不情愿地说了声“你不早说”，但还是改了代码(又是好几处改动)</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class WebLogger { //修改1
-    func log(_ text: String) {
-        writeToWeb(text) //修改2
-    }
-}
-
-public class Client {
-    public var logger: WebLogger? //修改3
-
-    func start() {
-        logger?.log("开始")
-    }
-}
-
-let client = Client()
-let logger = WebLogger() //修改4
-client.logger = logger
-
-client.start()
-</code></pre></div></div>
-<p>这时，小明的老大小华看到小明不开心，便过来帮忙，改了下代码</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>protocol Logger {
-    func log(_ text: String)
-}
-
-public class WebLogger: Logger {
-    func log(_ text: String) {
-        writeToWeb(text) 
-    }
-}
-
-public class FileLogger: Logger {
-    func log(_ text: String) {
-        writeTofile(text) 
-    }
-}
-
-public class PrintLogger: Logger {
-    func log(_ text: String) {
-        print(text)
-    }
-}
-
-public class Client {
-    public var logger: Logger? 
-
-    func start() {
-        logger?.log("开始")
-    }
-}
-
-let client = Client()
-let logger = WebLogger()
-client.logger = logger
-
-client.start()
-</code></pre></div></div>
-<p>小华对小明说，现在不用怕了，小李想什么样的log你改一下实现类就行了</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let logger = WebLogger() // PrintLogger()  FileLogger()
-</code></pre></div></div>
-
-<p>小华的改动其实就是利用了依赖倒置原则，增强了易修改性、扩展性、可维护性等。
-细心的朋友其实还发现了，在改成FileLogger的时候，Client多余地调用了FileLogger的start方法。这就是依赖细节，暴露细节，引起的问题。而使用抽象的接口就能较好地避免这类问题。</p>
-
-<h2 id="注意点">注意点</h2>
-
-<ul>
-  <li>分清细节与抽象</li>
-</ul>
-
-<p>虽然依赖倒置原则有很大的好处，但也不是所有的类都需要有抽象一个接口去对应，要视情况而定。</p>
-
-<ul>
-  <li>变量的声明类型尽量是抽象类或接口</li>
-</ul>
-
-<p>注意是尽量，而不是全部。</p>
-
-<ul>
-  <li>尽量不要覆写基类的方法</li>
-</ul>
-
-<p>如果基类是一个抽象类，而这个方法已经实现了，子类尽量不要覆写。类间依赖的是抽象，覆写了抽象方法，对依赖的稳定性会有一定的影响。</p>
-
-<ul>
-  <li>继承要遵循里氏替换原则</li>
-</ul>
+<p>联络信箱: catchzenghh@gmail.com</p>
 
 
                 <hr>
@@ -371,13 +203,9 @@ client.start()
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2018/05/22/%E5%9B%A2%E9%98%9F%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E7%A7%81%E6%9C%89npm/" data-toggle="tooltip" data-placement="top" title="团队需要一个私有npm">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/2018/06/12/Learning-OpenCV-with-iOS-Hello-OpenCV/" data-toggle="tooltip" data-placement="top" title="Learning OpenCV with iOS：Hello OpenCV">Next Post &rarr;</a>
+                        <a href="/2015/10/26/AppStore%E4%B8%8A%E6%9E%B6%E9%97%AE%E9%A2%98ERROR-ITMS-90049/" data-toggle="tooltip" data-placement="top" title="AppStore上架问题ERROR ITMS-90049">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -499,8 +327,8 @@ client.start()
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "catchzeng";
-    var disqus_identifier = "/2018/06/01/聊聊设计模式原则（三） -- 依赖倒置原则";
-    var disqus_url = "http://localhost:4000/2018/06/01/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%B8%89-%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E5%8E%9F%E5%88%99/";
+    var disqus_identifier = "/2015/10/09/Privacy Policy";
+    var disqus_url = "http://localhost:4000/2015/10/09/Privacy-Policy/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

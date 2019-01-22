@@ -181,25 +181,25 @@
 
 <h4 id="mat基础操作">Mat基础操作</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Mat image = Mat(240, 320, CV_8UC3);
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mat image = Mat(240, 320, CV_8UC3);
+</code></pre></div></div>
 <p>第一个参数是rows，该矩阵的行数；第二个参数是cols，该矩阵的列数；第三个参数是该矩阵元素的类型。这句话表示创建一个大小为240×320的矩阵，里面的元素为8位unsigned型，通道数(channel)有3个。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>image.create(480, 640, CV_8UC3);
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>image.create(480, 640, CV_8UC3);
+</code></pre></div></div>
 <p>分配（或重新分配）image矩阵，把大小设为480×640，类型设为CV8UC3。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Mat image = Mat(3, 3, CV_32F, Scalar(5));
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mat image = Mat(3, 3, CV_32F, Scalar(5));
+</code></pre></div></div>
 <p>定义并初始化一个3×3的32bit浮点数矩阵，每个元素都设为5。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>uchar* ptr = image.ptr(row);
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uchar* ptr = image.ptr(row);
+</code></pre></div></div>
 <p>指针操作，表示拿到image第row行的指针</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>uchar* output = image.ptr(row);
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uchar* output = image.ptr(row);
 output[1] = value;
-</code></pre></div>
+</code></pre></div></div>
 <p>利用指针修改图像，表示修改image第row行的第2个数据为value。</p>
 
 <h4 id="mat常用成员介绍">Mat常用成员介绍</h4>
@@ -254,7 +254,7 @@ output[1] = value;
 <p><img src="https://upload-images.jianshu.io/upload_images/943491-b7718fa0c6ef972f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="铠" /></p>
 
 <p>接下来我们以代码角度分析下究竟什么是掩膜。</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>    // image为铠的图片
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    // image为铠的图片
     Mat src;
     UIImageToMat(image, src);
     
@@ -264,19 +264,19 @@ output[1] = value;
     
     Mat dst;
     src.copyTo(dst, mask);
-</code></pre></div>
+</code></pre></div></div>
 
 <p>第一步建立与原图一样大小的mask图像，并将所有像素初始化为0，因此全图成了一张全黑色图。
 第二步将mask图中的r区域的所有像素值设置为255,也就是整个r区域变成了白色。</p>
-<div class="highlighter-rouge"><pre class="highlight"><code> Mat mask = Mat::zeros(src.size(), CV_8UC1);
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> Mat mask = Mat::zeros(src.size(), CV_8UC1);
  mask(r).setTo(255);
-</code></pre></div>
+</code></pre></div></div>
 
 <p><img src="https://upload-images.jianshu.io/upload_images/943491-9c82240d29373e2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="mask图片" /></p>
 
 <p>使用mask将原始图src拷贝到目的图dst上。</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>src.copyTo(dst, mask);
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>src.copyTo(dst, mask);
+</code></pre></div></div>
 
 <p>这个拷贝的动作完整版本是这样的：</p>
 
@@ -296,8 +296,8 @@ output[1] = value;
 
 <p>矩阵的掩膜操作就是根据掩膜来重新计算每个像素的像素值，掩膜(mask)也被称为kernel。
 通过掩膜操作实现图像对比度提高的公式如下。</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>I(i,j) = 5*I(i,j) - [I(i-1,j) + I(i+1,j) + I(i,j-1) + I(i,j+1)]
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>I(i,j) = 5*I(i,j) - [I(i-1,j) + I(i+1,j) + I(i,j-1) + I(i,j+1)]
+</code></pre></div></div>
 <p>注：这里看不懂不要紧，先看具体的实现，回头我们再一起回顾这里。</p>
 
 <p>上面的公式，转换成矩阵就如下图所示</p>
@@ -309,7 +309,7 @@ output[1] = value;
 <p><img src="https://upload-images.jianshu.io/upload_images/943491-a5ba14b90afb4f08.gif?imageMogr2/auto-orient/strip" alt="kernel" /></p>
 
 <p>具体的代码如下：</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>    // image为铠的图片
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    // image为铠的图片
     Mat src;
     UIImageToMat(image, src);
     
@@ -335,14 +335,14 @@ saturate_cast&lt;uchar&gt;(288)，返回255
 saturate_cast&lt;uchar&gt;(100)，返回100
 这个函数的功能是确保RGB值范围在0~255之间。
 */
-</code></pre></div>
+</code></pre></div></div>
 
 <p>效果
 <img src="https://upload-images.jianshu.io/upload_images/943491-74296305be0931e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="增强对比度" /></p>
 
 <p>接下来我们来回顾下上面的那个公式</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>I(i,j) = 5*I(i,j) - [I(i-1,j) + I(i+1,j) + I(i,j-1) + I(i,j+1)]
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>I(i,j) = 5*I(i,j) - [I(i-1,j) + I(i+1,j) + I(i,j-1) + I(i,j+1)]
+</code></pre></div></div>
 <p>其实这个公式就是5倍的中心像素减去周边的四个像素之和。
 我们举两个例子来看下这个公式的结果。</p>
 
@@ -355,18 +355,18 @@ saturate_cast&lt;uchar&gt;(100)，返回100
 
 <p>大家会发现这样做掩膜操作也太麻烦了。这个时候我们就找OpenCV来帮个忙，看看它是怎么实现的。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    Mat src;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Mat src;
     UIImageToMat(image, src);
     
     Mat dst;
     Mat kernel = (Mat_&lt;char&gt;(3, 3) &lt;&lt; 0, -1, 0, -1, 5, -1, 0, -1, 0);
     filter2D(src, dst, src.depth(), kernel);
-</code></pre></div>
+</code></pre></div></div>
 <p>一个filter2D搞定！定义如下：</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>void filter2D( InputArray src, OutputArray dst, int ddepth,
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void filter2D( InputArray src, OutputArray dst, int ddepth,
                             InputArray kernel, Point anchor=Point(-1,-1),
                             double delta=0, int borderType=BORDER_DEFAULT );
-</code></pre></div>
+</code></pre></div></div>
 <p>其中src与dst是Mat类型变量、depth表示位图深度，有32、24、8等。</p>
 
 <h2 id="四小结">四、小结</h2>
@@ -417,6 +417,12 @@ saturate_cast&lt;uchar&gt;(100)，返回100
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+        				
+                            
+                				<a href="/tags/#Policy" title="Policy" rel="1">
+                                    Policy
+                                </a>
+                            
         				
                             
                 				<a href="/tags/#iOS" title="iOS" rel="46">

@@ -226,14 +226,14 @@
 
 <p>OpenCV提供了中值滤波的API</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>/** 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/** 
 @param ksize aperture linear size; it must be odd and greater than 1, for example: 3, 5, 7 ...
  */
 void medianBlur( InputArray src, OutputArray dst, int ksize );
-</code></pre></div>
+</code></pre></div></div>
 <p><strong>注意：ksize必须是奇数</strong></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>+ (UIImage *)medianBlur:(UIImage *)image size:(int)size {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+ (UIImage *)medianBlur:(UIImage *)image size:(int)size {
     Mat src;
     UIImageToMat(image, src);
     
@@ -258,7 +258,7 @@ class NolinearBlurViewController: UIViewController {
         resultImageView.image = OpenCV.medianBlur(self.image, size: Int32(Int(sender.value)))
     }
 }
-</code></pre></div>
+</code></pre></div></div>
 
 <h4 id="一些思考">一些思考</h4>
 
@@ -327,7 +327,7 @@ class NolinearBlurViewController: UIViewController {
 
 <p>OpenCV提供了双边滤波的API</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>/** 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/** 
 _Sigma values_: 为了简单起见，可以将2 Sigma值设置为相同。
 如果它们很小（&lt;10）滤波器不会有太大的效果。
 如果它们很大（＞150），它们将具有非常强烈的效果，使图像看起来“卡通化”。
@@ -344,9 +344,9 @@ _Filter size_: 大的滤波器（D&gt; 5）非常慢，因此建议在进行实�
 void bilateralFilter( InputArray src, OutputArray dst, int d,
                                    double sigmaColor, double sigmaSpace,
                                    int borderType = BORDER_DEFAULT );
-</code></pre></div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>+ (UIImage *)bilateralFilter:(UIImage *)image
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+ (UIImage *)bilateralFilter:(UIImage *)image
                            d:(int)d
                   sigmaColor:(double)sigmaColor
                   sigmaSpace:(double)sigmaSpace {
@@ -403,7 +403,7 @@ class BilateralFilterViewController: UIViewController {
         resultImageView.image = OpenCV.bilateralFilter(imageView.image, d: d, sigmaColor: color, sigmaSpace: space)
     }
 }
-</code></pre></div>
+</code></pre></div></div>
 
 <h4 id="小小经验">小小经验</h4>
 
@@ -411,10 +411,10 @@ class BilateralFilterViewController: UIViewController {
 
 <ul>
   <li>使用OpenCV API时可以先看下<strong>API的注释文档</strong>，比如在双边滤波的注释文档中对Sigma的取值做了说明。这些值一般都是<strong>经验值</strong>。
-    <div class="highlighter-rouge"><pre class="highlight"><code>_Sigma values_: 为了简单起见，可以将2 Sigma值设置为相同。
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>_Sigma values_: 为了简单起见，可以将2 Sigma值设置为相同。
 如果它们很小（&lt;10）滤波器不会有太大的效果。
 如果它们很大（＞150），它们将具有非常强烈的效果，使图像看起来“卡通化”。
-</code></pre>    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>使用<strong>滑竿</strong>帮助快速调节参数，观察效果。</p>
@@ -470,6 +470,12 @@ class BilateralFilterViewController: UIViewController {
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+        				
+                            
+                				<a href="/tags/#Policy" title="Policy" rel="1">
+                                    Policy
+                                </a>
+                            
         				
                             
                 				<a href="/tags/#iOS" title="iOS" rel="46">

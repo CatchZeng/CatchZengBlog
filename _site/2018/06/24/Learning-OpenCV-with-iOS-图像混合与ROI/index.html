@@ -177,7 +177,7 @@
 
 <p>要叠加两张图片，可以将Mat直接相加，相加两幅图片的形状（高度/宽度/通道数）必须相同。但这样的效果不一定是你想要的。我们来看一个例子。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    Mat src;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Mat src;
     Mat src2;
     UIImageToMat(image, src);
     UIImageToMat(image2, src2);
@@ -186,19 +186,19 @@
     dst = src + src2;
     
     UIImage* result = MatToUIImage(dst);
-</code></pre></div>
+</code></pre></div></div>
 
 <p><img src="https://upload-images.jianshu.io/upload_images/943491-b142c05656998fc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片相加" /></p>
 
 <h2 id="三线性混合">三、线性混合</h2>
 <p>图像混合其实也是一种图片相加的操作，只不过两幅图片的<strong>权重</strong>不一样。</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>g(x) = α*f0(x) + β*f1(x)
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>g(x) = α*f0(x) + β*f1(x)
+</code></pre></div></div>
 <p>OpenCV处理图像混合主要是根据线性混合函数，通过在0到1范围内改变α的值，使两幅图像或者视频产生在时间上的画面叠化得效果。实际上α和β的和不一定为1，只是为了防止图像出现过饱和的现象。</p>
 
 <p>OpenCV的<strong>addWeighted</strong>函数便是对应线性混合操作。这个函数的作用是，计算两个图像的<strong>加权和</strong>。</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>void addWeighted(InputArray src1, double alpha, InputArray src2, double beta, double gamma, OutputArray dst, int dtype=-1);
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void addWeighted(InputArray src1, double alpha, InputArray src2, double beta, double gamma, OutputArray dst, int dtype=-1);
+</code></pre></div></div>
 <ul>
   <li>src1：需要加权的第一个数组，常常填一个Mat对象。</li>
   <li>alpha：第一个数组的权重值，0~1之间。</li>
@@ -213,7 +213,7 @@
 
 <p><img src="https://upload-images.jianshu.io/upload_images/943491-bc97e432a0639f99.gif?imageMogr2/auto-orient/strip" alt="图像混合" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>+ (UIImage *)addWeighted:(UIImage *)image image2:(UIImage *)image2 alpha:(double)alpha gamma:(double)gamma {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+ (UIImage *)addWeighted:(UIImage *)image image2:(UIImage *)image2 alpha:(double)alpha gamma:(double)gamma {
     Mat src;
     Mat src2;
     UIImageToMat(image, src);
@@ -244,7 +244,7 @@ class MixViewController: UIViewController {
         resultImageView.image = OpenCV.addWeighted(ake, image2: houyi, alpha: alpha, gamma: (1.0 - alpha))
     }
 }
-</code></pre></div>
+</code></pre></div></div>
 
 <h4 id="一些思考">一些思考</h4>
 
@@ -253,14 +253,14 @@ class MixViewController: UIViewController {
 </ul>
 
 <p>可以这样简单理解：像素值范围为0~255，两张图的Mat直接相加，就是每个像素点的值相加，这样容易出现像素值较大的像素，像素“越大越白”，这样就出现了图像过曝的现象。而线性混合则是加上了权重，保证了像素值不至于过大，这样就不会出现过曝现象。以公式来说明就是</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>//相加
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//相加
 g(x) = 1*f0(x) + 1*f1(x)
 
 //线性混合
 g(x) = α*f0(x) + β*f1(x)
-</code></pre></div>
+</code></pre></div></div>
 <p>即<strong>相加操作相当于α和β都等于1的线性混合</strong>。</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 class MixViewController: UIViewController {
 
     @IBOutlet weak var resultImageView: UIImageView!
@@ -273,7 +273,7 @@ class MixViewController: UIViewController {
         resultImageView.image = OpenCV.addWeighted(ake, image2: houyi, alpha: 1, gamma: 1)
     }
 }
-</code></pre></div>
+</code></pre></div></div>
 <p><img src="https://upload-images.jianshu.io/upload_images/943491-793aa9ae64bd9820.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="α和β都等于1" /></p>
 
 <ul>
@@ -286,19 +286,19 @@ class MixViewController: UIViewController {
 <p>在图像处理领域，我们常常需要设置ROI，来专注或者简化我们的工作过程 。也就是从图像中选择的一个图像区域，这个区域是我们图像分析所关注的重点。我们圈定这个区域，以便进行进一步处理。而且，使用ROI指定我们想读入的目标，可以减少处理时间，增加精度，给图像处理来带不小的便利。</p>
 
 <p>定义ROI区域有两种方法，第一种是使用cv:Rect指定矩形区域</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>Mat imageROI=image(Rect(500,250,logo.cols,logo.rows));  
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mat imageROI=image(Rect(500,250,logo.cols,logo.rows));  
+</code></pre></div></div>
 
 <p>另一种定义ROI的方式是指定感兴趣行或列的范围（Range）</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>Mat imageROI=srcImage3(Range(250,250+logoImage.rows),Range(200,200+logoImage.cols));  
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mat imageROI=srcImage3(Range(250,250+logoImage.rows),Range(200,200+logoImage.cols));  
+</code></pre></div></div>
 
 <p>下面我们来看一个实例，展示如何利用ROI将一幅图加到另一幅图的指定位置。</p>
 
 <h4 id="铠与logo">铠与Logo</h4>
 <p><img src="https://upload-images.jianshu.io/upload_images/943491-7fa4159088937474.gif?imageMogr2/auto-orient/strip" alt="铠与Logo" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>+ (UIImage *)add:(UIImage *)image alphaExist:(BOOL)alphaExist on:(UIImage *)anotherImage atPosition:(CGPoint)position alpha:(CGFloat)alpha beta:(CGFloat)beta gamma:(CGFloat)gamma {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+ (UIImage *)add:(UIImage *)image alphaExist:(BOOL)alphaExist on:(UIImage *)anotherImage atPosition:(CGPoint)position alpha:(CGFloat)alpha beta:(CGFloat)beta gamma:(CGFloat)gamma {
     Mat src;
     Mat dst;
     UIImageToMat(anotherImage, src);
@@ -334,7 +334,7 @@ class ROIViewController: UIViewController {
         resultImageView.image = OpenCV.add(#imageLiteral(resourceName: "logo"), alphaExist: true, on: #imageLiteral(resourceName: "sayHello"), atPosition: CGPoint(x: 330, y: 0), alpha: 1.0, beta: CGFloat(sender.value), gamma: 0)
     }
 }
-</code></pre></div>
+</code></pre></div></div>
 
 <p><strong>注：</strong></p>
 
@@ -342,19 +342,19 @@ class ROIViewController: UIViewController {
   <li>在UIImage转换成Mat的时候，若有透明度记得将最后一个参数alphaExist设置为true</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code> UIImageToMat(image, dst, alphaExist);
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> UIImageToMat(image, dst, alphaExist);
+</code></pre></div></div>
 
 <ul>
   <li>在addWeighted的时候alpha表示第一个Mat的权重，beta表示第二个Mat的权重。在实例中，Logo图片其实是第二个Mat，所以对应的参数是beta。</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    Mat imageRoi;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Mat imageRoi;
     imageRoi = src(cv::Rect(x, y, dst.cols, dst.rows));
     
     //add image
     addWeighted(imageRoi, alpha, dst, beta, gamma, imageRoi);
-</code></pre></div>
+</code></pre></div></div>
 
 <h2 id="五小结">五、小结</h2>
 
@@ -404,6 +404,12 @@ class ROIViewController: UIViewController {
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+        				
+                            
+                				<a href="/tags/#Policy" title="Policy" rel="1">
+                                    Policy
+                                </a>
+                            
         				
                             
                 				<a href="/tags/#iOS" title="iOS" rel="46">

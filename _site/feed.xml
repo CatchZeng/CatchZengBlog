@@ -5,9 +5,9 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 02 Jan 2019 12:00:08 +0800</pubDate>
-    <lastBuildDate>Wed, 02 Jan 2019 12:00:08 +0800</lastBuildDate>
-    <generator>Jekyll v3.6.2</generator>
+    <pubDate>Tue, 22 Jan 2019 16:37:21 +0800</pubDate>
+    <lastBuildDate>Tue, 22 Jan 2019 16:37:21 +0800</lastBuildDate>
+    <generator>Jekyll v3.8.5</generator>
     
       <item>
         <title>Go web编程</title>
@@ -77,9 +77,9 @@
 
 &lt;p&gt;&lt;a href=&quot;http://maven.apache.org&quot;&gt;Maven&lt;/a&gt; 是一个项目管理和自动构建工具。Maven 包是由 POM（Project Object Model）所定义的文件包格式。Maven 包集中存放的地方，就是 Maven 仓库。这些仓库，可以是放在本地，也可以放在某个远程服务器上。 可以是私有仓库，也可以是公开的。使用方式如下&lt;/p&gt;
 
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;allprojects &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;allprojects &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     repositories &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        mavenCentral&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;;
+        mavenCentral&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
         jcenter&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
         maven &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
             url &lt;span class=&quot;s1&quot;&gt;'file:///Users/name/Documents/Android/repo/'&lt;/span&gt;
@@ -89,7 +89,7 @@
         &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;gradle&quot;&gt;Gradle&lt;/h3&gt;
 
@@ -176,7 +176,7 @@
 
 &lt;p&gt;在项目的 build.gradle 中加入 mavenLocal&lt;/p&gt;
 
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;allprojects &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;allprojects &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     repositories &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
         google&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
         jcenter&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
@@ -184,11 +184,11 @@
         mavenLocal&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;到 testutils 的 build.gradle 中添加 maven 信息&lt;/p&gt;
 
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apply plugin: &lt;span class=&quot;s1&quot;&gt;'com.android.library'&lt;/span&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apply plugin: &lt;span class=&quot;s1&quot;&gt;'com.android.library'&lt;/span&gt;
 
 //需要添加的
 apply plugin: &lt;span class=&quot;s1&quot;&gt;'maven'&lt;/span&gt;
@@ -230,7 +230,7 @@ android &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
 dependencies &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    implementation fileTree&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;dir: &lt;span class=&quot;s1&quot;&gt;'libs'&lt;/span&gt;, include: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'*.jar'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;
+    implementation fileTree&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;dir&lt;/span&gt;: &lt;span class=&quot;s1&quot;&gt;'libs'&lt;/span&gt;, include: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'*.jar'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;
 
     implementation &lt;span class=&quot;s1&quot;&gt;'com.android.support:appcompat-v7:28.0.0'&lt;/span&gt;
     testImplementation &lt;span class=&quot;s1&quot;&gt;'junit:junit:4.12'&lt;/span&gt;
@@ -238,7 +238,7 @@ dependencies &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     androidTestImplementation &lt;span class=&quot;s1&quot;&gt;'com.android.support.test.espresso:espresso-core:3.0.2'&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;注：&lt;/p&gt;
 
@@ -258,7 +258,7 @@ dependencies &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
 &lt;p&gt;在项目的 build.gradle 中加入私有 Maven 库&lt;/p&gt;
 
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;allprojects &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;allprojects &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     repositories &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
         google&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
         jcenter&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
@@ -266,12 +266,12 @@ dependencies &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
         maven &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; url &lt;span class=&quot;s2&quot;&gt;&quot;http://127.0.0.1:8081/repository/test/&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;在需要引用私有库的 module 的 build.gradle 中引用私有库&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;implementation 'com.test:testutils:1.0'
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;implementation 'com.test:testutils:1.0'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;注：不是 com.test.testutils 而是 &lt;strong&gt;com.test:testutils&lt;/strong&gt;&lt;/p&gt;
 
@@ -353,7 +353,7 @@ dependencies &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 &lt;p&gt;在日常开发中，我们经常遇到逻辑复杂的业务，导致代码写得又长又乱。有些逻辑像一个流程，在不同的节点需要做不同的操作。
 比如，我们经常会遇到上传文件的业务。该业务要求先验证文件正确性，然后上传，最后跳转到成功的页面。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;if  checkFile {
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;if  checkFile {
     uploadFile  { result
             if result {
                   showSuccessView { result
@@ -370,7 +370,7 @@ dependencies &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 } else {
   //TODO handle error
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;我们可以看到伪代码中呈现着&lt;strong&gt;回调地狱&lt;/strong&gt;，上传前、上传、上传后的操作逻辑也零散地分布，很容易造成阅读和维护困难，而&lt;strong&gt;中间件&lt;/strong&gt;的出现，让我们处理这类业务变得简单很多。&lt;/p&gt;
 
 &lt;p&gt;在讲中间件之前我们先来回顾下AOP。&lt;/p&gt;
@@ -399,23 +399,23 @@ dependencies &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 &lt;p&gt;AOP提倡从横向切面思路向管道某个位置插入一段代码逻辑，这样就实现在任何业务&lt;strong&gt;逻辑前后&lt;/strong&gt;都有相同代码逻辑段，开发者只需专注写业务逻辑，既不影响主流程，而且隔离了业务逻辑，达到&lt;strong&gt;高内聚低耦合&lt;/strong&gt;。&lt;/p&gt;
 
 &lt;p&gt;附上iOS使用AOP实现页面统计的代码，帮助大家理解AOP。&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;@implementation&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UIViewController&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;Analytics&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@implementation UIViewController (Analytics)
 
-&lt;span class=&quot;k&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;swizzleInstanceMethod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;@selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;viewWillAppear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;@selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;swizzled_viewWillAppear&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)];&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;swizzleInstanceMethod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;@selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;viewWillDisappear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;@selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;swizzled_viewWillDisappear&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)];&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
++ (void)load{
+    [self swizzleInstanceMethod:@selector(viewWillAppear:) with:@selector(swizzled_viewWillAppear:)];
+    [self swizzleInstanceMethod:@selector(viewWillDisappear:) with:@selector(swizzled_viewWillDisappear:)];
+}
 
-&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;swizzled_viewWillAppear&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BOOL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;animated&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;swizzled_viewWillAppear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;animated&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Analytics&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;beginTimingEvent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;className&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+- (void)swizzled_viewWillAppear:(BOOL)animated{
+    [self swizzled_viewWillAppear:animated];
+    [Analytics beginTimingEvent: self.className];
+}
 
-&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;swizzled_viewWillDisappear&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BOOL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;animated&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;swizzled_viewWillDisappear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;animated&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Analytics&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;endTimingEvent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;className&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+- (void)swizzled_viewWillDisappear:(BOOL)animated{
+    [self swizzled_viewWillDisappear:animated];
+    [Analytics endTimingEvent: self.className];
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;思考&quot;&gt;思考&lt;/h3&gt;
 
@@ -438,7 +438,7 @@ dependencies &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
 &lt;p&gt;AOP从横向切面思路向管道&lt;strong&gt;某个位置&lt;/strong&gt;插入一段代码逻辑。而这个位置通常就是&lt;strong&gt;调用前&lt;/strong&gt;（before）和&lt;strong&gt;调用后&lt;/strong&gt;（after）。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Function.prototype.before = function(fn){
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Function.prototype.before = function(fn){
   var self = this;  
    return function(){  
      var res = fn.call(this);  
@@ -455,11 +455,11 @@ Function.prototype.after = function(fn){
      fn.call(this);  
    }  
 } 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;有了这两个扩展，可以按下面的方式实现上传业务。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function checkFile(){  
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function checkFile(){  
    console.log('checking file');  
    if fileIsVaild() {
       return true
@@ -484,7 +484,7 @@ function showSuccessView() {
 }
 
 uploadFile.before(checkFile).after(showSuccessView)();
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;思考-1&quot;&gt;思考&lt;/h3&gt;
 
@@ -503,12 +503,12 @@ uploadFile.before(checkFile).after(showSuccessView)();
 
 &lt;p&gt;为了理解中间件，我们来看下&lt;a href=&quot;https://koajs.com/#introduction&quot;&gt;Koa&lt;/a&gt;的中间件使用。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const logger = (ctx, next) =&amp;gt; {
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const logger = (ctx, next) =&amp;gt; {
   console.log(`${Date.now()} ${ctx.request.method} ${ctx.request.url}`);
   next();
 }
 app.use(logger);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;像上面代码中的logger函数就叫做”中间件”（middleware），因为它处在 HTTP Request 和 HTTP Response 中间，用来实现某种中间功能。app.use()用来加载中间件。&lt;/p&gt;
 
 &lt;h3 id=&quot;中间件栈&quot;&gt;中间件栈&lt;/h3&gt;
@@ -519,7 +519,7 @@ app.use(logger);
 
 &lt;p&gt;举个例子&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const one = (ctx, next) =&amp;gt; {
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const one = (ctx, next) =&amp;gt; {
   console.log('&amp;gt;&amp;gt; one');
   next();
   console.log('&amp;lt;&amp;lt; one');
@@ -549,12 +549,12 @@ app.use(three);
 &amp;lt;&amp;lt; two
 &amp;lt;&amp;lt; one
 */
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;中间件一个奇妙的点在于&lt;strong&gt;next函数&lt;/strong&gt;。如果中间件内部没有调用next函数，那么执行权就不会传递下去。&lt;/p&gt;
 
 &lt;h3 id=&quot;中间件的实现&quot;&gt;中间件的实现&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export default class MiddlewareCenter {
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export default class MiddlewareCenter {
     constructor() {
         this._middlewares = []
         this._context = null
@@ -609,12 +609,12 @@ function compose(middleware) {
         }
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;详细的代码可以看我的开源项目&lt;a href=&quot;https://github.com/CatchZeng/middleware-center&quot;&gt;middleware-center&lt;/a&gt;。&lt;/p&gt;
 
 &lt;h3 id=&quot;利用中间件优化上传业务&quot;&gt;利用中间件优化上传业务&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const middlewareCenter = new UploadFileCenter()
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const middlewareCenter = new UploadFileCenter()
 middlewareCenter.handle('uploader')
 
 /* result
@@ -625,9 +625,9 @@ after finishUpload
 after startUplaod
 after beforeUpload
 */
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class UploadFileCenter extends MiddlewareCenter {
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class UploadFileCenter extends MiddlewareCenter {
 
     constructor() {
         super()
@@ -682,14 +682,14 @@ after beforeUpload
         })
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;大家可以看到，利用中间件不但可以实现业务隔离，调用也很清晰，只要&lt;strong&gt;根据业务调整use的顺序&lt;/strong&gt;即可。各个中间件还可以&lt;strong&gt;随意组合，各组件间也没有依赖关系，自身内聚性高&lt;/strong&gt;。细心的朋友可以发现，&lt;a href=&quot;https://github.com/CatchZeng/middleware-center&quot;&gt;middleware-center&lt;/a&gt; 还支持&lt;strong&gt;异步方法&lt;/strong&gt;。得益于中间件的洋葱结构，使得使用者可以处理业务的任何“位置”（如：beforeUpload、startUplaod、finishUpload、after finishUpload、after startUplaod、after beforeUpload）&lt;/p&gt;
 
 &lt;h3 id=&quot;遍地开花&quot;&gt;遍地开花&lt;/h3&gt;
 
 &lt;p&gt;好思想应该遍地开花，业余时间我用swift简单实现了中间件模型&lt;a href=&quot;https://github.com/CatchZeng/MiddlewareCenter&quot;&gt;MiddlewareCenter&lt;/a&gt;，但还没优化，和处理引用问题，感兴趣的朋友可以一起维护。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class ViewController: UIViewController {
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class ViewController: UIViewController {
     
     let center = MiddlewareCenter()
     
@@ -727,7 +727,7 @@ public class EndUpload: Middleware {
         print(&quot;after EndUpload.&quot;)
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;四总结&quot;&gt;四、总结&lt;/h2&gt;
 
@@ -806,14 +806,14 @@ public class EndUpload: Middleware {
 
 &lt;p&gt;OpenCV提供了中值滤波的API&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/** 
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/** 
 @param ksize aperture linear size; it must be odd and greater than 1, for example: 3, 5, 7 ...
  */
 void medianBlur( InputArray src, OutputArray dst, int ksize );
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;注意：ksize必须是奇数&lt;/strong&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)medianBlur:(UIImage *)image size:(int)size {
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)medianBlur:(UIImage *)image size:(int)size {
     Mat src;
     UIImageToMat(image, src);
     
@@ -838,7 +838,7 @@ class NolinearBlurViewController: UIViewController {
         resultImageView.image = OpenCV.medianBlur(self.image, size: Int32(Int(sender.value)))
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h4 id=&quot;一些思考&quot;&gt;一些思考&lt;/h4&gt;
 
@@ -907,7 +907,7 @@ class NolinearBlurViewController: UIViewController {
 
 &lt;p&gt;OpenCV提供了双边滤波的API&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/** 
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/** 
 _Sigma values_: 为了简单起见，可以将2 Sigma值设置为相同。
 如果它们很小（&amp;lt;10）滤波器不会有太大的效果。
 如果它们很大（＞150），它们将具有非常强烈的效果，使图像看起来“卡通化”。
@@ -924,9 +924,9 @@ _Filter size_: 大的滤波器（D&amp;gt; 5）非常慢，因此建议在进行
 void bilateralFilter( InputArray src, OutputArray dst, int d,
                                    double sigmaColor, double sigmaSpace,
                                    int borderType = BORDER_DEFAULT );
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)bilateralFilter:(UIImage *)image
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)bilateralFilter:(UIImage *)image
                            d:(int)d
                   sigmaColor:(double)sigmaColor
                   sigmaSpace:(double)sigmaSpace {
@@ -983,7 +983,7 @@ class BilateralFilterViewController: UIViewController {
         resultImageView.image = OpenCV.bilateralFilter(imageView.image, d: d, sigmaColor: color, sigmaSpace: space)
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h4 id=&quot;小小经验&quot;&gt;小小经验&lt;/h4&gt;
 
@@ -991,10 +991,10 @@ class BilateralFilterViewController: UIViewController {
 
 &lt;ul&gt;
   &lt;li&gt;使用OpenCV API时可以先看下&lt;strong&gt;API的注释文档&lt;/strong&gt;，比如在双边滤波的注释文档中对Sigma的取值做了说明。这些值一般都是&lt;strong&gt;经验值&lt;/strong&gt;。
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;_Sigma values_: 为了简单起见，可以将2 Sigma值设置为相同。
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;_Sigma values_: 为了简单起见，可以将2 Sigma值设置为相同。
 如果它们很小（&amp;lt;10）滤波器不会有太大的效果。
 如果它们很大（＞150），它们将具有非常强烈的效果，使图像看起来“卡通化”。
-&lt;/code&gt;&lt;/pre&gt;    &lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;使用&lt;strong&gt;滑竿&lt;/strong&gt;帮助快速调节参数，观察效果。&lt;/p&gt;
@@ -1067,7 +1067,7 @@ Smooth和Blur是opencv图像模糊的API，其背后的原理其实是数学的�
 &lt;p&gt;此类操作被称为&lt;strong&gt;卷积计算&lt;/strong&gt;，而模板和kernel就是卷积计算中的&lt;strong&gt;卷积算子&lt;/strong&gt;。&lt;/p&gt;
 
 &lt;p&gt;opencv提供了均值滤波（模糊）的API&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/** 
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/** 
 @param src 输入图像
 @param dst 输出图像
 @param ksize 模糊kernel大小
@@ -1077,13 +1077,13 @@ Smooth和Blur是opencv图像模糊的API，其背后的原理其实是数学的�
 blur( InputArray src, OutputArray dst,
                         Size ksize, Point anchor = Point(-1,-1),
                         int borderType = BORDER_DEFAULT );
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h4 id=&quot;铠玩模糊&quot;&gt;铠玩模糊&lt;/h4&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-9f839b59fc174f06.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;铠玩模糊&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)blur:(UIImage *)image sizeX:(int)sizeX sizeY:(int)sizeY {
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)blur:(UIImage *)image sizeX:(int)sizeX sizeY:(int)sizeY {
     Mat src;
     UIImageToMat(image, src);
     
@@ -1122,7 +1122,7 @@ class BlurViewController: UIViewController {
         resultImageView.image = image
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h4 id=&quot;一些思考&quot;&gt;一些思考&lt;/h4&gt;
 
@@ -1195,7 +1195,7 @@ f(x)：概率
 
 &lt;h4 id=&quot;均值与高斯哪家强&quot;&gt;均值与高斯哪家强&lt;/h4&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@param sigmaX Gaussian kernel standard deviation in X direction.
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@param sigmaX Gaussian kernel standard deviation in X direction.
 @param sigmaY Gaussian kernel standard deviation in Y direction; if sigmaY is zero, it is set to be
 equal to sigmaX, if both sigmas are zeros, they are computed from ksize.width and ksize.height,
 respectively (see #getGaussianKernel for details); to fully control the result regardless of
@@ -1208,8 +1208,8 @@ sigmaX, and sigmaY.
 CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
                                 double sigmaX, double sigmaY = 0,
                                 int borderType = BORDER_DEFAULT );
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)gaussianblur:(UIImage *)image sizeX:(int)sizeX sizeY:(int)sizeY {
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)gaussianblur:(UIImage *)image sizeX:(int)sizeX sizeY:(int)sizeY {
     Mat src;
     UIImageToMat(image, src);
     
@@ -1220,7 +1220,7 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
     
     return result;
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-fe8d7a23f71b0c53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;均值&quot; /&gt;&lt;/p&gt;
 
@@ -1256,12 +1256,12 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
 &lt;h4 id=&quot;算子&quot;&gt;算子&lt;/h4&gt;
 &lt;p&gt;一般的图像处理算子都是一个函数，它接受一个或多个输入图像，并产生输出图像。&lt;/p&gt;
 &lt;h6 id=&quot;单输入&quot;&gt;单输入&lt;/h6&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;g(x) = h(f(x))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;g(x) = h(f(x))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h6 id=&quot;多输入&quot;&gt;多输入&lt;/h6&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;g(x) = h(f0(x)......fn(x))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;g(x) = h(f0(x)......fn(x))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;根据算子的不同，图像变换分为两大类：&lt;/p&gt;
 
@@ -1283,8 +1283,8 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
 
 &lt;h2 id=&quot;三调整图像亮度和对比度&quot;&gt;三、调整图像亮度和对比度&lt;/h2&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;g(i, j) = αf(i,j) + β  其中α&amp;gt;0，β是增益变量
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;g(i, j) = αf(i,j) + β  其中α&amp;gt;0，β是增益变量
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;ul&gt;
   &lt;li&gt;f(i,j) 表示源图像像素&lt;/li&gt;
   &lt;li&gt;g(i,j) 表示输出图像像素&lt;/li&gt;
@@ -1305,7 +1305,7 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
 
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-0e4ab78c269f66e4.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;魔铠变身&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+(UIImage *)transform:(UIImage *)image alpha:(double)alpha beta:(double)beta {
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+(UIImage *)transform:(UIImage *)image alpha:(double)alpha beta:(double)beta {
     Mat src;
     UIImageToMat(image, src);
     
@@ -1336,28 +1336,28 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
     UIImage* result = MatToUIImage(dst);
     return result;
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;h6 id=&quot;注&quot;&gt;注：&lt;/h6&gt;
 
 &lt;ul&gt;
   &lt;li&gt;做像素点操作时应当注意数据类型的转换&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    src.convertTo(m, CV_32F);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    src.convertTo(m, CV_32F);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;图像的通道多样，处理图片时需要做多通道的处理&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;if(src.channels() == 1) {//单通道
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;if(src.channels() == 1) {//单通道
     ...
 } else if (src.channels() == 3) { //3通道
     ...
 }  else if (src.channels() == 4) { //4通道
     ...
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;四小结&quot;&gt;四、小结&lt;/h2&gt;
 
@@ -1386,7 +1386,7 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
 
 &lt;p&gt;要叠加两张图片，可以将Mat直接相加，相加两幅图片的形状（高度/宽度/通道数）必须相同。但这样的效果不一定是你想要的。我们来看一个例子。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    Mat src;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    Mat src;
     Mat src2;
     UIImageToMat(image, src);
     UIImageToMat(image2, src2);
@@ -1395,19 +1395,19 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
     dst = src + src2;
     
     UIImage* result = MatToUIImage(dst);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-b142c05656998fc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;图片相加&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;三线性混合&quot;&gt;三、线性混合&lt;/h2&gt;
 &lt;p&gt;图像混合其实也是一种图片相加的操作，只不过两幅图片的&lt;strong&gt;权重&lt;/strong&gt;不一样。&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;g(x) = α*f0(x) + β*f1(x)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;g(x) = α*f0(x) + β*f1(x)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;OpenCV处理图像混合主要是根据线性混合函数，通过在0到1范围内改变α的值，使两幅图像或者视频产生在时间上的画面叠化得效果。实际上α和β的和不一定为1，只是为了防止图像出现过饱和的现象。&lt;/p&gt;
 
 &lt;p&gt;OpenCV的&lt;strong&gt;addWeighted&lt;/strong&gt;函数便是对应线性混合操作。这个函数的作用是，计算两个图像的&lt;strong&gt;加权和&lt;/strong&gt;。&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;void addWeighted(InputArray src1, double alpha, InputArray src2, double beta, double gamma, OutputArray dst, int dtype=-1);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;void addWeighted(InputArray src1, double alpha, InputArray src2, double beta, double gamma, OutputArray dst, int dtype=-1);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;ul&gt;
   &lt;li&gt;src1：需要加权的第一个数组，常常填一个Mat对象。&lt;/li&gt;
   &lt;li&gt;alpha：第一个数组的权重值，0~1之间。&lt;/li&gt;
@@ -1422,7 +1422,7 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
 
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-bc97e432a0639f99.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;图像混合&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)addWeighted:(UIImage *)image image2:(UIImage *)image2 alpha:(double)alpha gamma:(double)gamma {
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)addWeighted:(UIImage *)image image2:(UIImage *)image2 alpha:(double)alpha gamma:(double)gamma {
     Mat src;
     Mat src2;
     UIImageToMat(image, src);
@@ -1453,7 +1453,7 @@ class MixViewController: UIViewController {
         resultImageView.image = OpenCV.addWeighted(ake, image2: houyi, alpha: alpha, gamma: (1.0 - alpha))
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h4 id=&quot;一些思考&quot;&gt;一些思考&lt;/h4&gt;
 
@@ -1462,14 +1462,14 @@ class MixViewController: UIViewController {
 &lt;/ul&gt;
 
 &lt;p&gt;可以这样简单理解：像素值范围为0~255，两张图的Mat直接相加，就是每个像素点的值相加，这样容易出现像素值较大的像素，像素“越大越白”，这样就出现了图像过曝的现象。而线性混合则是加上了权重，保证了像素值不至于过大，这样就不会出现过曝现象。以公式来说明就是&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//相加
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//相加
 g(x) = 1*f0(x) + 1*f1(x)
 
 //线性混合
 g(x) = α*f0(x) + β*f1(x)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;即&lt;strong&gt;相加操作相当于α和β都等于1的线性混合&lt;/strong&gt;。&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 class MixViewController: UIViewController {
 
     @IBOutlet weak var resultImageView: UIImageView!
@@ -1482,7 +1482,7 @@ class MixViewController: UIViewController {
         resultImageView.image = OpenCV.addWeighted(ake, image2: houyi, alpha: 1, gamma: 1)
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-793aa9ae64bd9820.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;α和β都等于1&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
@@ -1495,19 +1495,19 @@ class MixViewController: UIViewController {
 &lt;p&gt;在图像处理领域，我们常常需要设置ROI，来专注或者简化我们的工作过程 。也就是从图像中选择的一个图像区域，这个区域是我们图像分析所关注的重点。我们圈定这个区域，以便进行进一步处理。而且，使用ROI指定我们想读入的目标，可以减少处理时间，增加精度，给图像处理来带不小的便利。&lt;/p&gt;
 
 &lt;p&gt;定义ROI区域有两种方法，第一种是使用cv:Rect指定矩形区域&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Mat imageROI=image(Rect(500,250,logo.cols,logo.rows));  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Mat imageROI=image(Rect(500,250,logo.cols,logo.rows));  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;另一种定义ROI的方式是指定感兴趣行或列的范围（Range）&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Mat imageROI=srcImage3(Range(250,250+logoImage.rows),Range(200,200+logoImage.cols));  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Mat imageROI=srcImage3(Range(250,250+logoImage.rows),Range(200,200+logoImage.cols));  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;下面我们来看一个实例，展示如何利用ROI将一幅图加到另一幅图的指定位置。&lt;/p&gt;
 
 &lt;h4 id=&quot;铠与logo&quot;&gt;铠与Logo&lt;/h4&gt;
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-7fa4159088937474.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;铠与Logo&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)add:(UIImage *)image alphaExist:(BOOL)alphaExist on:(UIImage *)anotherImage atPosition:(CGPoint)position alpha:(CGFloat)alpha beta:(CGFloat)beta gamma:(CGFloat)gamma {
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)add:(UIImage *)image alphaExist:(BOOL)alphaExist on:(UIImage *)anotherImage atPosition:(CGPoint)position alpha:(CGFloat)alpha beta:(CGFloat)beta gamma:(CGFloat)gamma {
     Mat src;
     Mat dst;
     UIImageToMat(anotherImage, src);
@@ -1543,7 +1543,7 @@ class ROIViewController: UIViewController {
         resultImageView.image = OpenCV.add(#imageLiteral(resourceName: &quot;logo&quot;), alphaExist: true, on: #imageLiteral(resourceName: &quot;sayHello&quot;), atPosition: CGPoint(x: 330, y: 0), alpha: 1.0, beta: CGFloat(sender.value), gamma: 0)
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;strong&gt;注：&lt;/strong&gt;&lt;/p&gt;
 
@@ -1551,19 +1551,19 @@ class ROIViewController: UIViewController {
   &lt;li&gt;在UIImage转换成Mat的时候，若有透明度记得将最后一个参数alphaExist设置为true&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; UIImageToMat(image, dst, alphaExist);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; UIImageToMat(image, dst, alphaExist);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;在addWeighted的时候alpha表示第一个Mat的权重，beta表示第二个Mat的权重。在实例中，Logo图片其实是第二个Mat，所以对应的参数是beta。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    Mat imageRoi;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    Mat imageRoi;
     imageRoi = src(cv::Rect(x, y, dst.cols, dst.rows));
     
     //add image
     addWeighted(imageRoi, alpha, dst, beta, gamma, imageRoi);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;五小结&quot;&gt;五、小结&lt;/h2&gt;
 
@@ -1596,25 +1596,25 @@ class ROIViewController: UIViewController {
 
 &lt;h4 id=&quot;mat基础操作&quot;&gt;Mat基础操作&lt;/h4&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Mat image = Mat(240, 320, CV_8UC3);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Mat image = Mat(240, 320, CV_8UC3);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;第一个参数是rows，该矩阵的行数；第二个参数是cols，该矩阵的列数；第三个参数是该矩阵元素的类型。这句话表示创建一个大小为240×320的矩阵，里面的元素为8位unsigned型，通道数(channel)有3个。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;image.create(480, 640, CV_8UC3);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;image.create(480, 640, CV_8UC3);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;分配（或重新分配）image矩阵，把大小设为480×640，类型设为CV8UC3。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Mat image = Mat(3, 3, CV_32F, Scalar(5));
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Mat image = Mat(3, 3, CV_32F, Scalar(5));
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;定义并初始化一个3×3的32bit浮点数矩阵，每个元素都设为5。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;uchar* ptr = image.ptr(row);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;uchar* ptr = image.ptr(row);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;指针操作，表示拿到image第row行的指针&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;uchar* output = image.ptr(row);
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;uchar* output = image.ptr(row);
 output[1] = value;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;利用指针修改图像，表示修改image第row行的第2个数据为value。&lt;/p&gt;
 
 &lt;h4 id=&quot;mat常用成员介绍&quot;&gt;Mat常用成员介绍&lt;/h4&gt;
@@ -1669,7 +1669,7 @@ output[1] = value;
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-b7718fa0c6ef972f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;铠&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;接下来我们以代码角度分析下究竟什么是掩膜。&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    // image为铠的图片
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    // image为铠的图片
     Mat src;
     UIImageToMat(image, src);
     
@@ -1679,19 +1679,19 @@ output[1] = value;
     
     Mat dst;
     src.copyTo(dst, mask);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;第一步建立与原图一样大小的mask图像，并将所有像素初始化为0，因此全图成了一张全黑色图。
 第二步将mask图中的r区域的所有像素值设置为255,也就是整个r区域变成了白色。&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; Mat mask = Mat::zeros(src.size(), CV_8UC1);
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; Mat mask = Mat::zeros(src.size(), CV_8UC1);
  mask(r).setTo(255);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-9c82240d29373e2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;mask图片&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;使用mask将原始图src拷贝到目的图dst上。&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;src.copyTo(dst, mask);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;src.copyTo(dst, mask);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;这个拷贝的动作完整版本是这样的：&lt;/p&gt;
 
@@ -1711,8 +1711,8 @@ output[1] = value;
 
 &lt;p&gt;矩阵的掩膜操作就是根据掩膜来重新计算每个像素的像素值，掩膜(mask)也被称为kernel。
 通过掩膜操作实现图像对比度提高的公式如下。&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;I(i,j) = 5*I(i,j) - [I(i-1,j) + I(i+1,j) + I(i,j-1) + I(i,j+1)]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;I(i,j) = 5*I(i,j) - [I(i-1,j) + I(i+1,j) + I(i,j-1) + I(i,j+1)]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;注：这里看不懂不要紧，先看具体的实现，回头我们再一起回顾这里。&lt;/p&gt;
 
 &lt;p&gt;上面的公式，转换成矩阵就如下图所示&lt;/p&gt;
@@ -1724,7 +1724,7 @@ output[1] = value;
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-a5ba14b90afb4f08.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;kernel&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;具体的代码如下：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    // image为铠的图片
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    // image为铠的图片
     Mat src;
     UIImageToMat(image, src);
     
@@ -1750,14 +1750,14 @@ saturate_cast&amp;lt;uchar&amp;gt;(288)，返回255
 saturate_cast&amp;lt;uchar&amp;gt;(100)，返回100
 这个函数的功能是确保RGB值范围在0~255之间。
 */
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;效果
 &lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-74296305be0931e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;增强对比度&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;接下来我们来回顾下上面的那个公式&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;I(i,j) = 5*I(i,j) - [I(i-1,j) + I(i+1,j) + I(i,j-1) + I(i,j+1)]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;I(i,j) = 5*I(i,j) - [I(i-1,j) + I(i+1,j) + I(i,j-1) + I(i,j+1)]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;其实这个公式就是5倍的中心像素减去周边的四个像素之和。
 我们举两个例子来看下这个公式的结果。&lt;/p&gt;
 
@@ -1770,18 +1770,18 @@ saturate_cast&amp;lt;uchar&amp;gt;(100)，返回100
 
 &lt;p&gt;大家会发现这样做掩膜操作也太麻烦了。这个时候我们就找OpenCV来帮个忙，看看它是怎么实现的。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    Mat src;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    Mat src;
     UIImageToMat(image, src);
     
     Mat dst;
     Mat kernel = (Mat_&amp;lt;char&amp;gt;(3, 3) &amp;lt;&amp;lt; 0, -1, 0, -1, 5, -1, 0, -1, 0);
     filter2D(src, dst, src.depth(), kernel);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;一个filter2D搞定！定义如下：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;void filter2D( InputArray src, OutputArray dst, int ddepth,
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;void filter2D( InputArray src, OutputArray dst, int ddepth,
                             InputArray kernel, Point anchor=Point(-1,-1),
                             double delta=0, int borderType=BORDER_DEFAULT );
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;其中src与dst是Mat类型变量、depth表示位图深度，有32、24、8等。&lt;/p&gt;
 
 &lt;h2 id=&quot;四小结&quot;&gt;四、小结&lt;/h2&gt;
@@ -1868,64 +1868,64 @@ OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉库�
   &lt;li&gt;注：因为OpenCV是C++写的，所以引入项目中的文件需要使用Object-C++的兼容方式来写，具体的做法就是将需要导入OpenCV头文件的m文件改成mm文件&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//
 //  OpenCV.h
 //  LearningOpenCV
 //
 //  Created by CatchZeng on 2018/6/12.
 //  Copyright © 2018年 catch. All rights reserved.
 //
-&lt;/span&gt;
-&lt;span class=&quot;cp&quot;&gt;#import &amp;lt;Foundation/Foundation.h&amp;gt;
+
+#import &amp;lt;Foundation/Foundation.h&amp;gt;
 #import &amp;lt;UIKit/UIKit.h&amp;gt;
-&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;@interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OpenCV&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;NSObject&lt;/span&gt;
 
-&lt;span class=&quot;k&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+@interface OpenCV : NSObject
 
-&lt;span class=&quot;k&quot;&gt;@end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
++ (UIImage *)gray:(UIImage *)image;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//
+@end
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//
 //  OpenCV.m
 //  LearningOpenCV
 //
 //  Created by CatchZeng on 2018/6/12.
 //  Copyright © 2018年 catch. All rights reserved.
 //
-&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//!!!opencv的头文件引入必须在其他头文件之前
-&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;#import &amp;lt;opencv2/opencv.hpp&amp;gt;
+
+//!!!opencv的头文件引入必须在其他头文件之前
+#import &amp;lt;opencv2/opencv.hpp&amp;gt;
 #import &amp;lt;opencv2/imgproc/types_c.h&amp;gt;
 #import &amp;lt;opencv2/imgcodecs/ios.h&amp;gt;
 #import &amp;lt;opencv2/core/core_c.h&amp;gt;
 #import &quot;OpenCV.h&quot;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+using namespace cv;
 
-&lt;span class=&quot;k&quot;&gt;@interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OpenCV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+@interface OpenCV() {
+}
 
-&lt;span class=&quot;k&quot;&gt;@end&lt;/span&gt;
+@end
 
-&lt;span class=&quot;k&quot;&gt;@implementation&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OpenCV&lt;/span&gt;
+@implementation OpenCV
 
-&lt;span class=&quot;k&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;image&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Mat&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;UIImageToMat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
++ (UIImage *)gray:(UIImage *)image {
+    Mat mat;
+    UIImageToMat(image, mat);
     
-    &lt;span class=&quot;n&quot;&gt;Mat&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;grayMat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cvtColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;grayMat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CV_BGR2GRAY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    Mat grayMat;
+    cvtColor(mat, grayMat, CV_BGR2GRAY);
     
-    &lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MatToUIImage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grayMat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    UIImage* result = MatToUIImage(grayMat);
+    return result;
+}
 
-&lt;span class=&quot;k&quot;&gt;@end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+@end
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;新建视图控制器SayHelloViewController&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class SayHelloViewController: UIViewController {
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class SayHelloViewController: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var grayImageView: UIImageView!
@@ -1936,7 +1936,7 @@ OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉库�
         grayImageView.image = OpenCV.gray(#imageLiteral(resourceName: &quot;sayHello&quot;))
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;效果&lt;/p&gt;
 

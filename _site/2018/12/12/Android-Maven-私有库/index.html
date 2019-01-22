@@ -173,9 +173,9 @@
 
 <p><a href="http://maven.apache.org">Maven</a> 是一个项目管理和自动构建工具。Maven 包是由 POM（Project Object Model）所定义的文件包格式。Maven 包集中存放的地方，就是 Maven 仓库。这些仓库，可以是放在本地，也可以放在某个远程服务器上。 可以是私有仓库，也可以是公开的。使用方式如下</p>
 
-<div class="language-shell highlighter-rouge"><pre class="highlight"><code>allprojects <span class="o">{</span>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>allprojects <span class="o">{</span>
     repositories <span class="o">{</span>
-        mavenCentral<span class="o">()</span>;
+        mavenCentral<span class="o">()</span><span class="p">;</span>
         jcenter<span class="o">()</span>
         maven <span class="o">{</span>
             url <span class="s1">'file:///Users/name/Documents/Android/repo/'</span>
@@ -185,7 +185,7 @@
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div>
+</code></pre></div></div>
 
 <h3 id="gradle">Gradle</h3>
 
@@ -272,7 +272,7 @@
 
 <p>在项目的 build.gradle 中加入 mavenLocal</p>
 
-<div class="language-shell highlighter-rouge"><pre class="highlight"><code>allprojects <span class="o">{</span>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>allprojects <span class="o">{</span>
     repositories <span class="o">{</span>
         google<span class="o">()</span>
         jcenter<span class="o">()</span>
@@ -280,11 +280,11 @@
         mavenLocal<span class="o">()</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div>
+</code></pre></div></div>
 
 <p>到 testutils 的 build.gradle 中添加 maven 信息</p>
 
-<div class="language-shell highlighter-rouge"><pre class="highlight"><code>apply plugin: <span class="s1">'com.android.library'</span>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apply plugin: <span class="s1">'com.android.library'</span>
 
 //需要添加的
 apply plugin: <span class="s1">'maven'</span>
@@ -326,7 +326,7 @@ android <span class="o">{</span>
 <span class="o">}</span>
 
 dependencies <span class="o">{</span>
-    implementation fileTree<span class="o">(</span>dir: <span class="s1">'libs'</span>, include: <span class="o">[</span><span class="s1">'*.jar'</span><span class="o">])</span>
+    implementation fileTree<span class="o">(</span><span class="nb">dir</span>: <span class="s1">'libs'</span>, include: <span class="o">[</span><span class="s1">'*.jar'</span><span class="o">])</span>
 
     implementation <span class="s1">'com.android.support:appcompat-v7:28.0.0'</span>
     testImplementation <span class="s1">'junit:junit:4.12'</span>
@@ -334,7 +334,7 @@ dependencies <span class="o">{</span>
     androidTestImplementation <span class="s1">'com.android.support.test.espresso:espresso-core:3.0.2'</span>
 <span class="o">}</span>
 
-</code></pre></div>
+</code></pre></div></div>
 
 <p>注：</p>
 
@@ -354,7 +354,7 @@ dependencies <span class="o">{</span>
 
 <p>在项目的 build.gradle 中加入私有 Maven 库</p>
 
-<div class="language-shell highlighter-rouge"><pre class="highlight"><code>allprojects <span class="o">{</span>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>allprojects <span class="o">{</span>
     repositories <span class="o">{</span>
         google<span class="o">()</span>
         jcenter<span class="o">()</span>
@@ -362,12 +362,12 @@ dependencies <span class="o">{</span>
         maven <span class="o">{</span> url <span class="s2">"http://127.0.0.1:8081/repository/test/"</span> <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div>
+</code></pre></div></div>
 
 <p>在需要引用私有库的 module 的 build.gradle 中引用私有库</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>implementation 'com.test:testutils:1.0'
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>implementation 'com.test:testutils:1.0'
+</code></pre></div></div>
 
 <p>注：不是 com.test.testutils 而是 <strong>com.test:testutils</strong></p>
 
@@ -425,6 +425,12 @@ dependencies <span class="o">{</span>
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+        				
+                            
+                				<a href="/tags/#Policy" title="Policy" rel="1">
+                                    Policy
+                                </a>
+                            
         				
                             
                 				<a href="/tags/#iOS" title="iOS" rel="46">

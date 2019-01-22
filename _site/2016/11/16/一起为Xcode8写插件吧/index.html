@@ -228,25 +228,25 @@ https://github.com/CatchZeng/PragmaMarkSourceEditor</p>
 
 <h4 id="4编写extension代码sourceeditorcommandm">4.编写Extension代码(SourceEditorCommand.m)</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">performCommandWithInvocation</span><span class="p">:(</span><span class="n">XCSourceEditorCommandInvocation</span> <span class="o">*</span><span class="p">)</span><span class="nv">invocation</span> <span class="nf">completionHandler</span><span class="p">:(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">NSError</span> <span class="o">*</span> <span class="n">_Nullable</span> <span class="n">nilOrError</span><span class="p">))</span><span class="nv">completionHandler</span>
-<span class="p">{</span>
-    <span class="c1">//有选中了才删除
-</span>    <span class="k">if</span> <span class="p">(</span><span class="n">invocation</span><span class="p">.</span><span class="n">buffer</span><span class="p">.</span><span class="n">selections</span><span class="p">.</span><span class="n">count</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">XCSourceTextRange</span><span class="o">*</span> <span class="n">firstObject</span> <span class="o">=</span> <span class="n">invocation</span><span class="p">.</span><span class="n">buffer</span><span class="p">.</span><span class="n">selections</span><span class="p">.</span><span class="n">firstObject</span><span class="p">;</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- (void)performCommandWithInvocation:(XCSourceEditorCommandInvocation *)invocation completionHandler:(void (^)(NSError * _Nullable nilOrError))completionHandler
+{
+    //有选中了才删除
+    if (invocation.buffer.selections.count != 0) {
+        XCSourceTextRange* firstObject = invocation.buffer.selections.firstObject;
         
-        <span class="c1">//开始删除的位置
-</span>        <span class="n">NSUInteger</span> <span class="n">start</span> <span class="o">=</span> <span class="n">firstObject</span><span class="p">.</span><span class="n">start</span><span class="p">.</span><span class="n">line</span><span class="p">;</span>
-        <span class="c1">//删除的行数
-</span>        <span class="n">NSUInteger</span> <span class="n">len</span> <span class="o">=</span> <span class="n">firstObject</span><span class="p">.</span><span class="n">end</span><span class="p">.</span><span class="n">line</span> <span class="o">-</span> <span class="n">start</span> <span class="o">+</span><span class="mi">1</span><span class="p">;</span>
-        <span class="c1">//Index Set
-</span>        <span class="n">NSIndexSet</span><span class="o">*</span> <span class="n">set</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSIndexSet</span> <span class="nf">indexSetWithIndexesInRange</span><span class="p">:</span><span class="n">NSMakeRange</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">len</span><span class="p">)];</span>
-        <span class="c1">//移除指定代码
-</span>        <span class="p">[</span><span class="n">invocation</span><span class="p">.</span><span class="n">buffer</span><span class="p">.</span><span class="n">lines</span> <span class="nf">removeObjectsAtIndexes</span><span class="p">:</span><span class="n">set</span><span class="p">];</span>
-    <span class="p">}</span>
-    <span class="n">completionHandler</span><span class="p">(</span><span class="nb">nil</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="k">@end</span>
-</code></pre></div>
+        //开始删除的位置
+        NSUInteger start = firstObject.start.line;
+        //删除的行数
+        NSUInteger len = firstObject.end.line - start +1;
+        //Index Set
+        NSIndexSet* set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(start,len)];
+        //移除指定代码
+        [invocation.buffer.lines removeObjectsAtIndexes:set];
+    }
+    completionHandler(nil);
+}
+@end
+</code></pre></div></div>
 
 <h4 id="5修改extension显示名称">5.修改Extension显示名称</h4>
 <p><img src="/img/in-post/post-plugin/6.png" alt="修改Extension显示名称" />
@@ -274,11 +274,11 @@ https://github.com/CatchZeng/PragmaMarkSourceEditor</p>
 </ul>
 
 <p>XCSourceTextBuffer主要有两个属性需要了解</p>
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">//当前的文本
-</span><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">strong</span><span class="p">)</span> <span class="n">NSMutableArray</span> <span class="o">&lt;</span><span class="n">NSString</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">lines</span><span class="p">;</span>
-<span class="c1">//选中的区域
-</span><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">strong</span><span class="p">)</span> <span class="n">NSMutableArray</span> <span class="o">&lt;</span><span class="n">XCSourceTextRange</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">selections</span><span class="p">;</span>
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//当前的文本
+@property (readonly, strong) NSMutableArray &lt;NSString *&gt; *lines;
+//选中的区域
+@property (readonly, strong) NSMutableArray &lt;XCSourceTextRange *&gt; *selections;
+</code></pre></div></div>
 <p>Delete Extension的流程如下：</p>
 
 <h6 id="1菜单或快捷键触发delete-extension">1.菜单或快捷键触发Delete Extension</h6>
@@ -334,6 +334,12 @@ https://github.com/CatchZeng/PragmaMarkSourceEditor</p>
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+        				
+                            
+                				<a href="/tags/#Policy" title="Policy" rel="1">
+                                    Policy
+                                </a>
+                            
         				
                             
                 				<a href="/tags/#iOS" title="iOS" rel="46">

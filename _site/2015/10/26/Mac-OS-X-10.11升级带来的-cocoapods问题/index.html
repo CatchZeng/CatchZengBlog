@@ -171,11 +171,11 @@
 <p>昨天升级完Mac OS X 10.11，发现cocoapods不能用了。
 后面用以下命令解决了，在此记录希望能帮到需要的朋友。
 <strong>如在执行以下命令时出现问题，请看更新部分</strong></p>
-<div class="highlighter-rouge"><pre class="highlight"><code>sudo chmod -R 755 /usr/local/bin
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo chmod -R 755 /usr/local/bin
 sudo gem uninstall cocoapods
 sudo gem install -n /usr/local/bin cocoapods
 sudo xcode-select -switch /Applications/Xcode.app/
-</code></pre></div>
+</code></pre></div></div>
 
 <h2 id="更新">更新</h2>
 <p>昨天又升级了一下自己的笔记本,发现了其他问题，整理如下。</p>
@@ -188,13 +188,13 @@ sudo xcode-select -switch /Applications/Xcode.app/
 <p><strong>2.执行gem install -n /usr/local/bin cocoapods时出现以下错误</strong>
 <img src="http://img.blog.csdn.net/20151016091828609" alt="这里写图片描述" />
 <strong>解决办法:</strong> 添加http://rubygems.org/源地址</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>gem sources -a http://rubygems.org/
-</code></pre></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem sources -a http://rubygems.org/
+</code></pre></div></div>
 <p><strong>3.再次执行gem install -n /usr/local/bin cocoapods，出现权限问题</strong>
 解决办法:赋予权限</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>sudo chmod -R 777 /Library/Ruby/Gems/2.0.0/
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo chmod -R 777 /Library/Ruby/Gems/2.0.0/
 sudo chmod -R 777 /usr/local/bin/
-</code></pre></div>
+</code></pre></div></div>
 <p><strong>4.继续执行gem install -n /usr/local/bin cocoapods，安装成功！</strong>
 <img src="http://img.blog.csdn.net/20151016092817880" alt="这里写图片描述" /></p>
 
@@ -249,6 +249,12 @@ sudo chmod -R 777 /usr/local/bin/
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+        				
+                            
+                				<a href="/tags/#Policy" title="Policy" rel="1">
+                                    Policy
+                                </a>
+                            
         				
                             
                 				<a href="/tags/#iOS" title="iOS" rel="46">

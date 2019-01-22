@@ -200,9 +200,9 @@
     MVVM不失为一个良好的模式，但其<strong><em>缺点由其优点而来</em></strong>，使用过程中较难避免。
     关于项目是否使用MVVM，我的观点是：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>如果团队人员都能较好领会函数响应式编程思想、bug定位能力较强的话，可以使用。
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>如果团队人员都能较好领会函数响应式编程思想、bug定位能力较强的话，可以使用。
 如果项目的逻辑较为复杂导致状态量较多时可以考虑使用。
-</code></pre></div>
+</code></pre></div></div>
 
 <p>我在业余作品中还是喜欢使用RAC的，在工作上没有使用RAC原因是没有很好的队友，为了项目的可维护性而放弃了RAC。</p>
 
@@ -269,201 +269,201 @@ code为一个登录模块，账号类型分老师和学生，并且老师和学�
 <p>Model层代码
 Entity</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@interface</span> <span class="nc">CATUserEntity</span> <span class="p">:</span> <span class="nc">NSObject</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface CATUserEntity : NSObject
 
-<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span><span class="n">copy</span><span class="p">)</span> <span class="n">NSString</span><span class="o">*</span> <span class="n">username</span><span class="p">;</span>
-<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span><span class="n">copy</span><span class="p">)</span> <span class="n">NSString</span><span class="o">*</span> <span class="n">gender</span><span class="p">;</span>
-<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span>  <span class="n">NSInteger</span> <span class="n">age</span><span class="p">;</span>
+@property (nonatomic,copy) NSString* username;
+@property (nonatomic,copy) NSString* gender;
+@property (nonatomic)  NSInteger age;
 
-<span class="k">@end</span>
-</code></pre></div>
+@end
+</code></pre></div></div>
 
 <p>Service</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@interface</span> <span class="nc">CATLoginService</span> <span class="p">:</span> <span class="nc">CATBaseService</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface CATLoginService : CATBaseService
 
-<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">loginWithUsername</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">username</span> <span class="nf">password</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">password</span> <span class="nf">type</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">type</span> <span class="nf">success</span><span class="p">:(</span><span class="n">CATSuccessBlock</span><span class="p">)</span><span class="nv">success</span> <span class="nf">failed</span><span class="p">:(</span><span class="n">CATFailedBlock</span><span class="p">)</span><span class="nv">failed</span><span class="p">;</span>
+-(void)loginWithUsername:(NSString *)username password:(NSString *)password type:(NSInteger)type success:(CATSuccessBlock)success failed:(CATFailedBlock)failed;
 
-<span class="k">@end</span> 
+@end 
 
 
-<span class="k">@implementation</span> <span class="nc">CATLoginService</span>
+@implementation CATLoginService
 
-<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">loginWithUsername</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">username</span> <span class="nf">password</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">password</span> <span class="nf">type</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">type</span> <span class="nf">success</span><span class="p">:(</span><span class="n">CATSuccessBlock</span><span class="p">)</span><span class="nv">success</span> <span class="nf">failed</span><span class="p">:(</span><span class="n">CATFailedBlock</span><span class="p">)</span><span class="nv">failed</span><span class="p">{</span>
-    <span class="c1">//在这里调用网络、操作数据库等
-</span>    <span class="c1">//返回数据并解析成相应的数据，这里模拟返回一个User的实体。
-</span>    <span class="c1">//网络层这里推荐 巧哥使用命令模式封装的YTKNetworking！！！ 
-</span>    <span class="n">CATUserEntity</span><span class="o">*</span> <span class="n">user</span> <span class="o">=</span> <span class="p">[[</span><span class="n">CATUserEntity</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">init</span><span class="p">];</span>
-    <span class="n">user</span><span class="p">.</span><span class="n">gender</span> <span class="o">=</span> <span class="s">@"男"</span><span class="p">;</span>
-    <span class="n">user</span><span class="p">.</span><span class="n">age</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">type</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">user</span><span class="p">.</span><span class="n">username</span> <span class="o">=</span> <span class="s">@"老师"</span><span class="p">;</span>
-    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-        <span class="n">user</span><span class="p">.</span><span class="n">username</span> <span class="o">=</span> <span class="s">@"学生"</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">success</span><span class="p">(</span><span class="s">@"登录成功!"</span><span class="p">,</span><span class="n">user</span><span class="p">);</span>
-<span class="p">}</span>
+-(void)loginWithUsername:(NSString *)username password:(NSString *)password type:(NSInteger)type success:(CATSuccessBlock)success failed:(CATFailedBlock)failed{
+    //在这里调用网络、操作数据库等
+    //返回数据并解析成相应的数据，这里模拟返回一个User的实体。
+    //网络层这里推荐 巧哥使用命令模式封装的YTKNetworking！！！ 
+    CATUserEntity* user = [[CATUserEntity alloc]init];
+    user.gender = @"男";
+    user.age = 20;
+    if (type == 1) {
+        user.username = @"老师";
+    }else{
+        user.username = @"学生";
+    }
+    success(@"登录成功!",user);
+}
 
-<span class="k">@end</span>
-</code></pre></div>
+@end
+</code></pre></div></div>
 
 <p>Controller层代码（由于项目特点，这里的Model没有以接口形式引用）</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">CATLoginControllerDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@protocol CATLoginControllerDelegate &lt;NSObject&gt;
 
-<span class="o">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">loginSuccessWithData</span><span class="o">:</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="n">data</span><span class="p">;</span>
-<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">loginFailedWithMsg</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">msg</span><span class="p">;</span>
+-(void)loginSuccessWithData:(id)data;
+-(void)loginFailedWithMsg:(NSString *)msg;
 
-<span class="k">@end</span>
+@end
 
-<span class="k">@interface</span> <span class="nc">CATLoginController</span> <span class="p">:</span> <span class="nc">NSObject</span>
+@interface CATLoginController : NSObject
 
-<span class="k">-</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="nf">initWith</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">CATLoginControllerDelegate</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">delegate</span><span class="p">;</span>
+-(id)initWith:(id&lt;CATLoginControllerDelegate&gt;)delegate;
 
-<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">loginWithUsername</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">username</span> <span class="nf">password</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">password</span> <span class="nf">type</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">type</span><span class="p">;</span>
+-(void)loginWithUsername:(NSString *)username password:(NSString *)password type:(NSInteger)type;
 
-<span class="k">@end</span>
+@end
 
 
 
-<span class="k">@interface</span> <span class="nc">CATLoginController</span><span class="p">()</span>
+@interface CATLoginController()
 
-<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span><span class="n">weak</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">CATLoginControllerDelegate</span><span class="o">&gt;</span> <span class="n">delegate</span><span class="p">;</span>
-<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span><span class="n">strong</span><span class="p">)</span> <span class="n">CATLoginService</span><span class="o">*</span> <span class="n">service</span><span class="p">;</span>
+@property (nonatomic,weak) id&lt;CATLoginControllerDelegate&gt; delegate;
+@property (nonatomic,strong) CATLoginService* service;
 
-<span class="k">@end</span>
+@end
 
-<span class="k">@implementation</span> <span class="nc">CATLoginController</span>
+@implementation CATLoginController
 
-<span class="k">-</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="nf">initWith</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">CATLoginControllerDelegate</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">delegate</span><span class="p">{</span>
-    <span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="nf">init</span><span class="p">];</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">_delegate</span> <span class="o">=</span> <span class="n">delegate</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
-<span class="p">}</span>
+-(id)initWith:(id&lt;CATLoginControllerDelegate&gt;)delegate{
+    self = [super init];
+    if (self) {
+        _delegate = delegate;
+    }
+    return self;
+}
 
-<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">loginWithUsername</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">username</span> <span class="nf">password</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">passwor</span> <span class="nf">type</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">type</span><span class="p">{</span>
-    <span class="n">WEAKSELF</span>
-    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">service</span> <span class="nf">loginWithUsername</span><span class="p">:</span><span class="n">username</span> <span class="nf">password</span><span class="p">:</span><span class="n">passwor</span> <span class="n">type</span><span class="o">:</span><span class="n">type</span> <span class="n">success</span><span class="o">:^</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="n">msg</span><span class="p">,</span> <span class="n">id</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">STRONGSELF</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">&amp;&amp;</span> <span class="n">strongSelf</span><span class="p">.</span><span class="n">delegate</span> <span class="o">&amp;&amp;</span> <span class="p">[</span><span class="n">strongSelf</span><span class="p">.</span><span class="n">delegate</span> <span class="nf">respondsToSelector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nf">loginSuccessWithData</span><span class="p">:)]){</span><span class="c1">//登录成功 &amp;&amp; delegate实现了相应的方法
-</span>            <span class="p">[</span><span class="n">strongSelf</span><span class="p">.</span><span class="n">delegate</span>  <span class="nf">loginSuccessWithData</span><span class="p">:</span><span class="n">data</span><span class="p">];</span>
-        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">strongSelf</span><span class="p">.</span><span class="n">delegate</span> <span class="o">&amp;&amp;</span> <span class="p">[</span><span class="n">strongSelf</span><span class="p">.</span><span class="n">delegate</span> <span class="nf">respondsToSelector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nf">loginFailedWithMsg</span><span class="p">:)]){</span><span class="c1">//登录失败 &amp;&amp; delegate实现了相应的方法
-</span>            <span class="p">[</span><span class="n">strongSelf</span><span class="p">.</span><span class="n">delegate</span> <span class="nf">loginFailedWithMsg</span><span class="p">:</span><span class="n">msg</span><span class="p">];</span>
-        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-            <span class="c1">//handle...
-</span>        <span class="p">}</span>
-    <span class="p">}</span> <span class="n">failed</span><span class="o">:^</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="n">msg</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">//handle error
-</span>    <span class="p">}];</span>
-<span class="p">}</span>
+-(void)loginWithUsername:(NSString *)username password:(NSString *)passwor type:(NSInteger)type{
+    WEAKSELF
+    [self.service loginWithUsername:username password:passwor type:type success:^(NSString *msg, id data) {
+        STRONGSELF
+        if (data &amp;&amp; strongSelf.delegate &amp;&amp; [strongSelf.delegate respondsToSelector:@selector(loginSuccessWithData:)]){//登录成功 &amp;&amp; delegate实现了相应的方法
+            [strongSelf.delegate  loginSuccessWithData:data];
+        }else if(strongSelf.delegate &amp;&amp; [strongSelf.delegate respondsToSelector:@selector(loginFailedWithMsg:)]){//登录失败 &amp;&amp; delegate实现了相应的方法
+            [strongSelf.delegate loginFailedWithMsg:msg];
+        }else{
+            //handle...
+        }
+    } failed:^(NSString *msg) {
+        //handle error
+    }];
+}
 
-<span class="k">-</span> <span class="p">(</span><span class="n">CATLoginService</span> <span class="o">*</span><span class="p">)</span> <span class="n">service</span> <span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">_service</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">_service</span> <span class="o">=</span> <span class="p">[[</span><span class="n">CATLoginService</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">_service</span><span class="p">;</span>
-<span class="p">}</span>
+- (CATLoginService *) service {
+    if(!_service) {
+        _service = [[CATLoginService alloc] init];
+    }
+    return _service;
+}
 
-<span class="k">@end</span>
-</code></pre></div>
+@end
+</code></pre></div></div>
 
 <p>View层代码</p>
 
 <p>老师登录界面</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@interface</span> <span class="nc">CATTeacherLoginViewController</span> <span class="p">()</span><span class="o">&lt;</span><span class="n">CATLoginControllerDelegate</span><span class="o">&gt;</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface CATTeacherLoginViewController ()&lt;CATLoginControllerDelegate&gt;
 
-<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span><span class="n">strong</span><span class="p">)</span> <span class="n">CATLoginController</span><span class="o">*</span> <span class="n">controller</span><span class="p">;</span>
-<span class="k">@property</span> <span class="p">(</span><span class="n">weak</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">IBOutlet</span> <span class="n">UILabel</span> <span class="o">*</span><span class="n">labMsg</span><span class="p">;</span>
+@property (nonatomic,strong) CATLoginController* controller;
+@property (weak, nonatomic) IBOutlet UILabel *labMsg;
 
-<span class="k">@end</span>
+@end
 
-<span class="k">@implementation</span> <span class="nc">CATTeacherLoginViewController</span>
+@implementation CATTeacherLoginViewController
 
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">viewDidLoad</span> <span class="p">{</span>
-    <span class="p">[</span><span class="n">super</span> <span class="nf">viewDidLoad</span><span class="p">];</span>
-    <span class="n">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">@"老师登录界面"</span><span class="p">;</span>
-<span class="p">}</span>
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.title = @"老师登录界面";
+}
 
-<span class="o">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="n">loginButtonClicked</span><span class="o">:</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="n">sender</span> <span class="p">{</span>
-    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">controller</span> <span class="nf">loginWithUsername</span><span class="p">:</span><span class="s">@"111"</span> <span class="nf">password</span><span class="p">:</span><span class="s">@"111"</span> <span class="n">type</span><span class="o">:</span><span class="mi">1</span><span class="p">];</span>
-<span class="p">}</span>
+- (IBAction)loginButtonClicked:(id)sender {
+    [self.controller loginWithUsername:@"111" password:@"111" type:1];
+}
 
-<span class="o">-</span> <span class="p">(</span><span class="n">CATLoginController</span> <span class="o">*</span><span class="p">)</span> <span class="n">controller</span> <span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">_controller</span> <span class="o">==</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">_controller</span> <span class="o">=</span> <span class="p">[[</span><span class="n">CATLoginController</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWith</span><span class="p">:</span><span class="n">self</span><span class="p">];</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">_controller</span><span class="p">;</span>
-<span class="p">}</span>
+- (CATLoginController *) controller {
+    if(_controller == nil) {
+        _controller = [[CATLoginController alloc] initWith:self];
+    }
+    return _controller;
+}
 
-<span class="o">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">loginSuccessWithData</span><span class="o">:</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="n">data</span><span class="p">{</span>
-    <span class="c1">//处理登录成功后的界面呈现
-</span>    <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">&amp;&amp;</span> <span class="p">[</span><span class="n">data</span> <span class="nf">isKindOfClass</span><span class="p">:[</span><span class="n">CATUserEntity</span> <span class="nf">class</span><span class="p">]])</span> <span class="p">{</span>
-        <span class="n">CATUserEntity</span><span class="o">*</span> <span class="n">user</span> <span class="o">=</span> <span class="p">(</span><span class="n">CATUserEntity</span> <span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">;</span>
-        <span class="n">_labMsg</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"登录成功！你好:%@"</span><span class="p">,</span><span class="n">user</span><span class="p">.</span><span class="n">username</span><span class="p">];</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+-(void)loginSuccessWithData:(id)data{
+    //处理登录成功后的界面呈现
+    if (data &amp;&amp; [data isKindOfClass:[CATUserEntity class]]) {
+        CATUserEntity* user = (CATUserEntity *)data;
+        _labMsg.text = [NSString stringWithFormat:@"登录成功！你好:%@",user.username];
+    }
+}
 
-<span class="o">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">loginFailedWithMsg</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">msg</span><span class="p">{</span>
-    <span class="c1">//处理登录失败后的界面呈现
-</span>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"登录失败:%@"</span><span class="p">,</span><span class="n">msg</span><span class="p">);</span>
-<span class="p">}</span>
+-(void)loginFailedWithMsg:(NSString *)msg{
+    //处理登录失败后的界面呈现
+    NSLog(@"登录失败:%@",msg);
+}
 
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">didReceiveMemoryWarning</span> <span class="p">{</span>
-    <span class="p">[</span><span class="n">super</span> <span class="nf">didReceiveMemoryWarning</span><span class="p">];</span>
-<span class="p">}</span>
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
 
-<span class="k">@end</span>
-</code></pre></div>
+@end
+</code></pre></div></div>
 
 <p>学生登录界面</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@interface</span> <span class="nc">CATStudentLoginViewController</span> <span class="p">()</span><span class="o">&lt;</span><span class="n">CATLoginControllerDelegate</span><span class="o">&gt;</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface CATStudentLoginViewController ()&lt;CATLoginControllerDelegate&gt;
 
-<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span><span class="n">strong</span><span class="p">)</span> <span class="n">CATLoginController</span><span class="o">*</span> <span class="n">controller</span><span class="p">;</span>
-<span class="k">@property</span> <span class="p">(</span><span class="n">weak</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">IBOutlet</span> <span class="n">UILabel</span> <span class="o">*</span><span class="n">labMsg</span><span class="p">;</span>
+@property (nonatomic,strong) CATLoginController* controller;
+@property (weak, nonatomic) IBOutlet UILabel *labMsg;
 
-<span class="k">@end</span>
+@end
 
-<span class="k">@implementation</span> <span class="nc">CATStudentLoginViewController</span>
+@implementation CATStudentLoginViewController
 
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">viewDidLoad</span> <span class="p">{</span>
-    <span class="p">[</span><span class="n">super</span> <span class="nf">viewDidLoad</span><span class="p">];</span>
-    <span class="n">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">@"学生登录界面"</span><span class="p">;</span>
-<span class="p">}</span>
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.title = @"学生登录界面";
+}
 
-<span class="o">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="n">loginButtonClicked</span><span class="o">:</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="n">sender</span> <span class="p">{</span>
-    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">controller</span> <span class="nf">loginWithUsername</span><span class="p">:</span><span class="s">@"111"</span> <span class="nf">password</span><span class="p">:</span><span class="s">@"111"</span> <span class="n">type</span><span class="o">:</span><span class="mi">2</span><span class="p">];</span>
-<span class="p">}</span>
+- (IBAction)loginButtonClicked:(id)sender {
+    [self.controller loginWithUsername:@"111" password:@"111" type:2];
+}
 
-<span class="o">-</span> <span class="p">(</span><span class="n">CATLoginController</span> <span class="o">*</span><span class="p">)</span> <span class="n">controller</span> <span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">_controller</span> <span class="o">==</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">_controller</span> <span class="o">=</span> <span class="p">[[</span><span class="n">CATLoginController</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWith</span><span class="p">:</span><span class="n">self</span><span class="p">];</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">_controller</span><span class="p">;</span>
-<span class="p">}</span>
+- (CATLoginController *) controller {
+    if(_controller == nil) {
+        _controller = [[CATLoginController alloc] initWith:self];
+    }
+    return _controller;
+}
 
-<span class="o">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">loginSuccessWithData</span><span class="o">:</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="n">data</span><span class="p">{</span>
-    <span class="c1">//处理登录成功后的界面呈现
-</span>    <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">&amp;&amp;</span> <span class="p">[</span><span class="n">data</span> <span class="nf">isKindOfClass</span><span class="p">:[</span><span class="n">CATUserEntity</span> <span class="nf">class</span><span class="p">]])</span> <span class="p">{</span>
-        <span class="n">CATUserEntity</span><span class="o">*</span> <span class="n">user</span> <span class="o">=</span> <span class="p">(</span><span class="n">CATUserEntity</span> <span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">;</span>
-        <span class="n">_labMsg</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"登录成功！你好:%@"</span><span class="p">,</span><span class="n">user</span><span class="p">.</span><span class="n">username</span><span class="p">];</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+-(void)loginSuccessWithData:(id)data{
+    //处理登录成功后的界面呈现
+    if (data &amp;&amp; [data isKindOfClass:[CATUserEntity class]]) {
+        CATUserEntity* user = (CATUserEntity *)data;
+        _labMsg.text = [NSString stringWithFormat:@"登录成功！你好:%@",user.username];
+    }
+}
 
-<span class="o">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">loginFailedWithMsg</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">msg</span><span class="p">{</span>
-    <span class="c1">//处理登录失败后的界面呈现
-</span>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"登录失败:%@"</span><span class="p">,</span><span class="n">msg</span><span class="p">);</span>
-<span class="p">}</span>
+-(void)loginFailedWithMsg:(NSString *)msg{
+    //处理登录失败后的界面呈现
+    NSLog(@"登录失败:%@",msg);
+}
 
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">didReceiveMemoryWarning</span> <span class="p">{</span>
-    <span class="p">[</span><span class="n">super</span> <span class="nf">didReceiveMemoryWarning</span><span class="p">];</span>
-<span class="p">}</span>
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
 
-<span class="k">@end</span>
-</code></pre></div>
+@end
+</code></pre></div></div>
 
 <h2 id="小结">小结</h2>
 <p>重构后的优点:</p>
@@ -535,6 +535,12 @@ Entity</p>
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+        				
+                            
+                				<a href="/tags/#Policy" title="Policy" rel="1">
+                                    Policy
+                                </a>
+                            
         				
                             
                 				<a href="/tags/#iOS" title="iOS" rel="46">

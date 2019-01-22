@@ -172,7 +172,7 @@
 <p>在日常开发中，我们经常遇到逻辑复杂的业务，导致代码写得又长又乱。有些逻辑像一个流程，在不同的节点需要做不同的操作。
 比如，我们经常会遇到上传文件的业务。该业务要求先验证文件正确性，然后上传，最后跳转到成功的页面。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>if  checkFile {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if  checkFile {
     uploadFile  { result
             if result {
                   showSuccessView { result
@@ -189,7 +189,7 @@
 } else {
   //TODO handle error
 }
-</code></pre></div>
+</code></pre></div></div>
 <p>我们可以看到伪代码中呈现着<strong>回调地狱</strong>，上传前、上传、上传后的操作逻辑也零散地分布，很容易造成阅读和维护困难，而<strong>中间件</strong>的出现，让我们处理这类业务变得简单很多。</p>
 
 <p>在讲中间件之前我们先来回顾下AOP。</p>
@@ -218,23 +218,23 @@
 <p>AOP提倡从横向切面思路向管道某个位置插入一段代码逻辑，这样就实现在任何业务<strong>逻辑前后</strong>都有相同代码逻辑段，开发者只需专注写业务逻辑，既不影响主流程，而且隔离了业务逻辑，达到<strong>高内聚低耦合</strong>。</p>
 
 <p>附上iOS使用AOP实现页面统计的代码，帮助大家理解AOP。</p>
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@implementation</span> <span class="nc">UIViewController</span> <span class="p">(</span><span class="nl">Analytics</span><span class="p">)</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@implementation UIViewController (Analytics)
 
-<span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">load</span><span class="p">{</span>
-    <span class="p">[</span><span class="n">self</span> <span class="nf">swizzleInstanceMethod</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nf">viewWillAppear</span><span class="p">:)</span> <span class="n">with</span><span class="o">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">swizzled_viewWillAppear</span><span class="o">:</span><span class="p">)];</span>
-    <span class="p">[</span><span class="n">self</span> <span class="nf">swizzleInstanceMethod</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nf">viewWillDisappear</span><span class="p">:)</span> <span class="n">with</span><span class="o">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">swizzled_viewWillDisappear</span><span class="o">:</span><span class="p">)];</span>
-<span class="p">}</span>
++ (void)load{
+    [self swizzleInstanceMethod:@selector(viewWillAppear:) with:@selector(swizzled_viewWillAppear:)];
+    [self swizzleInstanceMethod:@selector(viewWillDisappear:) with:@selector(swizzled_viewWillDisappear:)];
+}
 
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">swizzled_viewWillAppear</span><span class="o">:</span><span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">animated</span><span class="p">{</span>
-    <span class="p">[</span><span class="n">self</span> <span class="nf">swizzled_viewWillAppear</span><span class="p">:</span><span class="n">animated</span><span class="p">];</span>
-    <span class="p">[</span><span class="n">Analytics</span> <span class="nf">beginTimingEvent</span><span class="p">:</span> <span class="n">self</span><span class="p">.</span><span class="n">className</span><span class="p">];</span>
-<span class="p">}</span>
+- (void)swizzled_viewWillAppear:(BOOL)animated{
+    [self swizzled_viewWillAppear:animated];
+    [Analytics beginTimingEvent: self.className];
+}
 
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">swizzled_viewWillDisappear</span><span class="o">:</span><span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">animated</span><span class="p">{</span>
-    <span class="p">[</span><span class="n">self</span> <span class="nf">swizzled_viewWillDisappear</span><span class="p">:</span><span class="n">animated</span><span class="p">];</span>
-    <span class="p">[</span><span class="n">Analytics</span> <span class="nf">endTimingEvent</span><span class="p">:</span> <span class="n">self</span><span class="p">.</span><span class="n">className</span><span class="p">];</span>
-<span class="p">}</span>
-</code></pre></div>
+- (void)swizzled_viewWillDisappear:(BOOL)animated{
+    [self swizzled_viewWillDisappear:animated];
+    [Analytics endTimingEvent: self.className];
+}
+</code></pre></div></div>
 
 <h3 id="思考">思考</h3>
 
@@ -257,7 +257,7 @@
 
 <p>AOP从横向切面思路向管道<strong>某个位置</strong>插入一段代码逻辑。而这个位置通常就是<strong>调用前</strong>（before）和<strong>调用后</strong>（after）。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Function.prototype.before = function(fn){
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Function.prototype.before = function(fn){
   var self = this;  
    return function(){  
      var res = fn.call(this);  
@@ -274,11 +274,11 @@ Function.prototype.after = function(fn){
      fn.call(this);  
    }  
 } 
-</code></pre></div>
+</code></pre></div></div>
 
 <p>有了这两个扩展，可以按下面的方式实现上传业务。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>function checkFile(){  
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function checkFile(){  
    console.log('checking file');  
    if fileIsVaild() {
       return true
@@ -303,7 +303,7 @@ function showSuccessView() {
 }
 
 uploadFile.before(checkFile).after(showSuccessView)();
-</code></pre></div>
+</code></pre></div></div>
 
 <h3 id="思考-1">思考</h3>
 
@@ -322,12 +322,12 @@ uploadFile.before(checkFile).after(showSuccessView)();
 
 <p>为了理解中间件，我们来看下<a href="https://koajs.com/#introduction">Koa</a>的中间件使用。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>const logger = (ctx, next) =&gt; {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const logger = (ctx, next) =&gt; {
   console.log(`${Date.now()} ${ctx.request.method} ${ctx.request.url}`);
   next();
 }
 app.use(logger);
-</code></pre></div>
+</code></pre></div></div>
 <p>像上面代码中的logger函数就叫做”中间件”（middleware），因为它处在 HTTP Request 和 HTTP Response 中间，用来实现某种中间功能。app.use()用来加载中间件。</p>
 
 <h3 id="中间件栈">中间件栈</h3>
@@ -338,7 +338,7 @@ app.use(logger);
 
 <p>举个例子</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>const one = (ctx, next) =&gt; {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const one = (ctx, next) =&gt; {
   console.log('&gt;&gt; one');
   next();
   console.log('&lt;&lt; one');
@@ -368,12 +368,12 @@ app.use(three);
 &lt;&lt; two
 &lt;&lt; one
 */
-</code></pre></div>
+</code></pre></div></div>
 <p>中间件一个奇妙的点在于<strong>next函数</strong>。如果中间件内部没有调用next函数，那么执行权就不会传递下去。</p>
 
 <h3 id="中间件的实现">中间件的实现</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>export default class MiddlewareCenter {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export default class MiddlewareCenter {
     constructor() {
         this._middlewares = []
         this._context = null
@@ -428,12 +428,12 @@ function compose(middleware) {
         }
     }
 }
-</code></pre></div>
+</code></pre></div></div>
 <p>详细的代码可以看我的开源项目<a href="https://github.com/CatchZeng/middleware-center">middleware-center</a>。</p>
 
 <h3 id="利用中间件优化上传业务">利用中间件优化上传业务</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>const middlewareCenter = new UploadFileCenter()
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const middlewareCenter = new UploadFileCenter()
 middlewareCenter.handle('uploader')
 
 /* result
@@ -444,9 +444,9 @@ after finishUpload
 after startUplaod
 after beforeUpload
 */
-</code></pre></div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class UploadFileCenter extends MiddlewareCenter {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class UploadFileCenter extends MiddlewareCenter {
 
     constructor() {
         super()
@@ -501,14 +501,14 @@ after beforeUpload
         })
     }
 }
-</code></pre></div>
+</code></pre></div></div>
 <p>大家可以看到，利用中间件不但可以实现业务隔离，调用也很清晰，只要<strong>根据业务调整use的顺序</strong>即可。各个中间件还可以<strong>随意组合，各组件间也没有依赖关系，自身内聚性高</strong>。细心的朋友可以发现，<a href="https://github.com/CatchZeng/middleware-center">middleware-center</a> 还支持<strong>异步方法</strong>。得益于中间件的洋葱结构，使得使用者可以处理业务的任何“位置”（如：beforeUpload、startUplaod、finishUpload、after finishUpload、after startUplaod、after beforeUpload）</p>
 
 <h3 id="遍地开花">遍地开花</h3>
 
 <p>好思想应该遍地开花，业余时间我用swift简单实现了中间件模型<a href="https://github.com/CatchZeng/MiddlewareCenter">MiddlewareCenter</a>，但还没优化，和处理引用问题，感兴趣的朋友可以一起维护。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class ViewController: UIViewController {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class ViewController: UIViewController {
     
     let center = MiddlewareCenter()
     
@@ -546,7 +546,7 @@ public class EndUpload: Middleware {
         print("after EndUpload.")
     }
 }
-</code></pre></div>
+</code></pre></div></div>
 
 <h2 id="四总结">四、总结</h2>
 
@@ -597,6 +597,12 @@ public class EndUpload: Middleware {
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+        				
+                            
+                				<a href="/tags/#Policy" title="Policy" rel="1">
+                                    Policy
+                                </a>
+                            
         				
                             
                 				<a href="/tags/#iOS" title="iOS" rel="46">

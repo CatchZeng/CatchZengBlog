@@ -281,63 +281,63 @@ D = D + DD</p>
 <p>A，B，C，D连续存放，共16个字节，128位。按十六进制依次输出这个16个字节。</p>
 
 <h2 id="三算法实现">三、算法实现</h2>
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@implementation</span> <span class="nc">CATSecurity</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@implementation CATSecurity
 
-<span class="cp">#pragma mark --
+#pragma mark --
 #pragma mark -- MD5
-</span>
-<span class="cm">/**
+
+/**
  *  get data's md5 string
  *
  *  @param data source data
  *
  *  @return md5 string
- */</span>
-<span class="k">+</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nf">md5StringWithData</span><span class="p">:(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nv">data</span><span class="p">{</span>
-    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">result</span><span class="p">[</span><span class="nf">CC_MD5_DIGEST_LENGTH</span><span class="p">];</span>
-    <span class="n">CC_MD5</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">bytes</span><span class="p">,</span> <span class="p">(</span><span class="n">CC_LONG</span><span class="p">)</span><span class="n">data</span><span class="p">.</span><span class="n">length</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span>
-            <span class="s">@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x"</span><span class="p">,</span>
-            <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
-            <span class="n">result</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span>
-            <span class="n">result</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span>
-            <span class="n">result</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">13</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span>
-            <span class="p">];</span>
-<span class="p">}</span>
+ */
++(NSString *)md5StringWithData:(NSData *)data{
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(data.bytes, (CC_LONG)data.length, result);
+    return [NSString stringWithFormat:
+            @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+            result[0], result[1], result[2], result[3],
+            result[4], result[5], result[6], result[7],
+            result[8], result[9], result[10], result[11],
+            result[12], result[13], result[14], result[15]
+            ];
+}
 
-<span class="cm">/**
+/**
  *  get data's md5 data
  *
  *  @param data source data
  *
  *  @return md5 data
- */</span>
-<span class="k">+</span><span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nf">md5DataWithData</span><span class="p">:(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nv">data</span><span class="p">{</span>
-    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">result</span><span class="p">[</span><span class="nf">CC_MD5_DIGEST_LENGTH</span><span class="p">];</span>
-    <span class="n">CC_MD5</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">bytes</span><span class="p">,</span> <span class="p">(</span><span class="n">CC_LONG</span><span class="p">)</span><span class="n">data</span><span class="p">.</span><span class="n">length</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">NSData</span> <span class="nf">dataWithBytes</span><span class="p">:</span><span class="n">result</span> <span class="nf">length</span><span class="p">:</span><span class="n">CC_MD5_DIGEST_LENGTH</span><span class="p">];</span>
-<span class="p">}</span>
+ */
++(NSData *)md5DataWithData:(NSData *)data{
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(data.bytes, (CC_LONG)data.length, result);
+    return [NSData dataWithBytes:result length:CC_MD5_DIGEST_LENGTH];
+}
 
-<span class="cm">/**
+/**
  *  get string's md5 string
  *
  *  @param str source string
  *
  *  @return md5 string
- */</span>
-<span class="k">+</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nf">md5StringWithString</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">str</span><span class="p">{</span>
-    <span class="n">NSData</span><span class="o">*</span> <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">str</span> <span class="nf">dataUsingEncoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">self</span> <span class="nf">md5StringWithData</span><span class="p">:</span><span class="n">data</span><span class="p">];</span>
-<span class="p">}</span>
+ */
++(NSString *)md5StringWithString:(NSString *)str{
+    NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    return [self md5StringWithData:data];
+}
 
-<span class="k">@end</span>
+@end
 
-</code></pre></div>
+</code></pre></div></div>
 
 <h2 id="四算法优化">四、算法优化</h2>
 
 <h3 id="加盐md5盐的复杂度决定了增加的破解难度">加盐MD5（盐的复杂度决定了增加的破解难度）</h3>
-<div class="highlighter-rouge"><pre class="highlight"><code>/**
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/**
  *  get string's md5 string
  *
  *  @param str source string
@@ -350,11 +350,11 @@ D = D + DD</p>
     return [self md5StringWithString:strTmp];
 }
 
-</code></pre></div>
+</code></pre></div></div>
 
 <h3 id="二次md5容易被找到规律而破解">二次MD5（容易被找到规律而破解）</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>/**
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/**
  *  get string's multiple md5 string
  *
  *  @param str source string
@@ -366,10 +366,10 @@ D = D + DD</p>
     strTmp = [self md5StringWithString:strTmp];
     return strTmp;
 }
-</code></pre></div>
+</code></pre></div></div>
 
 <h3 id="md5后乱序破解难度较大">MD5后乱序（破解难度较大）</h3>
-<div class="highlighter-rouge"><pre class="highlight"><code>/**
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/**
  *  get string's disorder md5 string
  *
  *  @param str source string
@@ -383,7 +383,7 @@ D = D + DD</p>
     ss = [footer stringByAppendingString:header];
     return ss;
 }
-</code></pre></div>
+</code></pre></div></div>
 <p>最后附上<a href="https://github.com/CatchZeng/CATSecurity">工程地址</a>。</p>
 
 
@@ -430,6 +430,12 @@ D = D + DD</p>
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+        				
+                            
+                				<a href="/tags/#Policy" title="Policy" rel="1">
+                                    Policy
+                                </a>
+                            
         				
                             
                 				<a href="/tags/#iOS" title="iOS" rel="46">

@@ -179,117 +179,117 @@
 
 <h2 id="三算法实现">三、算法实现</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@implementation</span> <span class="nc">CATSecurity</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@implementation CATSecurity
 
-<span class="cp">#pragma mark --
+#pragma mark --
 #pragma mark -- AES
-</span>
-<span class="cm">/**
+
+/**
  *  get data's aes256 encrypt data
  *
  *  @param data source data
  *  @param key  key for encrypt/decrypt  !!!key length must be 16
  *
  *  @return aes256 encrypt data
- */</span>
-<span class="k">+</span><span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nf">aes256EncryptWithData</span><span class="p">:(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nv">data</span> <span class="nf">key</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">key</span><span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">key</span> <span class="o">||</span> <span class="n">key</span><span class="p">.</span><span class="n">length</span> <span class="o">!=</span><span class="mi">16</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"key length must be 16"</span><span class="p">);</span>
-        <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="kt">char</span> <span class="n">keyPtr</span><span class="p">[</span><span class="n">kCCKeySizeAES256</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
-    <span class="n">bzero</span><span class="p">(</span><span class="n">keyPtr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">keyPtr</span><span class="p">));</span>
-    <span class="p">[</span><span class="n">key</span> <span class="nf">getCString</span><span class="p">:</span><span class="n">keyPtr</span> <span class="nf">maxLength</span><span class="p">:</span><span class="k">sizeof</span><span class="p">(</span><span class="n">keyPtr</span><span class="p">)</span> <span class="n">encoding</span><span class="o">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
-    <span class="n">NSUInteger</span> <span class="n">dataLength</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">length</span><span class="p">;</span>
-    <span class="kt">size_t</span> <span class="n">bufferSize</span> <span class="o">=</span> <span class="n">dataLength</span> <span class="o">+</span> <span class="n">kCCBlockSizeAES128</span><span class="p">;</span>
-    <span class="kt">void</span> <span class="o">*</span><span class="n">buffer</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">bufferSize</span><span class="p">);</span>
-    <span class="kt">size_t</span> <span class="n">numBytesEncrypted</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">CCCryptorStatus</span> <span class="n">cryptStatus</span> <span class="o">=</span> <span class="n">CCCrypt</span><span class="p">(</span><span class="n">kCCEncrypt</span><span class="p">,</span> <span class="n">kCCAlgorithmAES128</span><span class="p">,</span>
-                                          <span class="n">kCCOptionPKCS7Padding</span> <span class="o">|</span> <span class="n">kCCOptionECBMode</span><span class="p">,</span>
-                                          <span class="n">keyPtr</span><span class="p">,</span> <span class="n">kCCBlockSizeAES128</span><span class="p">,</span>
-                                          <span class="nb">NULL</span><span class="p">,</span>
-                                          <span class="n">data</span><span class="p">.</span><span class="n">bytes</span><span class="p">,</span> <span class="n">dataLength</span><span class="p">,</span>
-                                          <span class="n">buffer</span><span class="p">,</span> <span class="n">bufferSize</span><span class="p">,</span>
-                                          <span class="o">&amp;</span><span class="n">numBytesEncrypted</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">cryptStatus</span> <span class="o">==</span> <span class="n">kCCSuccess</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">NSData</span> <span class="nf">dataWithBytesNoCopy</span><span class="p">:</span><span class="n">buffer</span> <span class="nf">length</span><span class="p">:</span><span class="n">numBytesEncrypted</span><span class="p">];</span>
-    <span class="p">}</span>
-    <span class="n">free</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
-    <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
-<span class="p">}</span>
+ */
++(NSData *)aes256EncryptWithData:(NSData *)data key:(NSString *)key{
+    if (!key || key.length !=16) {
+        NSLog(@"key length must be 16");
+        return nil;
+    }
+    char keyPtr[kCCKeySizeAES256+1];
+    bzero(keyPtr, sizeof(keyPtr));
+    [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
+    NSUInteger dataLength = data.length;
+    size_t bufferSize = dataLength + kCCBlockSizeAES128;
+    void *buffer = malloc(bufferSize);
+    size_t numBytesEncrypted = 0;
+    CCCryptorStatus cryptStatus = CCCrypt(kCCEncrypt, kCCAlgorithmAES128,
+                                          kCCOptionPKCS7Padding | kCCOptionECBMode,
+                                          keyPtr, kCCBlockSizeAES128,
+                                          NULL,
+                                          data.bytes, dataLength,
+                                          buffer, bufferSize,
+                                          &amp;numBytesEncrypted);
+    if (cryptStatus == kCCSuccess) {
+        return [NSData dataWithBytesNoCopy:buffer length:numBytesEncrypted];
+    }
+    free(buffer);
+    return nil;
+}
 
-<span class="cm">/**
+/**
  *  get source data from aes256 encrypt data
  *
  *  @param data aes256 encrypt data
  *  @param key  key for encrypt/decrypt  !!!key length must be 16
  *
  *  @return source data
- */</span>
-<span class="k">+</span><span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nf">aes256DecryptWithData</span><span class="p">:(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nv">data</span> <span class="nf">key</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">key</span><span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">key</span> <span class="o">||</span> <span class="n">key</span><span class="p">.</span><span class="n">length</span> <span class="o">!=</span><span class="mi">16</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"key length must be 16"</span><span class="p">);</span>
-        <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="kt">char</span> <span class="n">keyPtr</span><span class="p">[</span><span class="n">kCCKeySizeAES256</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
-    <span class="n">bzero</span><span class="p">(</span><span class="n">keyPtr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">keyPtr</span><span class="p">));</span>
-    <span class="p">[</span><span class="n">key</span> <span class="nf">getCString</span><span class="p">:</span><span class="n">keyPtr</span> <span class="nf">maxLength</span><span class="p">:</span><span class="k">sizeof</span><span class="p">(</span><span class="n">keyPtr</span><span class="p">)</span> <span class="n">encoding</span><span class="o">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
-    <span class="n">NSUInteger</span> <span class="n">dataLength</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">length</span><span class="p">;</span>
-    <span class="kt">size_t</span> <span class="n">bufferSize</span> <span class="o">=</span> <span class="n">dataLength</span> <span class="o">+</span> <span class="n">kCCBlockSizeAES128</span><span class="p">;</span>
-    <span class="kt">void</span> <span class="o">*</span><span class="n">buffer</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">bufferSize</span><span class="p">);</span>
-    <span class="kt">size_t</span> <span class="n">numBytesDecrypted</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">CCCryptorStatus</span> <span class="n">cryptStatus</span> <span class="o">=</span> <span class="n">CCCrypt</span><span class="p">(</span><span class="n">kCCDecrypt</span><span class="p">,</span> <span class="n">kCCAlgorithmAES128</span><span class="p">,</span>
-                                          <span class="n">kCCOptionPKCS7Padding</span> <span class="o">|</span> <span class="n">kCCOptionECBMode</span><span class="p">,</span>
-                                          <span class="n">keyPtr</span><span class="p">,</span> <span class="n">kCCBlockSizeAES128</span><span class="p">,</span>
-                                          <span class="nb">NULL</span><span class="p">,</span>
-                                          <span class="n">data</span><span class="p">.</span><span class="n">bytes</span><span class="p">,</span> <span class="n">dataLength</span><span class="p">,</span>
-                                          <span class="n">buffer</span><span class="p">,</span> <span class="n">bufferSize</span><span class="p">,</span>
-                                          <span class="o">&amp;</span><span class="n">numBytesDecrypted</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">cryptStatus</span> <span class="o">==</span> <span class="n">kCCSuccess</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">NSData</span> <span class="nf">dataWithBytesNoCopy</span><span class="p">:</span><span class="n">buffer</span> <span class="nf">length</span><span class="p">:</span><span class="n">numBytesDecrypted</span><span class="p">];</span>
-    <span class="p">}</span>
-    <span class="n">free</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
-    <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
-<span class="p">}</span>
+ */
++(NSData *)aes256DecryptWithData:(NSData *)data key:(NSString *)key{
+    if (!key || key.length !=16) {
+        NSLog(@"key length must be 16");
+        return nil;
+    }
+    char keyPtr[kCCKeySizeAES256+1];
+    bzero(keyPtr, sizeof(keyPtr));
+    [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
+    NSUInteger dataLength = data.length;
+    size_t bufferSize = dataLength + kCCBlockSizeAES128;
+    void *buffer = malloc(bufferSize);
+    size_t numBytesDecrypted = 0;
+    CCCryptorStatus cryptStatus = CCCrypt(kCCDecrypt, kCCAlgorithmAES128,
+                                          kCCOptionPKCS7Padding | kCCOptionECBMode,
+                                          keyPtr, kCCBlockSizeAES128,
+                                          NULL,
+                                          data.bytes, dataLength,
+                                          buffer, bufferSize,
+                                          &amp;numBytesDecrypted);
+    if (cryptStatus == kCCSuccess) {
+        return [NSData dataWithBytesNoCopy:buffer length:numBytesDecrypted];
+    }
+    free(buffer);
+    return nil;
+}
 
-<span class="cm">/**
+/**
  *  get string's aes256 encrypt data
  *
  *  @param string source string
  *  @param key  key for encrypt/decrypt  !!!key length must be 16
  *
  *  @return aes256 encrypt data
- */</span>
-<span class="k">+</span><span class="p">(</span><span class="n">NSData</span><span class="o">*</span><span class="p">)</span><span class="nf">aes256EncryptWithString</span><span class="p">:(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="nv">string</span> <span class="nf">key</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">key</span><span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">key</span> <span class="o">||</span> <span class="n">key</span><span class="p">.</span><span class="n">length</span> <span class="o">!=</span><span class="mi">16</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"key length must be 16"</span><span class="p">);</span>
-        <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">NSData</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">string</span> <span class="nf">dataUsingEncoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
-    <span class="n">NSData</span> <span class="o">*</span><span class="n">encryptedData</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">aes256EncryptWithData</span><span class="p">:</span><span class="n">data</span> <span class="nf">key</span><span class="p">:</span><span class="n">key</span><span class="p">];</span>
-    <span class="k">return</span> <span class="n">encryptedData</span><span class="p">;</span>
-<span class="p">}</span>
+ */
++(NSData*)aes256EncryptWithString:(NSString*)string key:(NSString *)key{
+    if (!key || key.length !=16) {
+        NSLog(@"key length must be 16");
+        return nil;
+    }
+    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *encryptedData = [self aes256EncryptWithData:data key:key];
+    return encryptedData;
+}
 
-<span class="cm">/**
+/**
  *  get source string from aes256 encrypt data
  *
  *  @param data aes256 encrypt data
  *  @param key  key for encrypt/decrypt  !!!key length must be 16
  *
  *  @return source string
- */</span>
-<span class="k">+</span><span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="nf">aes256DecryptStringWithData</span><span class="p">:(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nv">data</span> <span class="nf">key</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">key</span><span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">key</span> <span class="o">||</span> <span class="n">key</span><span class="p">.</span><span class="n">length</span> <span class="o">!=</span><span class="mi">16</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"key length must be 16"</span><span class="p">);</span>
-        <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">NSData</span> <span class="o">*</span><span class="n">decryData</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">aes256DecryptWithData</span><span class="p">:</span><span class="n">data</span> <span class="nf">key</span><span class="p">:</span><span class="n">key</span><span class="p">];</span>
-    <span class="n">NSString</span> <span class="o">*</span><span class="n">string</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSString</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithData</span><span class="p">:</span><span class="n">decryData</span> <span class="nf">encoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
-    <span class="k">return</span> <span class="n">string</span><span class="p">;</span>
-<span class="p">}</span>
+ */
++(NSString*)aes256DecryptStringWithData:(NSData *)data key:(NSString *)key{
+    if (!key || key.length !=16) {
+        NSLog(@"key length must be 16");
+        return nil;
+    }
+    NSData *decryData = [self aes256DecryptWithData:data key:key];
+    NSString *string = [[NSString alloc] initWithData:decryData encoding:NSUTF8StringEncoding];
+    return string;
+}
 
-<span class="k">@end</span>
-</code></pre></div>
+@end
+</code></pre></div></div>
 
 <h2 id="四补充">四、补充</h2>
 <p>由于iOS、java的平台差异，AES的加密算法存在兼容性问题(iOS的AES Padding只支持ccPKCS7Padding, ccNoPadding)，为了使用方便，我找了一份可兼容的Java的代码并做了测试，详见<a href="https://github.com/CatchZeng/CATSecurity">工程</a>的java目录。</p>
@@ -338,6 +338,12 @@
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+        				
+                            
+                				<a href="/tags/#Policy" title="Policy" rel="1">
+                                    Policy
+                                </a>
+                            
         				
                             
                 				<a href="/tags/#iOS" title="iOS" rel="46">

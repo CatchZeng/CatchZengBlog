@@ -234,64 +234,64 @@ OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉库�
   <li>注：因为OpenCV是C++写的，所以引入项目中的文件需要使用Object-C++的兼容方式来写，具体的做法就是将需要导入OpenCV头文件的m文件改成mm文件</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">//
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//
 //  OpenCV.h
 //  LearningOpenCV
 //
 //  Created by CatchZeng on 2018/6/12.
 //  Copyright © 2018年 catch. All rights reserved.
 //
-</span>
-<span class="cp">#import &lt;Foundation/Foundation.h&gt;
+
+#import &lt;Foundation/Foundation.h&gt;
 #import &lt;UIKit/UIKit.h&gt;
-</span>
-<span class="k">@interface</span> <span class="nc">OpenCV</span> <span class="p">:</span> <span class="nc">NSObject</span>
 
-<span class="k">+</span> <span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">gray</span><span class="p">:(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nv">image</span><span class="p">;</span>
+@interface OpenCV : NSObject
 
-<span class="k">@end</span>
-</code></pre></div>
++ (UIImage *)gray:(UIImage *)image;
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">//
+@end
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//
 //  OpenCV.m
 //  LearningOpenCV
 //
 //  Created by CatchZeng on 2018/6/12.
 //  Copyright © 2018年 catch. All rights reserved.
 //
-</span>
-<span class="c1">//!!!opencv的头文件引入必须在其他头文件之前
-</span><span class="cp">#import &lt;opencv2/opencv.hpp&gt;
+
+//!!!opencv的头文件引入必须在其他头文件之前
+#import &lt;opencv2/opencv.hpp&gt;
 #import &lt;opencv2/imgproc/types_c.h&gt;
 #import &lt;opencv2/imgcodecs/ios.h&gt;
 #import &lt;opencv2/core/core_c.h&gt;
 #import "OpenCV.h"
-</span><span class="n">using</span> <span class="n">namespace</span> <span class="n">cv</span><span class="p">;</span>
+using namespace cv;
 
-<span class="k">@interface</span> <span class="nc">OpenCV</span><span class="p">()</span> <span class="p">{</span>
-<span class="p">}</span>
+@interface OpenCV() {
+}
 
-<span class="k">@end</span>
+@end
 
-<span class="k">@implementation</span> <span class="nc">OpenCV</span>
+@implementation OpenCV
 
-<span class="k">+</span> <span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">gray</span><span class="p">:(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nv">image</span> <span class="p">{</span>
-    <span class="n">Mat</span> <span class="n">mat</span><span class="p">;</span>
-    <span class="n">UIImageToMat</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">mat</span><span class="p">);</span>
++ (UIImage *)gray:(UIImage *)image {
+    Mat mat;
+    UIImageToMat(image, mat);
     
-    <span class="n">Mat</span> <span class="n">grayMat</span><span class="p">;</span>
-    <span class="n">cvtColor</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grayMat</span><span class="p">,</span> <span class="n">CV_BGR2GRAY</span><span class="p">);</span>
+    Mat grayMat;
+    cvtColor(mat, grayMat, CV_BGR2GRAY);
     
-    <span class="n">UIImage</span><span class="o">*</span> <span class="n">result</span> <span class="o">=</span> <span class="n">MatToUIImage</span><span class="p">(</span><span class="n">grayMat</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-<span class="p">}</span>
+    UIImage* result = MatToUIImage(grayMat);
+    return result;
+}
 
-<span class="k">@end</span>
-</code></pre></div>
+@end
+</code></pre></div></div>
 
 <p>新建视图控制器SayHelloViewController</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class SayHelloViewController: UIViewController {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class SayHelloViewController: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var grayImageView: UIImageView!
@@ -302,7 +302,7 @@ OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉库�
         grayImageView.image = OpenCV.gray(#imageLiteral(resourceName: "sayHello"))
     }
 }
-</code></pre></div>
+</code></pre></div></div>
 
 <p>效果</p>
 
@@ -461,6 +461,12 @@ OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉库�
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+        				
+                            
+                				<a href="/tags/#Policy" title="Policy" rel="1">
+                                    Policy
+                                </a>
+                            
         				
                             
                 				<a href="/tags/#iOS" title="iOS" rel="46">
