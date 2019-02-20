@@ -5,8 +5,8 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 28 Jan 2019 09:30:31 +0800</pubDate>
-    <lastBuildDate>Mon, 28 Jan 2019 09:30:31 +0800</lastBuildDate>
+    <pubDate>Wed, 20 Feb 2019 15:49:26 +0800</pubDate>
+    <lastBuildDate>Wed, 20 Feb 2019 15:49:26 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -52,6 +52,7 @@
   &lt;li&gt;&lt;a href=&quot;https://xiaozhuanlan.com/topic/7256384091&quot;&gt;Go 文件上传&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://xiaozhuanlan.com/topic/7813259064&quot;&gt;Go RESTful API&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://xiaozhuanlan.com/topic/1327690845&quot;&gt;Go, gin, vue 创建单页应用&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://xiaozhuanlan.com/topic/5972134068&quot;&gt;使用 Docker 部署 Go Web 应用&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;不断更新中……&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -335,6 +336,10 @@ dependencies &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
   &lt;li&gt;&lt;a href=&quot;https://xiaozhuanlan.com/topic/9175236084&quot;&gt;Jenkins Pipeline 详解&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;不断更新中……&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+本文总阅读量&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;次
+&lt;/span&gt;&lt;/p&gt;
 </description>
         <pubDate>Wed, 12 Dec 2018 17:38:27 +0800</pubDate>
         <link>http://localhost:4000/2018/12/12/%E8%A2%AB%E8%BD%BB%E8%A7%86%E7%9A%84%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/</link>
@@ -359,26 +364,27 @@ dependencies &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
             if result {
                   showSuccessView { result
                              if result {
-                                  //handle success 
+                                  //handle success
                              } else {
                                   //handle error
-                              }  
-                  }        
+                              }
+                  }
             } else {
                //TODO handle error
             }
-    }     
+    }
 } else {
   //TODO handle error
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;我们可以看到伪代码中呈现着&lt;strong&gt;回调地狱&lt;/strong&gt;，上传前、上传、上传后的操作逻辑也零散地分布，很容易造成阅读和维护困难，而&lt;strong&gt;中间件&lt;/strong&gt;的出现，让我们处理这类业务变得简单很多。&lt;/p&gt;
 
-&lt;p&gt;在讲中间件之前我们先来回顾下AOP。&lt;/p&gt;
+&lt;p&gt;在讲中间件之前我们先来回顾下 AOP。&lt;/p&gt;
 
 &lt;h2 id=&quot;二aop&quot;&gt;二、AOP&lt;/h2&gt;
 
-&lt;p&gt;AOP意为面向切面编程。  以页面统计为例，先来看下传统的流程。&lt;/p&gt;
+&lt;p&gt;AOP 意为面向切面编程。 以页面统计为例，先来看下传统的流程。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-632c86a8323e9556.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;页面统计&quot; /&gt;&lt;/p&gt;
 
@@ -387,19 +393,21 @@ dependencies &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-407dcc957c986b17.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;页面统计&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;不难发现每个页面都有一个相同的页面统计流程。这样的处理有如下几个问题：&lt;/p&gt;
+
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;重复代码&lt;/strong&gt;：每个界面都需要加入页面统计的代码&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;影响主流程的清晰度&lt;/strong&gt;：页面统计跟&lt;strong&gt;主流程&lt;/strong&gt;无关，但又需要加入到各个界面中&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;扩展性差&lt;/strong&gt;：新增一个界面，就得为其加入页面统计的代码&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;有没有想过把这个页面统计的代码是提取出来，不放到主流程里去呢？这就是AOP的思想了，传统的流程讲究&lt;strong&gt;从上而下&lt;/strong&gt;的处理流程 ，而AOP讲究&lt;strong&gt;“面”&lt;/strong&gt;,从&lt;strong&gt;横向切面&lt;/strong&gt;将相同的流程提取出去，所以也叫&lt;strong&gt;“横切面”&lt;/strong&gt;，如下图所示。&lt;/p&gt;
+&lt;p&gt;有没有想过把这个页面统计的代码是提取出来，不放到主流程里去呢？这就是 AOP 的思想了，传统的流程讲究&lt;strong&gt;从上而下&lt;/strong&gt;的处理流程 ，而 AOP 讲究&lt;strong&gt;“面”&lt;/strong&gt;,从&lt;strong&gt;横向切面&lt;/strong&gt;将相同的流程提取出去，所以也叫&lt;strong&gt;“横切面”&lt;/strong&gt;，如下图所示。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-bc91873e5f664616.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Group 5.png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;AOP提倡从横向切面思路向管道某个位置插入一段代码逻辑，这样就实现在任何业务&lt;strong&gt;逻辑前后&lt;/strong&gt;都有相同代码逻辑段，开发者只需专注写业务逻辑，既不影响主流程，而且隔离了业务逻辑，达到&lt;strong&gt;高内聚低耦合&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;AOP 提倡从横向切面思路向管道某个位置插入一段代码逻辑，这样就实现在任何业务&lt;strong&gt;逻辑前后&lt;/strong&gt;都有相同代码逻辑段，开发者只需专注写业务逻辑，既不影响主流程，而且隔离了业务逻辑，达到&lt;strong&gt;高内聚低耦合&lt;/strong&gt;。&lt;/p&gt;
 
-&lt;p&gt;附上iOS使用AOP实现页面统计的代码，帮助大家理解AOP。&lt;/p&gt;
+&lt;p&gt;附上 iOS 使用 AOP 实现页面统计的代码，帮助大家理解 AOP。&lt;/p&gt;
+
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@implementation UIViewController (Analytics)
 
 + (void)load{
@@ -422,66 +430,66 @@ dependencies &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;AOP和OOP是什么关系？有什么区别？
-写多了OOP的代码，会发现AOP跟OOP的思路不同。OOP是将做&lt;strong&gt;同一件事情的业务逻辑&lt;/strong&gt;封装成一个对象。但是，在做一件事情过程（主流程）中又想做别的事情（比如页面统计）对OOP来说难以解决。而AOP的出现让OOP代码能专注于主流程，更好地遵循&lt;a href=&quot;http://catchzeng.com/2017/02/19/聊聊设计模式原则-一-单一职责原则/&quot;&gt;单一职责原则&lt;/a&gt;，提高内聚性。所以，我认为AOP对OOP做了一个补充。&lt;/p&gt;
+    &lt;p&gt;AOP 和 OOP 是什么关系？有什么区别？
+写多了 OOP 的代码，会发现 AOP 跟 OOP 的思路不同。OOP 是将做&lt;strong&gt;同一件事情的业务逻辑&lt;/strong&gt;封装成一个对象。但是，在做一件事情过程（主流程）中又想做别的事情（比如页面统计）对 OOP 来说难以解决。而 AOP 的出现让 OOP 代码能专注于主流程，更好地遵循&lt;a href=&quot;http://catchzeng.com/2017/02/19/聊聊设计模式原则-一-单一职责原则/&quot;&gt;单一职责原则&lt;/a&gt;，提高内聚性。所以，我认为 AOP 对 OOP 做了一个补充。&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;怎么判断代码是否达到了高内聚？
 这个问题吊一下大家胃口，这里先不解答，大家可以在留言处评论，后续会贴出个人的理解。&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;AOP思想如何解决上传文件的业务的问题？
-由于JavaScript的动态性较好，下面以JavaScript代码为例，看下如何利用AOP优化上传文件业务。&lt;/p&gt;
+    &lt;p&gt;AOP 思想如何解决上传文件的业务的问题？
+由于 JavaScript 的动态性较好，下面以 JavaScript 代码为例，看下如何利用 AOP 优化上传文件业务。&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;利用aop优化上传文件业务&quot;&gt;利用AOP优化上传文件业务&lt;/h3&gt;
+&lt;h3 id=&quot;利用-aop-优化上传文件业务&quot;&gt;利用 AOP 优化上传文件业务&lt;/h3&gt;
 
-&lt;p&gt;AOP从横向切面思路向管道&lt;strong&gt;某个位置&lt;/strong&gt;插入一段代码逻辑。而这个位置通常就是&lt;strong&gt;调用前&lt;/strong&gt;（before）和&lt;strong&gt;调用后&lt;/strong&gt;（after）。&lt;/p&gt;
+&lt;p&gt;AOP 从横向切面思路向管道&lt;strong&gt;某个位置&lt;/strong&gt;插入一段代码逻辑。而这个位置通常就是&lt;strong&gt;调用前&lt;/strong&gt;（before）和&lt;strong&gt;调用后&lt;/strong&gt;（after）。&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Function.prototype.before = function(fn){
-  var self = this;  
-   return function(){  
-     var res = fn.call(this);  
+  var self = this;
+   return function(){
+     var res = fn.call(this);
      if(res) {
-        self.apply(this, arguments); 
+        self.apply(this, arguments);
      }
-   }  
-}  
+   }
+}
 
 Function.prototype.after = function(fn){
-  var self = this;  
-   return function(){  
-     self.apply(this, arguments);  
-     fn.call(this);  
-   }  
-} 
+  var self = this;
+   return function(){
+     self.apply(this, arguments);
+     fn.call(this);
+   }
+}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;有了这两个扩展，可以按下面的方式实现上传业务。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function checkFile(){  
-   console.log('checking file');  
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function checkFile(){
+   console.log('checking file');
    if fileIsVaild() {
       return true
    } else {
-      console.log('file is invalid');  
+      console.log('file is invalid');
       return false
     }
 }
 
 function uploadFile() {
-  console.log('uploading file');  
+  console.log('uploading file');
   if fileUploadSuccess() {
       return true
    } else {
-      console.log('file upload failed');  
+      console.log('file upload failed');
       return false
    }
 }
 
 function showSuccessView() {
-  console.log('show success view');  
+  console.log('show success view');
 }
 
 uploadFile.before(checkFile).after(showSuccessView)();
@@ -491,8 +499,8 @@ uploadFile.before(checkFile).after(showSuccessView)();
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;使用AOP后解决了什么问题？还有什么问题？
-从上面的例子，可以看出AOP已经实现了业务隔离。但却带来了一串长长的&lt;strong&gt;链式调用&lt;/strong&gt;，如果处理不当很容易&lt;strong&gt;掉链子&lt;/strong&gt;。另外，这种结构实现&lt;strong&gt;异步操作&lt;/strong&gt;较为麻烦。&lt;/p&gt;
+    &lt;p&gt;使用 AOP 后解决了什么问题？还有什么问题？
+从上面的例子，可以看出 AOP 已经实现了业务隔离。但却带来了一串长长的&lt;strong&gt;链式调用&lt;/strong&gt;，如果处理不当很容易&lt;strong&gt;掉链子&lt;/strong&gt;。另外，这种结构实现&lt;strong&gt;异步操作&lt;/strong&gt;较为麻烦。&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;有什么办法，既能隔离业务，又能清爽地使用？
@@ -510,7 +518,8 @@ uploadFile.before(checkFile).after(showSuccessView)();
 }
 app.use(logger);
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;像上面代码中的logger函数就叫做”中间件”（middleware），因为它处在 HTTP Request 和 HTTP Response 中间，用来实现某种中间功能。app.use()用来加载中间件。&lt;/p&gt;
+
+&lt;p&gt;像上面代码中的 logger 函数就叫做”中间件”（middleware），因为它处在 HTTP Request 和 HTTP Response 中间，用来实现某种中间功能。app.use()用来加载中间件。&lt;/p&gt;
 
 &lt;h3 id=&quot;中间件栈&quot;&gt;中间件栈&lt;/h3&gt;
 
@@ -528,7 +537,7 @@ app.use(logger);
 
 const two = (ctx, next) =&amp;gt; {
   console.log('&amp;gt;&amp;gt; two');
-  next(); 
+  next();
   console.log('&amp;lt;&amp;lt; two');
 }
 
@@ -551,7 +560,8 @@ app.use(three);
 &amp;lt;&amp;lt; one
 */
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;中间件一个奇妙的点在于&lt;strong&gt;next函数&lt;/strong&gt;。如果中间件内部没有调用next函数，那么执行权就不会传递下去。&lt;/p&gt;
+
+&lt;p&gt;中间件一个奇妙的点在于&lt;strong&gt;next 函数&lt;/strong&gt;。如果中间件内部没有调用 next 函数，那么执行权就不会传递下去。&lt;/p&gt;
 
 &lt;h3 id=&quot;中间件的实现&quot;&gt;中间件的实现&lt;/h3&gt;
 
@@ -592,7 +602,7 @@ function compose(middleware) {
     return function (context, next) {
         // last called middleware #
         let index = -1
-        
+
         return dispatch(0)
 
         function dispatch(i) {
@@ -611,6 +621,7 @@ function compose(middleware) {
     }
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;详细的代码可以看我的开源项目&lt;a href=&quot;https://github.com/CatchZeng/middleware-center&quot;&gt;middleware-center&lt;/a&gt;。&lt;/p&gt;
 
 &lt;h3 id=&quot;利用中间件优化上传业务&quot;&gt;利用中间件优化上传业务&lt;/h3&gt;
@@ -684,23 +695,24 @@ after beforeUpload
     }
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;大家可以看到，利用中间件不但可以实现业务隔离，调用也很清晰，只要&lt;strong&gt;根据业务调整use的顺序&lt;/strong&gt;即可。各个中间件还可以&lt;strong&gt;随意组合，各组件间也没有依赖关系，自身内聚性高&lt;/strong&gt;。细心的朋友可以发现，&lt;a href=&quot;https://github.com/CatchZeng/middleware-center&quot;&gt;middleware-center&lt;/a&gt; 还支持&lt;strong&gt;异步方法&lt;/strong&gt;。得益于中间件的洋葱结构，使得使用者可以处理业务的任何“位置”（如：beforeUpload、startUplaod、finishUpload、after finishUpload、after startUplaod、after beforeUpload）&lt;/p&gt;
+
+&lt;p&gt;大家可以看到，利用中间件不但可以实现业务隔离，调用也很清晰，只要&lt;strong&gt;根据业务调整 use 的顺序&lt;/strong&gt;即可。各个中间件还可以&lt;strong&gt;随意组合，各组件间也没有依赖关系，自身内聚性高&lt;/strong&gt;。细心的朋友可以发现，&lt;a href=&quot;https://github.com/CatchZeng/middleware-center&quot;&gt;middleware-center&lt;/a&gt; 还支持&lt;strong&gt;异步方法&lt;/strong&gt;。得益于中间件的洋葱结构，使得使用者可以处理业务的任何“位置”（如：beforeUpload、startUplaod、finishUpload、after finishUpload、after startUplaod、after beforeUpload）&lt;/p&gt;
 
 &lt;h3 id=&quot;遍地开花&quot;&gt;遍地开花&lt;/h3&gt;
 
-&lt;p&gt;好思想应该遍地开花，业余时间我用swift简单实现了中间件模型&lt;a href=&quot;https://github.com/CatchZeng/MiddlewareCenter&quot;&gt;MiddlewareCenter&lt;/a&gt;，但还没优化，和处理引用问题，感兴趣的朋友可以一起维护。&lt;/p&gt;
+&lt;p&gt;好思想应该遍地开花，业余时间我用 swift 简单实现了中间件模型&lt;a href=&quot;https://github.com/CatchZeng/MiddlewareCenter&quot;&gt;MiddlewareCenter&lt;/a&gt;，但还没优化，和处理引用问题，感兴趣的朋友可以一起维护。&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class ViewController: UIViewController {
-    
+
     let center = MiddlewareCenter()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         center.use(BeforeUpload())
         center.use(StartUpload())
         center.use(EndUpload())
-        
+
         center.handle(ctx: nil)
     }
 }
@@ -733,7 +745,11 @@ public class EndUpload: Middleware {
 &lt;h2 id=&quot;四总结&quot;&gt;四、总结&lt;/h2&gt;
 
 &lt;p&gt;中间件实现了业务隔离，满足每个业务所需的数据，又能很好控制业务&lt;strong&gt;下发执行&lt;/strong&gt;的权利，所以“中间件”模式算是一种不错的设计。
-理解中间件，主要理解三个概念，包括：context、next、洋葱结构。context为业务所需的上下文，比如koa是处理网络请求的，所以它的context包含request、response；next是业务流的下发控制，使用好next，可以灵活地处理各种业务，包括错误处理、中间件重用等；洋葱结构可以让使用者轻松地处理各个流程的“位置”。&lt;/p&gt;
+理解中间件，主要理解三个概念，包括：context、next、洋葱结构。context 为业务所需的上下文，比如 koa 是处理网络请求的，所以它的 context 包含 request、response；next 是业务流的下发控制，使用好 next，可以灵活地处理各种业务，包括错误处理、中间件重用等；洋葱结构可以让使用者轻松地处理各个流程的“位置”。&lt;/p&gt;
+
+&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+本文总阅读量&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;次
+&lt;/span&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 25 Sep 2018 17:38:27 +0800</pubDate>
         <link>http://localhost:4000/2018/09/25/Middleware-%E4%B8%AD%E9%97%B4%E4%BB%B6-%E4%B9%8B%E9%81%93/</link>

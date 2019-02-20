@@ -177,26 +177,27 @@
             if result {
                   showSuccessView { result
                              if result {
-                                  //handle success 
+                                  //handle success
                              } else {
                                   //handle error
-                              }  
-                  }        
+                              }
+                  }
             } else {
                //TODO handle error
             }
-    }     
+    }
 } else {
   //TODO handle error
 }
 </code></pre></div></div>
+
 <p>我们可以看到伪代码中呈现着<strong>回调地狱</strong>，上传前、上传、上传后的操作逻辑也零散地分布，很容易造成阅读和维护困难，而<strong>中间件</strong>的出现，让我们处理这类业务变得简单很多。</p>
 
-<p>在讲中间件之前我们先来回顾下AOP。</p>
+<p>在讲中间件之前我们先来回顾下 AOP。</p>
 
 <h2 id="二aop">二、AOP</h2>
 
-<p>AOP意为面向切面编程。  以页面统计为例，先来看下传统的流程。</p>
+<p>AOP 意为面向切面编程。 以页面统计为例，先来看下传统的流程。</p>
 
 <p><img src="https://upload-images.jianshu.io/upload_images/943491-632c86a8323e9556.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="页面统计" /></p>
 
@@ -205,19 +206,21 @@
 <p><img src="https://upload-images.jianshu.io/upload_images/943491-407dcc957c986b17.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="页面统计" /></p>
 
 <p>不难发现每个页面都有一个相同的页面统计流程。这样的处理有如下几个问题：</p>
+
 <ul>
   <li><strong>重复代码</strong>：每个界面都需要加入页面统计的代码</li>
   <li><strong>影响主流程的清晰度</strong>：页面统计跟<strong>主流程</strong>无关，但又需要加入到各个界面中</li>
   <li><strong>扩展性差</strong>：新增一个界面，就得为其加入页面统计的代码</li>
 </ul>
 
-<p>有没有想过把这个页面统计的代码是提取出来，不放到主流程里去呢？这就是AOP的思想了，传统的流程讲究<strong>从上而下</strong>的处理流程 ，而AOP讲究<strong>“面”</strong>,从<strong>横向切面</strong>将相同的流程提取出去，所以也叫<strong>“横切面”</strong>，如下图所示。</p>
+<p>有没有想过把这个页面统计的代码是提取出来，不放到主流程里去呢？这就是 AOP 的思想了，传统的流程讲究<strong>从上而下</strong>的处理流程 ，而 AOP 讲究<strong>“面”</strong>,从<strong>横向切面</strong>将相同的流程提取出去，所以也叫<strong>“横切面”</strong>，如下图所示。</p>
 
 <p><img src="https://upload-images.jianshu.io/upload_images/943491-bc91873e5f664616.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Group 5.png" /></p>
 
-<p>AOP提倡从横向切面思路向管道某个位置插入一段代码逻辑，这样就实现在任何业务<strong>逻辑前后</strong>都有相同代码逻辑段，开发者只需专注写业务逻辑，既不影响主流程，而且隔离了业务逻辑，达到<strong>高内聚低耦合</strong>。</p>
+<p>AOP 提倡从横向切面思路向管道某个位置插入一段代码逻辑，这样就实现在任何业务<strong>逻辑前后</strong>都有相同代码逻辑段，开发者只需专注写业务逻辑，既不影响主流程，而且隔离了业务逻辑，达到<strong>高内聚低耦合</strong>。</p>
 
-<p>附上iOS使用AOP实现页面统计的代码，帮助大家理解AOP。</p>
+<p>附上 iOS 使用 AOP 实现页面统计的代码，帮助大家理解 AOP。</p>
+
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@implementation UIViewController (Analytics)
 
 + (void)load{
@@ -240,66 +243,66 @@
 
 <ul>
   <li>
-    <p>AOP和OOP是什么关系？有什么区别？
-写多了OOP的代码，会发现AOP跟OOP的思路不同。OOP是将做<strong>同一件事情的业务逻辑</strong>封装成一个对象。但是，在做一件事情过程（主流程）中又想做别的事情（比如页面统计）对OOP来说难以解决。而AOP的出现让OOP代码能专注于主流程，更好地遵循<a href="http://catchzeng.com/2017/02/19/聊聊设计模式原则-一-单一职责原则/">单一职责原则</a>，提高内聚性。所以，我认为AOP对OOP做了一个补充。</p>
+    <p>AOP 和 OOP 是什么关系？有什么区别？
+写多了 OOP 的代码，会发现 AOP 跟 OOP 的思路不同。OOP 是将做<strong>同一件事情的业务逻辑</strong>封装成一个对象。但是，在做一件事情过程（主流程）中又想做别的事情（比如页面统计）对 OOP 来说难以解决。而 AOP 的出现让 OOP 代码能专注于主流程，更好地遵循<a href="http://catchzeng.com/2017/02/19/聊聊设计模式原则-一-单一职责原则/">单一职责原则</a>，提高内聚性。所以，我认为 AOP 对 OOP 做了一个补充。</p>
   </li>
   <li>
     <p>怎么判断代码是否达到了高内聚？
 这个问题吊一下大家胃口，这里先不解答，大家可以在留言处评论，后续会贴出个人的理解。</p>
   </li>
   <li>
-    <p>AOP思想如何解决上传文件的业务的问题？
-由于JavaScript的动态性较好，下面以JavaScript代码为例，看下如何利用AOP优化上传文件业务。</p>
+    <p>AOP 思想如何解决上传文件的业务的问题？
+由于 JavaScript 的动态性较好，下面以 JavaScript 代码为例，看下如何利用 AOP 优化上传文件业务。</p>
   </li>
 </ul>
 
-<h3 id="利用aop优化上传文件业务">利用AOP优化上传文件业务</h3>
+<h3 id="利用-aop-优化上传文件业务">利用 AOP 优化上传文件业务</h3>
 
-<p>AOP从横向切面思路向管道<strong>某个位置</strong>插入一段代码逻辑。而这个位置通常就是<strong>调用前</strong>（before）和<strong>调用后</strong>（after）。</p>
+<p>AOP 从横向切面思路向管道<strong>某个位置</strong>插入一段代码逻辑。而这个位置通常就是<strong>调用前</strong>（before）和<strong>调用后</strong>（after）。</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Function.prototype.before = function(fn){
-  var self = this;  
-   return function(){  
-     var res = fn.call(this);  
+  var self = this;
+   return function(){
+     var res = fn.call(this);
      if(res) {
-        self.apply(this, arguments); 
+        self.apply(this, arguments);
      }
-   }  
-}  
+   }
+}
 
 Function.prototype.after = function(fn){
-  var self = this;  
-   return function(){  
-     self.apply(this, arguments);  
-     fn.call(this);  
-   }  
-} 
+  var self = this;
+   return function(){
+     self.apply(this, arguments);
+     fn.call(this);
+   }
+}
 </code></pre></div></div>
 
 <p>有了这两个扩展，可以按下面的方式实现上传业务。</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function checkFile(){  
-   console.log('checking file');  
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function checkFile(){
+   console.log('checking file');
    if fileIsVaild() {
       return true
    } else {
-      console.log('file is invalid');  
+      console.log('file is invalid');
       return false
     }
 }
 
 function uploadFile() {
-  console.log('uploading file');  
+  console.log('uploading file');
   if fileUploadSuccess() {
       return true
    } else {
-      console.log('file upload failed');  
+      console.log('file upload failed');
       return false
    }
 }
 
 function showSuccessView() {
-  console.log('show success view');  
+  console.log('show success view');
 }
 
 uploadFile.before(checkFile).after(showSuccessView)();
@@ -309,8 +312,8 @@ uploadFile.before(checkFile).after(showSuccessView)();
 
 <ul>
   <li>
-    <p>使用AOP后解决了什么问题？还有什么问题？
-从上面的例子，可以看出AOP已经实现了业务隔离。但却带来了一串长长的<strong>链式调用</strong>，如果处理不当很容易<strong>掉链子</strong>。另外，这种结构实现<strong>异步操作</strong>较为麻烦。</p>
+    <p>使用 AOP 后解决了什么问题？还有什么问题？
+从上面的例子，可以看出 AOP 已经实现了业务隔离。但却带来了一串长长的<strong>链式调用</strong>，如果处理不当很容易<strong>掉链子</strong>。另外，这种结构实现<strong>异步操作</strong>较为麻烦。</p>
   </li>
   <li>
     <p>有什么办法，既能隔离业务，又能清爽地使用？
@@ -328,7 +331,8 @@ uploadFile.before(checkFile).after(showSuccessView)();
 }
 app.use(logger);
 </code></pre></div></div>
-<p>像上面代码中的logger函数就叫做”中间件”（middleware），因为它处在 HTTP Request 和 HTTP Response 中间，用来实现某种中间功能。app.use()用来加载中间件。</p>
+
+<p>像上面代码中的 logger 函数就叫做”中间件”（middleware），因为它处在 HTTP Request 和 HTTP Response 中间，用来实现某种中间功能。app.use()用来加载中间件。</p>
 
 <h3 id="中间件栈">中间件栈</h3>
 
@@ -346,7 +350,7 @@ app.use(logger);
 
 const two = (ctx, next) =&gt; {
   console.log('&gt;&gt; two');
-  next(); 
+  next();
   console.log('&lt;&lt; two');
 }
 
@@ -369,7 +373,8 @@ app.use(three);
 &lt;&lt; one
 */
 </code></pre></div></div>
-<p>中间件一个奇妙的点在于<strong>next函数</strong>。如果中间件内部没有调用next函数，那么执行权就不会传递下去。</p>
+
+<p>中间件一个奇妙的点在于<strong>next 函数</strong>。如果中间件内部没有调用 next 函数，那么执行权就不会传递下去。</p>
 
 <h3 id="中间件的实现">中间件的实现</h3>
 
@@ -410,7 +415,7 @@ function compose(middleware) {
     return function (context, next) {
         // last called middleware #
         let index = -1
-        
+
         return dispatch(0)
 
         function dispatch(i) {
@@ -429,6 +434,7 @@ function compose(middleware) {
     }
 }
 </code></pre></div></div>
+
 <p>详细的代码可以看我的开源项目<a href="https://github.com/CatchZeng/middleware-center">middleware-center</a>。</p>
 
 <h3 id="利用中间件优化上传业务">利用中间件优化上传业务</h3>
@@ -502,23 +508,24 @@ after beforeUpload
     }
 }
 </code></pre></div></div>
-<p>大家可以看到，利用中间件不但可以实现业务隔离，调用也很清晰，只要<strong>根据业务调整use的顺序</strong>即可。各个中间件还可以<strong>随意组合，各组件间也没有依赖关系，自身内聚性高</strong>。细心的朋友可以发现，<a href="https://github.com/CatchZeng/middleware-center">middleware-center</a> 还支持<strong>异步方法</strong>。得益于中间件的洋葱结构，使得使用者可以处理业务的任何“位置”（如：beforeUpload、startUplaod、finishUpload、after finishUpload、after startUplaod、after beforeUpload）</p>
+
+<p>大家可以看到，利用中间件不但可以实现业务隔离，调用也很清晰，只要<strong>根据业务调整 use 的顺序</strong>即可。各个中间件还可以<strong>随意组合，各组件间也没有依赖关系，自身内聚性高</strong>。细心的朋友可以发现，<a href="https://github.com/CatchZeng/middleware-center">middleware-center</a> 还支持<strong>异步方法</strong>。得益于中间件的洋葱结构，使得使用者可以处理业务的任何“位置”（如：beforeUpload、startUplaod、finishUpload、after finishUpload、after startUplaod、after beforeUpload）</p>
 
 <h3 id="遍地开花">遍地开花</h3>
 
-<p>好思想应该遍地开花，业余时间我用swift简单实现了中间件模型<a href="https://github.com/CatchZeng/MiddlewareCenter">MiddlewareCenter</a>，但还没优化，和处理引用问题，感兴趣的朋友可以一起维护。</p>
+<p>好思想应该遍地开花，业余时间我用 swift 简单实现了中间件模型<a href="https://github.com/CatchZeng/MiddlewareCenter">MiddlewareCenter</a>，但还没优化，和处理引用问题，感兴趣的朋友可以一起维护。</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class ViewController: UIViewController {
-    
+
     let center = MiddlewareCenter()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         center.use(BeforeUpload())
         center.use(StartUpload())
         center.use(EndUpload())
-        
+
         center.handle(ctx: nil)
     }
 }
@@ -551,7 +558,11 @@ public class EndUpload: Middleware {
 <h2 id="四总结">四、总结</h2>
 
 <p>中间件实现了业务隔离，满足每个业务所需的数据，又能很好控制业务<strong>下发执行</strong>的权利，所以“中间件”模式算是一种不错的设计。
-理解中间件，主要理解三个概念，包括：context、next、洋葱结构。context为业务所需的上下文，比如koa是处理网络请求的，所以它的context包含request、response；next是业务流的下发控制，使用好next，可以灵活地处理各种业务，包括错误处理、中间件重用等；洋葱结构可以让使用者轻松地处理各个流程的“位置”。</p>
+理解中间件，主要理解三个概念，包括：context、next、洋葱结构。context 为业务所需的上下文，比如 koa 是处理网络请求的，所以它的 context 包含 request、response；next 是业务流的下发控制，使用好 next，可以灵活地处理各种业务，包括错误处理、中间件重用等；洋葱结构可以让使用者轻松地处理各个流程的“位置”。</p>
+
+<p><span id="busuanzi_container_page_pv">
+本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span></p>
 
 
                 <hr>
