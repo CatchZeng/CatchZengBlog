@@ -5,9 +5,138 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 20 Feb 2019 15:49:26 +0800</pubDate>
-    <lastBuildDate>Wed, 20 Feb 2019 15:49:26 +0800</lastBuildDate>
+    <pubDate>Wed, 03 Apr 2019 09:50:37 +0800</pubDate>
+    <lastBuildDate>Wed, 03 Apr 2019 09:50:37 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>DevOps 是一种怎样的体验?</title>
+        <description>&lt;h2 id=&quot;一软件开发演变史&quot;&gt;一、软件开发演变史&lt;/h2&gt;
+
+&lt;p&gt;软件行业中，&lt;strong&gt;每一个概念的提出都是为了解决某个特定的问题&lt;/strong&gt;。要了解 DevOps ，就要讲下软件开发的演变史。&lt;/p&gt;
+
+&lt;h3 id=&quot;传统瀑布模型&quot;&gt;传统瀑布模型&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://diycode.b0.upaiyun.com/photo/2019/a9326b0d3f65f49a56fe9b5f7f2ff058.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;需求分析，软件设计，程序编写，软件测试，运行维护。&lt;/p&gt;
+
+&lt;p&gt;瀑布模型被淘汰的原因&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;各个阶段的划分完全是固定的，阶段之间&lt;strong&gt;产生大量的文档&lt;/strong&gt;，极大地&lt;strong&gt;增加工作量&lt;/strong&gt;。&lt;/li&gt;
+  &lt;li&gt;由于开发是线性的，所以用户只有在开发的&lt;strong&gt;末期才可以到成果&lt;/strong&gt;，所以增加了风险。&lt;/li&gt;
+  &lt;li&gt;早起的&lt;strong&gt;错误等到最后测试再发现&lt;/strong&gt;这样会带来严重的后果。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;敏捷开发模型&quot;&gt;敏捷开发模型&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://diycode.b0.upaiyun.com/photo/2019/de41dee63f431b75b3a0c682abcac53f.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;缓慢而繁琐&lt;/strong&gt;的瀑布模型演变成敏捷，开发团队在短时间内完成软件开发，持续时间甚至&lt;strong&gt;不超过两周&lt;/strong&gt;。如此短的发布周期帮助开发团队处理客户反馈，并将其与 bug 修复一起合并到下一个版本中。&lt;/p&gt;
+
+&lt;p&gt;虽然这种敏捷的 SCRUM 方法为开发带来了敏捷性，但它在&lt;strong&gt;运维&lt;/strong&gt;方面却失去了敏捷实践的速度。&lt;strong&gt;开发人员和运维工程师之间缺乏协作仍然会减慢开发过程和发布&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://diycode.b0.upaiyun.com/photo/2019/3f2fee7fd2572b4170efe590e900c4c8.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://diycode.b0.upaiyun.com/photo/2019/1811dc66c487171954e52b6dfad92d81.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;DevOps 就是为了&lt;strong&gt;更好地协作和更快地交付&lt;/strong&gt;而产生的。下面让我们来详细看看 DevOps 是什么。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;注：这里需要强调的是 DevOps 中的 Dev 不但包括 开发者（developers）而且包括测试人员（testers）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;二devops&quot;&gt;二、DevOps&lt;/h2&gt;
+
+&lt;p&gt;DevOps 是一种软件开发方法，&lt;strong&gt;专注于 IT 专业人员之间的通信，集成和协作&lt;/strong&gt;，以实现产品的&lt;strong&gt;快速部署&lt;/strong&gt;。
+DevOps 是一种重视“软件开发人员（Dev）”和“IT 运维技术人员（Ops）”之间沟通合作的文化、运动或惯例。透过&lt;strong&gt;自动化&lt;/strong&gt;“软件交付”和“架构变更”的流程，来使得构建、测试、发布软件能够更加地&lt;strong&gt;快捷、频繁和可靠&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;从概念中不难提炼出：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;DevOps 解决的是 Dev 和 Ops 的沟通问题&lt;/li&gt;
+  &lt;li&gt;DevOps 的目的是&lt;strong&gt;快速部署&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;DevOps 有利于&lt;strong&gt;快捷、频繁和可靠地发布软件&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;DevOps 强调&lt;strong&gt;自动化&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;dev-和-ops-有什么沟通问题&quot;&gt;Dev 和 Ops 有什么沟通问题？&lt;/h3&gt;
+
+&lt;p&gt;Ops 看重的是保障系统的&lt;strong&gt;稳定性、可靠性和安全性&lt;/strong&gt;，而 Dev 则想着如何&lt;strong&gt;尽快发布新的版本，增加新的功能&lt;/strong&gt;，这两者本身就是一种矛盾和冲突，尽管他们的&lt;strong&gt;共同目标都是为 用户提供软件产品或服务&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;h3 id=&quot;为什么-devops-强调自动化&quot;&gt;为什么 DevOps 强调自动化？&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;提高效率：Dev 和 Ops 的手动工作，如果可以实现自动化，将显著提升效率水平。&lt;/li&gt;
+  &lt;li&gt;减少错误：即使再谨慎的人也难免会犯错误，尤其是面对重复性工作时。通过自动化工具来完成这样的工作，能将错误率大大降低。&lt;/li&gt;
+  &lt;li&gt;最大化员工使用：通过自动化，Dev 和 Ops 可以将精力集中在更复杂、更有战略意义的事情上。同事也避免了雇佣许多员工来应对工作量增加的需求。&lt;/li&gt;
+  &lt;li&gt;提高团队的信心：通过自动化，解放了手动的重复性工作。能让员工体现出更大的价值，也让产品更快捷、频繁和可靠地到达用户手上，提高了团队对产品的信心。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;devops-会替代敏捷吗&quot;&gt;DevOps 会替代敏捷吗？&lt;/h3&gt;
+
+&lt;p&gt;个人认为 &lt;strong&gt;DevOps 只是对敏捷的补充&lt;/strong&gt;，完善了敏捷在 Dev 和 Ops 之间的问题。两者之间，不存在包含或者替换关系。&lt;/p&gt;
+
+&lt;h2 id=&quot;三devops-流程&quot;&gt;三、DevOps 流程&lt;/h2&gt;
+
+&lt;p&gt;DevOps 的流程就像它的图标一样，包含：计划，编码，构建，测试，发布，部署，运维，监控，&lt;strong&gt;反馈&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://diycode.b0.upaiyun.com/photo/2019/3b46fcdc04ebcece97e142bd5319bdeb.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;而 DevOps 之所以能快速部署的原因在于，DevOps 拥有一套&lt;strong&gt;自动化的持续集成、部署系统&lt;/strong&gt;。
+在 DevOps 中有许多“持续”，包括：持续开发、持续测试、持续集成、持续部署、持续监控、持续反馈。&lt;/p&gt;
+
+&lt;h3 id=&quot;持续开发&quot;&gt;持续开发&lt;/h3&gt;
+
+&lt;p&gt;与瀑布模型不同，DevOps 软件交付成果被分解为&lt;strong&gt;短开发周期的多个任务节点&lt;/strong&gt;。这个阶段包括编码和构建阶段，并使用 &lt;strong&gt;Git 和 SVN&lt;/strong&gt; 等工具来维护不同版本的代码，以及 &lt;strong&gt;Ant、Maven、Gradle&lt;/strong&gt; 等工具来构建/打包代码到可执行文件中，这些文件可以转发给&lt;strong&gt;自动化测试系统进行测试&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;h3 id=&quot;持续测试&quot;&gt;持续测试&lt;/h3&gt;
+
+&lt;p&gt;开发提交代码，构建完成后就被推到测试系统。对于测试人员，使用自动化测试工具，如 &lt;strong&gt;Selenium、TestNG、JUnit&lt;/strong&gt; 等持续测试。这些工具允许质量管理系统完全并行地测试多个代码库，以确保功能中没有缺陷。一旦代码测试通过，它就会不断地与现有代码集成。&lt;/p&gt;
+
+&lt;h3 id=&quot;持续集成&quot;&gt;持续集成&lt;/h3&gt;
+
+&lt;p&gt;开发人员不断的开发，更新后的代码需要不断地集成，并顺利地与系统集成，以反映对最终用户的需求更改。更改后的代码，还应该确保运行时环境中没有错误。
+更为详细的持续集成可以观看我的专栏&lt;a href=&quot;https://xiaozhuanlan.com/ContinuousIntegration&quot;&gt;《被轻视的持续集成》&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h3 id=&quot;持续部署&quot;&gt;持续部署&lt;/h3&gt;
+
+&lt;p&gt;它将代码部署到生产环境。 在这里，我们确保在所有服务器上正确部署代码。 如果添加了任何功能或引入了新功能，那么应该准备好迎接更多的网站流量。 因此，系统运维人员还有责任扩展服务器以容纳更多用户。新代码是连续部署的，因此&lt;strong&gt;配置管理工具&lt;/strong&gt;可以快速，频繁地执行任务。 &lt;strong&gt;Puppet，Chef，SaltStack 和 Ansible&lt;/strong&gt; 是这个阶段使用的一些流行工具。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Docker 这类容器工具&lt;/strong&gt;在这一阶段，有助于保证&lt;strong&gt;开发，测试，生产环境一致性&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;h3 id=&quot;持续监控&quot;&gt;持续监控&lt;/h3&gt;
+
+&lt;p&gt;通过监控软件的性能来提高软件的质量。这种做法涉及运营团队的参与，他们将监视用户活动中的&lt;strong&gt;错误/系统的任何不正当行为&lt;/strong&gt;。这也可以通过使用专用&lt;strong&gt;监控工具&lt;/strong&gt;来实现，该工具将持续监控应用程序性能并突出问题。这些工具包括 &lt;strong&gt;Splunk，ELK Stack，Nagios，NewRelic 和 Sensu&lt;/strong&gt; 。这些工具可帮助密切监视应用程序和服务器，以主动检查系统的运行状况。发现的任何重大问题都可以向开发团队报告，以便可以在持续开发阶段进行修复。&lt;/p&gt;
+
+&lt;h3 id=&quot;持续反馈&quot;&gt;持续反馈&lt;/h3&gt;
+
+&lt;p&gt;持续反馈是 DevOps 中非常重要的环节，从 Dev、Ops、测试系统、监控系统等不断反馈回问题，并修复。
+&lt;strong&gt;尽早发现问题是解决问题的关键&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;h2 id=&quot;四使用-devops-的感受&quot;&gt;四、使用 DevOps 的感受&lt;/h2&gt;
+
+&lt;p&gt;经过一段时间 DevOps 的实施，个人有些感受，整理如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;快：交付产品变得很快。&lt;/li&gt;
+  &lt;li&gt;稳：每次迭代的东西虽然不多，但却走得越来越稳，实际的速度更快了。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;持续集成是整个 DevOps 的中心&lt;/strong&gt;，只有先建立持续集成，整个 DevOps 自动化流程才能跑起来。&lt;/li&gt;
+  &lt;li&gt;问题暴露快：团队的人被 DevOps 都激活了，持续反馈问题。&lt;/li&gt;
+  &lt;li&gt;面对面沟通是最有效的沟通方式。&lt;/li&gt;
+  &lt;li&gt;测试非常重要：测试是质量的保证，如果测试没做好，DevOps 的质量便无法保证。&lt;/li&gt;
+  &lt;li&gt;需要学好多的工具，但是值得。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Tue, 02 Apr 2019 17:38:27 +0800</pubDate>
+        <link>http://localhost:4000/2019/04/02/DevOps-%E6%98%AF%E4%B8%80%E7%A7%8D%E6%80%8E%E6%A0%B7%E7%9A%84%E4%BD%93%E9%AA%8C/</link>
+        <guid isPermaLink="true">http://localhost:4000/2019/04/02/DevOps-%E6%98%AF%E4%B8%80%E7%A7%8D%E6%80%8E%E6%A0%B7%E7%9A%84%E4%BD%93%E9%AA%8C/</guid>
+        
+        <category>DevOps</category>
+        
+        
+      </item>
     
       <item>
         <title>Go web编程</title>
@@ -1808,269 +1937,6 @@ saturate_cast&amp;lt;uchar&amp;gt;(100)，返回100
         <pubDate>Thu, 14 Jun 2018 17:38:27 +0800</pubDate>
         <link>http://localhost:4000/2018/06/14/Learning-OpenCV-with-iOS-%E6%8E%A9%E8%86%9C%E6%93%8D%E4%BD%9C/</link>
         <guid isPermaLink="true">http://localhost:4000/2018/06/14/Learning-OpenCV-with-iOS-%E6%8E%A9%E8%86%9C%E6%93%8D%E4%BD%9C/</guid>
-        
-        <category>OpenCV</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Learning OpenCV with iOS：Hello OpenCV</title>
-        <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;一概念介绍&quot;&gt;一、概念介绍&lt;/h2&gt;
-&lt;h4 id=&quot;图像处理计算机视觉&quot;&gt;图像处理、计算机视觉&lt;/h4&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://baike.baidu.com/item/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86&quot;&gt;图像处理&lt;/a&gt;，用计算机对图像进行分析，以达到所需结果的技术。又称影像处理。图像处理一般指&lt;strong&gt;数字图像处理&lt;/strong&gt;。数字图像是指用工业相机、摄像机、扫描仪等设备经过拍摄得到的一个大的二维数组，该数组的元素称为&lt;strong&gt;像素&lt;/strong&gt;，其值称为&lt;strong&gt;灰度值&lt;/strong&gt;。图像处理技术一般包括图像压缩，增强和复原，匹配、描述和识别3个部分。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://baike.baidu.com/item/计算机视觉&quot;&gt;计算机视觉&lt;/a&gt;是一门研究如何使&lt;a href=&quot;https://baike.baidu.com/item/%E6%9C%BA%E5%99%A8&quot;&gt;机器&lt;/a&gt;“看”的科学，更进一步的说，就是是指用摄影机和电脑代替人眼对目标进行识别、跟踪和测量等&lt;a href=&quot;https://baike.baidu.com/item/%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89&quot;&gt;机器视觉&lt;/a&gt;，并进一步做图形处理，使电脑处理成为更适合人眼观察或传送给仪器检测的图像。作为一个科学学科，计算机视觉研究相关的理论和技术，试图建立能够从图像或者多维数据中获取‘信息’的&lt;a href=&quot;https://baike.baidu.com/item/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD&quot;&gt;人工智能&lt;/a&gt;系统。因为感知可以看作是从感官信号中提 取信息，所以计算机视觉也可以看作是研究如何使人工系统从图像或多维数据中“感知”的科学。&lt;/p&gt;
-
-&lt;p&gt;图像处理与计算机视觉区别：
-图像处理侧重于对图像的“处理”（如：增强，还原，去燥，分割等）。
-计算机视觉则重在使用计算机来模拟人的视觉，&lt;strong&gt;模拟&lt;/strong&gt;才是计算机视觉的目的。&lt;/p&gt;
-
-&lt;h4 id=&quot;opencv&quot;&gt;OpenCV&lt;/h4&gt;
-
-&lt;p&gt;OpenCV（Open Source Computer Vision Library）于1999年由&lt;a href=&quot;https://baike.baidu.com/item/Intel&quot;&gt;Intel&lt;/a&gt;建立，如今由Willow Garage提供支持。
-OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉库，可以运行在&lt;a href=&quot;https://baike.baidu.com/item/Linux&quot;&gt;Linux&lt;/a&gt;、&lt;a href=&quot;https://baike.baidu.com/item/Windows&quot;&gt;Windows&lt;/a&gt;和&lt;a href=&quot;https://baike.baidu.com/item/Mac%20OS&quot;&gt;Mac OS&lt;/a&gt;操作系统上。它轻量级而且高效——由一系列 C 函数和少量 C++ 类构成，同时提供了Python、Ruby、MATLAB等语言的接口，实现了图像处理和计算机视觉方面的很多通用算法。OpenCV覆盖了计算机视觉的许多领域，如产品检测、信息安全、立体视觉和机器人、医学成像等。因为计算机视觉和机器学习关系密切，所以OpenCV还提供了MLL（Machine Learning Library）机器学习库。&lt;/p&gt;
-
-&lt;p&gt;常用链接：&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://opencv.org&quot;&gt;OpenCV官方主页&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/opencv/opencv&quot;&gt;OpenCV github主页&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://docs.opencv.org/3.1.0/d3/dc9/tutorial_table_of_content_ios.html&quot;&gt;OpenCV iOS tutorials&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;二环境搭建&quot;&gt;二、环境搭建&lt;/h2&gt;
-
-&lt;p&gt;“工欲善其事必先利其器”，接下来我们先搭建一下开发环境，借此了解下OpenCV的基本架构。&lt;/p&gt;
-
-&lt;h6 id=&quot;1创建项目&quot;&gt;1.创建项目&lt;/h6&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-d42b8064456f791a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;创建项目&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;注:这里以Objective-C作为语言是因为OpenCV接口为C++，使用Objective-C较好与其交互。&lt;/p&gt;
-
-&lt;h5 id=&quot;2加入opencv2framework&quot;&gt;2.加入opencv2.framework&lt;/h5&gt;
-
-&lt;p&gt;前往https://opencv.org/releases.html下载iOS pack。
-&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-101047bd286e5e0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;iOS pack&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;将opencv2.framework加入项目
-&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-e0cbecf02e7fe2d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;加入项目&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;将OpenCV所需的依赖库添加到项目中&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;CoreGraphics.framework&lt;/li&gt;
-  &lt;li&gt;Foundation.framework&lt;/li&gt;
-  &lt;li&gt;UIKit.framework&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;如果要使用摄像头做视频处理，还需要添加以下依赖库：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;CoreVideo.framework&lt;/li&gt;
-  &lt;li&gt;CoreMedia.framework&lt;/li&gt;
-  &lt;li&gt;AssetsLibrary.framework&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-086ef4bf0182bf81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;framework&quot; /&gt;&lt;/p&gt;
-
-&lt;h5 id=&quot;3say-hello&quot;&gt;3.Say Hello&lt;/h5&gt;
-
-&lt;p&gt;新建OpenCV.h &amp;amp; OpenCV.mm，并添加以下代码&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;注：因为OpenCV是C++写的，所以引入项目中的文件需要使用Object-C++的兼容方式来写，具体的做法就是将需要导入OpenCV头文件的m文件改成mm文件&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//
-//  OpenCV.h
-//  LearningOpenCV
-//
-//  Created by CatchZeng on 2018/6/12.
-//  Copyright © 2018年 catch. All rights reserved.
-//
-
-#import &amp;lt;Foundation/Foundation.h&amp;gt;
-#import &amp;lt;UIKit/UIKit.h&amp;gt;
-
-@interface OpenCV : NSObject
-
-+ (UIImage *)gray:(UIImage *)image;
-
-@end
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//
-//  OpenCV.m
-//  LearningOpenCV
-//
-//  Created by CatchZeng on 2018/6/12.
-//  Copyright © 2018年 catch. All rights reserved.
-//
-
-//!!!opencv的头文件引入必须在其他头文件之前
-#import &amp;lt;opencv2/opencv.hpp&amp;gt;
-#import &amp;lt;opencv2/imgproc/types_c.h&amp;gt;
-#import &amp;lt;opencv2/imgcodecs/ios.h&amp;gt;
-#import &amp;lt;opencv2/core/core_c.h&amp;gt;
-#import &quot;OpenCV.h&quot;
-using namespace cv;
-
-@interface OpenCV() {
-}
-
-@end
-
-@implementation OpenCV
-
-+ (UIImage *)gray:(UIImage *)image {
-    Mat mat;
-    UIImageToMat(image, mat);
-    
-    Mat grayMat;
-    cvtColor(mat, grayMat, CV_BGR2GRAY);
-    
-    UIImage* result = MatToUIImage(grayMat);
-    return result;
-}
-
-@end
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;新建视图控制器SayHelloViewController&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class SayHelloViewController: UIViewController {
-    
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var grayImageView: UIImageView!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        grayImageView.image = OpenCV.gray(#imageLiteral(resourceName: &quot;sayHello&quot;))
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;效果&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-afb139a09ec5365d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;效果&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;源码地址: https://github.com/CatchZeng/LearningOpenCV&lt;/p&gt;
-
-&lt;h2 id=&quot;三opencv基础架构&quot;&gt;三、OpenCV基础架构&lt;/h2&gt;
-
-&lt;p&gt;OpenCV包含的内容较多，在学习之前先了解下它的整体模块架构，再选择自己感兴趣的部分重点学习，这样学起来比较得心应手。&lt;/p&gt;
-
-&lt;p&gt;鉴于此，下面我们一起来看下OpenCV的整体模块架构。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-18342122cfdc0d61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;OpenCV&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;从上图可看到OpenCV的所有模块：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;【calib3d】Calibration(校准)和3D这两个词的组合缩写。这个模块主要是相机校准和三维重建相关的内容，包括基本的多视角几何算法、单个立体摄像头标定，物体姿态估计，立体相似性算法，3D信息的重建等。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;【core】核心功能模块，包含如下内容：
-    &lt;ul&gt;
-      &lt;li&gt;OpenCV基本数据结构&lt;/li&gt;
-      &lt;li&gt;动态数据结构&lt;/li&gt;
-      &lt;li&gt;绘图函数&lt;/li&gt;
-      &lt;li&gt;数组操作相关函数&lt;/li&gt;
-      &lt;li&gt;辅助功能与系统函数和宏&lt;/li&gt;
-      &lt;li&gt;与OpenGL的互操作&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;【feature2d】2D功能框架。包含如下内容：
-    &lt;ul&gt;
-      &lt;li&gt;特征检测和描述&lt;/li&gt;
-      &lt;li&gt;特征检测器(Fearure Detectors) 通用接口&lt;/li&gt;
-      &lt;li&gt;描述符提取器(Description Extractors) 通用接口&lt;/li&gt;
-      &lt;li&gt;描述符匹配器(Description Eatchers) 通用接口&lt;/li&gt;
-      &lt;li&gt;通用描述符(Generic Description)匹配器通用接口&lt;/li&gt;
-      &lt;li&gt;关键点绘制函数和匹配功能绘制函数&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;【imgproc】Image 和Process 这两个单词的缩写组合，图像处理模块。包含如下内容：
-    &lt;ul&gt;
-      &lt;li&gt;线性和非线性的图像滤波&lt;/li&gt;
-      &lt;li&gt;图像的几何变换&lt;/li&gt;
-      &lt;li&gt;其他的图像变换&lt;/li&gt;
-      &lt;li&gt;直方图相关&lt;/li&gt;
-      &lt;li&gt;结构分析和形状描述&lt;/li&gt;
-      &lt;li&gt;运动分析和对象跟踪&lt;/li&gt;
-      &lt;li&gt;特征检测&lt;/li&gt;
-      &lt;li&gt;目标检测等内容&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;【flann】Fast Library For Approximate Nearest Neighbors，高维的近似近邻快速搜索算法库，包含以下两个部分：&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;快速近似最近邻搜索&lt;/li&gt;
-      &lt;li&gt;聚类&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;【highgui】高层GUI图形用户界面，包含媒体的输入输出、视频捕捉、图像和视频的解码编码、图形交互界面的接口等内容。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;【ml】Machine Learning，机器学习模块， 基本上是统计模型和分类算法，包含如下内容：&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;统计模型 （Statistical Models）&lt;/li&gt;
-      &lt;li&gt;一般贝叶斯分类器 （Normal Bayes Classifier）&lt;/li&gt;
-      &lt;li&gt;K-近邻 （K-NearestNeighbors）&lt;/li&gt;
-      &lt;li&gt;支持向量机 （Support Vector Machines）&lt;/li&gt;
-      &lt;li&gt;决策树 （Decision Trees）&lt;/li&gt;
-      &lt;li&gt;提升（Boosting）&lt;/li&gt;
-      &lt;li&gt;梯度提高树（Gradient Boosted Trees）&lt;/li&gt;
-      &lt;li&gt;随机树 （Random Trees）&lt;/li&gt;
-      &lt;li&gt;超随机树 （Extremely randomized trees）&lt;/li&gt;
-      &lt;li&gt;期望最大化 （Expectation Maximization）&lt;/li&gt;
-      &lt;li&gt;神经网络 （Neural Networks）&lt;/li&gt;
-      &lt;li&gt;MLData&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;【objdetect】目标检测模块，包含Cascade Classification（级联分类）和Latent SVM这两个部分。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;【photo】Computational Photography，包含图像修复和图像去噪两部分。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;【stitching】images stitching，图像拼接模块，包含如下部分：&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;拼接流水线&lt;/li&gt;
-      &lt;li&gt;特点寻找和匹配图像&lt;/li&gt;
-      &lt;li&gt;估计旋转&lt;/li&gt;
-      &lt;li&gt;自动校准&lt;/li&gt;
-      &lt;li&gt;图片歪斜&lt;/li&gt;
-      &lt;li&gt;接缝估测&lt;/li&gt;
-      &lt;li&gt;曝光补偿&lt;/li&gt;
-      &lt;li&gt;图片混合&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;【video】视频分析组件，该模块包括运动估计，背景分离，对象跟踪等视频处理相关内容。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;【Videostab】Video stabilization，视频稳定相关的组件，官方文档中没有多作介绍，不管它了。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;看到到这里，相信大家已经对OpenCV的模块架构设计有了一定的认识，OpenCV其实就是这么多模块作为代码容器组合起来的一个SDK，了解这些可以更快的学习OpenCV了！&lt;/p&gt;
-
-&lt;h2 id=&quot;四小结&quot;&gt;四、小结&lt;/h2&gt;
-
-&lt;p&gt;本篇从概念到环境搭建再到基本架构的角度介绍了OpenCV，让读者有一个宏观的认识。&lt;a href=&quot;http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-(二)-掩膜操作/&quot;&gt;下一篇&lt;/a&gt;开始，我将以原理+例子的形式一步步介绍OpenCV的各个模块。&lt;/p&gt;
-</description>
-        <pubDate>Tue, 12 Jun 2018 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2018/06/12/Learning-OpenCV-with-iOS-Hello-OpenCV/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/06/12/Learning-OpenCV-with-iOS-Hello-OpenCV/</guid>
         
         <category>OpenCV</category>
         
