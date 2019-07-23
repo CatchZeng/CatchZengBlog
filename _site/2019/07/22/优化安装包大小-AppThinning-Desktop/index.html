@@ -10,9 +10,9 @@
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>iOS开发见闻-第22期 - CatchZeng的技术博客 | CatchZeng's Blog</title>
+    <title>优化安装包大小 -- AppThinning Desktop - CatchZeng的技术博客 | CatchZeng's Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/2017/07/20/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC22%E6%9C%9F/">
+    <link rel="canonical" href="http://localhost:4000/2019/07/22/%E4%BC%98%E5%8C%96%E5%AE%89%E8%A3%85%E5%8C%85%E5%A4%A7%E5%B0%8F-AppThinning-Desktop/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css ">
@@ -124,12 +124,12 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/post-bg-ios.jpg" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-js-version.jpg" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
-        background-image: url('/img/post-bg-ios.jpg')
+        background-image: url('/img/post-bg-js-version.jpg')
     }
 </style>
 <header class="intro-header" >
@@ -139,15 +139,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
+                        <a class="tag" href="/tags/#JS" title="JS">JS</a>
                         
                     </div>
-                    <h1>iOS开发见闻-第22期</h1>
+                    <h1>优化安装包大小 -- AppThinning Desktop</h1>
                     
                     
-                    <h2 class="subheading">iOS开发</h2>
+                    <h2 class="subheading">JS</h2>
                     
-                    <span class="meta">Posted by CatchZeng on July 20, 2017</span>
+                    <span class="meta">Posted by CatchZeng on July 22, 2019</span>
                 </div>
             </div>
         </div>
@@ -165,51 +165,47 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<p><span id="busuanzi_container_page_pv"></span></p>
+				<h2 id="一前言">一、前言</h2>
 
-<p><strong>欢迎加QQ群讨论：157672725</strong></p>
+<p>在文章<a href="https://xiaozhuanlan.com/topic/3458629071">优化安装包大小</a>中，我们介绍了常见的优化安装包大小的方法，并写了一个脚本工具 <a href="https://github.com/CatchZeng/AppThinning">AppThinning</a> ，帮助自动找到大文件，然后进行图片压缩。然而，实际运用中<strong>图片的前期处理者经常是设计师</strong>，脚本对于他们来说始终不够方便，于是诞生了AppThinning  Desktop。</p>
 
-<h2 id="文章">文章</h2>
+<h2 id="二appthinning-desktop">二、AppThinning Desktop</h2>
 
-<p>1.<a href="http://www.infoq.com/cn/articles/ios-arch-based-on-reswift-and-app-coordinator?utm_source=articles_about_mobile&amp;utm_medium=link&amp;utm_campaign=mobile">基于ReSwift和App Coordinator的iOS架构</a> : 本篇文章从架构漫谈到开发复杂度问题再到路由设计再到状态管理，讲述了如何使用ReSwift和App Coordinator来架构工程。</p>
+<p><img src="https://images.xiaozhuanlan.com/photo/2019/76370c9c56f622f2f66b37fa8f7dbab7.gif" alt="" /></p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/943491-22b6a9a5f8a39094.gif?imageMogr2/auto-orient/strip" alt="基于ReSwift和App Coordinator的iOS架构" /></p>
+<h3 id="1安装前准备">1、安装前准备</h3>
 
-<p>2.<a href="https://onevcat.com/2017/07/state-based-viewcontroller/">单向数据流动的函数式 View Controller</a> : 喵神对单向数据流动的见解，与上篇文章中的ReSwift思想类似，但喵神以一种由浅入深的方式讲述，更易理解。</p>
+<ul>
+  <li>若使用 <a href="https://imageoptim.com/mac">ImageOptim</a> 进行压缩，请先前往 https://imageoptim.com/mac 下载安装</li>
+</ul>
 
-<p><img src="https://onevcat.com/assets/images/2017/view-controller-states.svg" alt="单向数据流动的函数式 View Controller" /></p>
+<p><img src="https://images.xiaozhuanlan.com/photo/2019/93a194f93e81c4732b8ba2239bf21ce4.png" alt="" /></p>
 
-<p>3.<a href="http://www.infoq.com/cn/articles/getting-started-with-tensorflow-on-ios?utm_source=articles_about_mobile&amp;utm_medium=link&amp;utm_campaign=mobile">深度学习指南：在iOS平台上使用TensorFlow</a> ：随着CoreML的推广，机器学习已经开始在iOS中尝试，我们可以利用TensorFlow训练自己的机器学习模型。对机器学习感兴趣的朋友可以看看。
-<img src="http://upload-images.jianshu.io/upload_images/943491-1b804dc0fa8a439b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="TensorFlow" /></p>
+<ul>
+  <li>若使用 <a href="https://tinypng.com">tinypng</a> 进行压缩，请先前往 https://tinypng.com/developers 获取 API Key</li>
+</ul>
 
-<p>4.<a href="http://limboy.me/tech/2017/06/22/the-right-way-to-ios-architecture.html">The Right Way to Architect iOS App with Swift</a> : 来自limboy的架构相关文章。
-<img src="http://ww1.sinaimg.cn/large/afe37136gy1fgtcxzpz4yj218m0mw0vs.jpg" alt="The Right Way to Architect iOS App with Swift" /></p>
+<p><img src="https://images.xiaozhuanlan.com/photo/2019/32357545ca566b71a3b69294c3078aec.png" alt="" /></p>
 
-<h2 id="工具">工具</h2>
-<p>1.<a href="https://pmd.github.io">PMD</a>：代码分析工具，支持检测swift的重复代码。
-<img src="http://upload-images.jianshu.io/upload_images/943491-10a78fa32e147c61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="PMD" /></p>
+<h3 id="2安装">2、安装</h3>
 
-<p>2.<a href="https://github.com/realm/SwiftLint">SwiftLint</a> :  是一个用于强制检查 Swift 代码风格和规定的一个工具，基本上以 <a href="https://github.com/github/swift-style-guide">GitHub’s Swift 代码风格指南</a>为基础。带有自动更正、推荐语法等特性，值得推荐。
-<img src="https://github.com/realm/SwiftLint/raw/master/assets/screenshot.png" alt="SwiftLint" /></p>
+<p>前往 https://github.com/CatchZeng/AppThinning/releases 下载 dmg 安装包，拖拽安装即可。</p>
 
-<p>3.<a href="https://itunes.apple.com/us/app/quiver-programmers-notebook/id866773894?mt=12">Quiver</a> : Quiver 是一款为程序员专门设计的笔记软件，兼顾文本（代码）编辑与管理工作，可谓是“一车多用”， 支持纯文本、全语法 Markdown、LaTeX（MathJax）、Flowchart 以及数十种编程语言的嵌入显示（自动高亮）。设立了 Inbox + Favorites + Recents + Trash 的 Library 库架构，搭配 Tag 系统方便用户调用各种笔记，另外用户可像 Ulysses（新建组）那样创建属于不同环境的 Notebook（分组），支持全文搜索笔记和全屏演示功能，方便会议交流使用。
-<img src="http://upload-images.jianshu.io/upload_images/943491-56dd51293e05f3bc.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Quiver" /></p>
+<p><img src="https://images.xiaozhuanlan.com/photo/2019/2b2e5413eb6ae80c54d2c4614b4edf56.png" alt="" /></p>
 
-<h2 id="开源">开源</h2>
-<p>1.<a href="https://github.com/olucurious/awesome-arkit">awesome-arkit</a> : 整理了ARKit的项目与资源，研究ARKit的不要错过。
-<img src="http://upload-images.jianshu.io/upload_images/943491-31e115c8b3b57a36.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="awesome-arkit" /></p>
+<h3 id="3使用">3、使用</h3>
 
-<p>2.<a href="https://github.com/duzexu/ARuler">ARuler</a> : 使用ARkit来量距离，作者的想法也是屌屌的。
-<img src="https://github.com/duzexu/ARuler/raw/master/Design/logo.png" alt="ARuler" /></p>
+<ol>
+  <li>拖拽项目目录到 AppThinning</li>
+  <li>设置参数</li>
+  <li>点击开始</li>
+</ol>
 
-<p>3.<a href="https://github.com/raulriera/Cacher">Cacher</a> : 一款简单的Cache实现。
-<img src="https://github.com/raulriera/Cacher/raw/master/Resources/Icon.png" alt="Cacher" /></p>
+<p><img src="https://images.xiaozhuanlan.com/photo/2019/daff3781c04e70acccc70f5e1f96db9a.png" alt="" /></p>
 
-<p>4.<a href="https://github.com/fahidattique55/FAPanels">FAPanels</a> : 直接看效果吧。
-<img src="https://camo.githubusercontent.com/ed45512fcdaee74a65976a07b7498de10300b7a9/687474703a2f2f692e696d6775722e636f6d2f5a4e31336561662e676966" alt="FAPanels" /></p>
+<h2 id="三小结">三、小结</h2>
 
-<p>5.<a href="https://github.com/Moya/Moya">Moya</a> : Swift写的网络抽象层，设计得很不错。
-<img src="https://github.com/Moya/Moya/raw/master/web/diagram.png" alt="Moya" /></p>
+<p>AppThinning Desktop 旨在帮助大家更方便地优化安装包大小，在使用过程中遇到问题或者有什么建议，可以给我留言。</p>
 
 
                 <hr>
@@ -220,13 +216,9 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2017/06/14/ARKit%E6%B5%85%E6%9E%90%E7%AF%87/" data-toggle="tooltip" data-placement="top" title="ARKit浅析篇">&larr; Previous Post</a>
+                        <a href="/2019/04/02/DevOps-%E6%98%AF%E4%B8%80%E7%A7%8D%E6%80%8E%E6%A0%B7%E7%9A%84%E4%BD%93%E9%AA%8C/" data-toggle="tooltip" data-placement="top" title="DevOps 是一种怎样的体验?">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2017/09/29/Clean-Code-%E5%91%8A%E8%AF%89%E4%BD%A0%E4%BB%80%E4%B9%88%E6%98%AF%E5%A5%BD%E4%BB%A3%E7%A0%81/" data-toggle="tooltip" data-placement="top" title="Clean Code 告诉你什么是好代码">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
@@ -353,8 +345,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "catchzeng";
-    var disqus_identifier = "/2017/07/20/iOS开发见闻-第22期";
-    var disqus_url = "http://localhost:4000/2017/07/20/iOS%E5%BC%80%E5%8F%91%E8%A7%81%E9%97%BB-%E7%AC%AC22%E6%9C%9F/";
+    var disqus_identifier = "/2019/07/22/优化安装包大小 -- AppThinning Desktop";
+    var disqus_url = "http://localhost:4000/2019/07/22/%E4%BC%98%E5%8C%96%E5%AE%89%E8%A3%85%E5%8C%85%E5%A4%A7%E5%B0%8F-AppThinning-Desktop/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
