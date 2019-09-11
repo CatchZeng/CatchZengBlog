@@ -35,20 +35,31 @@ Int d；//逝去的时间
 Int elapsedTime;
 ```
 再来看个例子
-![](http://upload-images.jianshu.io/upload_images/943491-84ec0aa383220ddd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/1.png)
+
 谁都很难猜出其意义，看看小优化后的结果
-![](http://upload-images.jianshu.io/upload_images/943491-d49086e45373066b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/2.png)
+
 基本看清了意义，这就是命名的重要性。细心的朋友还会发现这段代码的一些瑕疵 ：这里的4是什么鬼？习惯性我们管它叫**“魔法数字”**
-![](http://upload-images.jianshu.io/upload_images/943491-c6050e2641251ccd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/3.png)
+
 还是觉得有点问题，再优化
-![](http://upload-images.jianshu.io/upload_images/943491-b064c4481f973106.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/4.png)
+
 对比下最早的代码，相信你会有感觉了。
 
 #### 避免误导
 生活中的场景也常出现在Code中，看下图，你的Code是否也出现这样的尴尬呢？那就Make it clean
-![](http://upload-images.jianshu.io/upload_images/943491-5f157c1bfc0ec8bd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-![](http://upload-images.jianshu.io/upload_images/943491-79d103ddf5765538.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-cleancode/5.jpg)
+
+
+![](/img/in-post/post-cleancode/6.png)
+
 是否傻傻分不清了呢？ 再来个
 ```
 accountList
@@ -109,7 +120,7 @@ ABCDEFG
 ```
 这也是个缩写，但是乍看这个真不知道是什么的缩写，直接公布答案吧
 
-![](http://upload-images.jianshu.io/upload_images/943491-824add860b52f5a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-cleancode/7.png)
 
 #### 小结
 命名是永恒的难题，我提几个建议吧
@@ -118,7 +129,7 @@ ABCDEFG
 * 做个自己的开源项目，让别人给你建议
 * 做好积累、再积累、还是积累
 
-![一些借鉴词](http://upload-images.jianshu.io/upload_images/943491-5a060e2dfc2b0a89.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![一些借鉴词](/img/in-post/post-cleancode/8.png)
 
 
 ## 函数（方法）
@@ -141,7 +152,9 @@ ABCDEFG
 #### 只做一件事
 **函数应该做一件事。做好这件事。只做一件事。**
 那么如何判断只做一件事？
-![](http://upload-images.jianshu.io/upload_images/943491-dcdab641d4e1302f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/9.png)
+
 请问这个函数做了几件事？伙伴的答案是
 ```
 1.判断是否为测试页面
@@ -155,9 +168,13 @@ ABCDEFG
 
 #### 同一个抽象层级
 关于层级，比较难讲明，直接看例子吧
-![](http://upload-images.jianshu.io/upload_images/943491-1855a83626453299.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/10.png)
+
 再看一个版本
-![](http://upload-images.jianshu.io/upload_images/943491-534558d3ed66a43c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/11.png)
+
 你会发现看第二个版本的代码，明显舒服很多。因为第二的版本的三句代码都在同一个层级。而第一个版本的代码中的第一句是设置roundView的某个属性，但是最后一句却是在设置bubbleView，层级不同（roundView与bubbleView才是同层级）
 
 #### 使用描述性名称
@@ -185,7 +202,8 @@ addCommentAndReturnCount
 
 #### 嵌套层次、分支过多
 
-![](http://upload-images.jianshu.io/upload_images/943491-e3e65b2257fbd001.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-cleancode/12.jpeg)
+
 嵌套、分支过多会让代码变得很难理解，解决的办法有如下：
 * 卫语句
 * do-while,引入break
@@ -199,9 +217,12 @@ addCommentAndReturnCount
 
 #### 分割指令与查询
 
-![](http://upload-images.jianshu.io/upload_images/943491-d0b8c4a080ee6096.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-cleancode/13.png)
+
 set这个函数很不明确的是到底是设置成功了返回true，还是名字存在返回true，但真正的问题在于，它是个指令但是掺杂了查询的功能。
-![](http://upload-images.jianshu.io/upload_images/943491-530ed1a5b0be6092.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/14.png)
+
 将查询和命令分离后，代码便清晰很多了。
 
 #### 小结
@@ -215,77 +236,105 @@ set这个函数很不明确的是到底是设置成功了返回true，还是名�
 
 #### 用代码来阐述
 
-![](http://upload-images.jianshu.io/upload_images/943491-7ded99f349de2d7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![](http://upload-images.jianshu.io/upload_images/943491-c078b0c47617e0c9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-cleancode/15.png)
+
+![](/img/in-post/post-cleancode/16.png)
+
 感受两段代码会发现**代码即注释**的美
 
 #### 坏注释
 先来看看什么是坏的注释
 
-![](http://upload-images.jianshu.io/upload_images/943491-1f4c7f7885168329.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-cleancode/17.jpeg)
 
 ###### 喃喃自语
-![](http://upload-images.jianshu.io/upload_images/943491-33d7fada2eecf05f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/18.png)
+
 这注释绝对是给自己看的
 
 ###### 多余的注释
-![](http://upload-images.jianshu.io/upload_images/943491-5b6e1b6c11fa5dcc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/19.png)
+
 解释跟没解释一样，不如代码来的简单明了
 
 ###### 误导性的注释
-![](http://upload-images.jianshu.io/upload_images/943491-8420be9ee7452dc0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/20.png)
+
 你在误导吧
 
 ###### 循规式注释
-![](http://upload-images.jianshu.io/upload_images/943491-9abd556dce08133e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/21.png)
+
 这个一定要注意，循环式的注释完全多余（除了做sdk、开源）
 
 ###### 括号后的注释 
-![](http://upload-images.jianshu.io/upload_images/943491-2baf32c06cca4c83.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/22.png)
+
 如果括号后需要注释，只表明你这段代码太长了，需要做的不是加注释，而是将它变短。
 
 ###### 归属于署名
-![](http://upload-images.jianshu.io/upload_images/943491-c32581aef1508e65.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/23.png)
+
 Git、SVN知道是你提交的，不用这样刷存在感
 
 ###### 注释掉代码
-![](http://upload-images.jianshu.io/upload_images/943491-80c04ff8663dc87d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/24.png)
+
 注释掉的代码，只会让修改你代码的人蒙圈，如果你觉得这段代码有可能以后会用，也不用担心，Git、SVN会帮你找回来
 
 ###### 信息过多
-![](http://upload-images.jianshu.io/upload_images/943491-78b971fc580ba07b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/25.png)
+
 面向对象讲究，暴露操作，隐藏实现，如果你还要注释这些信息，表示你没有封装好。这些信息，可考虑放个链接或者其他的简短提示，太长的注释，别人懒得读、也难读懂
-![](http://upload-images.jianshu.io/upload_images/943491-9975e7daf6d46fa5.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/26.jpeg)
 
 #### 好注释
 看了那么多坏注释，来看看什么是好的注释
 
 ###### 法律信息 
-![](http://upload-images.jianshu.io/upload_images/943491-f6c465ce5b02c212.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/27.png)
 
 ###### 提供信息
-![](http://upload-images.jianshu.io/upload_images/943491-1e88b64df4b3545a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/28.png)
 
 ###### 对意图的注释
-![](http://upload-images.jianshu.io/upload_images/943491-3514ef2a1f11e5ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/29.png)
 
 ###### 阐释
-![](http://upload-images.jianshu.io/upload_images/943491-e27063498e5fa921.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/30.png)
 
 ###### 警示
-![](http://upload-images.jianshu.io/upload_images/943491-9c37a2b13b274296.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/31.png)
 
 ###### TODO注释
-![](http://upload-images.jianshu.io/upload_images/943491-8a3c0463568c7c91.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/32.png)
 
 ###### 放大
-![](http://upload-images.jianshu.io/upload_images/943491-8942084ca561d0ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/33.png)
 
 ## 对象、数据结构
 
 #### 数据抽象
-![](http://upload-images.jianshu.io/upload_images/943491-da5ce334a6178165.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![](http://upload-images.jianshu.io/upload_images/943491-760ec2a370cb8a69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/34.png)
+
+![](/img/in-post/post-cleancode/35.png)
 
 将变量设置为私有(Private)，主要是不想让其他人依赖这些变量。所以，不要随便给变量添加赋值方法和取值方法(set/get方法)，这样其实是把私有变量公之于众。
 隐藏变量和实现，并不是在变量与外界之间放一个函数层那么简单。隐藏关乎抽象。
@@ -293,9 +342,10 @@ Git、SVN知道是你提交的，不用这样刷存在感
 要以什么方式呈现对象所包含的数据，需要做严肃的思考。随便加赋值方法和取值方法，是最坏的选择。
 
 #### 数据、对象的反对称性
-![](http://upload-images.jianshu.io/upload_images/943491-f628b8cefc80ecd5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-![](http://upload-images.jianshu.io/upload_images/943491-8cf0f6f09ad2b332.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-cleancode/36.png)
+
+![](/img/in-post/post-cleancode/37.png)
 
 前者是一种过程式代码，后者是面向对象式代码。我们会发现假如要添加一个新形状的话，后者绝对是不错的选择，因为以上代码都不需要修改，只需写一个新形状类，这符合“开放--封闭”原则。然而假如添加一个计算周长的功能的话那就杯具了，因为这样子每个形状类都得改动。但是假如是用过程式代码的话只需要添加一个新函数。
 
@@ -304,7 +354,8 @@ Git、SVN知道是你提交的，不用这样刷存在感
 一切都是对象只是一个传说**
 
 ## 类
-![](http://upload-images.jianshu.io/upload_images/943491-fd96714e9529ec6c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/38.png)
 
 #### 组织
 * 公共静态变量
@@ -320,7 +371,9 @@ Git、SVN知道是你提交的，不用这样刷存在感
 类需要遵循[单一职责原则](http://catchzeng.com/2017/02/19/iOS聊聊设计模式原则-一-单一职责原则/)
 
 #### 内聚
-![](http://upload-images.jianshu.io/upload_images/943491-57db1505a58e54fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-cleancode/39.png)
+
 如以上代码，内聚性高，除了size方法外，其他方法都使用了两个实例变量。
 内聚：**模块内部各个元素彼此结合的紧密程度（类中方法和变量间的结合程度）**
 **保持内聚会得到许多短小的类

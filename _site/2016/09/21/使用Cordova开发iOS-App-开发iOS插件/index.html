@@ -234,13 +234,13 @@
             <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
                 
             <span class="kd">function</span> <span class="nx">testPlugin</span><span class="p">()</span> <span class="p">{</span>
-                <span class="nx">cordova</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">testSuccess</span><span class="p">,</span><span class="nx">testFailed</span><span class="p">,</span><span class="s2">"ocTestPlugin"</span><span class="p">,</span><span class="s2">"testWithTitle"</span><span class="p">,[</span><span class="s2">"我是JS传的参数！"</span><span class="p">]);</span>
+                <span class="nx">cordova</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">testSuccess</span><span class="p">,</span><span class="nx">testFailed</span><span class="p">,</span><span class="dl">"</span><span class="s2">ocTestPlugin</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">testWithTitle</span><span class="dl">"</span><span class="p">,[</span><span class="dl">"</span><span class="s2">我是JS传的参数！</span><span class="dl">"</span><span class="p">]);</span>
             <span class="p">}</span>
             <span class="kd">function</span> <span class="nx">testSuccess</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
                 <span class="nx">alert</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
             <span class="p">}</span>
             <span class="kd">function</span> <span class="nx">testFailed</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
-                <span class="nx">alert</span><span class="p">(</span><span class="s1">'failed: '</span> <span class="o">+</span> <span class="nx">msg</span><span class="p">);</span>
+                <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">failed: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">msg</span><span class="p">);</span>
             <span class="p">}</span>
             <span class="nt">&lt;/script&gt;</span>
             <span class="nt">&lt;/head&gt;</span>
