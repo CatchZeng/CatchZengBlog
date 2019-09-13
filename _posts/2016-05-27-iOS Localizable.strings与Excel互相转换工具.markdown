@@ -14,77 +14,133 @@ tags:
 相信做过多国化的朋友们一定为Localizable.strings的翻译工作而烦恼。先是写出需要用到的多国化字符串，然后交由翻译人员翻译成各国语言，最后再把翻译后的文档整理写入Localizable.strings。这个工作无聊、反复、繁琐，所以写了个[Localizable.strings与Excel互相转换的工具](https://github.com/CatchZeng/Localizable.strings2Excel)，来提高效率。
 
 ## Localizable.strings2Excel
-iOS本地化文件（Localizable.strings）与Excel互相转换 & Localizable.strings 转换成android的strings.xml文件的Python脚本工具
 
-#### 将iOS多个国家的Localizable.strings转换成excel
-![strings to excel](https://github.com/CatchZeng/Localizable.strings2Excel/blob/master/imgs/stoe.jpg?raw=true)  
+iOS 本地化文件（.strings）与 Excel 互相转换 & android 的 strings.xml 与 Excel 互相转换 & iOS 本地化文件 转换成 android 的 strings.xml 文件的 Python 脚本工具
 
-#### 将Android多个国家的strings.xml转换成excel
-![strings to excel](https://github.com/CatchZeng/Localizable.strings2Excel/blob/master/imgs/atox.jpg?raw=true)  
+## 特性
 
-#### 将excel转换成iOS多个国家的Localizable.strings以及Android的strings.xml
-![excel to strings](https://github.com/CatchZeng/Localizable.strings2Excel/blob/master/imgs/etos.jpg?raw=true) 
+- [x] 支持将 **iOS** strings 文件转换成 **excel** 文件
+- [x] 支持将 **excel** 文件转换成 **iOS** strings 文件
+- [x] 支持将 **android** xml 文件转换成 **excel** 文件
+- [x] 支持将 **excel** 文件转换成 **android** xml 文件
+- [x] 支持将 **iOS** strings 文件转换成 **android** xml 文件
 
-#### 将单个iOS的Localizable.strings转换成Android的strings.xml
-![strings to android xml](https://github.com/CatchZeng/Localizable.strings2Excel/blob/master/imgs/stox.jpg?raw=true) 
+## 当前版本
 
-## ChangeLog
+**V1.0.0**
 
-#### V0.5.0
+## 所需环境
 
-1.支持将Android多个国家的strings.xml转换成excel
+### 1.检查 python 版本
 
-#### V0.4.0
+python 版本必须是 2.x
 
-1.支持多种语言一起转换
+```
+$ python --version
+Python 2.7.10
+```
 
-#### V0.3.0
+### 2.检查 pip(python 包管理器)
 
-1.支持Localizable.strings转换成android的strings.xml.
+```
+$ pip --version
+pip 19.0 from /Library/Python/2.7/site-packages/pip (python 2.7)
+```
 
-#### V0.2.0 
+如果没有安装 pip
 
-1.Fix bugs.
+```
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+sudo python get-pip.py
+```
 
-2.增加 -h(帮助命令)
+### 3.安装 pyexcelerator
 
-3.增加 -t(目标文件地址)、-f(源文件地址)的命令参数
+```
+sudo pip install pyExcelerator
+```
 
-#### V0.1.0 
+### 4.安装 xlrd
 
-加入工程
+```
+sudo pip install xlrd
+```
 
-## 使用方法
+## 使用说明
 
-### 1.安装pyexcelerator组件
+### 1.将 **iOS** strings 文件转换成 **excel** 文件
 
-切换到pyexcelerator-0.6.4.1目录,执行sudo python setup.py install 安装
+```
+$ python python/Strings2Xls.py -f examples/ios/ -t examples/output
+Start converting
+Convert examples/ios/ successfully! you can see xls file in examples/output/strings-files-to-xls_20190129_165830
+```
 
-![安装pyexcelerator](https://github.com/CatchZeng/Localizable.strings2Excel/blob/master/imgs/installpy.jpg?raw=true)
+![](https://github.com/CatchZeng/Localizable.strings2Excel/raw/master/imgs/1.0.0/strings-2-xls.jpg)
+
+### 2.将 **excel** 文件转换成 **iOS** strings 文件
+
+```
+$ python python/Xls2Strings.py -f examples/output/strings-files-to-xls_20190129_165830/ -t examples/ou
+tput/
+
+options: {'fileDir': 'examples/output/strings-files-to-xls_20190129_165830/', 'targetDir': 'examples/output/', 'excelStorageForm': 'multiple', 'additional': None
+}, args: []
+
+Start converting
+Convert examples/output/strings-files-to-xls_20190129_165830/ successfully! you can see strings file in examples/output//xls-files-to-strings_20190129_171146
+```
+
+![](https://github.com/CatchZeng/Localizable.strings2Excel/raw/master/imgs/1.0.0/xls-2-strings.jpg)
+
+### 3.将 **android** xml 文件转换成 **excel** 文件
+
+```
+$ python python/Xml2Xls.py -f examples/android/ -t examples/output
+
+options: {'fileDir': 'examples/android/', 'targetDir': 'examples/output', 'excelStorageForm': 'multiple'}, args: []
+
+Start converting
+Convert examples/android/ successfully! you can see xls file in examples/output/xml-files-to-xls_20190129_172938
+```
+
+![](https://github.com/CatchZeng/Localizable.strings2Excel/raw/master/imgs//1.0.0/xml-2-xls.jpg)
+
+### 4.将 **excel** 文件转换成 **android** xml 文件
+
+```
+$ python python/Xls2Xml.py -f examples/output/xml-files-to-xls_20190129_172938/ -t examples/output/
+
+options: {'fileDir': 'examples/output/xml-files-to-xls_20190129_172938/', 'targetDir': 'examples/output/', 'excelStorageForm': 'multiple', 'additional': None}, args
+: []
+
+Start converting
+Convert examples/output/xml-files-to-xls_20190129_172938/ successfully! you can xml files in examples/output//xls-files-to-xml_20190129_174207
+```
+
+![](https://github.com/CatchZeng/Localizable.strings2Excel/raw/master/imgs//1.0.0/xls-2-xml.jpg)
+
+### 5.将 **iOS** strings 文件转换成 **android** xml 文件
+
+```shell
+$ python python/Strings2Xml.py -f examples/ios/en.lproj/ -t examples/output/
+
+options: {'fileDir': 'examples/ios/en.lproj/', 'targetDir': 'examples/output/', 'additional': None}, args: []
 
 
-### 2.安装xld组件
+Creating android file:examples/output//strings-files-to-xml_20190129_164122/Localizable.xml
 
-切换到xlrd-1.0.0目录,执行sudo python setup.py install 安装
 
-### 3.使用脚本
+Creating android file:examples/output//strings-files-to-xml_20190129_164122/InfoPlist.xml
 
-python Localizable.py -f xxx/xxx -t xxx/xxx.xls :将多个国家的iOS Localizable.strings文件一起转换成xls文件
 
-![stoeu](https://github.com/CatchZeng/Localizable.strings2Excel/blob/master/imgs/stoeu.jpg?raw=true)
+Convert successfully! you can see xml files in examples/output//strings-files-to-xml_20190129_164122
 
-python LocalizableStringsXml.py -f xxx/xxx -t xxx/xxx.xls :将多个国家的Android  strings.xml文件一起转换成xls文件
+```
 
-![xmltoe](https://github.com/CatchZeng/Localizable.strings2Excel/blob/master/imgs/xmltoe.jpg?raw=true)
-
-python LocalizableBack.py -f xxx/xxx.xls -t xxx/xxx  :将xls文件转换成多个国家Localizable.strings文件 & Android 多个国家的strings.xml文件
-
-![etosu](https://github.com/CatchZeng/Localizable.strings2Excel/blob/master/imgs/etosu.jpg?raw=true)
-
-python LocalizableToStringXml.py -f xxx/xxx.strings -t xxx/xxx.xml : 将单个Localizable.strings转换成strings.xml文件
-
-![stoau](https://github.com/CatchZeng/Localizable.strings2Excel/blob/master/imgs/stoau.jpg?raw=true)
+![](https://github.com/CatchZeng/Localizable.strings2Excel/raw/master/imgs//1.0.0/strings-2-xml.jpg)
 
 ## 最后
-附上链接https://github.com/CatchZeng/Localizable.strings2Excel 欢迎star、fork、issue。
+
+附上 [github 地址](https://github.com/CatchZeng/Localizable.strings2Excel) 欢迎star、fork、issue。
 有问题可以到群里讨论 QQ群：157672725
