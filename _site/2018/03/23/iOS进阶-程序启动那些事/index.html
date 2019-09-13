@@ -12,7 +12,7 @@
 
     <title>iOS进阶 -- 程序启动那些事 - CatchZeng的技术博客 | CatchZeng's Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/2018/03/23/iOS%E8%BF%9B%E9%98%B6-%E7%A8%8B%E5%BA%8F%E5%90%AF%E5%8A%A8%E9%82%A3%E4%BA%9B%E4%BA%8B/">
+    <link rel="canonical" href="http://localhost:4000/2018/03/23/iOS%E8%BF%9B%E9%98%B6-%E7%A8%8B%E5%BA%8F%E5%90%AF%E5%8A%A8%E9%82%A3%E4%BA%9B%E4%BA%8B/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css ">
@@ -170,10 +170,12 @@
 <p><strong>欢迎加QQ群讨论：157672725</strong></p>
 
 <h2 id="前言">前言</h2>
+
 <p>iOS开发中，main函数是我们认为的入口，但其实从程序启动到main方法被调用之间，还发生了许多事情。比如runtime的初始化、动态库的加载链接等。想要真正了解程序启动，需要了解程序的内部结构。因此，本章将从分析程序（.ipa）的结构开始，到main函数被调用分析程序的启动。</p>
 
 <h2 id="程序ipa结构">程序（.ipa）结构</h2>
-<p><img src="http://upload-images.jianshu.io/upload_images/943491-6002dd38843cbb6d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ipa" /></p>
+
+<p><img src="/img/in-post/post-ios/launch-1.jpg" alt="" /></p>
 
 <p>iTunesArtwork: 高分别率图标，通常为JPG图像文件</p>
 
@@ -182,6 +184,7 @@
 <p><strong>App(Mach-O)：App的可执行文件</strong></p>
 
 <h2 id="可执行文件mach-o">可执行文件（Mach-O）</h2>
+
 <p><a href="https://baike.baidu.com/item/进程/382503?fr=aladdin">进程</a>是特殊文件在内存中加载得到的结果。这种文件必须使用操作系统能够理解的<strong>格式</strong>，这样操作系统才能解析、建立依赖、初始化并开始执行。这种特殊文件就是可执行文件。
 在UNIX中，我们可以使用chmod+x将文件<strong>标记</strong>为可执行文件，但不能保证该文件可以执行，因为<strong>标记</strong>只是告诉操作系统内核将文件读入内存，然后寻找一个头签名，这个头签名通常称为<strong>“魔数”</strong>。当文件读入时，通过<strong>“魔数”</strong>可帮助判断文件的二进制格式，如果是被支持的二进制格式，才会调用加载器函数。每个平台都有自己的可执行文件格式，Mach-O则是 OS X 与 iOS 系统上的可执行文件格式。
 下面我们以QQ为例，借助<a href="https://sourceforge.net/projects/machoview/">MachOView</a>来分析Mach-O文件。</p>
@@ -197,18 +200,19 @@
 <strong>cafebabe</strong>就是跨处理器架构的通用格式，feedface和feedfacf则分别是某一处理器架构下的Mach-O格式。</li>
 </ul>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/943491-cf41e5f001397df6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ Mach-O" /></p>
+<p><img src="/img/in-post/post-ios/launch-2.jpg" alt="" /></p>
 
 <p>Mach-O 32位魔数是 <strong>0xfeedface</strong>
 Mach-O 64位魔数是 <strong>0xfeedfacf</strong>
-QQ支持ARM32&amp;64所以可以看到两个Mach Header
-<img src="http://upload-images.jianshu.io/upload_images/943491-f4d3150431b73b05.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Mach-O 32" /></p>
+QQ支持ARM32&amp;64所以可以看到两个Mach Header</p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/943491-65536991181a8896.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Mach-O 64" /></p>
+<p><img src="/img/in-post/post-ios/launch-3.jpg" alt="" /></p>
+
+<p><img src="/img/in-post/post-ios/launch-4.jpg" alt="" /></p>
 
 <h4 id="mach-o格式">Mach-O格式</h4>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/943491-9f02e0e795e5d9b0.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Match-O" /></p>
+<p><img src="/img/in-post/post-ios/launch-5.jpg" alt="" /></p>
 
 <ul>
   <li>Header：CPU类型和子类型、文件类型、加载命令的条数和大小、动态连接器标志等</li>
@@ -217,25 +221,29 @@ QQ支持ARM32&amp;64所以可以看到两个Mach Header
 </ul>
 
 <h4 id="加载过程">加载过程</h4>
+
 <p>系统加载可执行文件后，通过<strong>Fat Header</strong>，找到对应平台的地址，
-然后根据相应的<strong>Header</strong>，获取LoadCommands的信息，并加载。
-<img src="http://upload-images.jianshu.io/upload_images/943491-77bfea43f634188f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="FatHeader" /></p>
+然后根据相应的<strong>Header</strong>，获取LoadCommands的信息，并加载。</p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/943491-4a8a93b9fc805843.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Header" /></p>
+<p><img src="/img/in-post/post-ios/launch-6.jpg" alt="" /></p>
 
-<p>查看Load Commands可知，系统通过<strong>LC_SEGEMNT</strong>命令将可执行文件段映射到进程地址空间后通过<strong>LC_LOAD_DYLINKER</strong>调用<strong>dyld</strong>(通常在/usr/lib/dyld)，当dyld的工作完成之后由<strong>LC_MAIN</strong>（旧版本中的<strong>LC_UNIXTHREAD</strong>）命令负责设置主线程的入口地址和栈大小。
-<img src="http://upload-images.jianshu.io/upload_images/943491-b80cc628b36b5ebc.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Commands" /></p>
+<p><img src="/img/in-post/post-ios/launch-7.jpg" alt="" /></p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/943491-5d4b3d6b03f02621.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Load dyld command" /></p>
+<p>查看Load Commands可知，系统通过<strong>LC_SEGEMNT</strong>命令将可执行文件段映射到进程地址空间后通过<strong>LC_LOAD_DYLINKER</strong>调用<strong>dyld</strong>(通常在/usr/lib/dyld)，当dyld的工作完成之后由<strong>LC_MAIN</strong>（旧版本中的<strong>LC_UNIXTHREAD</strong>）命令负责设置主线程的入口地址和栈大小。</p>
+
+<p><img src="/img/in-post/post-ios/launch-8.jpg" alt="" /></p>
+
+<p><img src="/img/in-post/post-ios/launch-9.jpg" alt="" /></p>
 
 <h4 id="dyld-the-dynamic-link-editor">dyld (the dynamic link editor)</h4>
+
 <p>在讲解dyld之前我们先来看一下Load Commands中的<strong>LC_SYMTAB</strong>、<strong>LC_DYSYMTAB</strong>以及<strong>LC_LOAD_DYLB</strong>。</p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/943491-3269c2d0f922bfef.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SYMTAB" /></p>
+<p><img src="/img/in-post/post-ios/launch-10.jpg" alt="" /></p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/943491-2e429f9560f217b4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="libSystem" /></p>
+<p><img src="/img/in-post/post-ios/launch-11.jpg" alt="" /></p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/943491-205f4fe756f3b000.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQMainProject" /></p>
+<p><img src="/img/in-post/post-ios/launch-12.jpg" alt="" /></p>
 
 <p>我们可以看到Mach-O镜像中有很多<strong>“空洞”</strong>，即由<strong>LC_SYMTAB</strong>命令提供的符号表和<strong>LC_LOAD_DYLB</strong>加载的额外动态库，这些空洞需要在程序启动的时填补。这项工作就需要dyld来完成，这个过程有时候也称为<strong>符号绑定</strong>(binding)。</p>
 
@@ -279,6 +287,7 @@ QQ支持ARM32&amp;64所以可以看到两个Mach Header
 </code></pre></div></div>
 
 <h4 id="1-instantiatefromloadedimage">1. instantiateFromLoadedImage</h4>
+
 <p>dyld通过<strong>instantiateFromLoadedImage</strong>方法初始化<strong>ImageLoader</strong>并将我们<strong>可执行文件</strong>加载进内存,生成对应的image（镜像）。每个Mach-O 文件都会对应一个ImageLoader实例。ImageLoader是一个抽象类，每一种具体的Mach-O 文件都会继承 ImageLoader。在加载时会根据Mach-O的格式不同选择生成不用的实例(如：<strong>ImageLoaderMachOClassic</strong>、<strong>ImageLoaderMachOCompressed</strong>)。而<strong>sMainExecutable</strong>对应可执行文件，里面包含了我们项目中<strong>所有新建的类</strong>。</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//
@@ -312,9 +321,10 @@ public:
 }
 </code></pre></div></div>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-df21867ba98b660f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ImageLoader" /></p>
+<p><img src="/img/in-post/post-ios/launch-13.png" alt="" /></p>
 
 <h4 id="2-loadinserteddylib">2. loadInsertedDylib</h4>
+
 <p>dyld通过<strong>loadInsertedDylib</strong>方法将插入的lib加载进内存,生成对应的image。</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>static void loadInsertedDylib(const char* path)
 {
@@ -339,9 +349,11 @@ public:
 </code></pre></div></div>
 
 <h4 id="3-link-smainexecutable">3. link sMainExecutable</h4>
+
 <p>链接instantiateFromLoadedImage生成的Images。</p>
 
 <h4 id="4-link-image">4. link image</h4>
+
 <p>链接loadInsertedDylib生成的Images。</p>
 
 <p><strong>Link</strong>操作其实是调用Imageloader的Link方法，负责对image进行load(加载)、UpdateDepth（更新深度）、rebase(基地址复位)、bind(外部符号绑定)等。</p>
@@ -373,6 +385,7 @@ public:
 </code></pre></div></div>
 
 <h5 id="recursiveloadlibraries">recursiveLoadLibraries</h5>
+
 <p>递归加载依赖的动态链接库。
 可以使用<strong>otool -L 二进制文件路径</strong>来列出程序的动态链接库。</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cenghaihandeMacBook-Pro:QQ.app catchzeng$ otool -L QQ
@@ -392,16 +405,20 @@ QQ (architecture armv7):
 <p>UIKit 、Foundation、CFNetwork 等框架相信大家已经很熟悉了。而其中的libobjc.A.dylib 包含 runtime，libSystem.B.dylib 则包含像 libdispatch、libsystem_c 等系统级别的库，二者都是被默认添加到程序中的。由于动态链接库本身还可能依赖其他动态链接库，所以整个加载过程是递归进行的，以下几个操作同理都是<strong>递归</strong>的。</p>
 
 <h5 id="recursiverebase">recursiveRebase</h5>
+
 <p>在以前，程序每次加载其在内存中的堆栈<strong>基地址</strong>都是一样的，这意味着你的方法，变量等地址每次都一样的，这使得程序很不安全，后面就出现<a href="https://baike.baidu.com/item/aslr/5779647?fr=aladdin">ASLR（Address space layout randomization）</a>，程序每次启动后地址都会随机变化，这样程序里所有的代码地址都是错的，需要重新对代码地址进行计算修复才能正常访问，这个操作就是Rebase。</p>
 
 <h5 id="recursivebind">recursiveBind</h5>
+
 <p>由于符号在不同的库里面，所以需要符号绑定（Bind）这个过程。
 举个简单的例子，代码里面调用了 NSClassFromString. 但是NSClassFromString的代码和符号都是在 Foundation.framework 这个动态库里面。还没绑定之前就“不认识”NSClassFromString，所以需要Bind。</p>
 
 <h4 id="5-initializemainexecutable">5. initializeMainExecutable</h4>
+
 <p>调用所有image的Initalizer方法进行初始化。
-这里可以利用环境变量<strong>DYLD_PRINT_INITIALIZERS=1</strong>来打印出程序的各种依赖库的initializer方法：
-<img src="https://upload-images.jianshu.io/upload_images/943491-a932419f6b8d3e9b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DYLD_PRINT_INITIALIZERS" /></p>
+这里可以利用环境变量<strong>DYLD_PRINT_INITIALIZERS=1</strong>来打印出程序的各种依赖库的initializer方法：</p>
+
+<p><img src="/img/in-post/post-ios/launch-14.png" alt="" /></p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dyld: calling initializer function 0x103c5f9fe in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/lib/libSystem.dylib
 dyld: calling -init function 0x10278a3c6 in /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/lib/libBacktraceRecording.dylib
@@ -458,9 +475,9 @@ void libSystem_initializer(int argc, const char* argv[], const char* envp[], con
 </code></pre></div></div>
 <p>libdispatch_init初始化会调用runtime的_objc_init初始化方法，这里我们利用符号断点调试可以看到程序的调用栈，也能验证以上的过程。</p>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-f47c66ed03d820d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="符号断点" /></p>
+<p><img src="/img/in-post/post-ios/launch-15.png" alt="" /></p>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-9d60295df1cf5405.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="调用栈" /></p>
+<p><img src="/img/in-post/post-ios/launch-16.png" alt="" /></p>
 
 <h2 id="main">Main</h2>
 <p>当所有的依赖库库的lnitializer都调用完后，dyld的main函数会返回程序的main函数地址，main函数被调用。</p>
@@ -475,6 +492,10 @@ void libSystem_initializer(int argc, const char* argv[], const char* envp[], con
 
 <h2 id="总结">总结</h2>
 <p>本章从ipa文件-》Mach-O-》dyld-》Main简单讲解了程序启动的一些事情，但并不代表着启动的全部，有兴趣的朋友可以继续往深挖。本章是iOS进阶的第一篇，后续会持续更新。如果大家有感兴趣的主题，也可以到Q群里联系我。</p>
+
+<p><span id="busuanzi_container_page_pv">
+本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span></p>
 
 
                 <hr>
@@ -534,7 +555,7 @@ void libSystem_initializer(int argc, const char* argv[], const char* envp[], con
                             
         				
                             
-                				<a href="/tags/#iOS" title="iOS" rel="5">
+                				<a href="/tags/#iOS" title="iOS" rel="4">
                                     iOS
                                 </a>
                             
@@ -548,6 +569,12 @@ void libSystem_initializer(int argc, const char* argv[], const char* envp[], con
                             
                 				<a href="/tags/#设计模式" title="设计模式" rel="4">
                                     设计模式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Clean Code" title="Clean Code" rel="1">
+                                    Clean Code
                                 </a>
                             
         				
@@ -619,7 +646,7 @@ void libSystem_initializer(int argc, const char* argv[], const char* envp[], con
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "catchzeng";
     var disqus_identifier = "/2018/03/23/iOS进阶 -- 程序启动那些事";
-    var disqus_url = "http://catchzeng.com/2018/03/23/iOS%E8%BF%9B%E9%98%B6-%E7%A8%8B%E5%BA%8F%E5%90%AF%E5%8A%A8%E9%82%A3%E4%BA%9B%E4%BA%8B/";
+    var disqus_url = "http://localhost:4000/2018/03/23/iOS%E8%BF%9B%E9%98%B6-%E7%A8%8B%E5%BA%8F%E5%90%AF%E5%8A%A8%E9%82%A3%E4%BA%9B%E4%BA%8B/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

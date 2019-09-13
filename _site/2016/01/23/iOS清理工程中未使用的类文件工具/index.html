@@ -12,7 +12,7 @@
 
     <title>iOS清理工程中未使用的类文件工具 - CatchZeng的技术博客 | CatchZeng's Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6%E5%B7%A5%E5%85%B7/">
+    <link rel="canonical" href="http://localhost:4000/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6%E5%B7%A5%E5%85%B7/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css ">
@@ -195,7 +195,12 @@
 <img src="https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/7.png" alt="清理后的工程结构" /></p>
 
 <h2 id="工具的原理">工具的原理</h2>
+
 <p>读取project文件中的文件组织信息，找到工程中所有的类，然后遍历所有类文件的#import情况,找出未使用的类文件删除，并删除project文件中未使用文件的记录数据。</p>
+
+<p><span id="busuanzi_container_page_pv">
+本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span></p>
 
 
                 <hr>
@@ -255,7 +260,7 @@
                             
         				
                             
-                				<a href="/tags/#iOS" title="iOS" rel="5">
+                				<a href="/tags/#iOS" title="iOS" rel="4">
                                     iOS
                                 </a>
                             
@@ -269,6 +274,12 @@
                             
                 				<a href="/tags/#设计模式" title="设计模式" rel="4">
                                     设计模式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Clean Code" title="Clean Code" rel="1">
+                                    Clean Code
                                 </a>
                             
         				
@@ -340,7 +351,7 @@
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "catchzeng";
     var disqus_identifier = "/2016/01/23/iOS清理工程中未使用的类文件工具";
-    var disqus_url = "http://catchzeng.com/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6%E5%B7%A5%E5%85%B7/";
+    var disqus_url = "http://localhost:4000/2016/01/23/iOS%E6%B8%85%E7%90%86%E5%B7%A5%E7%A8%8B%E4%B8%AD%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%E6%96%87%E4%BB%B6%E5%B7%A5%E5%85%B7/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

@@ -12,7 +12,7 @@
 
     <title>iOS 自定义弹出视图的正确姿势 - CatchZeng的技术博客 | CatchZeng's Blog</title>
 
-    <link rel="canonical" href="http://catchzeng.com/2018/01/11/iOS-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%B9%E5%87%BA%E8%A7%86%E5%9B%BE%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF/">
+    <link rel="canonical" href="http://localhost:4000/2018/01/11/iOS-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%B9%E5%87%BA%E8%A7%86%E5%9B%BE%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css ">
@@ -203,7 +203,7 @@
   <li>坏处：在横屏的时候，第二次弹出时，出现显示问题【暂时不知道为什么】</li>
 </ul>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/943491-1211c59a06555b49.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="第二次显示问题" /></p>
+<p><img src="/img/in-post/post-ios/swift-popup-1.gif" alt="" /></p>
 
 <h2 id="uipresentationcontroller">UIPresentationController</h2>
 <p>使用UIPresentationController自定义转场动画，这也是我的实现方法。
@@ -212,7 +212,7 @@ UIPresentationController是提供高级视图切换的类。它让管理present 
 <h4 id="presentation">Presentation</h4>
 <p>如下图弹出一个UIViewController，可以和用户交互的Controller叫做PresentedViewController，而后面那个被部分遮挡的UIViewController叫做PresentingViewController.</p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/943491-bc6b9c4ea47bd482.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Presentation" /></p>
+<p><img src="/img/in-post/post-ios/swift-popup-2.png" alt="" /></p>
 
 <h4 id="uipopovercontroller的使用方法">UIPopoverController的使用方法</h4>
 
@@ -339,10 +339,14 @@ UIPresentationController是提供高级视图切换的类。它让管理present 
 
 <p>完整代码 <a href="https://github.com/CatchZeng/SwiftPopup">https://github.com/CatchZeng/SwiftPopup</a></p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/943491-4b0dfb03164525fa.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Demo" /></p>
+<p><img src="/img/in-post/post-ios/swift-popup-3.gif" alt="" /></p>
 
 <h2 id="小结">小结</h2>
 <p>如遇问题或者有更好的方式，<strong>欢迎加QQ群讨论：157672725</strong></p>
+
+<p><span id="busuanzi_container_page_pv">
+本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span></p>
 
 
                 <hr>
@@ -402,7 +406,7 @@ UIPresentationController是提供高级视图切换的类。它让管理present 
                             
         				
                             
-                				<a href="/tags/#iOS" title="iOS" rel="5">
+                				<a href="/tags/#iOS" title="iOS" rel="4">
                                     iOS
                                 </a>
                             
@@ -416,6 +420,12 @@ UIPresentationController是提供高级视图切换的类。它让管理present 
                             
                 				<a href="/tags/#设计模式" title="设计模式" rel="4">
                                     设计模式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Clean Code" title="Clean Code" rel="1">
+                                    Clean Code
                                 </a>
                             
         				
@@ -487,7 +497,7 @@ UIPresentationController是提供高级视图切换的类。它让管理present 
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "catchzeng";
     var disqus_identifier = "/2018/01/11/iOS 自定义弹出视图的正确姿势";
-    var disqus_url = "http://catchzeng.com/2018/01/11/iOS-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%B9%E5%87%BA%E8%A7%86%E5%9B%BE%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF/";
+    var disqus_url = "http://localhost:4000/2018/01/11/iOS-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%B9%E5%87%BA%E8%A7%86%E5%9B%BE%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
