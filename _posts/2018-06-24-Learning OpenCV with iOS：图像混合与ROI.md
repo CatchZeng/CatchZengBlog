@@ -207,3 +207,7 @@ class ROIViewController: UIViewController {
 ## 五、小结
 
 本篇主要介绍了图像混合的概念，并通过例子讲解了线性混合的实现和ROI的应用。在今后的学习中ROI的使用度较高，需要好好掌握。ROI其实是“分而治之”思想在图像处理中的应用。好了，今天就到这了。有疑问的朋友可以给我留言，see you later!
+
+<span id="busuanzi_container_page_pv">
+本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span>

@@ -230,3 +230,7 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
 ## 五、小结
 
 本篇主要介绍了图像模糊的概念，并通过例子讲解了均值模糊和高斯模糊。模糊经常在图像预处理降时使用到，需要好好掌握其原理，以便于应对不同情况。今天就到这了，有疑问的朋友可以给我留言，咱们下篇见！
+
+<span id="busuanzi_container_page_pv">
+本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span>

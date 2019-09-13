@@ -9,6 +9,8 @@ tags:
   - JS
 ---
 
+<span id="busuanzi_container_page_pv"></span>
+
 ## 一、前言
 
 在文章[优化安装包大小](https://xiaozhuanlan.com/topic/3458629071)中，我们介绍了常见的优化安装包大小的方法，并写了一个脚本工具 [AppThinning](https://github.com/CatchZeng/AppThinning) ，帮助自动找到大文件，然后进行图片压缩。然而，实际运用中**图片的前期处理者经常是设计师**，脚本对于他们来说始终不够方便，于是诞生了AppThinning  Desktop。
@@ -44,3 +46,7 @@ tags:
 ## 三、小结
 
 AppThinning Desktop 旨在帮助大家更方便地优化安装包大小，在使用过程中遇到问题或者有什么建议，可以给我留言。
+
+<span id="busuanzi_container_page_pv">
+本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span>

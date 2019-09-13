@@ -1,16 +1,14 @@
 ---
 layout:     post
 title:      "Clean Code 告诉你什么是好代码"
-subtitle:   "iOS开发"
+subtitle:   "Clean Code"
 date:       2017-09-29 08:38:27
 author:     "CatchZeng"
 header-img: "img/post-bg-ios.jpg"
 tags:
-    - iOS
+    - Clean Code
 ---
 <span id="busuanzi_container_page_pv"></span>
-
-**欢迎加QQ群讨论：157672725**
 
 ## 前言
 最近在团队推行Code Review，遇到一个头痛的问题。当向伙伴的代码提一个comment时，他们不解为什么需要这样改。细细想来，是他们不知道何为好代码，也不知道自己的代码有哪些 **"坏味道"**。因此，分享了几期Clean Code，团队受益良多，故成此文。
@@ -383,3 +381,7 @@ Git、SVN知道是你提交的，不用这样刷存在感
 ## 总结
 Clean Code能帮助团队构建代码质量体系，有助于开发的各个环节（静态分析、持续集成、Code Review...）。当然，对个人的能力提高也很有好处，建议大家都应该熟悉。等团队Code Review一段时间后，有其他收获的话，再给大家分享。
 **预祝大家国庆节快乐！**
+
+<span id="busuanzi_container_page_pv">
+本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span>

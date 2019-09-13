@@ -224,3 +224,7 @@ void filter2D( InputArray src, OutputArray dst, int ddepth,
 ## 四、小结
 
 本篇主要介绍了Mat对象的基本用法，并通过两个例子讲解了掩膜操作的原理和实现。下一篇还是会以这样的形式讲解OpenCV的其他知识，有更好建议的朋友可以给我留言，see you later!
+
+<span id="busuanzi_container_page_pv">
+本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span>

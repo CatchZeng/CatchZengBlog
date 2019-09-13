@@ -144,3 +144,8 @@ Convert successfully! you can see xml files in examples/output//strings-files-to
 
 附上 [github 地址](https://github.com/CatchZeng/Localizable.strings2Excel) 欢迎star、fork、issue。
 有问题可以到群里讨论 QQ群：157672725
+
+
+<span id="busuanzi_container_page_pv">
+本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span>

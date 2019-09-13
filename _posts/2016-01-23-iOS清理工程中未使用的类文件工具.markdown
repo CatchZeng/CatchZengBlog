@@ -38,4 +38,9 @@ tags:
 ![清理后的工程结构](https://github.com/CatchZeng/CATClearProjectTool/raw/master/images/7.png)
 
 ## 工具的原理
+
 读取project文件中的文件组织信息，找到工程中所有的类，然后遍历所有类文件的#import情况,找出未使用的类文件删除，并删除project文件中未使用文件的记录数据。
+
+<span id="busuanzi_container_page_pv">
+本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span>

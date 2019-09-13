@@ -236,3 +236,7 @@ OpenCV包含的内容较多，在学习之前先了解下它的整体模块架�
 ## 四、小结
 
 本篇从概念到环境搭建再到基本架构的角度介绍了OpenCV，让读者有一个宏观的认识。[下一篇](http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-(二)-掩膜操作/)开始，我将以原理+例子的形式一步步介绍OpenCV的各个模块。
+
+<span id="busuanzi_container_page_pv">
+本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span>
