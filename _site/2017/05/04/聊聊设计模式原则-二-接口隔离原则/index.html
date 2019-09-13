@@ -12,7 +12,7 @@
 
     <title>聊聊设计模式原则（二） -- 接口隔离原则 - CatchZeng的技术博客 | CatchZeng's Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/2017/05/04/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%BA%8C-%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99/">
+    <link rel="canonical" href="http://catchzeng.com/2017/05/04/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%BA%8C-%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css ">
@@ -184,7 +184,7 @@
 <h2 id="由来">由来</h2>
 <p>类A通过接口I依赖类B，类C通过接口I依赖类D，如果接口I对于类A和类B来说不是最小接口，则类B和类D必须去实现他们不需要的方法。</p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/943491-60ee2892793d217f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ISP" /></p>
+<p><img src="/img/in-post/post-design-pattern/isp-1.png" alt="ISP" /></p>
 
 <h4 id="code">Code</h4>
 
@@ -285,7 +285,7 @@
 <h2 id="解决方案">解决方案</h2>
 <p>将臃肿的接口I拆分为独立的几个接口，类A和类C分别与他们需要的接口建立依赖关系。</p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/943491-bc4fe38b16b450de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ISP" /></p>
+<p><img src="/img/in-post/post-design-pattern/isp-2.png" alt="ISP" /></p>
 
 <h3 id="code-1">Code</h3>
 
@@ -574,7 +574,7 @@
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "catchzeng";
     var disqus_identifier = "/2017/05/04/聊聊设计模式原则（二） -- 接口隔离原则";
-    var disqus_url = "http://localhost:4000/2017/05/04/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%BA%8C-%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99/";
+    var disqus_url = "http://catchzeng.com/2017/05/04/%E8%81%8A%E8%81%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99-%E4%BA%8C-%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

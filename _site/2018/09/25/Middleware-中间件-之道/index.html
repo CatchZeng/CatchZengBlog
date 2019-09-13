@@ -12,7 +12,7 @@
 
     <title>Middleware（中间件）之道 - CatchZeng的技术博客 | CatchZeng's Blog</title>
 
-    <link rel="canonical" href="http://localhost:4000/2018/09/25/Middleware-%E4%B8%AD%E9%97%B4%E4%BB%B6-%E4%B9%8B%E9%81%93/">
+    <link rel="canonical" href="http://catchzeng.com/2018/09/25/Middleware-%E4%B8%AD%E9%97%B4%E4%BB%B6-%E4%B9%8B%E9%81%93/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css ">
@@ -199,11 +199,11 @@
 
 <p>AOP 意为面向切面编程。 以页面统计为例，先来看下传统的流程。</p>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-632c86a8323e9556.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="页面统计" /></p>
+<p><img src="/img/in-post/post-design-pattern/middleware-1.png" alt="" /></p>
 
 <p>我们可以把方框里的流程合为一个，另外系统还会有其他页面统计流程，我们先把这些流程放到一起：</p>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-407dcc957c986b17.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="页面统计" /></p>
+<p><img src="/img/in-post/post-design-pattern/middleware-2.png" alt="" /></p>
 
 <p>不难发现每个页面都有一个相同的页面统计流程。这样的处理有如下几个问题：</p>
 
@@ -215,7 +215,7 @@
 
 <p>有没有想过把这个页面统计的代码是提取出来，不放到主流程里去呢？这就是 AOP 的思想了，传统的流程讲究<strong>从上而下</strong>的处理流程 ，而 AOP 讲究<strong>“面”</strong>,从<strong>横向切面</strong>将相同的流程提取出去，所以也叫<strong>“横切面”</strong>，如下图所示。</p>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-bc91873e5f664616.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Group 5.png" /></p>
+<p><img src="/img/in-post/post-design-pattern/middleware-3.png" alt="" /></p>
 
 <p>AOP 提倡从横向切面思路向管道某个位置插入一段代码逻辑，这样就实现在任何业务<strong>逻辑前后</strong>都有相同代码逻辑段，开发者只需专注写业务逻辑，既不影响主流程，而且隔离了业务逻辑，达到<strong>高内聚低耦合</strong>。</p>
 
@@ -338,7 +338,7 @@ app.use(logger);
 
 <p>多个中间件会形成一个栈结构（middle stack），以”先进后出”（first-in-last-out）的顺序执行，被称为<strong>洋葱结构</strong>。</p>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-4030de75a169e4c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="洋葱结构" /></p>
+<p><img src="/img/in-post/post-design-pattern/middleware-4.png" alt="" /></p>
 
 <p>举个例子</p>
 
@@ -707,7 +707,7 @@ public class EndUpload: Middleware {
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "catchzeng";
     var disqus_identifier = "/2018/09/25/Middleware（中间件）之道";
-    var disqus_url = "http://localhost:4000/2018/09/25/Middleware-%E4%B8%AD%E9%97%B4%E4%BB%B6-%E4%B9%8B%E9%81%93/";
+    var disqus_url = "http://catchzeng.com/2018/09/25/Middleware-%E4%B8%AD%E9%97%B4%E4%BB%B6-%E4%B9%8B%E9%81%93/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

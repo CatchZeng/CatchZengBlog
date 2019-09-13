@@ -3,10 +3,10 @@
   <channel>
     <title>CatchZeng's Blog</title>
     <description></description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 13 Sep 2019 10:49:49 +0800</pubDate>
-    <lastBuildDate>Fri, 13 Sep 2019 10:49:49 +0800</lastBuildDate>
+    <link>http://catchzeng.com/</link>
+    <atom:link href="http://catchzeng.com/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Fri, 13 Sep 2019 11:08:00 +0800</pubDate>
+    <lastBuildDate>Fri, 13 Sep 2019 11:08:00 +0800</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
@@ -54,8 +54,8 @@
 &lt;p&gt;AppThinning Desktop 旨在帮助大家更方便地优化安装包大小，在使用过程中遇到问题或者有什么建议，可以给我留言。&lt;/p&gt;
 </description>
         <pubDate>Mon, 22 Jul 2019 17:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2019/07/22/%E4%BC%98%E5%8C%96%E5%AE%89%E8%A3%85%E5%8C%85%E5%A4%A7%E5%B0%8F-AppThinning-Desktop/</link>
-        <guid isPermaLink="true">http://localhost:4000/2019/07/22/%E4%BC%98%E5%8C%96%E5%AE%89%E8%A3%85%E5%8C%85%E5%A4%A7%E5%B0%8F-AppThinning-Desktop/</guid>
+        <link>http://catchzeng.com/2019/07/22/%E4%BC%98%E5%8C%96%E5%AE%89%E8%A3%85%E5%8C%85%E5%A4%A7%E5%B0%8F-AppThinning-Desktop/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2019/07/22/%E4%BC%98%E5%8C%96%E5%AE%89%E8%A3%85%E5%8C%85%E5%A4%A7%E5%B0%8F-AppThinning-Desktop/</guid>
         
         <category>JS</category>
         
@@ -183,8 +183,8 @@ DevOps 是一种重视“软件开发人员（Dev）”和“IT 运维技术人�
 &lt;/ul&gt;
 </description>
         <pubDate>Tue, 02 Apr 2019 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2019/04/02/DevOps-%E6%98%AF%E4%B8%80%E7%A7%8D%E6%80%8E%E6%A0%B7%E7%9A%84%E4%BD%93%E9%AA%8C/</link>
-        <guid isPermaLink="true">http://localhost:4000/2019/04/02/DevOps-%E6%98%AF%E4%B8%80%E7%A7%8D%E6%80%8E%E6%A0%B7%E7%9A%84%E4%BD%93%E9%AA%8C/</guid>
+        <link>http://catchzeng.com/2019/04/02/DevOps-%E6%98%AF%E4%B8%80%E7%A7%8D%E6%80%8E%E6%A0%B7%E7%9A%84%E4%BD%93%E9%AA%8C/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2019/04/02/DevOps-%E6%98%AF%E4%B8%80%E7%A7%8D%E6%80%8E%E6%A0%B7%E7%9A%84%E4%BD%93%E9%AA%8C/</guid>
         
         <category>DevOps</category>
         
@@ -243,8 +243,8 @@ DevOps 是一种重视“软件开发人员（Dev）”和“IT 运维技术人�
 &lt;/span&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 01 Jan 2019 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2019/01/01/Go-web%E7%BC%96%E7%A8%8B/</link>
-        <guid isPermaLink="true">http://localhost:4000/2019/01/01/Go-web%E7%BC%96%E7%A8%8B/</guid>
+        <link>http://catchzeng.com/2019/01/01/Go-web%E7%BC%96%E7%A8%8B/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2019/01/01/Go-web%E7%BC%96%E7%A8%8B/</guid>
         
         <category>Go</category>
         
@@ -470,8 +470,8 @@ dependencies &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/p&gt;
 </description>
         <pubDate>Wed, 12 Dec 2018 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2018/12/12/Android-Maven-%E7%A7%81%E6%9C%89%E5%BA%93/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/12/12/Android-Maven-%E7%A7%81%E6%9C%89%E5%BA%93/</guid>
+        <link>http://catchzeng.com/2018/12/12/Android-Maven-%E7%A7%81%E6%9C%89%E5%BA%93/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2018/12/12/Android-Maven-%E7%A7%81%E6%9C%89%E5%BA%93/</guid>
         
         <category>Android</category>
         
@@ -524,8 +524,8 @@ dependencies &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/p&gt;
 </description>
         <pubDate>Wed, 12 Dec 2018 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2018/12/12/%E8%A2%AB%E8%BD%BB%E8%A7%86%E7%9A%84%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/12/12/%E8%A2%AB%E8%BD%BB%E8%A7%86%E7%9A%84%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/</guid>
+        <link>http://catchzeng.com/2018/12/12/%E8%A2%AB%E8%BD%BB%E8%A7%86%E7%9A%84%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2018/12/12/%E8%A2%AB%E8%BD%BB%E8%A7%86%E7%9A%84%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/</guid>
         
         <category>持续集成</category>
         
@@ -568,11 +568,11 @@ dependencies &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
 &lt;p&gt;AOP 意为面向切面编程。 以页面统计为例，先来看下传统的流程。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-632c86a8323e9556.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;页面统计&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-design-pattern/middleware-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;我们可以把方框里的流程合为一个，另外系统还会有其他页面统计流程，我们先把这些流程放到一起：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-407dcc957c986b17.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;页面统计&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-design-pattern/middleware-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;不难发现每个页面都有一个相同的页面统计流程。这样的处理有如下几个问题：&lt;/p&gt;
 
@@ -584,7 +584,7 @@ dependencies &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
 &lt;p&gt;有没有想过把这个页面统计的代码是提取出来，不放到主流程里去呢？这就是 AOP 的思想了，传统的流程讲究&lt;strong&gt;从上而下&lt;/strong&gt;的处理流程 ，而 AOP 讲究&lt;strong&gt;“面”&lt;/strong&gt;,从&lt;strong&gt;横向切面&lt;/strong&gt;将相同的流程提取出去，所以也叫&lt;strong&gt;“横切面”&lt;/strong&gt;，如下图所示。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-bc91873e5f664616.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Group 5.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-design-pattern/middleware-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;AOP 提倡从横向切面思路向管道某个位置插入一段代码逻辑，这样就实现在任何业务&lt;strong&gt;逻辑前后&lt;/strong&gt;都有相同代码逻辑段，开发者只需专注写业务逻辑，既不影响主流程，而且隔离了业务逻辑，达到&lt;strong&gt;高内聚低耦合&lt;/strong&gt;。&lt;/p&gt;
 
@@ -707,7 +707,7 @@ app.use(logger);
 
 &lt;p&gt;多个中间件会形成一个栈结构（middle stack），以”先进后出”（first-in-last-out）的顺序执行，被称为&lt;strong&gt;洋葱结构&lt;/strong&gt;。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-4030de75a169e4c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;洋葱结构&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-design-pattern/middleware-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;举个例子&lt;/p&gt;
 
@@ -934,8 +934,8 @@ public class EndUpload: Middleware {
 &lt;/span&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 25 Sep 2018 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2018/09/25/Middleware-%E4%B8%AD%E9%97%B4%E4%BB%B6-%E4%B9%8B%E9%81%93/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/09/25/Middleware-%E4%B8%AD%E9%97%B4%E4%BB%B6-%E4%B9%8B%E9%81%93/</guid>
+        <link>http://catchzeng.com/2018/09/25/Middleware-%E4%B8%AD%E9%97%B4%E4%BB%B6-%E4%B9%8B%E9%81%93/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2018/09/25/Middleware-%E4%B8%AD%E9%97%B4%E4%BB%B6-%E4%B9%8B%E9%81%93/</guid>
         
         <category>设计模式</category>
         
@@ -1206,8 +1206,8 @@ class BilateralFilterViewController: UIViewController {
 &lt;p&gt;本篇主要介绍了非线性滤波的概念，并通过例子讲解了中值滤波和双边滤波。 非线性滤波的应用广泛，不但要掌握API的调用，更要明白各种滤波的原理，这样才能创造个性化的滤波，也许有一天你就创造出自己的美颜滤镜了。 今天就到这了，有疑问的朋友可以给我留言，咱们下篇见！&lt;/p&gt;
 </description>
         <pubDate>Wed, 22 Aug 2018 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2018/08/22/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/08/22/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/</guid>
+        <link>http://catchzeng.com/2018/08/22/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2018/08/22/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/</guid>
         
         <category>OpenCV</category>
         
@@ -1432,8 +1432,8 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
 &lt;p&gt;本篇主要介绍了图像模糊的概念，并通过例子讲解了均值模糊和高斯模糊。模糊经常在图像预处理降时使用到，需要好好掌握其原理，以便于应对不同情况。今天就到这了，有疑问的朋友可以给我留言，咱们下篇见！&lt;/p&gt;
 </description>
         <pubDate>Wed, 08 Aug 2018 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2018/08/08/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/08/08/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/</guid>
+        <link>http://catchzeng.com/2018/08/08/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2018/08/08/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A-%E7%BA%BF%E6%80%A7%E6%BB%A4%E6%B3%A2/</guid>
         
         <category>OpenCV</category>
         
@@ -1563,8 +1563,8 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
 &lt;p&gt;本篇主要介绍了图像变换的概念，并通过例子讲解了亮度和对比度的调整。本篇的内容相对简单，但是对像素点的操作是基本功，特别是在实现自定义算法时，需要好好掌握。在今后的学习中亮度和对比度的调整是很多图像处理的前期工作，也需要理解透彻。今天就到这了，有疑问的朋友可以给我留言，see you later!&lt;/p&gt;
 </description>
         <pubDate>Mon, 02 Jul 2018 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2018/07/02/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%92%8C%E5%AF%B9%E6%AF%94%E5%BA%A6/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/07/02/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%92%8C%E5%AF%B9%E6%AF%94%E5%BA%A6/</guid>
+        <link>http://catchzeng.com/2018/07/02/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%92%8C%E5%AF%B9%E6%AF%94%E5%BA%A6/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2018/07/02/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E4%BA%AE%E5%BA%A6%E5%92%8C%E5%AF%B9%E6%AF%94%E5%BA%A6/</guid>
         
         <category>OpenCV</category>
         
@@ -1769,8 +1769,8 @@ class ROIViewController: UIViewController {
 &lt;p&gt;本篇主要介绍了图像混合的概念，并通过例子讲解了线性混合的实现和ROI的应用。在今后的学习中ROI的使用度较高，需要好好掌握。ROI其实是“分而治之”思想在图像处理中的应用。好了，今天就到这了。有疑问的朋友可以给我留言，see you later!&lt;/p&gt;
 </description>
         <pubDate>Sun, 24 Jun 2018 17:38:27 +0800</pubDate>
-        <link>http://localhost:4000/2018/06/24/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%B7%B7%E5%90%88%E4%B8%8EROI/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/06/24/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%B7%B7%E5%90%88%E4%B8%8EROI/</guid>
+        <link>http://catchzeng.com/2018/06/24/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%B7%B7%E5%90%88%E4%B8%8EROI/</link>
+        <guid isPermaLink="true">http://catchzeng.com/2018/06/24/Learning-OpenCV-with-iOS-%E5%9B%BE%E5%83%8F%E6%B7%B7%E5%90%88%E4%B8%8EROI/</guid>
         
         <category>OpenCV</category>
         

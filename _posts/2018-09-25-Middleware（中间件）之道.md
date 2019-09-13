@@ -44,11 +44,11 @@ if  checkFile {
 
 AOP 意为面向切面编程。 以页面统计为例，先来看下传统的流程。
 
-![页面统计](https://upload-images.jianshu.io/upload_images/943491-632c86a8323e9556.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-design-pattern/middleware-1.png)
 
 我们可以把方框里的流程合为一个，另外系统还会有其他页面统计流程，我们先把这些流程放到一起：
 
-![页面统计](https://upload-images.jianshu.io/upload_images/943491-407dcc957c986b17.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-design-pattern/middleware-2.png)
 
 不难发现每个页面都有一个相同的页面统计流程。这样的处理有如下几个问题：
 
@@ -58,7 +58,7 @@ AOP 意为面向切面编程。 以页面统计为例，先来看下传统的流
 
 有没有想过把这个页面统计的代码是提取出来，不放到主流程里去呢？这就是 AOP 的思想了，传统的流程讲究**从上而下**的处理流程 ，而 AOP 讲究**“面”**,从**横向切面**将相同的流程提取出去，所以也叫**“横切面”**，如下图所示。
 
-![Group 5.png](https://upload-images.jianshu.io/upload_images/943491-bc91873e5f664616.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-design-pattern/middleware-3.png)
 
 AOP 提倡从横向切面思路向管道某个位置插入一段代码逻辑，这样就实现在任何业务**逻辑前后**都有相同代码逻辑段，开发者只需专注写业务逻辑，既不影响主流程，而且隔离了业务逻辑，达到**高内聚低耦合**。
 
@@ -174,7 +174,7 @@ app.use(logger);
 
 多个中间件会形成一个栈结构（middle stack），以"先进后出"（first-in-last-out）的顺序执行，被称为**洋葱结构**。
 
-![洋葱结构](https://upload-images.jianshu.io/upload_images/943491-4030de75a169e4c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-design-pattern/middleware-4.png)
 
 举个例子
 
