@@ -14,7 +14,7 @@ tags:
 
 [上一篇](http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-掩膜操作/)我们讲解了OpenCV的掩膜操作。本篇主要向大家介绍下图像处理中的图像混合。按惯例，先来一张效果图。
 
-![铠与Logo](https://upload-images.jianshu.io/upload_images/943491-7fa4159088937474.gif?imageMogr2/auto-orient/strip)
+![](/img/in-post/post-opencv/mix-1.gif)
 
 
 ## 二、图片相加
@@ -33,7 +33,7 @@ tags:
     UIImage* result = MatToUIImage(dst);
 ```
 
-![图片相加](https://upload-images.jianshu.io/upload_images/943491-b142c05656998fc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/mix-2.png)
 
 
 ## 三、线性混合
@@ -57,7 +57,7 @@ void addWeighted(InputArray src1, double alpha, InputArray src2, double beta, do
 
 #### 当后羿遇到阿珂
 
-![图像混合](https://upload-images.jianshu.io/upload_images/943491-bc97e432a0639f99.gif?imageMogr2/auto-orient/strip)
+![](/img/in-post/post-opencv/mix-3.gif)
 
 ```
 + (UIImage *)addWeighted:(UIImage *)image image2:(UIImage *)image2 alpha:(double)alpha gamma:(double)gamma {
@@ -121,7 +121,8 @@ class MixViewController: UIViewController {
     }
 }
 ```
-![α和β都等于1](https://upload-images.jianshu.io/upload_images/943491-793aa9ae64bd9820.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-opencv/mix-4.png)
 
 
 * addWeighted方法要求src1和src2的尺寸和通道数相同，若是不同如何混合？
@@ -144,7 +145,8 @@ Mat imageROI=srcImage3(Range(250,250+logoImage.rows),Range(200,200+logoImage.col
 下面我们来看一个实例，展示如何利用ROI将一幅图加到另一幅图的指定位置。
 
 #### 铠与Logo
-![铠与Logo](https://upload-images.jianshu.io/upload_images/943491-7fa4159088937474.gif?imageMogr2/auto-orient/strip)
+
+![](/img/in-post/post-opencv/mix-5.gif)
 
 ```
 + (UIImage *)add:(UIImage *)image alphaExist:(BOOL)alphaExist on:(UIImage *)anotherImage atPosition:(CGPoint)position alpha:(CGFloat)alpha beta:(CGFloat)beta gamma:(CGFloat)gamma {

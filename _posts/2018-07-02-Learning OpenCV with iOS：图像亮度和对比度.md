@@ -14,7 +14,7 @@ tags:
 
 [上一篇](http://catchzeng.com/2018/06/24/Learning-OpenCV-with-iOS-图像混合与ROI/)我们讲解了OpenCV的图像混合与ROI。本篇主要向大家介绍下图像变换的调整亮度和对比度。按惯例，先来一张效果图。
 
-![魔铠变身](https://upload-images.jianshu.io/upload_images/943491-0e4ab78c269f66e4.gif?imageMogr2/auto-orient/strip)
+![](/img/in-post/post-opencv/lightness-1.gif)
 
 
 ## 二、图像变换
@@ -64,7 +64,7 @@ g(i, j) = αf(i,j) + β  其中α>0，β是增益变量
 
 #### 魔铠变身
 
-![魔铠变身](https://upload-images.jianshu.io/upload_images/943491-0e4ab78c269f66e4.gif?imageMogr2/auto-orient/strip)
+![](/img/in-post/post-opencv/lightness-2.gif)
 
 ```
 +(UIImage *)transform:(UIImage *)image alpha:(double)alpha beta:(double)beta {

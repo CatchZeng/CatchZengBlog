@@ -14,12 +14,12 @@ tags:
 
 [上一篇](http://catchzeng.com/2018/06/12/Learning-OpenCV-with-iOS-Hello-OpenCV/)我们简单讲解了OpenCV的概念和基础架构。本篇主要向大家介绍下图像处理中一个比较重要的概念 --  掩膜操作。开始前我们先看下利用矩阵掩膜操作来加强图像对比度的效果。
 
-![增强对比度](https://upload-images.jianshu.io/upload_images/943491-74296305be0931e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/mask-1.png)
 
 
 ## 二、开胃菜-Mat对象
 
-![Mat](http://upload-images.jianshu.io/upload_images/943491-1bda24a84044ede2.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/mask-2.jpg)
 
 我们用眼睛看到的是图像，而计算机却不认识。于是，人们使用数值的形式来记录图像，比如用RGB值记录图像的每个点，以此来表示图像。就如上图，我们看到的是一辆车，而计算机“看到”的是一个包含图像值的矩阵。OpenCV的Mat对象对应的就是矩阵。Mat提供了许多便捷的API来创建、操作矩阵。
 
@@ -95,7 +95,7 @@ OpenCV1使用基于C接口定义的图像存储格式IplImage存储图像。IplI
 
 #### 抠下铠的头
 
-![铠](https://upload-images.jianshu.io/upload_images/943491-b7718fa0c6ef972f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/mask-3.png)
 
 接下来我们以代码角度分析下究竟什么是掩膜。
 ```
@@ -118,7 +118,7 @@ OpenCV1使用基于C接口定义的图像存储格式IplImage存储图像。IplI
  mask(r).setTo(255);
 ```
 
-![mask图片](https://upload-images.jianshu.io/upload_images/943491-9c82240d29373e2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/mask-4.png)
 
 使用mask将原始图src拷贝到目的图dst上。
 ```
@@ -133,7 +133,7 @@ src.copyTo(dst, mask);
 
 比如一个3 * 3的图像与3 * 3的掩膜进行运算，得到的结果图像就是：
 
-![mask.png](https://upload-images.jianshu.io/upload_images/943491-d1f9d8c3d7b09c66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/mask-5.png)
 
 所以，mask就是位图，来过滤像素。如果mask像素的值是非0的，我就保留，否则就丢弃。
 
@@ -150,11 +150,11 @@ I(i,j) = 5*I(i,j) - [I(i-1,j) + I(i+1,j) + I(i,j-1) + I(i,j+1)]
 
 上面的公式，转换成矩阵就如下图所示
 
-![kernel](https://upload-images.jianshu.io/upload_images/943491-2a0575afcffcc610.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/mask-6.png)
 
 红色是中心像素，从上到下，从左到右对每个像素做同样的处理操作，具体过程如下图，深灰色底表示原图像，每次移动kernel便根据公司计算新值并更新矩阵。最终得到的结果就是对比度提高之后的输出图像。
 
-![kernel](https://upload-images.jianshu.io/upload_images/943491-a5ba14b90afb4f08.gif?imageMogr2/auto-orient/strip)
+![](/img/in-post/post-opencv/mask-7.gif)
 
 具体的代码如下：
 ```
@@ -187,7 +187,8 @@ saturate_cast<uchar>(100)，返回100
 ```
 
 效果
-![增强对比度](https://upload-images.jianshu.io/upload_images/943491-74296305be0931e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-opencv/mask-8.png)
 
 接下来我们来回顾下上面的那个公式
 ```
@@ -196,9 +197,9 @@ I(i,j) = 5*I(i,j) - [I(i-1,j) + I(i+1,j) + I(i,j-1) + I(i,j+1)]
 其实这个公式就是5倍的中心像素减去周边的四个像素之和。
 我们举两个例子来看下这个公式的结果。
 
-![demo1](https://upload-images.jianshu.io/upload_images/943491-bb4a09b443016d77.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/mask-9.png)
 
-![demo2](https://upload-images.jianshu.io/upload_images/943491-a2f4113946251462.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/mask-10.png)
 
 我们可以**大致**看到若是中心点的值大于周围，则计算后的结果会将中心点与周围的值差距拉得更大；
 若是中心点的值小于周围，则计算后的结果也会将中心点与周围的值差距拉大。这样“大的大，小的小”结果不就是对比明显了吗，也就是提高了对比度。

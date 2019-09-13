@@ -171,7 +171,7 @@
 
 <p><a href="http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-掩膜操作/">上一篇</a>我们讲解了OpenCV的掩膜操作。本篇主要向大家介绍下图像处理中的图像混合。按惯例，先来一张效果图。</p>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-7fa4159088937474.gif?imageMogr2/auto-orient/strip" alt="铠与Logo" /></p>
+<p><img src="/img/in-post/post-opencv/mix-1.gif" alt="" /></p>
 
 <h2 id="二图片相加">二、图片相加</h2>
 
@@ -188,7 +188,7 @@
     UIImage* result = MatToUIImage(dst);
 </code></pre></div></div>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-b142c05656998fc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片相加" /></p>
+<p><img src="/img/in-post/post-opencv/mix-2.png" alt="" /></p>
 
 <h2 id="三线性混合">三、线性混合</h2>
 <p>图像混合其实也是一种图片相加的操作，只不过两幅图片的<strong>权重</strong>不一样。</p>
@@ -211,7 +211,7 @@
 
 <h4 id="当后羿遇到阿珂">当后羿遇到阿珂</h4>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-bc97e432a0639f99.gif?imageMogr2/auto-orient/strip" alt="图像混合" /></p>
+<p><img src="/img/in-post/post-opencv/mix-3.gif" alt="" /></p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+ (UIImage *)addWeighted:(UIImage *)image image2:(UIImage *)image2 alpha:(double)alpha gamma:(double)gamma {
     Mat src;
@@ -274,7 +274,8 @@ class MixViewController: UIViewController {
     }
 }
 </code></pre></div></div>
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-793aa9ae64bd9820.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="α和β都等于1" /></p>
+
+<p><img src="/img/in-post/post-opencv/mix-4.png" alt="" /></p>
 
 <ul>
   <li>addWeighted方法要求src1和src2的尺寸和通道数相同，若是不同如何混合？
@@ -296,7 +297,8 @@ class MixViewController: UIViewController {
 <p>下面我们来看一个实例，展示如何利用ROI将一幅图加到另一幅图的指定位置。</p>
 
 <h4 id="铠与logo">铠与Logo</h4>
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-7fa4159088937474.gif?imageMogr2/auto-orient/strip" alt="铠与Logo" /></p>
+
+<p><img src="/img/in-post/post-opencv/mix-5.gif" alt="" /></p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+ (UIImage *)add:(UIImage *)image alphaExist:(BOOL)alphaExist on:(UIImage *)anotherImage atPosition:(CGPoint)position alpha:(CGFloat)alpha beta:(CGFloat)beta gamma:(CGFloat)gamma {
     Mat src;

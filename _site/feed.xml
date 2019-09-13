@@ -5,8 +5,8 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 13 Sep 2019 13:41:08 +0800</pubDate>
-    <lastBuildDate>Fri, 13 Sep 2019 13:41:08 +0800</lastBuildDate>
+    <pubDate>Fri, 13 Sep 2019 14:10:44 +0800</pubDate>
+    <lastBuildDate>Fri, 13 Sep 2019 14:10:44 +0800</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
@@ -973,9 +973,9 @@ public class EndUpload: Middleware {
 
 &lt;p&gt;&lt;a href=&quot;http://catchzeng.com/2018/08/08/Learning-OpenCV-with-iOS-图像模糊-线性滤波/&quot;&gt;上一篇&lt;/a&gt;我们讲解了OpenCV图像模糊中的线性滤波。本篇主要向大家介绍下非线性滤波。按惯例，先来看下效果图。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-726907844b4bbb83.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;给铠祛痘&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/unliner-1.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-675364f9303d8c0c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;阿珂美颜&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/unliner-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;二线性与非线性&quot;&gt;二、线性与非线性&lt;/h2&gt;
 
@@ -1004,9 +1004,9 @@ public class EndUpload: Middleware {
 
 &lt;p&gt;中值滤波是一种典型的非线性滤波技术，原理是用邻域像素灰度值的&lt;strong&gt;中值&lt;/strong&gt;来代替该像素点的灰度值。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-306a532247d4b325.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/309&quot; alt=&quot;滤波过程&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/unliner-3.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-23b6de3e1a30d3ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;中值滤波&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/unliner-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;滤波操作：在9 x 9上面有3 x 3的窗口，从左到右，从上到下移动。将3 x 3窗口内的灰度值按顺序排列，然后取中值代替中心的灰度值。&lt;/p&gt;
 
@@ -1024,7 +1024,7 @@ public class EndUpload: Middleware {
 
 &lt;h4 id=&quot;给铠祛痘&quot;&gt;给铠祛痘&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-726907844b4bbb83.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;给铠祛痘&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/unliner-5.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;OpenCV提供了中值滤波的API&lt;/p&gt;
 
@@ -1068,7 +1068,7 @@ class NolinearBlurViewController: UIViewController {
 
 &lt;p&gt;因为如果ksize是偶数，那么将像素灰度值从小到大排列后，必然就没有&lt;strong&gt;唯一的中值&lt;/strong&gt;。即使得出中值，那么又将那个作为中心像素呢？因此，中值滤波要求ksize必须是奇数。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-436b6cb8f29b527c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;ksize&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/unliner-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;中值滤波有什么不适合的场景&quot;&gt;中值滤波有什么不适合的场景？&lt;/h4&gt;
 
@@ -1093,14 +1093,15 @@ class NolinearBlurViewController: UIViewController {
 
 &lt;p&gt;双边滤波是一种非线性的滤波方法，具有&lt;strong&gt;保边去噪&lt;/strong&gt;的效果。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-2efa467fe7d31a4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;双边滤波&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/unliner-7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;双边滤波的基本思路是同时考虑像素点的&lt;strong&gt;空域&lt;/strong&gt;和&lt;strong&gt;值域&lt;/strong&gt;。
 双边滤波在考虑&lt;strong&gt;值域&lt;/strong&gt;时，利用像素点的值的大小进行补充，因为边缘两侧的点的像素值差别很大，因此会使得其加权的时候权重具有很大的差别，从而使得只考虑自己所属的一边的邻域。可以理解成先根据像素值对要用来进行滤波的邻域做一个&lt;strong&gt;分割或分类&lt;/strong&gt;，再给该点所属的类别相对较高的权重，然后进行&lt;strong&gt;邻域加权求和&lt;/strong&gt;，得到最终结果。&lt;/p&gt;
 
 &lt;p&gt;在双边滤波器中，输出像素的值依赖于邻域像素值的加权值组合：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-073bcd78d1de5de6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;双边滤波&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/unliner-8.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
 &lt;ul&gt;
   &lt;li&gt;w(i,j,k,l): 加权系数, 取决于空域核和值域核的乘积。&lt;/li&gt;
   &lt;li&gt;(i,j)，(k,l): 指两个像素点的坐标。&lt;/li&gt;
@@ -1108,24 +1109,24 @@ class NolinearBlurViewController: UIViewController {
 
 &lt;p&gt;空域核：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-1b1b874780ab2317.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;空域核&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/unliner-9.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;值域核：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-175f62622c5d4770.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;值域核&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/unliner-10.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;双边滤波权重函数：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-0339aafde3fc3167.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;双边滤波权重函数&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/unliner-11.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;空域核（d）函数是根据&lt;strong&gt;像素距离&lt;/strong&gt;选择权重，距离越近权重越大。
 值域核（r）函数则是根据&lt;strong&gt;像素的差异&lt;/strong&gt;来分配权值。如果两个像素值越接近，即使相距较远，也比差异大而距离近的像素点权重大。这点使得边缘（即相距近但差异大的像素点）的特性得以保留。&lt;/p&gt;
 
 &lt;h4 id=&quot;阿珂美颜&quot;&gt;阿珂美颜&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-7326e1aa4b39d860.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;阿珂美颜&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/unliner-12.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-675364f9303d8c0c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;阿珂美颜&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/unliner-13.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;OpenCV提供了双边滤波的API&lt;/p&gt;
 
@@ -1249,32 +1250,32 @@ class BilateralFilterViewController: UIViewController {
 
 &lt;p&gt;&lt;a href=&quot;http://catchzeng.com/2018/07/02/Learning-OpenCV-with-iOS-图像亮度和对比度/&quot;&gt;上一篇&lt;/a&gt;我们讲解了OpenCV的图像亮度和对比度调整。本篇主要向大家介绍下图像模糊。按惯例，先来一张效果图。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-9f839b59fc174f06.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;铠玩模糊&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/liner-1.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;二模糊&quot;&gt;二、模糊&lt;/h2&gt;
 
 &lt;p&gt;所谓&lt;strong&gt;模糊&lt;/strong&gt;，可以先简单理解为每一个像素都取周边像素的平均值。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-421e3e62d8da7f52.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;模糊&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/liner-2.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;上图中，2是中间点像素值，周边像素都是1。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-6f0f0a5da441812d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;模糊&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/liner-3.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;中间点取周围点的平均值，就会变成1。在数值上叫&lt;strong&gt;平滑&lt;/strong&gt;。在图形上，就产生了&lt;strong&gt;模糊&lt;/strong&gt;效果，也就是中间点失去了细节。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-bc2ce865b85b330b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;模糊&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/liner-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;三图像模糊&quot;&gt;三、图像模糊&lt;/h2&gt;
 
 &lt;p&gt;图像模糊是opencv常见的操作，使用模糊操作的原因是为了给图像&lt;strong&gt;预处理&lt;/strong&gt;时降低噪声影响。
 Smooth和Blur是opencv图像模糊的API，其背后的原理其实是数学的卷积操作&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-10def553303932ed.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;卷积&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/liner-5.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;其中权重核h(k,l) 为“滤波系数”。上面的式子可以简记为：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-d3247f1ba60ce51f.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;卷积&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/liner-6.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;通常这些&lt;strong&gt;卷积算子&lt;/strong&gt;计算都是线性操作，所以又叫&lt;strong&gt;线性滤波&lt;/strong&gt;。&lt;/p&gt;
 
@@ -1286,7 +1287,7 @@ Smooth和Blur是opencv图像模糊的API，其背后的原理其实是数学的�
 
 &lt;p&gt;还记得&lt;a href=&quot;http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-掩膜操作/&quot;&gt;第二篇&lt;/a&gt;里所讲&lt;strong&gt;掩膜操作&lt;/strong&gt;吧，均值滤波的过程跟掩膜操作极其相似。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-306a532247d4b325.gif&quot; alt=&quot;均值滤波&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/liner-7.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;滤波操作：在9x9上面有3x3的窗口，从左到右，从上到下移动，白色的每个像素点值之和取平均值赋给中心红色像素作为它处理之后的像素值。其中，&lt;strong&gt;模板&lt;/strong&gt;就是3x3的窗口，红色格子为&lt;strong&gt;目标像素&lt;/strong&gt;，白色格子为周围的&lt;strong&gt;临近像素&lt;/strong&gt;。&lt;/p&gt;
 
@@ -1307,7 +1308,7 @@ blur( InputArray src, OutputArray dst,
 
 &lt;h4 id=&quot;铠玩模糊&quot;&gt;铠玩模糊&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-9f839b59fc174f06.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;铠玩模糊&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/liner-8.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)blur:(UIImage *)image sizeX:(int)sizeX sizeY:(int)sizeY {
     Mat src;
@@ -1370,7 +1371,7 @@ class BlurViewController: UIViewController {
 
 &lt;h4 id=&quot;正态分布&quot;&gt;正态分布&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-a883c94a4950b72e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;正态分布&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/liner-9.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;如上图，正态分布是一种钟摆形曲线，越接近中心，取值越大，越远离中心，取值越小。
 计算平均值的时候，我们只需要将中心点作为原点，其他点按照其在正态曲线上的位置，分配权重，就可以得到一个加权平均值。&lt;/p&gt;
@@ -1379,19 +1380,20 @@ class BlurViewController: UIViewController {
 
 &lt;h5 id=&quot;一维函数&quot;&gt;一维函数&lt;/h5&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-e3a63c466aaf2b73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;一维高斯函数&quot; /&gt;
-σ：标准差，在这里又叫做高斯半径。
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/liner-10.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;σ：标准差，在这里又叫做高斯半径。
 σ2：方差。
 f(x)：概率
 μ：均值，即期望。&lt;/p&gt;
 
 &lt;p&gt;在计算平均值的时候，中心点就是原点，所以μ等于0。可得简化后的函数：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-327146860c1bcafa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;简化后的函数&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/liner-11.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;根据一维函数，可以推导得到二维函数：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-4428118897919429.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;二维高斯函数&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/liner-12.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;图像是二维的，所以通常处理图像时，我们使用二维高斯函数。&lt;/p&gt;
 
@@ -1399,23 +1401,23 @@ f(x)：概率
 
 &lt;p&gt;假定中心点的坐标是（0,0），那么距离它最近的8个点的坐标如下：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-0f621d9ee8289b44.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;坐标&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/liner-13.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;假设σ=1.5，则权重矩阵如下：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-df79b4cfe9e67eaf.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;权重矩阵&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/liner-14.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;这9个点的权重总和等于0.4787147，归一化后得到最终的权重矩阵：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-b10892137ebdd773.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;归一化&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/liner-15.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;假设现有图像矩阵如下：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-fe3faf6c3a2429a1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;图像矩阵.jpg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/liner-16.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;与权重相乘后得到的矩阵如下：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-40e93558114e798a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;矩阵&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/liner-17.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;将这9个值相加就是中心点的最终值：13.9401236。而通过均值滤波得到的结果是13.5。&lt;/p&gt;
 
@@ -1448,9 +1450,9 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-fe8d7a23f71b0c53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;均值&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/liner-18.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-702ca4a10ec28fed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;高斯&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/liner-19.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;仔细观看可以看到，高斯模糊图像的轮廓较均值的清晰些，没有那么“模糊”。&lt;/p&gt;
 
@@ -1479,7 +1481,7 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
 
 &lt;p&gt;&lt;a href=&quot;http://catchzeng.com/2018/06/24/Learning-OpenCV-with-iOS-图像混合与ROI/&quot;&gt;上一篇&lt;/a&gt;我们讲解了OpenCV的图像混合与ROI。本篇主要向大家介绍下图像变换的调整亮度和对比度。按惯例，先来一张效果图。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-0e4ab78c269f66e4.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;魔铠变身&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/lightness-1.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;二图像变换&quot;&gt;二、图像变换&lt;/h2&gt;
 
@@ -1533,7 +1535,7 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
 
 &lt;h4 id=&quot;魔铠变身&quot;&gt;魔铠变身&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-0e4ab78c269f66e4.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;魔铠变身&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/lightness-2.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+(UIImage *)transform:(UIImage *)image alpha:(double)alpha beta:(double)beta {
     Mat src;
@@ -1614,7 +1616,7 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
 
 &lt;p&gt;&lt;a href=&quot;http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-掩膜操作/&quot;&gt;上一篇&lt;/a&gt;我们讲解了OpenCV的掩膜操作。本篇主要向大家介绍下图像处理中的图像混合。按惯例，先来一张效果图。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-7fa4159088937474.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;铠与Logo&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/mix-1.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;二图片相加&quot;&gt;二、图片相加&lt;/h2&gt;
 
@@ -1631,7 +1633,7 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
     UIImage* result = MatToUIImage(dst);
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-b142c05656998fc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;图片相加&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/mix-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;三线性混合&quot;&gt;三、线性混合&lt;/h2&gt;
 &lt;p&gt;图像混合其实也是一种图片相加的操作，只不过两幅图片的&lt;strong&gt;权重&lt;/strong&gt;不一样。&lt;/p&gt;
@@ -1654,7 +1656,7 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
 
 &lt;h4 id=&quot;当后羿遇到阿珂&quot;&gt;当后羿遇到阿珂&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-bc97e432a0639f99.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;图像混合&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/mix-3.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)addWeighted:(UIImage *)image image2:(UIImage *)image2 alpha:(double)alpha gamma:(double)gamma {
     Mat src;
@@ -1717,7 +1719,8 @@ class MixViewController: UIViewController {
     }
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-793aa9ae64bd9820.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;α和β都等于1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/mix-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;addWeighted方法要求src1和src2的尺寸和通道数相同，若是不同如何混合？
@@ -1739,7 +1742,8 @@ class MixViewController: UIViewController {
 &lt;p&gt;下面我们来看一个实例，展示如何利用ROI将一幅图加到另一幅图的指定位置。&lt;/p&gt;
 
 &lt;h4 id=&quot;铠与logo&quot;&gt;铠与Logo&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/943491-7fa4159088937474.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;铠与Logo&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-opencv/mix-5.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ (UIImage *)add:(UIImage *)image alphaExist:(BOOL)alphaExist on:(UIImage *)anotherImage atPosition:(CGPoint)position alpha:(CGFloat)alpha beta:(CGFloat)beta gamma:(CGFloat)gamma {
     Mat src;

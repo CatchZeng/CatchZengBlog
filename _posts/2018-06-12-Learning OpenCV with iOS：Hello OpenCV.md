@@ -40,17 +40,19 @@ OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉库�
 
 ###### 1.创建项目
 
-![创建项目](https://upload-images.jianshu.io/upload_images/943491-d42b8064456f791a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/hello-1.png)
 
 注:这里以Objective-C作为语言是因为OpenCV接口为C++，使用Objective-C较好与其交互。
 
 ##### 2.加入opencv2.framework
 
 前往https://opencv.org/releases.html下载iOS pack。
-![iOS pack](https://upload-images.jianshu.io/upload_images/943491-101047bd286e5e0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-opencv/hello-2.png)
 
 将opencv2.framework加入项目
-![加入项目](https://upload-images.jianshu.io/upload_images/943491-e0cbecf02e7fe2d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](/img/in-post/post-opencv/hello-3.png)
 
 将OpenCV所需的依赖库添加到项目中
 
@@ -64,7 +66,7 @@ OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉库�
 * CoreMedia.framework
 * AssetsLibrary.framework
 
-![framework](https://upload-images.jianshu.io/upload_images/943491-086ef4bf0182bf81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/hello-4.png)
 
 ##### 3.Say Hello
 
@@ -146,7 +148,7 @@ class SayHelloViewController: UIViewController {
 
 效果
 
-![效果](https://upload-images.jianshu.io/upload_images/943491-afb139a09ec5365d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/hello-5.png)
 
 
 源码地址: https://github.com/CatchZeng/LearningOpenCV
@@ -158,7 +160,7 @@ OpenCV包含的内容较多，在学习之前先了解下它的整体模块架�
 
 鉴于此，下面我们一起来看下OpenCV的整体模块架构。
 
-![OpenCV](https://upload-images.jianshu.io/upload_images/943491-18342122cfdc0d61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/hello-6.png)
 
 从上图可看到OpenCV的所有模块：
 

@@ -14,33 +14,33 @@ tags:
 
 [上一篇](http://catchzeng.com/2018/07/02/Learning-OpenCV-with-iOS-图像亮度和对比度/)我们讲解了OpenCV的图像亮度和对比度调整。本篇主要向大家介绍下图像模糊。按惯例，先来一张效果图。
 
-![铠玩模糊](https://upload-images.jianshu.io/upload_images/943491-9f839b59fc174f06.gif?imageMogr2/auto-orient/strip)
+![](/img/in-post/post-opencv/liner-1.gif)
 
 
 ## 二、模糊
 
 所谓**模糊**，可以先简单理解为每一个像素都取周边像素的平均值。
 
-![模糊](https://upload-images.jianshu.io/upload_images/943491-421e3e62d8da7f52.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/liner-2.jpg)
 
 上图中，2是中间点像素值，周边像素都是1。
 
-![模糊](https://upload-images.jianshu.io/upload_images/943491-6f0f0a5da441812d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/liner-3.jpg)
 
 中间点取周围点的平均值，就会变成1。在数值上叫**平滑**。在图形上，就产生了**模糊**效果，也就是中间点失去了细节。
 
-![模糊](https://upload-images.jianshu.io/upload_images/943491-bc2ce865b85b330b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/liner-4.png)
 
 ## 三、图像模糊
 
 图像模糊是opencv常见的操作，使用模糊操作的原因是为了给图像**预处理**时降低噪声影响。
 Smooth和Blur是opencv图像模糊的API，其背后的原理其实是数学的卷积操作
 
-![卷积](https://upload-images.jianshu.io/upload_images/943491-10def553303932ed.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/liner-5.jpeg)
 
 其中权重核h(k,l) 为“滤波系数”。上面的式子可以简记为： 
 
-![卷积](https://upload-images.jianshu.io/upload_images/943491-d3247f1ba60ce51f.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/liner-6.jpeg)
 
 通常这些**卷积算子**计算都是线性操作，所以又叫**线性滤波**。
 
@@ -52,7 +52,7 @@ Smooth和Blur是opencv图像模糊的API，其背后的原理其实是数学的�
 
 还记得[第二篇](http://catchzeng.com/2018/06/14/Learning-OpenCV-with-iOS-掩膜操作/)里所讲**掩膜操作**吧，均值滤波的过程跟掩膜操作极其相似。
 
-![均值滤波](https://upload-images.jianshu.io/upload_images/943491-306a532247d4b325.gif)
+![](/img/in-post/post-opencv/liner-7.gif)
 
 滤波操作：在9x9上面有3x3的窗口，从左到右，从上到下移动，白色的每个像素点值之和取平均值赋给中心红色像素作为它处理之后的像素值。其中，**模板**就是3x3的窗口，红色格子为**目标像素**，白色格子为周围的**临近像素**。
 
@@ -75,7 +75,7 @@ blur( InputArray src, OutputArray dst,
 
 #### 铠玩模糊
 
-![铠玩模糊](https://upload-images.jianshu.io/upload_images/943491-9f839b59fc174f06.gif?imageMogr2/auto-orient/strip)
+![](/img/in-post/post-opencv/liner-8.gif)
 
 ```
 + (UIImage *)blur:(UIImage *)image sizeX:(int)sizeX sizeY:(int)sizeY {
@@ -139,7 +139,7 @@ class BlurViewController: UIViewController {
 
 #### 正态分布
 
-![正态分布](https://upload-images.jianshu.io/upload_images/943491-a883c94a4950b72e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/liner-9.jpg)
 
 如上图，正态分布是一种钟摆形曲线，越接近中心，取值越大，越远离中心，取值越小。
 计算平均值的时候，我们只需要将中心点作为原点，其他点按照其在正态曲线上的位置，分配权重，就可以得到一个加权平均值。
@@ -148,7 +148,8 @@ class BlurViewController: UIViewController {
 
 ##### 一维函数
 
-![一维高斯函数](https://upload-images.jianshu.io/upload_images/943491-e3a63c466aaf2b73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/liner-10.png)
+
 σ：标准差，在这里又叫做高斯半径。
 σ2：方差。
 f(x)：概率
@@ -156,11 +157,11 @@ f(x)：概率
 
 在计算平均值的时候，中心点就是原点，所以μ等于0。可得简化后的函数：
 
-![简化后的函数](https://upload-images.jianshu.io/upload_images/943491-327146860c1bcafa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/liner-11.png)
 
 根据一维函数，可以推导得到二维函数：
 
-![二维高斯函数](https://upload-images.jianshu.io/upload_images/943491-4428118897919429.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/liner-12.png)
 
 图像是二维的，所以通常处理图像时，我们使用二维高斯函数。
 
@@ -168,23 +169,23 @@ f(x)：概率
 
 假定中心点的坐标是（0,0），那么距离它最近的8个点的坐标如下：
 
-![坐标](https://upload-images.jianshu.io/upload_images/943491-0f621d9ee8289b44.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/liner-13.jpg)
 
 假设σ=1.5，则权重矩阵如下：
 
-![权重矩阵](https://upload-images.jianshu.io/upload_images/943491-df79b4cfe9e67eaf.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/liner-14.jpg)
 
 这9个点的权重总和等于0.4787147，归一化后得到最终的权重矩阵：
 
-![归一化](https://upload-images.jianshu.io/upload_images/943491-b10892137ebdd773.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/liner-15.jpg)
 
 假设现有图像矩阵如下：
 
-![图像矩阵.jpg](https://upload-images.jianshu.io/upload_images/943491-fe3faf6c3a2429a1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/liner-16.jpg)
 
 与权重相乘后得到的矩阵如下：
 
-![矩阵](https://upload-images.jianshu.io/upload_images/943491-40e93558114e798a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/liner-17.jpg)
 
 将这9个值相加就是中心点的最终值：13.9401236。而通过均值滤波得到的结果是13.5。
 
@@ -220,9 +221,9 @@ CV_EXPORTS_W void GaussianBlur( InputArray src, OutputArray dst, Size ksize,
 }
 ```
 
-![均值](https://upload-images.jianshu.io/upload_images/943491-fe8d7a23f71b0c53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/liner-18.png)
 
-![高斯](https://upload-images.jianshu.io/upload_images/943491-702ca4a10ec28fed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/liner-19.png)
 
 仔细观看可以看到，高斯模糊图像的轮廓较均值的清晰些，没有那么“模糊”。
 

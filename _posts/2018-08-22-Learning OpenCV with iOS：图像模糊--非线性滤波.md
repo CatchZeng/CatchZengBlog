@@ -14,9 +14,9 @@ tags:
 
 [上一篇](http://catchzeng.com/2018/08/08/Learning-OpenCV-with-iOS-图像模糊-线性滤波/)我们讲解了OpenCV图像模糊中的线性滤波。本篇主要向大家介绍下非线性滤波。按惯例，先来看下效果图。
 
-![给铠祛痘](https://upload-images.jianshu.io/upload_images/943491-726907844b4bbb83.gif?imageMogr2/auto-orient/strip)
+![](/img/in-post/post-opencv/unliner-1.gif)
 
-![阿珂美颜](https://upload-images.jianshu.io/upload_images/943491-675364f9303d8c0c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/unliner-2.png)
 
 ## 二、线性与非线性
 
@@ -45,9 +45,9 @@ tags:
 
 中值滤波是一种典型的非线性滤波技术，原理是用邻域像素灰度值的**中值**来代替该像素点的灰度值。
 
-![滤波过程](https://upload-images.jianshu.io/upload_images/943491-306a532247d4b325.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/309)
+![](/img/in-post/post-opencv/unliner-3.gif)
 
-![中值滤波](https://upload-images.jianshu.io/upload_images/943491-23b6de3e1a30d3ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/unliner-4.png)
 
 滤波操作：在9 x 9上面有3 x 3的窗口，从左到右，从上到下移动。将3 x 3窗口内的灰度值按顺序排列，然后取中值代替中心的灰度值。
 
@@ -66,7 +66,7 @@ tags:
 
 #### 给铠祛痘
 
-![给铠祛痘](https://upload-images.jianshu.io/upload_images/943491-726907844b4bbb83.gif?imageMogr2/auto-orient/strip)
+![](/img/in-post/post-opencv/unliner-5.gif)
 
 OpenCV提供了中值滤波的API
 
@@ -112,7 +112,7 @@ class NolinearBlurViewController: UIViewController {
 
 因为如果ksize是偶数，那么将像素灰度值从小到大排列后，必然就没有**唯一的中值**。即使得出中值，那么又将那个作为中心像素呢？因此，中值滤波要求ksize必须是奇数。
 
-![ksize](https://upload-images.jianshu.io/upload_images/943491-436b6cb8f29b527c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/unliner-6.png)
 
 #### 中值滤波有什么不适合的场景？
 
@@ -136,37 +136,38 @@ class NolinearBlurViewController: UIViewController {
 
 双边滤波是一种非线性的滤波方法，具有**保边去噪**的效果。
 
-![双边滤波](https://upload-images.jianshu.io/upload_images/943491-2efa467fe7d31a4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/unliner-7.png)
 
 双边滤波的基本思路是同时考虑像素点的**空域**和**值域**。
 双边滤波在考虑**值域**时，利用像素点的值的大小进行补充，因为边缘两侧的点的像素值差别很大，因此会使得其加权的时候权重具有很大的差别，从而使得只考虑自己所属的一边的邻域。可以理解成先根据像素值对要用来进行滤波的邻域做一个**分割或分类**，再给该点所属的类别相对较高的权重，然后进行**邻域加权求和**，得到最终结果。
 
 在双边滤波器中，输出像素的值依赖于邻域像素值的加权值组合：
 
-![双边滤波](https://upload-images.jianshu.io/upload_images/943491-073bcd78d1de5de6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/unliner-8.png)
+
 * w(i,j,k,l): 加权系数, 取决于空域核和值域核的乘积。
 * (i,j)，(k,l): 指两个像素点的坐标。
 
 空域核：
 
-![空域核](https://upload-images.jianshu.io/upload_images/943491-1b1b874780ab2317.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/unliner-9.png)
 
 值域核：
 
-![值域核](https://upload-images.jianshu.io/upload_images/943491-175f62622c5d4770.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/unliner-10.png)
 
 双边滤波权重函数：
 
-![双边滤波权重函数](https://upload-images.jianshu.io/upload_images/943491-0339aafde3fc3167.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/unliner-11.png)
 
 空域核（d）函数是根据**像素距离**选择权重，距离越近权重越大。
 值域核（r）函数则是根据**像素的差异**来分配权值。如果两个像素值越接近，即使相距较远，也比差异大而距离近的像素点权重大。这点使得边缘（即相距近但差异大的像素点）的特性得以保留。
 
 #### 阿珂美颜
 
-![阿珂美颜](https://upload-images.jianshu.io/upload_images/943491-7326e1aa4b39d860.gif?imageMogr2/auto-orient/strip)
+![](/img/in-post/post-opencv/unliner-12.gif)
 
-![阿珂美颜](https://upload-images.jianshu.io/upload_images/943491-675364f9303d8c0c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](/img/in-post/post-opencv/unliner-13.png)
 
 OpenCV提供了双边滤波的API
 
