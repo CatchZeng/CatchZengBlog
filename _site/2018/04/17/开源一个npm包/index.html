@@ -170,12 +170,13 @@
 <h2 id="一注册npm账号">一、注册npm账号</h2>
 <p>前往<a href="https://www.npmjs.com">https://www.npmjs.com</a>注册一个账号。</p>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-839cdd17a84e490f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="npmjs" /></p>
+<p><img src="/img/in-post/post-js/npm-1.png" alt="" /></p>
 
 <h2 id="二制作npm包">二、制作npm包</h2>
 
 <h5 id="1建立一个仓库这里以cat-jsutils为例">1.建立一个仓库，这里以cat-jsutils为例</h5>
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-9f41ef6e9827f5ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="cat-jsutils" /></p>
+
+<p><img src="/img/in-post/post-js/npm-2.png" alt="" /></p>
 
 <p><strong>这里需要注意下名称</strong>，因为如果被占用，无法使用npm install直接安装。
 判断是否被占用，可使用npm search xxx来判断</p>
@@ -262,7 +263,7 @@ About to write to /Users/catchzeng/Documents/Code/Github/cat-jsutils/package.jso
 
 <h5 id="3新建indexjs根据上一步的entry-point-indexjs指定组织代码结构这里以cat-jsutils为例">3.新建index.js【根据上一步的entry point: (index.js)指定】，组织代码结构，这里以cat-jsutils为例</h5>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-62d8a951fab55e27.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2018-04-17 下午6.13.24.png" /></p>
+<p><img src="/img/in-post/post-js/npm-3.png" alt="" /></p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//number.js</span>
 
@@ -338,16 +339,16 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
 <h2 id="五变优雅">五、变优雅</h2>
 <p>何为优雅，先看下<a href="https://github.com/expressjs/express">express</a>这个仓库比我们自己的仓库优雅在哪里</p>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-8120f72e0a61b2fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="express" /></p>
+<p><img src="/img/in-post/post-js/npm-4.png" alt="" /></p>
 
 <h2 id="1logo">1.Logo</h2>
 <p>这么吗，我不是设计师，有美感的朋友自己设计一个吧，这里我随便做一个了。</p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/943491-b0f66c092e953a2e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="logo" /></p>
+<p><img src="/img/in-post/post-js/npm-5.png" alt="" /></p>
 
 <h2 id="2npm-version-badge">2.npm version badge</h2>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-3c47ea1f40e8cba8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="npm" /></p>
+<p><img src="/img/in-post/post-js/npm-6.png" alt="" /></p>
 
 <p>增加这个其实只要在README中增加</p>
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[![</span>NPM version]<span class="o">(</span>https://img.shields.io/npm/v/仓库名.svg<span class="o">)](</span>https://www.npmjs.com/package/仓库名<span class="o">)</span>
@@ -359,11 +360,13 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
 
 <h2 id="3ci状态">3.CI状态</h2>
 
-<p>关于持续集成理论部分，可以看之前的文章<a href="http://catchzeng.com/2017/02/10/持续集成-理论篇/">持续集成 – 理论篇</a>。一般开源项目会选用<a href="https://travis-ci.org/expressjs/express">travis-ci</a>。
-<img src="https://upload-images.jianshu.io/upload_images/943491-63489fca5a178c46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="CI" /></p>
+<p>关于持续集成理论部分，可以看之前的文章<a href="http://catchzeng.com/2017/02/10/持续集成-理论篇/">持续集成 – 理论篇</a>。一般开源项目会选用<a href="https://travis-ci.org/expressjs/express">travis-ci</a>。</p>
 
-<p>使用github账号登录travis-ci，然后打开需要持续集成的项目
-<img src="https://upload-images.jianshu.io/upload_images/943491-897d8acf28fd845b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="travis-ci" /></p>
+<p><img src="/img/in-post/post-js/npm-7.png" alt="" /></p>
+
+<p>使用github账号登录travis-ci，然后打开需要持续集成的项目</p>
+
+<p><img src="/img/in-post/post-js/npm-9.png" alt="" /></p>
 
 <p>在项目中增加.travis.yml文件，用于配置持续集成的构建步骤。这里以cat-jsutils为例，里面只执行了单元测试</p>
 
@@ -413,12 +416,13 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
 
 <p>提交.travis.yml后变会触发构建，可以到<a href="https://travis-ci.org">travis-ci</a>查看构建过程。</p>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-897d8acf28fd845b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="travis-ci" /></p>
+<p><img src="/img/in-post/post-js/npm-9.png" alt="" /></p>
 
-<p><img src="https://upload-images.jianshu.io/upload_images/943491-085417e661c59bf3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2018-04-17 下午8.12.34.png" /></p>
+<p><img src="/img/in-post/post-js/npm-10.png" alt="" /></p>
 
-<p>点击构建成功的图标就会弹出地址
-<img src="https://upload-images.jianshu.io/upload_images/943491-1354adebff4f109e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2018-04-17 下午8.15.35.png" /></p>
+<p>点击构建成功的图标就会弹出地址</p>
+
+<p><img src="/img/in-post/post-js/npm-11.png" alt="" /></p>
 
 <p>将该地址放到README上即可。以cat-jsutils为例子</p>
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[![</span>travis ci]<span class="o">(</span>https://api.travis-ci.org/CatchZeng/cat-jsutils.svg?branch<span class="o">=</span>master<span class="o">)](</span>https://travis-ci.org/CatchZeng/cat-jsutils<span class="o">)</span>
@@ -427,11 +431,13 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
 <h2 id="4测试覆盖率">4.测试覆盖率</h2>
 
 <p>显示测试覆盖率，我们需要借助<a href="https://coveralls.io">coveralls</a>。
-同样的使用github账户登录coveralls，然后开启对应的项目
-<img src="https://upload-images.jianshu.io/upload_images/943491-31e1ae29fd50d358.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="coveralls" /></p>
+同样的使用github账户登录coveralls，然后开启对应的项目</p>
 
-<p>点击details，查看repo_token并复制，后面会使用到。
-<img src="https://upload-images.jianshu.io/upload_images/943491-7afdde72068ba510.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2018-04-17 下午8.23.38.png" /></p>
+<p><img src="/img/in-post/post-js/npm-12.png" alt="" /></p>
+
+<p>点击details，查看repo_token并复制，后面会使用到。</p>
+
+<p><img src="/img/in-post/post-js/npm-13.png" alt="" /></p>
 
 <p>安装coveralls</p>
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i coveralls <span class="nt">-D</span>

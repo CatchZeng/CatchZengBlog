@@ -5,8 +5,8 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 13 Sep 2019 13:09:38 +0800</pubDate>
-    <lastBuildDate>Fri, 13 Sep 2019 13:09:38 +0800</lastBuildDate>
+    <pubDate>Fri, 13 Sep 2019 13:41:08 +0800</pubDate>
+    <lastBuildDate>Fri, 13 Sep 2019 13:41:08 +0800</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
@@ -14,12 +14,11 @@
         <description>&lt;p&gt;&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;一前言&quot;&gt;一、前言&lt;/h2&gt;
-
 &lt;p&gt;在文章&lt;a href=&quot;https://xiaozhuanlan.com/topic/3458629071&quot;&gt;优化安装包大小&lt;/a&gt;中，我们介绍了常见的优化安装包大小的方法，并写了一个脚本工具 &lt;a href=&quot;https://github.com/CatchZeng/AppThinning&quot;&gt;AppThinning&lt;/a&gt; ，帮助自动找到大文件，然后进行图片压缩。然而，实际运用中&lt;strong&gt;图片的前期处理者经常是设计师&lt;/strong&gt;，脚本对于他们来说始终不够方便，于是诞生了AppThinning  Desktop。&lt;/p&gt;
 
-&lt;h2 id=&quot;二appthinning-desktop&quot;&gt;二、AppThinning Desktop&lt;/h2&gt;
+&lt;h2 id=&quot;二appthinning--desktop&quot;&gt;二、AppThinning  Desktop&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://images.xiaozhuanlan.com/photo/2019/76370c9c56f622f2f66b37fa8f7dbab7.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-js/appthinning-1.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;1安装前准备&quot;&gt;1、安装前准备&lt;/h3&gt;
 
@@ -27,19 +26,27 @@
   &lt;li&gt;若使用 &lt;a href=&quot;https://imageoptim.com/mac&quot;&gt;ImageOptim&lt;/a&gt; 进行压缩，请先前往 https://imageoptim.com/mac 下载安装&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://images.xiaozhuanlan.com/photo/2019/93a194f93e81c4732b8ba2239bf21ce4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-js/appthinning-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;若使用 &lt;a href=&quot;https://tinypng.com&quot;&gt;tinypng&lt;/a&gt; 进行压缩，请先前往 https://tinypng.com/developers 获取 API Key&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://images.xiaozhuanlan.com/photo/2019/32357545ca566b71a3b69294c3078aec.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-js/appthinning-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;2安装&quot;&gt;2、安装&lt;/h3&gt;
 
 &lt;p&gt;前往 https://github.com/CatchZeng/AppThinning/releases 下载 dmg 安装包，拖拽安装即可。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://images.xiaozhuanlan.com/photo/2019/2b2e5413eb6ae80c54d2c4614b4edf56.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-js/appthinning-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;注：由于苹果的 Gatekeeper 的保护，打开 AppThinning 可能会出现如下图所示的问题&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-js/appthinning-5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这时，可进入应用程序目录，右键点击 AppThinning 打开即可&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-js/appthinning-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;3使用&quot;&gt;3、使用&lt;/h3&gt;
 
@@ -49,7 +56,7 @@
   &lt;li&gt;点击开始&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://images.xiaozhuanlan.com/photo/2019/daff3781c04e70acccc70f5e1f96db9a.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-js/appthinning-7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;三小结&quot;&gt;三、小结&lt;/h2&gt;
 
