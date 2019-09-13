@@ -5,8 +5,8 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 13 Sep 2019 14:10:44 +0800</pubDate>
-    <lastBuildDate>Fri, 13 Sep 2019 14:10:44 +0800</lastBuildDate>
+    <pubDate>Fri, 13 Sep 2019 14:18:57 +0800</pubDate>
+    <lastBuildDate>Fri, 13 Sep 2019 14:18:57 +0800</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
@@ -85,7 +85,7 @@
 
 &lt;h3 id=&quot;传统瀑布模型&quot;&gt;传统瀑布模型&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://diycode.b0.upaiyun.com/photo/2019/a9326b0d3f65f49a56fe9b5f7f2ff058.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-devops/1.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;需求分析，软件设计，程序编写，软件测试，运行维护。&lt;/p&gt;
 
@@ -99,15 +99,15 @@
 
 &lt;h3 id=&quot;敏捷开发模型&quot;&gt;敏捷开发模型&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://diycode.b0.upaiyun.com/photo/2019/de41dee63f431b75b3a0c682abcac53f.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-devops/2.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;缓慢而繁琐&lt;/strong&gt;的瀑布模型演变成敏捷，开发团队在短时间内完成软件开发，持续时间甚至&lt;strong&gt;不超过两周&lt;/strong&gt;。如此短的发布周期帮助开发团队处理客户反馈，并将其与 bug 修复一起合并到下一个版本中。&lt;/p&gt;
 
 &lt;p&gt;虽然这种敏捷的 SCRUM 方法为开发带来了敏捷性，但它在&lt;strong&gt;运维&lt;/strong&gt;方面却失去了敏捷实践的速度。&lt;strong&gt;开发人员和运维工程师之间缺乏协作仍然会减慢开发过程和发布&lt;/strong&gt;。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://diycode.b0.upaiyun.com/photo/2019/3f2fee7fd2572b4170efe590e900c4c8.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-devops/3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://diycode.b0.upaiyun.com/photo/2019/1811dc66c487171954e52b6dfad92d81.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-devops/4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;DevOps 就是为了&lt;strong&gt;更好地协作和更快地交付&lt;/strong&gt;而产生的。下面让我们来详细看看 DevOps 是什么。&lt;/p&gt;
 
@@ -150,7 +150,7 @@ DevOps 是一种重视“软件开发人员（Dev）”和“IT 运维技术人�
 
 &lt;p&gt;DevOps 的流程就像它的图标一样，包含：计划，编码，构建，测试，发布，部署，运维，监控，&lt;strong&gt;反馈&lt;/strong&gt;。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://diycode.b0.upaiyun.com/photo/2019/3b46fcdc04ebcece97e142bd5319bdeb.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-devops/5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;而 DevOps 之所以能快速部署的原因在于，DevOps 拥有一套&lt;strong&gt;自动化的持续集成、部署系统&lt;/strong&gt;。
 在 DevOps 中有许多“持续”，包括：持续开发、持续测试、持续集成、持续部署、持续监控、持续反馈。&lt;/p&gt;
