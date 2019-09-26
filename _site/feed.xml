@@ -5,8 +5,8 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 13 Sep 2019 14:19:31 +0800</pubDate>
-    <lastBuildDate>Fri, 13 Sep 2019 14:19:31 +0800</lastBuildDate>
+    <pubDate>Thu, 26 Sep 2019 23:18:20 +0800</pubDate>
+    <lastBuildDate>Thu, 26 Sep 2019 23:18:20 +0800</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
@@ -539,6 +539,8 @@ dependencies &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
   &lt;li&gt;&lt;a href=&quot;https://xiaozhuanlan.com/topic/9423856710&quot;&gt;持续集成与 Git 工作流&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://xiaozhuanlan.com/topic/4578603192&quot;&gt;持续集成实例&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://xiaozhuanlan.com/topic/9175236084&quot;&gt;Jenkins Pipeline 详解&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://xiaozhuanlan.com/topic/3684290715&quot;&gt;Jenkins 多节点(Master/Slave)构建&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://xiaozhuanlan.com/topic/3689075421&quot;&gt;Jenkins 自动备份和恢复&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;不断更新中……&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -550,7 +552,7 @@ dependencies &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
         <link>http://localhost:4000/2018/12/12/%E8%A2%AB%E8%BD%BB%E8%A7%86%E7%9A%84%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/</link>
         <guid isPermaLink="true">http://localhost:4000/2018/12/12/%E8%A2%AB%E8%BD%BB%E8%A7%86%E7%9A%84%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/</guid>
         
-        <category>持续集成</category>
+        <category>CI&amp;CD</category>
         
         
       </item>
