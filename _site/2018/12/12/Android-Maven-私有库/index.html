@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
@@ -47,9 +46,8 @@
     <script></script>
 </head>
 
-<!-- hack iOS CSS :active style -->
-<body ontouchstart="">
-
+  <!-- hack iOS CSS :active style -->
+  <body ontouchstart="">
     <!-- Navigation -->
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
     <div class="container-fluid">
@@ -406,11 +404,13 @@ dependencies <span class="o">{</span>
                 
 
                 
-                <!-- disqus 评论框 start -->
+
+                
+                <!-- livere 评论框 start -->
                 <div class="comment">
-                    <div id="disqus_thread" class="disqus-thread"></div>
-                </div>
-                <!-- disqus 评论框 end -->
+                    <div id="lv-container" class="lv-container" data-id="city" data-uid='MTAyMC80NzI1NC8yMzc1NA=='></div>
+                </div>                
+                <!-- livere 评论框 end -->
                 
 
             </div>
@@ -521,20 +521,24 @@ dependencies <span class="o">{</span>
 
 
 
-<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = "catchzeng";
-    var disqus_identifier = "/2018/12/12/ Android Maven 私有库";
-    var disqus_url = "http://localhost:4000/2018/12/12/Android-Maven-%E7%A7%81%E6%9C%89%E5%BA%93/";
 
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
+
+<!-- 来必力City版安装代码 -->
+<script type="text/javascript">
+    (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+
+        if (typeof LivereTower === 'function') { return; }
+
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+
+        e.parentNode.insertBefore(j, e);
+    })(document, 'script');
 </script>
-<!-- disqus 公共JS代码 end -->
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+<!-- City版安装代码已完成 -->
 
 
 
@@ -728,11 +732,8 @@ dependencies <span class="o">{</span>
     })();
 </script> 
 
-
-<!-- Image to hack wechat -->
-<img src="/img/icon_wechat.png" width="0" height="0" />
-<!-- Migrate from head to bottom, no longer block render and still work -->
-
-</body>
-
+    <!-- Image to hack wechat -->
+    <img src="/img/icon_wechat.png" width="0" height="0" />
+    <!-- Migrate from head to bottom, no longer block render and still work -->
+  </body>
 </html>

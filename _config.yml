@@ -48,8 +48,11 @@ kramdown:
 
 
 
+# Livere settings:
+livere: MTAyMC80NzI1NC8yMzc1NA==
+
 # Disqus settings
-disqus_username: catchzeng
+# disqus_username: catchzeng
 
 # Duoshuo settings
 # duoshuo_username: catchzeng
