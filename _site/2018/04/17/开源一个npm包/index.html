@@ -25,7 +25,7 @@
     <!-- Custom Fonts -->
     <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <!-- Hux change font-awesome CDN to qiniu -->
-    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 
     <!-- Hux Delete, sad but pending in China
@@ -266,7 +266,7 @@ About to write to /Users/catchzeng/Documents/Code/Github/cat-jsutils/package.jso
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//number.js</span>
 
 <span class="kd">function</span> <span class="nx">isNum</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">value</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">number</span><span class="dl">'</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nb">isNaN</span><span class="p">(</span><span class="nb">parseFloat</span><span class="p">(</span><span class="nx">value</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="nb">isFinite</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span> 
+    <span class="k">return</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">value</span> <span class="o">===</span> <span class="s1">'number'</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nb">isNaN</span><span class="p">(</span><span class="nb">parseFloat</span><span class="p">(</span><span class="nx">value</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="nb">isFinite</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span> 
 <span class="p">}</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
@@ -277,7 +277,7 @@ About to write to /Users/catchzeng/Documents/Code/Github/cat-jsutils/package.jso
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//string.js</span>
 
 <span class="kd">function</span> <span class="nx">isString</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="k">typeof</span> <span class="nx">value</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">string</span><span class="dl">'</span> <span class="o">||</span> <span class="nx">value</span> <span class="k">instanceof</span> <span class="nb">String</span><span class="p">;</span>
+	<span class="k">return</span> <span class="k">typeof</span> <span class="nx">value</span> <span class="o">===</span> <span class="s1">'string'</span> <span class="o">||</span> <span class="nx">value</span> <span class="k">instanceof</span> <span class="nb">String</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="p">...</span>
 <span class="p">...</span>
@@ -292,8 +292,8 @@ About to write to /Users/catchzeng/Documents/Code/Github/cat-jsutils/package.jso
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//index.js</span>
 <span class="kd">var</span> <span class="nx">utils</span> <span class="o">=</span> <span class="p">{};</span>
 
-<span class="nx">utils</span><span class="p">.</span><span class="nx">string</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/string</span><span class="dl">'</span><span class="p">);</span>
-<span class="nx">utils</span><span class="p">.</span><span class="nx">number</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/number</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">utils</span><span class="p">.</span><span class="nx">string</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./src/string'</span><span class="p">);</span>
+<span class="nx">utils</span><span class="p">.</span><span class="nx">number</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./src/number'</span><span class="p">);</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">;</span>
 </code></pre></div></div>
@@ -301,10 +301,10 @@ About to write to /Users/catchzeng/Documents/Code/Github/cat-jsutils/package.jso
 <h5 id="4在packagejson中指定版本号并提交代码到github上">4.在package.json中指定版本号，并提交代码到github上</h5>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
-  <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">cat-jsutils</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">version</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1.0.1</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">js utils</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">main</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">index.js</span><span class="dl">"</span><span class="p">,</span>
+  <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"cat-jsutils"</span><span class="p">,</span>
+  <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"1.0.1"</span><span class="p">,</span>
+  <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"js utils"</span><span class="p">,</span>
+  <span class="s2">"main"</span><span class="p">:</span> <span class="s2">"index.js"</span><span class="p">,</span>
   <span class="p">...</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -322,10 +322,10 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng<span class="err">$</span>
 
 <p>更新package.json中的版本号，并提交代码到github上，重新publish npm包即可</p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
-  <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">cat-jsutils</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">version</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1.0.2</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">js utils</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">main</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">index.js</span><span class="dl">"</span><span class="p">,</span>
+  <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"cat-jsutils"</span><span class="p">,</span>
+  <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"1.0.2"</span><span class="p">,</span>
+  <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"js utils"</span><span class="p">,</span>
+  <span class="s2">"main"</span><span class="p">:</span> <span class="s2">"index.js"</span><span class="p">,</span>
   <span class="p">...</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -376,38 +376,38 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
 
 <p><strong>说明</strong>：cat-jsutils的测试使用的是mocha+chai+istanbul，详见package.json</p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
-  <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">cat-jsutils</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">version</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1.0.1</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">js utils</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">main</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">index.js</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">scripts</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
-    <span class="dl">"</span><span class="s2">test</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">mocha</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">coverage</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">istanbul cover _mocha -- -R spec --timeout 5000 --recursive</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">coverage:check</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">istanbul check-coverage</span><span class="dl">"</span>
+  <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"cat-jsutils"</span><span class="p">,</span>
+  <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"1.0.1"</span><span class="p">,</span>
+  <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"js utils"</span><span class="p">,</span>
+  <span class="s2">"main"</span><span class="p">:</span> <span class="s2">"index.js"</span><span class="p">,</span>
+  <span class="s2">"scripts"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"test"</span><span class="p">:</span> <span class="s2">"mocha"</span><span class="p">,</span>
+    <span class="s2">"coverage"</span><span class="p">:</span> <span class="s2">"istanbul cover _mocha -- -R spec --timeout 5000 --recursive"</span><span class="p">,</span>
+    <span class="s2">"coverage:check"</span><span class="p">:</span> <span class="s2">"istanbul check-coverage"</span>
   <span class="p">},</span>
-  <span class="dl">"</span><span class="s2">repository</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
-    <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">git</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">git+https://github.com/CatchZeng/cat-jsutils.git</span><span class="dl">"</span>
+  <span class="s2">"repository"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"git"</span><span class="p">,</span>
+    <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"git+https://github.com/CatchZeng/cat-jsutils.git"</span>
   <span class="p">},</span>
-  <span class="dl">"</span><span class="s2">keywords</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
-    <span class="dl">"</span><span class="s2">util</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">utils</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">js</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">javascript</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">node</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">utility</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">utilities</span><span class="dl">"</span>
+  <span class="s2">"keywords"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">"util"</span><span class="p">,</span>
+    <span class="s2">"utils"</span><span class="p">,</span>
+    <span class="s2">"js"</span><span class="p">,</span>
+    <span class="s2">"javascript"</span><span class="p">,</span>
+    <span class="s2">"node"</span><span class="p">,</span>
+    <span class="s2">"utility"</span><span class="p">,</span>
+    <span class="s2">"utilities"</span>
   <span class="p">],</span>
-  <span class="dl">"</span><span class="s2">author</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">CatchZeng</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">license</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">MIT</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">bugs</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
-    <span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://github.com/CatchZeng/cat-jsutils/issues</span><span class="dl">"</span>
+  <span class="s2">"author"</span><span class="p">:</span> <span class="s2">"CatchZeng"</span><span class="p">,</span>
+  <span class="s2">"license"</span><span class="p">:</span> <span class="s2">"MIT"</span><span class="p">,</span>
+  <span class="s2">"bugs"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"https://github.com/CatchZeng/cat-jsutils/issues"</span>
   <span class="p">},</span>
-  <span class="dl">"</span><span class="s2">homepage</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://github.com/CatchZeng/cat-jsutils#readme</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">devDependencies</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
-    <span class="dl">"</span><span class="s2">chai</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^4.1.2</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">istanbul</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^0.4.5</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">mocha</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^5.1.0</span><span class="dl">"</span>
+  <span class="s2">"homepage"</span><span class="p">:</span> <span class="s2">"https://github.com/CatchZeng/cat-jsutils#readme"</span><span class="p">,</span>
+  <span class="s2">"devDependencies"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"chai"</span><span class="p">:</span> <span class="s2">"^4.1.2"</span><span class="p">,</span>
+    <span class="s2">"istanbul"</span><span class="p">:</span> <span class="s2">"^0.4.5"</span><span class="p">,</span>
+    <span class="s2">"mocha"</span><span class="p">:</span> <span class="s2">"^5.1.0"</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -455,7 +455,7 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
 </code></pre></div></div>
 
 <p>加入cover脚本</p>
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">cover</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">istanbul cover --report lcov node_modules/mocha/bin/_mocha -- -R spec test/*.js</span><span class="dl">"</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"cover"</span><span class="p">:</span> <span class="s2">"istanbul cover --report lcov node_modules/mocha/bin/_mocha -- -R spec test/*.js"</span>
 </code></pre></div></div>
 
 <p>看下最后的.travis.yml文件和 package.json</p>
@@ -471,40 +471,40 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
 </code></pre></div></div>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
-  <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">cat-jsutils</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">version</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1.0.1</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">js utils</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">main</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">index.js</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">scripts</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
-    <span class="dl">"</span><span class="s2">test</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">mocha</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">coverage</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">istanbul cover _mocha -- -R spec --timeout 5000 --recursive</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">coverage:check</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">istanbul check-coverage</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">cover</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">istanbul cover --report lcov node_modules/mocha/bin/_mocha -- -R spec test/*.js</span><span class="dl">"</span>
+  <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"cat-jsutils"</span><span class="p">,</span>
+  <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"1.0.1"</span><span class="p">,</span>
+  <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"js utils"</span><span class="p">,</span>
+  <span class="s2">"main"</span><span class="p">:</span> <span class="s2">"index.js"</span><span class="p">,</span>
+  <span class="s2">"scripts"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"test"</span><span class="p">:</span> <span class="s2">"mocha"</span><span class="p">,</span>
+    <span class="s2">"coverage"</span><span class="p">:</span> <span class="s2">"istanbul cover _mocha -- -R spec --timeout 5000 --recursive"</span><span class="p">,</span>
+    <span class="s2">"coverage:check"</span><span class="p">:</span> <span class="s2">"istanbul check-coverage"</span><span class="p">,</span>
+    <span class="s2">"cover"</span><span class="p">:</span> <span class="s2">"istanbul cover --report lcov node_modules/mocha/bin/_mocha -- -R spec test/*.js"</span>
   <span class="p">},</span>
-  <span class="dl">"</span><span class="s2">repository</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
-    <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">git</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">git+https://github.com/CatchZeng/cat-jsutils.git</span><span class="dl">"</span>
+  <span class="s2">"repository"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"git"</span><span class="p">,</span>
+    <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"git+https://github.com/CatchZeng/cat-jsutils.git"</span>
   <span class="p">},</span>
-  <span class="dl">"</span><span class="s2">keywords</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
-    <span class="dl">"</span><span class="s2">util</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">utils</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">js</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">javascript</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">node</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">utility</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">utilities</span><span class="dl">"</span>
+  <span class="s2">"keywords"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">"util"</span><span class="p">,</span>
+    <span class="s2">"utils"</span><span class="p">,</span>
+    <span class="s2">"js"</span><span class="p">,</span>
+    <span class="s2">"javascript"</span><span class="p">,</span>
+    <span class="s2">"node"</span><span class="p">,</span>
+    <span class="s2">"utility"</span><span class="p">,</span>
+    <span class="s2">"utilities"</span>
   <span class="p">],</span>
-  <span class="dl">"</span><span class="s2">author</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">CatchZeng</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">license</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">MIT</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">bugs</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
-    <span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://github.com/CatchZeng/cat-jsutils/issues</span><span class="dl">"</span>
+  <span class="s2">"author"</span><span class="p">:</span> <span class="s2">"CatchZeng"</span><span class="p">,</span>
+  <span class="s2">"license"</span><span class="p">:</span> <span class="s2">"MIT"</span><span class="p">,</span>
+  <span class="s2">"bugs"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"https://github.com/CatchZeng/cat-jsutils/issues"</span>
   <span class="p">},</span>
-  <span class="dl">"</span><span class="s2">homepage</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://github.com/CatchZeng/cat-jsutils#readme</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">devDependencies</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
-    <span class="dl">"</span><span class="s2">chai</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^4.1.2</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">coveralls</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^3.0.0</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">istanbul</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^0.4.5</span><span class="dl">"</span><span class="p">,</span>
-    <span class="dl">"</span><span class="s2">mocha</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^5.1.0</span><span class="dl">"</span>
+  <span class="s2">"homepage"</span><span class="p">:</span> <span class="s2">"https://github.com/CatchZeng/cat-jsutils#readme"</span><span class="p">,</span>
+  <span class="s2">"devDependencies"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"chai"</span><span class="p">:</span> <span class="s2">"^4.1.2"</span><span class="p">,</span>
+    <span class="s2">"coveralls"</span><span class="p">:</span> <span class="s2">"^3.0.0"</span><span class="p">,</span>
+    <span class="s2">"istanbul"</span><span class="p">:</span> <span class="s2">"^0.4.5"</span><span class="p">,</span>
+    <span class="s2">"mocha"</span><span class="p">:</span> <span class="s2">"^5.1.0"</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -699,7 +699,7 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
 </script>
 <!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
 <script>
-    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
         anchors.options = {
           visible: 'always',
           placement: 'right',
@@ -742,7 +742,7 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
                     <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
                      
                     <li>
-                        <a target="_blank" href="http://weibo.com/u/2167807070">
+                        <a target="_blank" href="https://weibo.com/u/2167807070">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
@@ -760,7 +760,7 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
                     </li>
                      
                     <li>
-                        <a target="_blank" href="http://www.jianshu.com/u/8a7c6a927178">
+                        <a target="_blank" href="https://www.jianshu.com/u/8a7c6a927178">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa  fa-stack-1x fa-inverse">简</i>
@@ -769,7 +769,7 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
                     </li>
                      
                     <li>
-                        <a target="_blank" href="http://xiaozhuanlan.com/catchzeng">
+                        <a target="_blank" href="https://xiaozhuanlan.com/catchzeng">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa  fa-stack-1x fa-inverse">小专栏</i>
@@ -848,7 +848,7 @@ cenghaihandeMacBook-Pro:cat-jsutils catchzeng$
 
 <!--fastClick.js -->
 <script>
-    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function () {
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function () {
         var $nav = document.querySelector("nav");
         if ($nav) FastClick.attach($nav);
     })
