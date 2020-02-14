@@ -73,6 +73,10 @@ featured-condition-size: 0              # A tag will be featured if the size of 
 # Friends
 friends: [
     {
+        title: "Mediumcn",
+        href: "https://mediumcn.com/"
+    },
+    {
         title: "Echowxsy's Blog",
         href: "http://echowxsy.com/"
     },
